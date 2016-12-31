@@ -1,0 +1,19 @@
+{
+  "name": "full stack chang",
+  "lib": {
+    "name": "bower-rails generated lib assets",
+    "dependencies": {}
+  },
+  "vendor": {
+    "name": "bower-rails generated vendor assets",
+    "dependencies": {
+      "angular": "v1.5.8",
+      "angular-ui-router": "latest",
+      "angular-devise": "latest",
+      "restangular": "latest"
+    }
+  },
+  "dependencies": {
+    "angular-youtube-mb": "^1.3.1"
+  }
+}
