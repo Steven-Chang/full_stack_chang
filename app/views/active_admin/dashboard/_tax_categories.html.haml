@@ -1,0 +1,36 @@
+:ruby
+  from = end_of_financial_year_date - 1.year + 1.day
+  to = end_of_financial_year_date
+  tranxactions = Tranxaction.filter(nil, from, to, nil, nil, true)
+  tranxactables = []
+  clients = Tranxaction.tranxactables_with_tranxactions('Client', from, to, true)
+  properties = Tranxaction.tranxactables_with_tranxactions('Property', from, to, true)
+  tenancy_agreements = Tranxaction.tranxactables_with_tranxactions('TenancyAgreement', from, to, true)
+  clients.each do |client|
+    tranxactables.push(client)
+    properties.each do |property|
+      tranxactables.push(property)
+    end
+    tenancy_agreements.each do |tenancy_agreement|
+      tranxactables.push(tenancy_agreement)
+    end
+    tranxactables.push(nil)
+  end
+
+%h3{ style: 'margin: 20px 0 0px 5px' } Tax categories
+%table.table
+  %thead
+    %tr
+      %th category
+      - tranxactables.each do |tranxactable|
+        %th= tranxactable&.reference ? tranxactable.reference.truncate(20) : 'nil'
+  %tbody
+    - TaxCategory.all.each do |tax_category|
+      %tr
+        %td= tax_category.description.truncate(20)
+        - tranxactables.each do |tranxactable|
+          %td= tranxactions.where(tranxactable:, tax_category:).sum(:amount)
+    %tr
+      %td nil
+      - tranxactables.each do |tranxactable|
+        %td= tranxactions.where(tranxactable:, tax_category: nil).sum(:amount)

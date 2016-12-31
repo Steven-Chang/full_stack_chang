@@ -1,0 +1,14 @@
+- unless hide_navbar
+  %nav.site-navbar.navbar.navbar-default.navbar-fixed-top.navbar-mega.navbar-inverse{ role: 'navigation' }
+    .navbar-header
+      = link_to 'fullstackchang.com', root_path, class: 'navbar-brand'
+    .position-absolute{ style: 'right: 15px;' }
+      - if current_user
+        = link_to admin_root_path do
+          %button.navbar-btn.btn.bg-white{ role: 'button', style: 'color: #3e8ef7; font-family: Roboto, sans-serif; text-decoration: none;' }
+            Dashboard
+        = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'text-white ml-4'
+      - else
+        = link_to new_user_session_path do
+          %button.navbar-btn.btn.bg-white{ role: 'button', style: 'color: #3e8ef7; font-family: Roboto, sans-serif; text-decoration: none;' }
+            Admin
