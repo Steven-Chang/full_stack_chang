@@ -1,0 +1,67 @@
+version: v1.0
+name: full_stack_chang
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Setup
+    dependencies: []
+    task:
+      jobs:
+        - name: bundle
+          commands:
+            - sem-version ruby 2.7.2
+            - sem-version node 14.5.0
+            - checkout
+            - cache restore
+            - bundle install
+            - cache store
+  - name: Code scanning
+    dependencies:
+      - Setup
+    task:
+      prologue:
+        commands:
+          - sem-version ruby 2.7.2
+          - sem-version node 14.5.0
+          - checkout
+          - cache restore
+          - bundle install
+          - cache store
+      jobs:
+        - name: rubocop
+          commands:
+            - bundle exec rubocop
+        - name: haml-lint
+          commands:
+            - bundle exec haml-lint app/views/
+        - name: scss-lint
+          commands:
+            - bundle exec scss-lint app/assets/stylesheets
+  - name: Tests
+    dependencies:
+      - Code scanning
+    task:
+      prologue:
+        commands:
+          - sem-version ruby 2.7.2
+          - sem-version node 14.5.0
+          - checkout
+          - cache restore
+          - bundle install
+          - cache store
+          - sem-service start redis
+          - sem-service start postgres
+          - 'bundle exec rake db:setup'
+      jobs:
+        - name: rspec
+          commands:
+            - bundle exec rspec
+      secrets:
+        - name: fullstackchang.com
+promotions:
+  - name: Deploy to production (Heroku)
+    pipeline_file: heroku.yml
+    auto_promote:
+      when: branch = 'master' AND result = 'passed'

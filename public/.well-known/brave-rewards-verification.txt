@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: fullstackchang.com
+Token: 290725ef3f06396ca87479ac7df3060806e90739baef30dcccdf598d6d47cf51
