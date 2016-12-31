@@ -1,0 +1,35 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+// REMARK TEMPLATE
+// Stylesheets
+@import "remark_classic/global/css/bootstrap.min";
+@import "remark_classic/global/css/bootstrap-extend.min";
+@import "remark_classic/base/assets/css/site";
+
+ // Plugins
+@import "flag-icon-css/css/flag-icon.min";
+@import "intro.js/minified/introjs.min";
+@import "jquery-asScrollable/src/scss/asScrollable";
+@import "jquery-slidePanel/src/scss/slidePanel";
+@import "magnific-popup/dist/magnific-popup";
+@import "remark_classic/topbar/assets/examples/css/pages/gallery.min";
+@import "remark_classic/topbar/assets/examples/css/pages/login-v3.min";
+@import "remark_classic/topbar/assets/examples/css/pages/profile";
+@import "switchery/switchery";
+
+ // Fonts 
+@import "remark_classic/global/fonts/web-icons/web-icons";
+@import "remark_classic/global/fonts/brand-icons/brand-icons";

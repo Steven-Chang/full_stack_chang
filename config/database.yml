@@ -1,0 +1,14 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  checkout_timeout: <%= ENV['DB_TIMEOUT'] || 5 %>
+  username: postgres
+
+development:
+  <<: *default
+  database: full_stack_chang_development
+
+test: &test
+  <<: *default
+  database: full_stack_chang_test

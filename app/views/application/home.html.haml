@@ -1,0 +1,137 @@
+#home
+  .page
+    .page-content.container-fluid
+      .row
+        .col-lg-4
+          / Page Widget
+          .card.card-shadow.text-center
+            .card-block
+              %span.avatar.avatar-lg{:href => "javascript:void(0)"}
+                = cl_image_tag "https://res.cloudinary.com/hv5cxagki/image/upload/v1665701852/fsc/47955495901_fc0efe5e04_b-1_p7mtiu", style: 'border: 1px solid #e4eaec; padding: 3px;'
+              %p.profile-job
+                FOUNDER/CEO @
+                %a{:href => "https://btn.group/", :target => "_blank"} btn.group
+              %ul.text-left.mb-0{:style => "padding-inline-start: 20px;"}
+                %li Aiming to contribute to humanity via intuitive and reliable software.
+                %li Communication and transparency are key.
+                %li Respect and thanks to the software community.
+                %ul
+          / End Page Widget
+          .card.p-20
+            %h4.card-title{:style => "margin-bottom: .858rem;"}
+              Contact Information
+            .card-block.p-0
+              %p.mb-10.text-nowrap{"data-info-type" => "email"}
+                %i.icon.wb-envelope.mr-10
+                %span.text-break
+                  = mail_to 'stevenchang5000@protonmail.com'
+                  %span
+              %p.mb-10.text-nowrap{"data-info-type" => "github"}
+                %i.fab.fa-github.mr-10
+                %span.text-break
+                  = link_to 'Github', 'https://github.com/Steven-Chang'
+                  %span
+              %p.mb-10.text-nowrap{"data-info-type" => "address"}
+                %i.icon.wb-map.mr-10
+                %span.text-break
+                  Sydney, Australia
+                  %span
+        .col-lg-8
+          / Panel
+          .panel
+            .panel-body.nav-tabs-animate.nav-tabs-horizontal{"data-plugin" => "tabs"}
+              %ul.nav.nav-tabs.nav-tabs-line{:role => "tablist"}
+                %li.nav-item{:role => "presentation"}
+                  %a.active.nav-link{"aria-controls" => "portfolio", "data-toggle" => "tab", :href => "#portfolio", :role => "tab"} Portfolio
+                %li.nav-item{:role => "presentation"}
+                  %a.nav-link{"aria-controls" => "tools", "data-toggle" => "tab", :href => "#tools", :role => "tab"} Tools
+                %li.nav-item{:role => "presentation"}
+                  %a.nav-link{"aria-controls" => "proud-of", "data-toggle" => "tab", :href => "#proud-of", :role => "tab"} Proud of
+                %li.nav-item{:role => "presentation"}
+                  %a.nav-link{"aria-controls" => "references", "data-toggle" => "tab", :href => "#references", :role => "tab"} References
+              .tab-content
+                .tab-pane.active.animation-slide-left#portfolio{:role => "tabpanel"}
+                  .user-background.card.card-shadow
+                    .card-block
+                      %ul.timeline.timeline-single
+                        - Project.where(private: false).order(start_date: :desc).each do |project|
+                          %li.timeline-item
+                            .timeline-dot
+                            .timeline-content
+                              - if project.attachments.present?
+                                = image_tag project.attachments.first.url, class: 'float-right', style: 'max-width: 120px;'
+                              %span.block.mb-5
+                                %h5
+                                  - if project.url.present?
+                                    = link_to project.title, project.url, target: '_blank', rel: 'noopener'
+                                  - else
+                                    = project.title
+                              %span.block.font-size-15.mb-5 #{project.start_date.strftime('%d %b %y')} - #{project.end_date&.strftime('%d %b %y') || 'NOW'} (#{distance_of_time_in_words(project.start_date, project.end_date || Time.current)})
+                              - if project.role.present?
+                                %span.block.mb-5= project.role
+                              /
+                                <haml_silent> if project.description.present? </haml_silent><haml_block>
+                                <div style='white-space: pre-line;'>
+                                <haml_loud> project.description </haml_loud>
+                                </div>
+                                </haml_block>
+                .tab-pane.animation-slide-left#tools{:role => "tabpanel"}
+                  .user-background.card.card-shadow
+                    - Tool::CATEGORY_LABEL_MAPPING.each do |key, value|
+                      - visible_tools = Tool.where(category: key, visible: true)
+                      .card-block
+                        %h5.card-title
+                          %span #{value} (#{visible_tools.count})
+                        - visible_tools.order(:name).each do |tool|
+                          - if (tool_attachment = tool.attachments.first)
+                            .mb-2.mr-2.text-center.d-inline-block.bg-light.align-top{:style => "border: 1px solid white; border-radius: 6px; height: 135px; width: 120px;"}
+                              %div{:style => "padding: 10px 25px 0 25px;"}
+                                .d-inline-block.bg-white.text-center.p-1{:style => "height: 70px; width: 70px; border-radius: 4px;"}
+                                  = cl_image_tag tool_attachment.cloudinary_public_id, width: 120, fetch_format: :auto, style: 'width: 60px;'
+                              .p-1{:style => "line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"}= tool.name
+                .tab-pane.animation-slide-left#proud-of{:role => "tabpanel"}
+                  %ul.blocks.blocks-100.blocks-xxl-4.blocks-lg-3.blocks-md-2.mt-4{"data-filters" => "#exampleFilter", "data-plugin" => "filterable"}
+                    %li
+                      .card.card-shadow
+                        %figure.card-img-top.overlay-hover.overlay
+                          %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"}/
+                          %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
+                            %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"}
+                    %li
+                      .card.card-shadow
+                        %figure.card-img-top.overlay-hover.overlay
+                          %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"}/
+                          %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
+                            %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"}
+                    %li
+                      .card.card-shadow
+                        %figure.card-img-top.overlay-hover.overlay
+                          %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}/
+                          %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
+                            %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}
+                .tab-pane.animation-slide-left#references{:role => "tabpanel"}
+                  .user-background.card.card-shadow
+                    .card-block
+                      .table-responsive
+                        %table.table
+                          %thead
+                            %tr
+                              %th Name
+                              %th Position
+                              %th Company
+                              %th Phone
+                              %th Email
+                          %tbody
+                            %tr
+                              %td Brett Macdonald
+                              %td CEO
+                              %td Ezy Raise
+                              %td +61 2 9237 8427
+                              %td= mail_to 'brett@CHILfundraising.com'
+                            %tr
+                              %td Ruth Wang
+                              %td Senior Developer
+                              %td Maestrano
+                              %td
+                              %td
+          / End Panel

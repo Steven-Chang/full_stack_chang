@@ -1,0 +1,21 @@
+- if tranxactions.present?
+  %h3{ style: 'margin: 20px 0 0px 5px' }= title
+  %table.table
+    %thead
+      %tr
+        %th id
+        %th date
+        %th description
+        %th amount
+    %tbody
+      - tranxactions.each do |tranxaction|
+        %tr
+          %td= tranxaction.id
+          %td= tranxaction.date
+          %td= tranxaction.description
+          %td= number_to_currency(tranxaction.amount)
+      %tr
+        %td
+        %td
+        %td
+        %td{ style: 'border-top: 1px solid lightgray; border-bottom: 1px solid lightgray;' }= number_to_currency(tranxactions.sum(:amount))

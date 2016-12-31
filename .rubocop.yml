@@ -1,0 +1,145 @@
+# inherit_from: .rubocop_todo.yml
+require:
+  - rubocop-rails
+  - rubocop-performance
+  # - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.7.2
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'bin/**'
+    - 'lib/tasks/*'
+    - 'node_modules/**/*'
+    - scripts/*
+    - vendor/bundle/**/*
+
+Rails:
+  Enabled: true
+
+Layout/HeredocIndentation:
+  Enabled: false
+
+Layout/ParameterAlignment:
+  Enabled: false
+
+Layout/CommentIndentation:
+  Enabled: false
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
+  Enabled: false
+
+Layout/IndentationWidth:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 160
+  Exclude:
+    - 'app/admin/blog_posts.rb'
+    - 'app/admin/dashboard.rb'
+    - 'app/admin/tranxactions.rb'
+    - 'Gemfile'
+
+Layout/IndentationStyle:
+  Enabled: false
+
+Lint/RescueException:
+  Exclude:
+    - 'config/application.rb'
+
+Layout/TrailingEmptyLines:
+  Enabled: true
+
+Metrics/MethodLength:
+  Max: 40
+
+Metrics/ClassLength:
+  Max: 200
+  Exclude:
+    - 'app/models/*.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/production.rb
+    - config/initializers/active_admin.rb
+    - 'spec/**/*.rb'
+    - 'app/**/concerns/*.rb'
+    - 'config/routes.rb'
+    - 'app/admin/*'
+
+Metrics/AbcSize:
+  Max: 50
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Metrics/ParameterLists:
+  Max: 5
+  Exclude:
+    - app/models/tranxaction.rb
+
+Performance/Casecmp:
+  Enabled: false
+
+Rails/ApplicationJob:
+  Enabled: false
+
+Rails/ApplicationRecord:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+# Warnings at application launch (Rails.logger not defined yet)
+Rails/Output:
+  Enabled: false
+
+Rails/OutputSafety:
+  Exclude:
+    - app/admin/blog_posts.rb
+    - app/admin/tools.rb
+    - app/admin/tranxactions.rb
+
+Rails/UniqueValidationWithoutIndex:
+  Exclude:
+    - app/models/tax_category.rb
+    - app/models/trade_pair.rb
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: true
+
+Style/IfUnlessModifier: 
+  Enabled: true
+
+Style/Lambda:
+  EnforcedStyle: lambda
+
+Style/MixinUsage:
+  Exclude:
+    - 'db/seeds.rb'
+
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+  AllowInnerSlashes: true
+
+Style/RedundantPercentQ:
+  Enabled: true
+
+Style/SymbolProc:
+  Enabled: false
