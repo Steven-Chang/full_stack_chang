@@ -7,15 +7,7 @@ var app = angular.module('app', ['ui.router', 'Devise', 'templates', 'restangula
 		.state('home', {
 			url: '/home',
 			templateUrl: 'views/home.html',
-			controller: 'BusinessController',
-			resolve: {
-				business: function(Restangular){
-					return Restangular.all('businesses').getList()
-						.then(function(businesses){
-							return businesses[0];
-      			});
-				}
-			}
+			controller: 'HomeController'
 		})
 		.state('login', {
 			url: '/login',
@@ -23,7 +15,7 @@ var app = angular.module('app', ['ui.router', 'Devise', 'templates', 'restangula
 			controller: 'AuthController',
 			onEnter: function(Auth, $state){
 				if ( Auth.isAuthenticated() ){
-					$state.go('dashboard');
+					$state.go('home');
 				};
 			}
 		})
@@ -40,7 +32,6 @@ var app = angular.module('app', ['ui.router', 'Devise', 'templates', 'restangula
       	}
 			},
 			onEnter: function(Auth, $state, numberOfUsers){
-				console.log( Auth.isAuthenticated() );
 				if ( Auth.isAuthenticated() ){
 					$state.go('dashboard');
 				} else if ( numberOfUsers >= 1 ){
@@ -48,23 +39,10 @@ var app = angular.module('app', ['ui.router', 'Devise', 'templates', 'restangula
 				};
 			}
 		})
-		.state('dashboard', {
-			url: '/dashboard',
-			templateUrl: 'views/dashboard.html',
-			controller: 'DashboardController',
-			resolve: {
-				business: function(Restangular){
-					return Restangular.all('businesses').getList()
-						.then(function(businesses){
-							return businesses[0];
-      			});
-				}
-			},
-			onEnter: function(Auth, $state){
-				if ( !Auth.isAuthenticated() ){
-					$state.go('login');
-				};
-			}
+		.state('tetris', {
+			url: '/tetris',
+			templateUrl: 'views/tetris.html',
+			controller: 'HomeController'
 		})
 })
 

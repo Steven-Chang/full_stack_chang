@@ -15,3 +15,43 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+html {
+  height: 100%;
+
+  body {
+    background-color: #fff;
+    color: #2F4F4F;
+    font-size: 16px;
+    height: 100%;
+
+    a:link {
+      text-decoration:none;
+    }
+
+    a:hover {
+      text-decoration:none;
+    }
+
+    a:active {
+      text-decoration:none;
+    }
+
+    a:visited  {
+      text-decoration:none;
+    }
+
+    h3 {
+      color: #131516;
+    }
+
+    .field {
+      margin: 10px 0;
+    }
+
+    .text-input-width-control {
+      max-width: 370px;
+    }
+
+  }
+}

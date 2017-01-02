@@ -1,0 +1,58 @@
+#navbar {
+  background-color: #44749D;
+  
+  .container {
+    position: relative;
+
+    #logo {
+      height: 60px;
+    }
+
+    .chips {
+      color: orange;
+      font-size: 47px;
+
+      position: absolute;
+      top: 10px;
+    }
+
+    .navbar-shadow {
+      text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+             0px 8px 13px rgba(0,0,0,0.1),
+             0px 18px 23px rgba(0,0,0,0.1);
+    }
+
+    #headers-container {
+      display: inline-block;
+      margin-left: 50px;
+      vertical-align: top;
+
+      #navbar-header {
+        color: #ffff00;
+        margin-top: 9px;
+      }
+    }
+
+    #navbar-options {
+      position: absolute;
+      top: -1px;
+      right: 15px;
+
+      a {
+        color: #fff;
+        font-size: 20px;
+      }
+
+      .navbar-option {
+        margin-left: 8px;
+      }
+    }
+
+    .sub-header {
+      color: #85bb65;
+      font-size: 14px;
+      margin-bottom: 10px;
+      margin-top: -10px;
+    }
+  }
+};
