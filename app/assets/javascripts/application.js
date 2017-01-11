@@ -21,4 +21,6 @@
 //= require lodash
 //= require restangular
 
+//= require bootstrap-datepicker
+
 //= require_tree .

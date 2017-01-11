@@ -1,6 +1,8 @@
 #Restangular
 
 [![Build Status](https://travis-ci.org/mgonto/restangular.svg?branch=master)](https://travis-ci.org/mgonto/restangular)
+[![Coverage Status](https://coveralls.io/repos/github/mgonto/restangular/badge.svg?branch=master)](https://coveralls.io/github/mgonto/restangular?branch=master)
+[![David](https://img.shields.io/david/dev/mgonto/restangular.svg)](https://david-dm.org/mgonto/restangular/?type=dev)
 [![PayPayl donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=martin%40gon%2eto&lc=US&item_name=Martin%20Gontovnikas&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted "Donate once-off to this project using Paypal")
 [![Donate on Gittip](http://img.shields.io/gittip/mgonto.svg)](https://www.gittip.com/mgonto/)
 <a href="https://twitter.com/intent/tweet?hashtags=&original_referer=http%3A%2F%2Fgithub.com%2F&text=Check+out+Restangular%2C+a+service+for+%23AngularJS+that+makes+it+easy+to+use+Rest+APIs&tw_p=tweetbutton&url=https%3A%2F%2Fgithub.com%2Fmgonto%2Frestangular" target="_blank">
@@ -10,9 +12,9 @@
 Restangular is an AngularJS service that simplifies common GET, POST, DELETE, and UPDATE requests with a minimum of client code.
 It's a perfect fit for any WebApp that consumes data from a RESTful API.
 
-**Check out a, [live demo on plunkr](http://plnkr.co/edit/d6yDka?p=preview).** It uses the same example as the official [Angular Javascript Project](http://angularjs.org/#wire-up-a-backend)... but Restangularized!
+Try the [live demo on plunkr](http://plnkr.co/edit/8qrGeE?p=preview). It uses the same example as the official [Angular Javascript Project](http://angularjs.org/#wire-up-a-backend), but with Restangular!
 
-You can also **check out [a video introduction of a talk I gave at Devoxx France](http://www.parleys.com/play/535a189ee4b0c5ba17d43455/chapter1/about)** about Restangular
+Watch [a video introduction of a talk I gave at Devoxx France](http://www.parleys.com/play/535a189ee4b0c5ba17d43455/chapter1/about) about Restangular.
 
 #Table of contents
 
@@ -84,6 +86,7 @@ You can also **check out [a video introduction of a talk I gave at Devoxx France
     - [How can I access the unrestangularized element as well as the restangularized one?](#how-can-i-access-the-unrestangularized-element-as-well-as-the-restangularized-one)
     - [Restangular fails with status code 0](#restangular-fails-with-status-code-0)
     - [Why does this depend on Lodash / Underscore?](#why-does-this-depend-on-lodash--underscore)
+    - [How do I cancel a request?](#how-do-i-cancel-a-request)
 - [Supported Angular versions](#supported-angular-versions)
 - [Server Frameworks](#server-frameworks)
 - [Releases Notes](#releases-notes)
@@ -164,6 +167,7 @@ Each time, there're more Production WebApps using `Restangular`. If your webapp 
 * **Life360** is using Restangular to build the WebApp version of their platform
 * **Thomson Reuters** is using Restangular for the new Webapp they've built
 * **Quran.com** is using Restangular for their alpha/beta app and soon to be main site
+* **[ENTSO-E Transparency Platform](https://transparency.entsoe.eu)**
 
 **[Back to top](#table-of-contents)**
 
@@ -1302,6 +1306,24 @@ This is typically caused by Cross Origin Request policy. In order to enable cros
 This is a very good question. I could've done the code so that I don't depend on Underscore nor Lodash, but I think both libraries make your life SO much easier. They have all of the "functional" stuff like map, reduce, filter, find, etc.
 With these libraries, you always work with immutable stuff, you get compatibility for browsers which don't implement ECMA5 nor some of these cool methods, and they're actually quicker.
 So, why not use it? If you've never heard of them, by using Restangular, you could start using them. Trust me, you're never going to give them up after this!
+
+**[Back to top](#table-of-contents)**
+
+#### How do I cancel a request?
+
+Sometimes you may wish to cancel a request, this is how you would do it:
+
+```
+var canceler = $q.defer();
+Restangular.all('users').withHttpConfig({timeout: canceler.promise}).get();
+canceler.resolve(); // cancels the request
+```
+
+This is a little counterintuitive, so let me explain. Restangular is built on top of `$http`, which takes a timeout parameter. As per the $http docs:
+
+    timeout in milliseconds, or promise that should abort the request when resolved.
+
+Resolving the promise (canceler in this case), will cancel the request.
 
 **[Back to top](#table-of-contents)**
 

@@ -1,3 +1,30 @@
 <div header-and-bootstrapped>
-  <h1>Home Page</h1>
+
+  <!-- Form to add projects in easily. -->
+  <div ng-show="signedIn()">
+    <h3>Add a new project</h3>
+    <form ng-submit="newProjectHub.createNewProject()">
+
+      <div class="form-group">
+        <label for="new-project-title">Title</label>
+        <input id="new-project-title" class="form-control" ng-model="newProjectHub.title" required>
+      </div>
+
+      <div class="form-group">
+        <label for="new-project-description">Description</label>
+        <textarea id="new-project-description" class="form-control" rows="4" ng-model="newProjectHub.description" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="new-project-url">Url</label>
+        <input id="new-project-url" class="form-control" ng-model="newProjectHub.url">
+      </div>
+
+      <div class="form-group">
+        <label for="date-picker">Date Added</label>
+        <input type="text" data-provide='datepicker' class="form-control" id="date-picker" ng-model="newProjectHub.dateAdded">
+      </div>
+    </form>
+  </div>
+
 </div>

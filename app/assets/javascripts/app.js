@@ -1,4 +1,9 @@
-var app = angular.module('app', ['ui.router', 'Devise', 'templates', 'restangular'])
+var app = angular.module('app', [
+	'ui.router', 
+	'Devise', 
+	'templates', 
+	'restangular'
+])
 
 .config(function($stateProvider, $urlRouterProvider){
 	$urlRouterProvider.otherwise('/home')
