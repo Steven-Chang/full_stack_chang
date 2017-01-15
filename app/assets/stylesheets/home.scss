@@ -1,0 +1,76 @@
+#home {
+  h4 {
+    margin: 0 0 1px 0;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  ul.list-grid {
+    display: block;
+    list-style: none;
+    padding: 0;
+    font-size: 0;
+  }
+
+  ul.list-grid > li {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: top;
+    float: none;
+  }
+
+  .date {
+    font-size: 12px;
+    font-weight: 200;
+    margin-bottom: 0px;
+  }
+
+  .project-description {
+    font-size: 13px;
+    font-weight: 200;
+    padding: 0 3px;
+  }
+
+  .project-header {
+    padding: 0 3px;
+    margin-bottom: 5px;
+
+    a {
+      h4 {
+        font-weight: 200;
+      }
+    }
+  }
+
+  .jumbotron {
+    margin-bottom: 15px;
+    padding: 30px 0px 15px;
+
+    #home-main-image {
+      background-color: aliceblue;
+      border: 1px solid black;
+      margin-bottom: 15px;
+      overflow: hidden;
+      padding: 10px;
+
+    }
+  }
+
+  .most-recently-updated-projects-header {
+    margin-bottom: 10px;
+  }
+
+  .portfolio-project {
+    margin-bottom: 10px;
+
+    .project-image {
+      border: 1px solid lightgray;
+      margin-bottom: 8px;
+      overflow: hidden;
+      padding: 2px;
+      height: 275px;
+    }
+  }
+}

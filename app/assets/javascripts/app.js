@@ -9,11 +9,21 @@ var app = angular.module('app', [
 	$urlRouterProvider.otherwise('/home')
 
 	$stateProvider
+
 		.state('home', {
 			url: '/home',
 			templateUrl: 'views/home.html',
-			controller: 'HomeController'
+			controller: 'HomeController',
+			resolve: {
+				projects: function(Restangular){
+					return Restangular.all('projects').getList()
+						.then(function(businesses){
+							return businesses;
+      			});
+				}
+			}
 		})
+
 		.state('login', {
 			url: '/login',
 			templateUrl: 'views/login.html',
@@ -24,6 +34,7 @@ var app = angular.module('app', [
 				};
 			}
 		})
+
 		.state('register', {
 			url: '/register',
 			templateUrl: 'views/register.html',
@@ -44,11 +55,7 @@ var app = angular.module('app', [
 				};
 			}
 		})
-		.state('tetris', {
-			url: '/tetris',
-			templateUrl: 'views/tetris.html',
-			controller: 'HomeController'
-		})
+
 })
 
 .config(

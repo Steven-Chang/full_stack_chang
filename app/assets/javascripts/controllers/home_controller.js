@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$scope', '$timeout', 'Auth', function($scope, $timeout, Auth){
+app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'projects', function($scope, $timeout, Auth, projects){
 
 	// --------------------
 	// Private
@@ -17,13 +17,16 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', function($scope,
   	image_url: "",
   	title: "",
   	url: "",
-  	dateAdded: "",
+  	date_added: "",
   	createNewProject: function(){
-  		console.log(3);
+  		projects.post({description: this.description, image_url: this.image_url, title: this.title, url: this.url, date_added: this.date_added})
+      .then(function( result ){
+        $scope.projects.push(result);
+      });
   	}
   };
 
-  $scope.testItems = ["a", "b", "c", "d", "e", "f", "g"]
+  $scope.projects = projects;
 
   $timeout(function(){
     $('#date-picker').datepicker({

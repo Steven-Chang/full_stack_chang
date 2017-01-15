@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root 'application#index'
 
+  resources :projects, only: [:index, :create]
+
   get 'number_of_users' => 'users#return_number_of_users'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
