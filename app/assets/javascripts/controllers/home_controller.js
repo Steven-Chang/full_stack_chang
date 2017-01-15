@@ -23,6 +23,8 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', function($scope,
   	}
   };
 
+  $scope.testItems = ["a", "b", "c", "d", "e", "f", "g"]
+
   $timeout(function(){
     $('#date-picker').datepicker({
       format: "dd/mm/yyyy"
