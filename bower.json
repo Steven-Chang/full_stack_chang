@@ -11,6 +11,7 @@
       "angular-ui-router": "latest",
       "angular-devise": "latest",
       "restangular": "latest",
+      "cloudinary-jquery-file-upload": "latest",
       "cloudinary_ng": "latest"
     }
   }
