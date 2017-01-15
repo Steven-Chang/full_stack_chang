@@ -1,0 +1,14 @@
+{
+  "name": "cloudinary_ng",
+  "homepage": "https://github.com/cloudinary/cloudinary_angular",
+  "version": "2.0.0",
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.0.0",
+    "commit": "dba71d159577791017e412abe48865f5c7bbdcfe"
+  },
+  "_source": "https://github.com/cloudinary/cloudinary_angular.git",
+  "_target": "*",
+  "_originalSource": "cloudinary_ng"
+}

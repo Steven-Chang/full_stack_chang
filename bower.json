@@ -10,7 +10,8 @@
       "angular": "v1.5.8",
       "angular-ui-router": "latest",
       "angular-devise": "latest",
-      "restangular": "latest"
+      "restangular": "latest",
+      "cloudinary_ng": "latest"
     }
   }
 }
