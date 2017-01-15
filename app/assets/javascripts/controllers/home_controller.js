@@ -13,7 +13,7 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'projects', func
   $scope.signedIn = Auth.isAuthenticated;
 
   $scope.newProjectHub = {
-  	description: "This works",
+  	description: "",
   	image_url: "",
   	title: "",
   	url: "",

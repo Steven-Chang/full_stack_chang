@@ -56,6 +56,12 @@ var app = angular.module('app', [
 			}
 		})
 
+		.state('tetris', {
+			url: '/tetris',
+			templateUrl: 'views/tetris.html',
+			controller: 'TetrisController'
+		})
+
 })
 
 .config(
