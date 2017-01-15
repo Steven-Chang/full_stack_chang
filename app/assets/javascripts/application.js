@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery-fileupload
 //= require jquery_ujs
 //= require angular
 //= require angular-ui-router
@@ -23,7 +22,5 @@
 //= require restangular
 
 //= require bootstrap-datepicker
-
-//= require cloudinary-jquery-file-upload
 
 //= require_tree .
