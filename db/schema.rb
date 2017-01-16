@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110103005) do
+ActiveRecord::Schema.define(version: 20170115121859) do
+
+  create_table "levels", force: :cascade do |t|
+    t.integer  "score_id",   null: false
+    t.integer  "level",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "levels", ["score_id"], name: "index_levels_on_score_id"
+
+  create_table "lines", force: :cascade do |t|
+    t.integer  "score_id",   null: false
+    t.integer  "lines",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "lines", ["score_id"], name: "index_lines_on_score_id"
 
   create_table "projects", force: :cascade do |t|
     t.text     "description"
@@ -22,6 +40,15 @@ ActiveRecord::Schema.define(version: 20170110103005) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "scores", force: :cascade do |t|
+    t.integer  "project_id", null: false
+    t.integer  "score",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "scores", ["project_id"], name: "index_scores_on_project_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
