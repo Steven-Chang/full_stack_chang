@@ -25,5 +25,10 @@ module FullStackChang
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # You can also disable generation of controller specific asset files by adding the following to your config/application.rb configuration:
+    config.generators do |g|
+      g.assets false
+    end
   end
 end
