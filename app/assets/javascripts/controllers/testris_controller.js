@@ -1,4 +1,4 @@
-app.controller('TetrisController', ['$scope', function($scope){
+app.controller('TetrisController', ['$scope', 'highScoresAndAssociations', function($scope, highScoresAndAssociations){
 
 	// --------------------
 	// Private
@@ -8,6 +8,6 @@ app.controller('TetrisController', ['$scope', function($scope){
 	// --------------------
 	// Public
 	// --------------------
-  $scope.test = "No";
+  $scope.test = highScoresAndAssociations;
 
 }])

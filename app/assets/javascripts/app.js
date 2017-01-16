@@ -59,7 +59,18 @@ var app = angular.module('app', [
 		.state('tetris', {
 			url: '/tetris',
 			templateUrl: 'views/tetris.html',
-			controller: 'TetrisController'
+			controller: 'TetrisController',
+			resolve: {
+				highScoresAndAssociations: function( Restangular ){
+					return Restangular.all('scores').getList({
+						title: "Tetris", 
+						numberOfScores: 5, 
+						"associations[]": ["level", "line"]})
+						.then(function( scores ){
+							return scores;
+      			});
+				}
+			}
 		})
 
 })
