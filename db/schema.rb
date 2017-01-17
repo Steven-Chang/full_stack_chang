@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115121859) do
+ActiveRecord::Schema.define(version: 20170117105657) do
 
   create_table "levels", force: :cascade do |t|
     t.integer  "score_id",   null: false
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20170115121859) do
     t.integer  "score",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name",       null: false
   end
 
   add_index "scores", ["project_id"], name: "index_scores_on_project_id"
