@@ -1,0 +1,186 @@
+#tetris {
+
+  h4 {
+    color: #F0A000;
+  }
+
+  table {
+
+    th {
+      color: #00F000;
+      font-weight: 200;
+      padding: 0 5px 10px 0;
+      width: 65px;
+    }
+    td {
+      color: aqua;
+      padding: 0 5px 10px 0;
+      text-align: left;
+      width: 65px;
+    }
+  }
+
+  form {
+    input[type=text] {
+      margin-bottom: 10px;
+    }
+
+    input[type=submit] {
+      width: 100%;
+    }
+  }
+
+  .stats-and-details{
+    color: aqua;
+  }
+  
+  .sub-header{
+    border-bottom: 1px dotted lightgray;
+    display: inline-block;
+  }
+
+  .portfolio-show-container{
+    background-color: black;
+    padding: 5px 30px 30px 30px;
+    position: relative;
+
+    .square {
+      display: inline-block;
+    }
+
+    .aqua {
+      background-color: #00F0F0;
+    }
+
+    .dark-blue {
+      background-color: #0000F0;
+    }
+
+    .green {
+      background-color: #00F000;
+    }
+
+    .purple {
+      background-color: #A000F0;
+    }
+
+    .orange {
+      background-color: #F0A000;
+    }
+
+    .red {
+      background-color: #F00000;
+    }
+
+    .yellow {
+      background-color: #F0F000;
+    }
+
+    #putin-container {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      img {
+        width: 300px;
+      }
+    }
+
+    #left-side {
+      padding-top: 15px;
+
+      #title{
+        color: #F0F000;
+        margin-bottom: 15px;
+
+        h1 {
+          display: inline-block;
+          margin: 0;
+        }
+
+        #speakers {
+          padding-top: 5px;
+          display: inline-block;
+          vertical-align: top;
+          padding-left: 10px;
+
+          img {
+            width: 21px;
+          }
+
+          #speaker-off-image{
+            display: none;
+          }
+        }
+      }
+
+      #commands {
+        margin-bottom: 30px;
+      }
+
+      #high-scores {
+        font-weight: 200;
+        margin-bottom: 30px;
+      }
+
+      #new-high-score-container {
+        display: none;
+
+        #name-length-notice{
+          color: red;
+          margin: -5px 0 5px 0;
+        }
+      }
+    }
+
+    #right-side {
+      padding: 15px;
+
+      #next-piece {
+        margin-bottom: 30px;
+
+        #next-piece-container {
+          margin-top: 30px;
+          .next-piece-row{
+            height: 24px;
+            margin-bottom: 2px;
+
+            .square {
+              display: inline-block;
+              height: 24px;
+              margin: 1px;
+              width: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .new-game-and-current-score {
+
+    #new-game {
+      cursor: pointer;
+      display: inline-block;
+
+      h4 {
+        color: red;
+      }
+    }
+  }
+
+  #game-board {
+    border: 1px solid white;
+    position: relative;
+
+    #game-over{
+      position: absolute;
+      top: 187px;
+      left: 44px;
+      font-size: 32px;
+      font-weight: bold;
+      color: red;
+      text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+    }
+  }
+}

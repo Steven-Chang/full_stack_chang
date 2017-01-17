@@ -1,5 +1,98 @@
-<h1>Tetris</h1>
+<div id='tetris'>
+  <div id="back-tab">
+    
+  </div>
+  <div class="container">
+    <%= audio_tag("tetris.mp3", id: "tetris-audio", loop: true, autoplay: true) %>
 
-<p>{{ test }}</p>
+    <div class="portfolio-show-container" style="position:relative">
 
-<a ui-sref="tetris">asdf</a>
+      <div id="putin-container" style="position: absolute">
+        <%= link_to root_path do %>
+          <%= image_tag "http://res.cloudinary.com/digguide/image/upload/s--LcabBdwD--/v1474175297/Personal%20Site/Portflio/Tetris/putin.png" %>
+        <% end %>
+      </div>
+
+      <div class="row">
+
+        <div class="col-xs-4">
+          <div id="left-side">
+
+            <div id="title">
+              <h1>Tetris</h1> 
+              <div id="speakers">
+                <%= image_tag "http://res.cloudinary.com/digguide/image/upload/s--cJn5svI7--/v1474161931/Personal%20Site/Portflio/speakers_on.png", id: "speaker-on-image" %>
+                <%= image_tag "http://res.cloudinary.com/digguide/image/upload/s--aEsgb0s4--/v1474162428/Personal%20Site/Portflio/speakers_off.png", id: "speaker-off-image" %>
+              </div>
+            </div>
+
+            <div>
+              <h4>Commands</h4>
+            </div>
+            <div id="commands">
+              <h4 class='stats-and-details'>up: rotate</h4>
+              <h4 class='stats-and-details'>left / right / down: move</h4>
+            </div>
+
+            <div class="sub-header">
+              <h4>High Scores</h4>
+            </div>
+
+            <div id="high-scores">
+              <%= render partial: "tetris_high_scores",
+                             locals: { high_scores: @high_scores } %>
+            </div>
+
+            <div id="new-high-score-container">
+              <h4>New High Score!</h4>
+              <%= form_for @new_score, :remote => true, :id => 'new-high-score-form' do |f| %>
+                <%= f.text_field :name, :class => 'form-control', :placeholder => 'Name' %>
+                <p style='display: block' id="name-length-notice">Name must be 1 - 7 characters in length.</p>
+                <%= f.hidden_field :project_id %>
+                <%= f.hidden_field :score %>
+                <%= f.hidden_field :level %>
+                <%= f.hidden_field :lines %>
+                <%= f.submit :class => 'btn btn-success' %>
+              <% end %>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-xs-4">
+          <div class='new-game-and-current-score'>
+            <div id='new-game'>
+              <h4>New Game</h4>
+            </div>
+          </div>
+          <div id="project-main-container">
+            <div id="game-board">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-4">
+          <div id="right-side">
+            <div id="next-piece">
+              <h4>Next Piece</h4>
+              <div id="next-piece-container">
+                <div class="next-piece-row">
+                  <div class="square" id="nps-1-0"></div><div class="square" id="nps-1-1"></div><div class="square" id="nps-1-2"></div><div class="square" id="nps-1-3"></div>
+                </div>
+                <div class="next-piece-row">
+                  <div class="square" id="nps-0-0"></div><div class="square" id="nps-0-1"></div><div class="square" id="nps-0-2"></div><div class="square" id="nps-0-3"></div>
+                </div>
+              </div>
+            </div>
+            <h4>Score</h4>
+            <h4 id='current-score' class='stats-and-details'></h4>
+            <h4>Level</h4>
+            <h4 id='current-level' class='stats-and-details'>1</h4>
+            <h4>Lines</h4>
+            <h4 id='current-lines' class='stats-and-details'>0</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
