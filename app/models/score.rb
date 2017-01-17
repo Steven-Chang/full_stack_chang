@@ -10,6 +10,7 @@ class Score < ActiveRecord::Base
     high_scores.each do |high_score|
       high_score_as_object = {}
       high_score_as_object["score"] = high_score.score
+      high_score_as_object["name"] = high_score.name
       high_score_as_object = add_associations_to_high_score( high_score, high_score_as_object, filter_params["associations"] )
       high_scores_and_associations.push(high_score_as_object)
     end

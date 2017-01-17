@@ -10,10 +10,11 @@ puts "This will not touch any users or projects..."
 puts "Destroying all scores, levels and lines..."
 Score.destroy_all
 
-puts "Creating 5 scores, levels and lines for Tetris"
+puts "Creating 5 scores, names, levels and lines for Tetris"
 5.times do |number|
   score = Project.where(:title => "Tetris").first.scores.new
   score.score = number
+  score.name = "Chubb"
   score.save
 
   level = Level.new
