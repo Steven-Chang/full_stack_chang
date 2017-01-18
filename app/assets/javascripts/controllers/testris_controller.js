@@ -277,7 +277,7 @@ app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociat
 
 	var _init = function(){
 		_setBackground();
-		$("body").css({"padding-top": "30px"});
+		$("#tetris").css({"padding-top": "30px"});
 		$("#tetris-container").css({"width": "910px"});
 		_setGameBoardProperties();
 		_addRowsToBoard();
@@ -339,7 +339,7 @@ app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociat
 	};
 
 	var _setBackground = function(){
-		$("body").css("background", "url(http://res.cloudinary.com/digguide/image/upload/s--5XpscH8d--/v1474115296/Personal%20Site/Portflio/Tetris/smaller2.jpg)")
+		$("#tetris").css("background", "url(http://res.cloudinary.com/digguide/image/upload/s--5XpscH8d--/v1474115296/Personal%20Site/Portflio/Tetris/smaller2.jpg)")
 	};
 
 	var _setGameBoardProperties = function(){
