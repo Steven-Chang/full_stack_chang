@@ -5,8 +5,11 @@ app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociat
 	// Private
 	// --------------------
 
+  var _currentShape = undefined;
+  var _gameBoard = { gridArray: [] };
   var _gameBoardPadding = 1;
   var _idOfGameBoard = 'game-board';
+  var _nextShape;
   var _rowClassName = 'tetris-row';
   var _rowsInBoard = 20;
   var _squaresPerRow = 10;
@@ -231,20 +234,137 @@ app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociat
 	  ]
   }
 
+  function squareConstructor(){
+    this.css = "square";
+    this.occupied = false;
+  };
+
+  var _addRowsToBoard = function(){
+    for( var i = 0; i < _rowsInBoard; i++ ){
+      _gameBoard.gridArray.push([]);
+    };
+  };
+
+  var _addRowsToGameBoard = function(){
+    for (var i = _rowsInBoard - 1; i >= 0; i--){
+      $("#game-board").append( "<div class='" + _rowClassName + "' id='" + _rowClassName + "-" + i + "'></div>" );
+    };
+  };
+
+  var _addSquares = function(){
+    for( var i = 0; i < _gameBoard.gridArray.length; i++ ){
+      for( var s = 0; s < _squaresPerRow; s++ ){
+        newSquare = new squareConstructor();
+        _gameBoard.gridArray[i].push( newSquare );
+      };
+    };
+  };
+
+  var _addToSquareConstructorPrototype = function(){
+  	squareConstructor.prototype.border = _squareBorderWidth + "px solid black";
+    squareConstructor.prototype.margin = _squareMargin + "px";
+  	squareConstructor.prototype.width = _squareSide + "px";
+  	squareConstructor.prototype.height = _squareSide + "px";
+  };
+
+  var _addSquaresToRows = function(){
+    for (var i = 0; i < _rowsInBoard; i++){
+      for (var s = 0; s < _squaresPerRow; s++){
+        $("#" + _rowClassName + "-" + i).append("<div class='" + _squareClassName + "' id='" + _squareClassName + "-" + i + "-" + s + "' ></div>");
+      };
+    };
+  };
+
 	var _init = function(){
 		_setBackground();
 		$("body").css({"padding-top": "30px"});
 		$("#tetris-container").css({"width": "910px"});
+		_setGameBoardProperties();
+		_addRowsToBoard();
+		_addSquares();
+		_addToSquareConstructorPrototype();
+		_setView();
+		_nextShape = _returnRandomShape();
+	};
+
+  // Random number from 0 to largestNumber
+  _randomNumber = function( largestNumber, smallestNumber ){
+    var smallest = smallestNumber || 0;
+    var number =  Number( (Math.random() * largestNumber).toFixed(0) );
+    while (number < smallestNumber) {
+      number = Number( (Math.random() * largestNumber).toFixed(0) );
+    };
+    return number;
+  };
+
+	var _reset = function(){
+		_gameBoard.gridArray = [];
+		_addRowsToBoard();
+		_addSquares();
+	  _currentShape = undefined;
+	  _nextShape = _returnRandomShape();
+		$scope.gameOver = false;
+		$scope.level = 1;
+		$scope.lines = 0;
+		$scope.newHighScoreAchieved = false;
+		$scope.newHighScoreName = "";
+		$scope.score = 0;
+		_setView();
+	};
+
+  var _setPropertyOfElement = function( element, property, value ){
+  	$(element).css( property, value )
+  };
+
+	var _setView = function(){
+		var idOfGameBoardWithHash = "#" + _idOfGameBoard;
+		var squareClassWithFullStop = "." + _squareClassName;
+
+		$("#game-board").html("");
+		_addRowsToGameBoard();
+		_addSquaresToRows();
+  	_setPropertyOfElement( idOfGameBoardWithHash, "height", _gameBoard.height);
+  	_setPropertyOfElement( idOfGameBoardWithHash, "width", _gameBoard.width);
+    _setPropertyOfElement( idOfGameBoardWithHash, "padding", _gameBoardPadding);
+  	_setPropertyOfElement( squareClassWithFullStop, "height", _squareSide);
+    _setPropertyOfElement( squareClassWithFullStop, "margin", _squareMargin);
+  	_setPropertyOfElement( squareClassWithFullStop, "width", _squareSide);
+
+    // Setting the height for rows
+    _setPropertyOfElement( "." + _rowClassName, "height", _gameBoard.rowHeight);
+
+    // Setting the width of the container with holds the current score and new game button
+    _setPropertyOfElement( ".new-game-and-current-score", "width", _gameBoard.width);
+
 	};
 
 	var _setBackground = function(){
 		$("body").css("background", "url(http://res.cloudinary.com/digguide/image/upload/s--5XpscH8d--/v1474115296/Personal%20Site/Portflio/Tetris/smaller2.jpg)")
 	};
 
+	var _setGameBoardProperties = function(){
+		_gameBoard.padding = _gameBoardPadding + "px";
+    _gameBoard.height = (_gameBoardPadding * 2 + _rowsInBoard * ( _squareSide + 2 * _squareMargin )) + 2 * _squareMargin + "px";
+    _gameBoard.rowsInBoard = _rowsInBoard;
+    // Gotta add in the gameBoardPadding and gameBoardBorderWidth again at the end...
+    _gameBoard.rowHeight = (_squareSide + 2 * _squareMargin) + "px";
+    _gameBoard.squaresPerRow = _squaresPerRow;
+  	_gameBoard.width = ( _gameBoardPadding * 2 + _squaresPerRow * _squareSide + 2 * _squaresPerRow * _squareMargin ) + ( 2 * _gameBoardPadding ) + "px";
+	};
+
+  // return a random shape
+  var _returnRandomShape = function(){
+  	var constructors = _constructors.shapeConstructors;
+    var randomConstructor = constructors[_randomNumber( constructors.length - 1 )];
+    randomConstructor.prototype = _constructors.shapeConstructorsPrototype;
+    return new randomConstructor;
+  };
+
 	// --------------------
 	// Public
 	// --------------------
 
+	$scope.gameOver = false;
 	$scope.highScoresAndAssociations = highScoresAndAssociations;
 	$scope.level = 1;
 	$scope.lines = 0;
@@ -252,6 +372,11 @@ app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociat
 	$scope.newHighScoreName = "";
 	$scope.score = 0;
 	$scope.soundOn = true;
+
+	$scope.startNewGame = function(){
+		_reset();
+		_setView();
+	};
 
 	$scope.submitHighScore = function(){
 
