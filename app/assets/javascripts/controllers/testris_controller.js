@@ -1,24 +1,28 @@
-app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociations', function($scope, $timeout, highScoresAndAssociations){
-	'use_strict;'
+app.controller('TetrisController', ['$scope', '$interval', '$timeout', 'highScoresAndAssociations', function($scope, $interval, $timeout, highScoresAndAssociations){
+	'usestrict;'
 
 	// --------------------
 	// Private
 	// --------------------
 
-  var _currentShape = undefined;
-  var _gameBoard = { gridArray: [] };
-  var _gameBoardPadding = 1;
-  var _idOfGameBoard = 'game-board';
-  var _nextShape;
-  var _rowClassName = 'tetris-row';
-  var _rowsInBoard = 20;
-  var _squaresPerRow = 10;
-  var _squareBorderWidth = 1;
-  var _squareClassName = 'square';
-  var _squareMargin = 1;
-  var _squareSide = 24;
+  var currentShape = undefined;
+  var gameBoard = { gridArray: [] };
+  var gameBoardPadding = 1;
+  var idOfGameBoard = 'game-board';
+  var intervalSpeed = 400;
+  var gameInterval;
+  var gameOverCounter = 0;
+  var gameOverInterval;
+  var nextShape;
+  var rowClassName = 'tetris-row';
+  var rowsInBoard = 20;
+  var squaresPerRow = 10;
+  var squareBorderWidth = 1;
+  var squareClassName = 'square';
+  var squareMargin = 1;
+  var squareSide = 24;
 
-  var _constructors = {
+  var constructors = {
 	  shapeConstructorsPrototype: {
 	    pivot: function(){
 	      var nextPositionCoordinates = this.coordinatesForPosition( this.centreCoordinate, this.nextPosition() );
@@ -239,56 +243,178 @@ app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociat
     this.occupied = false;
   };
 
-  var _addRowsToBoard = function(){
-    for( var i = 0; i < _rowsInBoard; i++ ){
-      _gameBoard.gridArray.push([]);
+  var addRowsToBoard = function(){
+    for( var i = 0; i < rowsInBoard; i++ ){
+      gameBoard.gridArray.push([]);
     };
   };
 
-  var _addRowsToGameBoard = function(){
-    for (var i = _rowsInBoard - 1; i >= 0; i--){
-      $("#game-board").append( "<div class='" + _rowClassName + "' id='" + _rowClassName + "-" + i + "'></div>" );
+  var addRowsToGameBoard = function(){
+    for (var i = rowsInBoard - 1; i >= 0; i--){
+      $("#game-board").append( "<div class='" + rowClassName + "' id='" + rowClassName + "-" + i + "'></div>" );
     };
   };
 
-  var _addSquares = function(){
-    for( var i = 0; i < _gameBoard.gridArray.length; i++ ){
-      for( var s = 0; s < _squaresPerRow; s++ ){
+  var addSquares = function(){
+    for( var i = 0; i < gameBoard.gridArray.length; i++ ){
+      for( var s = 0; s < squaresPerRow; s++ ){
         newSquare = new squareConstructor();
-        _gameBoard.gridArray[i].push( newSquare );
+        gameBoard.gridArray[i].push( newSquare );
       };
     };
   };
 
-  var _addToSquareConstructorPrototype = function(){
-  	squareConstructor.prototype.border = _squareBorderWidth + "px solid black";
-    squareConstructor.prototype.margin = _squareMargin + "px";
-  	squareConstructor.prototype.width = _squareSide + "px";
-  	squareConstructor.prototype.height = _squareSide + "px";
+  var addToSquareConstructorPrototype = function(){
+  	squareConstructor.prototype.border = squareBorderWidth + "px solid black";
+    squareConstructor.prototype.margin = squareMargin + "px";
+  	squareConstructor.prototype.width = squareSide + "px";
+  	squareConstructor.prototype.height = squareSide + "px";
   };
 
-  var _addSquaresToRows = function(){
-    for (var i = 0; i < _rowsInBoard; i++){
-      for (var s = 0; s < _squaresPerRow; s++){
-        $("#" + _rowClassName + "-" + i).append("<div class='" + _squareClassName + "' id='" + _squareClassName + "-" + i + "-" + s + "' ></div>");
+  var addSquaresToRows = function(){
+    for (var i = 0; i < rowsInBoard; i++){
+      for (var s = 0; s < squaresPerRow; s++){
+        $("#" + rowClassName + "-" + i).append("<div class='" + squareClassName + "' id='" + squareClassName + "-" + i + "-" + s + "' ></div>");
       };
     };
   };
 
-	var _init = function(){
-		_setBackground();
+  var changeSquaresAtCoordinates = function( css, coordinates, occupy ){
+    for (var i = 0; i < coordinates.length; i++){
+      changeSquareAtCoordinate( css, coordinates[i], occupy );
+    };
+  };
+
+	var changeSquareAtCoordinate = function( css, coordinate, occupy ){
+    var row = coordinate[0];
+    var column = coordinate[1];
+    var grid = gameBoard.gridArray;
+    grid[row][column].css = css;
+    grid[row][column].occupied = occupy;
+  };
+
+  var changeToNextLevel = function(){
+  	console.log("changeToNextLevel Called");
+    if( playerReachedNextLevel() ){
+      intervalSpeed  = intervalSpeed - 40;
+      $scope.level = $scope.level + 1;
+    };
+  };
+
+  var clearCompletedRows = function( rows ){
+    var currentLinesCount = 0;
+    for (var i = 0; i < rows.length; i++){
+      var row = rows[i];
+      if( rowComplete( row ) ){
+        resetRow( row );
+        $scope.lines++;
+        currentLinesCount++;
+      };
+    };
+    $scope.score += (currentLinesCount * currentLinesCount * 100);
+  };
+
+  var coordinateOccupied = function( coordinate ){
+    var grid = gameBoard.gridArray;
+    var rowNumber = coordinate[0];
+    var columnNumber = coordinate[1];
+    return grid[rowNumber][columnNumber].occupied;
+  };
+
+  var coordinateOutOfRange = function( coordinate, rowsInBoard, squaresPerRow ){
+    var rowNumber = coordinate[0];
+    var columnNumber = coordinate[1];
+    if ( rowNumber < 0 || rowNumber >= rowsInBoard || columnNumber < 0 || columnNumber >= squaresPerRow ){
+      return true;
+    };
+    return false;
+  };
+
+  var coordinatesValid = function( coordinates ){
+    var rowsInBoard = gameBoard.rowsInBoard;
+    var squaresPerRow = gameBoard.squaresPerRow;
+    for (var i = 0; i < coordinates.length; i++){
+      if( coordinateOutOfRange(coordinates[i], rowsInBoard, squaresPerRow) || coordinateOccupied(coordinates[i]) ){
+        return false;
+      };
+    };
+    return true;
+  };
+
+	var init = function(){
+		setBackground();
+		$("#tetris").focus();
 		$("#tetris").css({"padding-top": "30px"});
 		$("#tetris-container").css({"width": "910px"});
-		_setGameBoardProperties();
-		_addRowsToBoard();
-		_addSquares();
-		_addToSquareConstructorPrototype();
-		_setView();
-		_nextShape = _returnRandomShape();
+		setGameBoardProperties();
+		addRowsToBoard();
+		addSquares();
+		addToSquareConstructorPrototype();
+		setView();
+		nextShape = returnRandomShape();
+		$scope.startNewGame();
 	};
 
+	var moveDownIfPossible = function(){
+    if ( currentShape !== undefined && coordinatesValid( returnCoordinatesARowBelow( currentShape.coordinates ) ) ) {
+      resetSquaresAtCoordinates( currentShape.coordinates );
+      currentShape.moveDown();
+      changeSquaresAtCoordinates( currentShape.css, currentShape.coordinates, false );
+    };
+  };
+
+  var moveLeftIfPossible = function(){
+    if ( currentShape !== undefined && coordinatesValid( returnCoordinatesShiftedAColumn( currentShape.coordinates, -1 ) ) ) {
+      resetSquaresAtCoordinates( currentShape.coordinates );
+      currentShape.moveSideways( -1 );
+      changeSquaresAtCoordinates( currentShape.css, currentShape.coordinates, false );
+    };
+  };
+
+  var moveRightIfPossible = function(){
+    if ( currentShape !== undefined && coordinatesValid( returnCoordinatesShiftedAColumn( currentShape.coordinates, +1 ) ) ) {
+      resetSquaresAtCoordinates( currentShape.coordinates );
+      currentShape.moveSideways( +1 );
+      changeSquaresAtCoordinates( currentShape.css, currentShape.coordinates, false );
+    };
+  };
+
+  // Opted for this option because deleting and remaking rows requires making new squares....
+  var moveUnoccupiedRowsToTheBack = function(){
+  	var grid = gameBoard.gridArray;
+    var newGrid = [];
+    var occupied = 0;
+    var unoccupied = grid.length - 1;
+    for (var i = 0; i < grid.length; i++){
+      if (rowEmpty( grid, i )){
+        newGrid[unoccupied] = grid[i];
+        unoccupied -= 1;
+      } else {
+        newGrid[occupied] = grid[i];
+        occupied += 1;
+      };
+    };
+    gameBoard.gridArray = newGrid;
+  };
+
+  // This needs some serious fixing lol!
+  var newHighScore = function(){
+    if ( $("#score-4").text() ){
+      return $("#score-4").text() < score;
+    } else {
+      return true;
+    };
+  };
+
+  // So every 8 lines the level should increase
+  // gotta add initialNumberOfLines % 8 to current
+  // number of lines minus initial to factor in multiple lines that can be gained per level.
+  var playerReachedNextLevel = function( initialNumberOfLines ){
+    return (initialNumberOfLines % 8) + lines - initialNumberOfLines >= 8;
+  };
+
   // Random number from 0 to largestNumber
-  _randomNumber = function( largestNumber, smallestNumber ){
+  var randomNumber = function( largestNumber, smallestNumber ){
     var smallest = smallestNumber || 0;
     var number =  Number( (Math.random() * largestNumber).toFixed(0) );
     while (number < smallestNumber) {
@@ -297,67 +423,238 @@ app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociat
     return number;
   };
 
-	var _reset = function(){
-		_gameBoard.gridArray = [];
-		_addRowsToBoard();
-		_addSquares();
-	  _currentShape = undefined;
-	  _nextShape = _returnRandomShape();
+  var renderBoard = function(){
+  	var grid = gameBoard.gridArray;
+
+    for ( var arrayIndex = 0; arrayIndex < grid.length; arrayIndex++ ) {
+      for ( var squareIndex = 0; squareIndex < grid[arrayIndex].length; squareIndex++ ) {
+        var square = grid[arrayIndex][squareIndex];
+        $("#square-" + arrayIndex + "-" + squareIndex).attr( "class", square.css );
+      };
+    };
+  };
+
+  var renderGameOver = function( counter ){
+    if ( counter % 2 === 0) {
+      if ($("#game-over").length > 0){
+        $("#game-over").remove();
+      } else {
+        $("#game-board").append("<div id='game-over'>Game Over</div>")
+      };
+    };
+  };
+
+  var renderNextShape = function(){
+  	var shape = nextShape;
+    var coordinates = shape.coordinates;
+
+    for(var i = 0; i < coordinates.length; i++){
+      var row = coordinates[i][0] - 18;
+      var column = coordinates[i][1] - 3;
+      $("#nps-" + row + "-" + column).attr( "class", shape.css );
+    };
+  };
+
+	var reset = function(){
+		gameBoard.gridArray = [];
+		addRowsToBoard();
+		addSquares();
+	  currentShape = undefined;
+	  nextShape = returnRandomShape();
 		$scope.gameOver = false;
 		$scope.level = 1;
 		$scope.lines = 0;
 		$scope.newHighScoreAchieved = false;
 		$scope.newHighScoreName = "";
 		$scope.score = 0;
-		_setView();
+		$interval.cancel( gameInterval );
+		$interval.cancel( gameOverInterval );
 	};
 
-  var _setPropertyOfElement = function( element, property, value ){
+	var resetNextShapeSquares = function(){
+    // this for loop is for the rows
+    for(var r = 0; r < 2; r++){
+      for(var c = 0; c < 4; c++){
+        $("#nps-" + r + "-" + c).attr("class", "square");
+      };
+    };
+  };
+
+  var resetRow = function( rowNumber ){
+  	var grid = gameBoard.gridArray;
+    for (var i = 0; i < grid[rowNumber].length; i++){
+      changeSquareAtCoordinate( "square", [rowNumber, i], false );
+    };
+  };
+
+  // model.rowEmpty
+  rowEmpty = function( grid, rowNumber ){
+    for (var i = 0; i < grid[rowNumber].length; i++){
+      if (grid[rowNumber][i].occupied){
+        return false;
+      };
+    };
+    return true;
+  };
+
+	var resetSquaresAtCoordinates = function( coordinates ){
+    for (var i = 0; i < coordinates.length; i++){
+      changeSquareAtCoordinate( "square", coordinates[i], false );
+    };
+  };
+
+  // model.returnCoordinatesARowBelow
+  var returnCoordinatesARowBelow = function( coordinatesArray ){
+    var coordinatesARowBelow = [];
+    for (var i = 0; i < coordinatesArray.length; i++){
+      var row = coordinatesArray[i][0];
+      var column = coordinatesArray[i][1];
+      coordinatesARowBelow.push( [row - 1, column] );
+    };
+    return coordinatesARowBelow;
+  };
+
+	var returnCoordinatesShiftedAColumn = function( coordinates, factor ){
+    var newCoordinates = [];
+    for (var i = 0; i < coordinates.length; i++){
+      var row = coordinates[i][0];
+      var column = coordinates[i][1];
+      newCoordinates.push( [row, column + factor] );
+    };
+    return newCoordinates;
+  };
+
+	var returnRowNumbersFromCoordinates = function( coordinates ){
+    var rowNumbers = [];
+    for (var i = 0; i < coordinates.length; i++){
+      rowNumbers.push( coordinates[i][0] );
+    };
+    return rowNumbers;
+  };
+
+  var rowComplete = function(rowNumber){
+  	var grid = gameBoard.gridArray;
+    for (var i = 0; i < grid[rowNumber].length; i++){
+      if ( !grid[rowNumber][i].occupied ){
+        return false;
+      };
+    };
+    return true;
+  };
+
+	var rowEmpty = function( grid, rowNumber ){
+    for (var i = 0; i < grid[rowNumber].length; i++){
+      if (grid[rowNumber][i].occupied){
+        return false;
+      };
+    };
+    return true;
+  };
+
+
+  var runGameOverProcess = function(){
+    $scope.gameOver = true;
+    // clearning interval
+    // resetting the interval speed
+    // then starting a new interval.
+    clearInterval(gameInterval);
+    intervalSpeed = 400;
+    gameOverInterval = $interval(function(){
+    	gameOverCounter++;
+    	renderGameOver();
+    }, intervalSpeed);
+    runNewHighScoreProcess();
+  };
+
+  var runNewHighScoreProcess = function(){
+    if (newHighScore()){
+    	$scope.newHighScoreAchieved = true;
+    };
+  };
+
+  var setPropertyOfElement = function( element, property, value ){
   	$(element).css( property, value )
   };
 
-	var _setView = function(){
-		var idOfGameBoardWithHash = "#" + _idOfGameBoard;
-		var squareClassWithFullStop = "." + _squareClassName;
+	var setView = function(){
+		var idOfGameBoardWithHash = "#" + idOfGameBoard;
+		var squareClassWithFullStop = "." + squareClassName;
 
 		$("#game-board").html("");
-		_addRowsToGameBoard();
-		_addSquaresToRows();
-  	_setPropertyOfElement( idOfGameBoardWithHash, "height", _gameBoard.height);
-  	_setPropertyOfElement( idOfGameBoardWithHash, "width", _gameBoard.width);
-    _setPropertyOfElement( idOfGameBoardWithHash, "padding", _gameBoardPadding);
-  	_setPropertyOfElement( squareClassWithFullStop, "height", _squareSide);
-    _setPropertyOfElement( squareClassWithFullStop, "margin", _squareMargin);
-  	_setPropertyOfElement( squareClassWithFullStop, "width", _squareSide);
+		addRowsToGameBoard();
+		addSquaresToRows();
+  	setPropertyOfElement( idOfGameBoardWithHash, "height", gameBoard.height);
+  	setPropertyOfElement( idOfGameBoardWithHash, "width", gameBoard.width);
+    setPropertyOfElement( idOfGameBoardWithHash, "padding", gameBoardPadding);
+  	setPropertyOfElement( squareClassWithFullStop, "height", squareSide);
+    setPropertyOfElement( squareClassWithFullStop, "margin", squareMargin);
+  	setPropertyOfElement( squareClassWithFullStop, "width", squareSide);
 
     // Setting the height for rows
-    _setPropertyOfElement( "." + _rowClassName, "height", _gameBoard.rowHeight);
+    setPropertyOfElement( "." + rowClassName, "height", gameBoard.rowHeight);
 
     // Setting the width of the container with holds the current score and new game button
-    _setPropertyOfElement( ".new-game-and-current-score", "width", _gameBoard.width);
+    setPropertyOfElement( ".new-game-and-current-score", "width", gameBoard.width);
 
 	};
 
-	var _setBackground = function(){
+	var setBackground = function(){
 		$("#tetris").css("background", "url(http://res.cloudinary.com/digguide/image/upload/s--5XpscH8d--/v1474115296/Personal%20Site/Portflio/Tetris/smaller2.jpg)")
 	};
 
-	var _setGameBoardProperties = function(){
-		_gameBoard.padding = _gameBoardPadding + "px";
-    _gameBoard.height = (_gameBoardPadding * 2 + _rowsInBoard * ( _squareSide + 2 * _squareMargin )) + 2 * _squareMargin + "px";
-    _gameBoard.rowsInBoard = _rowsInBoard;
+	var setGameBoardProperties = function(){
+		gameBoard.padding = gameBoardPadding + "px";
+    gameBoard.height = (gameBoardPadding * 2 + rowsInBoard * ( squareSide + 2 * squareMargin )) + 2 * squareMargin + "px";
+    gameBoard.rowsInBoard = rowsInBoard;
     // Gotta add in the gameBoardPadding and gameBoardBorderWidth again at the end...
-    _gameBoard.rowHeight = (_squareSide + 2 * _squareMargin) + "px";
-    _gameBoard.squaresPerRow = _squaresPerRow;
-  	_gameBoard.width = ( _gameBoardPadding * 2 + _squaresPerRow * _squareSide + 2 * _squaresPerRow * _squareMargin ) + ( 2 * _gameBoardPadding ) + "px";
+    gameBoard.rowHeight = (squareSide + 2 * squareMargin) + "px";
+    gameBoard.squaresPerRow = squaresPerRow;
+  	gameBoard.width = ( gameBoardPadding * 2 + squaresPerRow * squareSide + 2 * squaresPerRow * squareMargin ) + ( 2 * gameBoardPadding ) + "px";
 	};
 
   // return a random shape
-  var _returnRandomShape = function(){
-  	var constructors = _constructors.shapeConstructors;
-    var randomConstructor = constructors[_randomNumber( constructors.length - 1 )];
-    randomConstructor.prototype = _constructors.shapeConstructorsPrototype;
+  var returnRandomShape = function(){
+  	var shapeConstructors = constructors.shapeConstructors;
+    var randomConstructor = shapeConstructors[randomNumber( shapeConstructors.length - 1 )];
+    randomConstructor.prototype = constructors.shapeConstructorsPrototype;
     return new randomConstructor;
+  };
+
+  // currently we're making a new shape when there is no currentShape and setting currentShape to that
+  // What we can do instead is, if there's no currentShape then make currentShape the nextShape and set nextShape to a newShape...
+  var takeTurn = function(){
+    var shapeCons = constructors.shapeConstructors;
+    // if there's no current shape
+    if ( currentShape === undefined ) {
+      currentShape = nextShape;
+      nextShape = returnRandomShape( shapeCons );
+
+      // If the new piece can be placed on the gameboard
+      // place piece on board
+      // else
+      // gameOver
+      if ( coordinatesValid( currentShape.coordinates ) ){
+        changeSquaresAtCoordinates( currentShape.css, currentShape.coordinates, false );
+      } else {
+        runGameOverProcess();
+      };
+    // else check if the next move is possible
+    // if so, reset current squares, and move the piece down
+    // and change the squares at new coordinates
+    } else if ( coordinatesValid( returnCoordinatesARowBelow( currentShape.coordinates ) ) ) {
+      resetSquaresAtCoordinates( currentShape.coordinates );
+      currentShape.moveDown();
+      changeSquaresAtCoordinates( currentShape.css, currentShape.coordinates, false );
+    // current piece can't move down any further
+    // clearing completed rows
+    // moving those rows to the top
+    // and resetting the currentShape
+    } else {
+      changeSquaresAtCoordinates( currentShape.css, currentShape.coordinates, true );
+      clearCompletedRows( returnRowNumbersFromCoordinates(currentShape.coordinates) );
+      moveUnoccupiedRowsToTheBack();
+      currentShape = undefined;
+    };
   };
 
 	// --------------------
@@ -373,13 +670,49 @@ app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociat
 	$scope.score = 0;
 	$scope.soundOn = true;
 
-	$scope.startNewGame = function(){
-		_reset();
-		_setView();
+	$scope.$on('$destroy', function() {
+    $interval.cancel(gameInterval);
+    $interval.cancel(gameOverInterval);
+  });
+
+	$scope.processKeyDown = function($event){
+    var grid = gameBoard.gridArray
+    // left key
+    if ( $event.keyCode === 37 ) {
+    	// Currenty up to here
+      moveLeftIfPossible();
+      renderBoard();
+      $event.preventDefault();
+    // up key
+    } else if ( $event.keyCode === 38 ) {
+      // I think I could break down the pivot method so it does less...
+      if (currentShape !== undefined){
+        currentShape.pivot();
+        renderBoard();
+      };
+      $event.preventDefault();
+    // right key
+    } else if ( $event.keyCode === 39 ) {
+      moveRightIfPossible();
+      renderBoard();
+      $event.preventDefault();
+    // down key
+    } else if ($event.keyCode === 40 ) {
+      moveDownIfPossible();
+      renderBoard();
+      $event.preventDefault();
+    };
 	};
 
-	$scope.submitHighScore = function(){
-
+	$scope.startNewGame = function(){
+		reset();
+		setView();
+		gameInterval = $interval(function(){
+			takeTurn();
+			renderBoard();
+			resetNextShapeSquares();
+			renderNextShape();
+		}, intervalSpeed);
 	};
 
 	$scope.toggleSound = function(){
@@ -391,6 +724,6 @@ app.controller('TetrisController', ['$scope', '$timeout', 'highScoresAndAssociat
 		$scope.soundOn = !$scope.soundOn;
 	};
 
-  _init();
+  init();
 
 }])
