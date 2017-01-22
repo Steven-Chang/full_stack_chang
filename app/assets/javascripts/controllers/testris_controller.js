@@ -434,8 +434,8 @@ app.controller('TetrisController', ['$scope', '$interval', '$timeout', 'highScor
     };
   };
 
-  var renderGameOver = function( counter ){
-    if ( counter % 2 === 0) {
+  var renderGameOver = function(){
+    if ( gameOverCounter % 2 === 0) {
       if ($("#game-over").length > 0){
         $("#game-over").remove();
       } else {
@@ -557,7 +557,7 @@ app.controller('TetrisController', ['$scope', '$interval', '$timeout', 'highScor
     // clearning interval
     // resetting the interval speed
     // then starting a new interval.
-    clearInterval(gameInterval);
+    $interval.cancel( gameInterval );
     intervalSpeed = 400;
     gameOverInterval = $interval(function(){
     	gameOverCounter++;
