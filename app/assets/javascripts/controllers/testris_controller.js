@@ -293,16 +293,18 @@ app.controller('TetrisController', ['$scope', '$interval', '$timeout', 'highScor
     grid[row][column].occupied = occupy;
   };
 
-  var changeToNextLevel = function(){
-  	console.log("changeToNextLevel Called");
-    if( playerReachedNextLevel() ){
+  var changeToNextLevel = function( initialNumberOfLines ){
+    if( playerReachedNextLevel( initialNumberOfLines ) ){
       intervalSpeed  = intervalSpeed - 40;
+      $interval.cancel( gameInterval );
+      setGameInterval();
       $scope.level = $scope.level + 1;
     };
   };
 
   var clearCompletedRows = function( rows ){
     var currentLinesCount = 0;
+    var initialNumberOfLines = $scope.lines;
     for (var i = 0; i < rows.length; i++){
       var row = rows[i];
       if( rowComplete( row ) ){
@@ -312,6 +314,7 @@ app.controller('TetrisController', ['$scope', '$interval', '$timeout', 'highScor
       };
     };
     $scope.score += (currentLinesCount * currentLinesCount * 100);
+    changeToNextLevel( initialNumberOfLines );
   };
 
   var coordinateOccupied = function( coordinate ){
@@ -410,7 +413,7 @@ app.controller('TetrisController', ['$scope', '$interval', '$timeout', 'highScor
   // gotta add initialNumberOfLines % 8 to current
   // number of lines minus initial to factor in multiple lines that can be gained per level.
   var playerReachedNextLevel = function( initialNumberOfLines ){
-    return (initialNumberOfLines % 8) + lines - initialNumberOfLines >= 8;
+    return (initialNumberOfLines % 8) + $scope.lines - initialNumberOfLines >= 8;
   };
 
   // Random number from 0 to largestNumber
@@ -570,6 +573,15 @@ app.controller('TetrisController', ['$scope', '$interval', '$timeout', 'highScor
     if (newHighScore()){
     	$scope.newHighScoreAchieved = true;
     };
+  };
+
+  var setGameInterval = function(){
+  	gameInterval = $interval(function(){
+			takeTurn();
+			renderBoard();
+			resetNextShapeSquares();
+			renderNextShape();
+		}, intervalSpeed);
   };
 
   var setPropertyOfElement = function( element, property, value ){
