@@ -402,11 +402,8 @@ app.controller('TetrisController', ['$scope', '$interval', '$timeout', 'highScor
 
   // This needs some serious fixing lol!
   var newHighScore = function(){
-    if ( $("#score-4").text() ){
-      return $("#score-4").text() < score;
-    } else {
-      return true;
-    };
+  	var lowestHighScore = $scope.highScoresAndAssociations[$scope.highScoresAndAssociations.length - 1]["score"];
+    return lowestHighScore < $scope.score;
   };
 
   // So every 8 lines the level should increase
