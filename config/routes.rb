@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'application#index'
 
   resources :projects, only: [:index, :create]
-  resources :scores, only: [:index]
+  resources :scores, only: [:index, :create]
 
   get 'number_of_users' => 'users#return_number_of_users'
   # The priority is based upon order of creation: first created -> highest priority.

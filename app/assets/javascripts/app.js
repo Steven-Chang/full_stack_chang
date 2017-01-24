@@ -63,9 +63,7 @@ var app = angular.module('app', [
 			resolve: {
 				highScoresAndAssociations: function( Restangular ){
 					return Restangular.all('scores').getList({
-						title: "Tetris", 
-						numberOfScores: 5, 
-						"associations[]": ["level", "line"]})
+						title: "Tetris"})
 						.then(function( scores ){
 							return scores;
       			});
