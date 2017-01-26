@@ -9,20 +9,10 @@ app.controller('WhyHireChangController', ['$scope', '$timeout', function($scope,
 	var phoneVibrateAudio = document.getElementById("phone-audio");
 	var youTubePlayer;
 
-	var init = function(){
-		$("body").css("background-color", "black");
-
-		// Makes cursor look like a video tape
-		$("body").css("cursor", "url('http://res.cloudinary.com/digguide/image/upload/s--bG08Bp80--/c_scale,w_125/v1473835092/Personal%20Site/Portflio/Why%20Hire%20Chang/S-VHS-cassette-tape.jpg'), pointer");
-
-		$("html").css("height", "100%");
-		$("body").css("height", "100%");
-	};
-
 	var slideUpPhoneInHand = function(){
 		$("#phone-in-hand").show("slide", {
 	      direction: "down"
-	  }, 2000, function(){
+	  }, 2000, function(){  
 	  	// action to run once animation is complete
 	  	screamAudio.play();
 	  });
@@ -41,11 +31,15 @@ app.controller('WhyHireChangController', ['$scope', '$timeout', function($scope,
  	$scope.$on('youtube.player.ended', function ($event, player) {
  		$scope.phoneVisible = true;
  		phoneVibrateAudio.play();
- 		$scope.staticImageVisible = true;
+ 		$scope.staticImageVisible = false;
   });
 
  	$scope.$on('youtube.player.ready', function ($event, player) {
 		youTubePlayer = player;
+  });
+
+ 	$scope.$on('$destroy', function() {
+    $("body").css("background-color", "white");
   });
 
 	$scope.runPhoneClickEvents = function(){
@@ -64,11 +58,11 @@ app.controller('WhyHireChangController', ['$scope', '$timeout', function($scope,
     $scope.videoSlotVisible = false;
 
     // changes curso to look normal
-   	$("body").css("cursor", "default");
+   	$("#why-hire-chang").css("cursor", "default");
 
    	youTubePlayer.playVideo();
 	};
 
-	init();
+	$("body").css("background-color", "black");
 
 }])
