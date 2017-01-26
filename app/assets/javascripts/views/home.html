@@ -3,40 +3,37 @@
   <div class="row" ng-show="signedIn()">
     <div class="col-xs-12">
       <!-- Form to add projects in easily. -->
-      <h3>Add a new project</h3>
+      <h4>Add a new project</h4>
       <form ng-submit="newProjectHub.createNewProject()">
 
-        <div class="form-group">
-          <label for="new-project-title">Title</label>
-          <input id="new-project-title" class="form-control" ng-model="newProjectHub.title" required>
+        <div class="field">
+          <input class="form-control" ng-model="newProjectHub.title" placeholder="Project Title" required>
         </div>
 
-        <div class="form-group">
-          <label for="new-project-description">Description</label>
-          <textarea id="new-project-description" class="form-control" rows="4" ng-model="newProjectHub.description" required></textarea>
+        <div class="field">
+          <textarea class="form-control" rows="4" ng-model="newProjectHub.description" placeholder="Description" required></textarea>
         </div>
 
-        <div class="form-group">
-          <label for="new-project-url">Url</label>
-          <input id="new-project-url" class="form-control" ng-model="newProjectHub.url">
+        <div class="field">
+          <input class="form-control" ng-model="newProjectHub.url" placeholder="Link e.g. #/tetris">
         </div>
 
-        <div class="form-group">
-          <label for="date-picker">Date Added</label>
-          <input type="text" data-provide='datepicker' class="form-control" id="date-picker" ng-model="newProjectHub.date_added">
+        <div class="field">
+          <input type="text" data-provide='datepicker' class="form-control" id="date-picker" ng-model="newProjectHub.date_added" placeholder="Date Added">
         </div>
 
-        <div class="form-group">
-          <label for="date-picker">Image Url</label>
-          <input type="text" class="form-control" ng-model="newProjectHub.image_url">
+        <div class="field">
+          <input type="text" class="form-control" ng-model="newProjectHub.image_url" placeholder="Cover Image Address">
         </div>
 
-        <div class="form-group">
-          <input type="submit" value="Create" class="btn btn-success">
+        <div class="field">
+          <input type="submit" value="Create" class="btn btn-info">
         </div>
       </form>
     </div>
   </div>
+
+  <hr ng-show="signedIn()">
 
   <div class="row">
     <div class="col-xs-12">
@@ -45,7 +42,7 @@
   </div>
 
   <ul class="list-grid row">
-    <li class="col-md-4 col-sm-6" ng-repeat="project in projects">
+    <li class="col-md-4 col-sm-6" ng-repeat="project in projects | orderBy : 'date_added' : true">
       <div class="portfolio-project">
         <div class="project-header">
           <a ng-href="{{ project.url }}">

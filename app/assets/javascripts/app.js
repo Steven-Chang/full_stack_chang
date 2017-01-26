@@ -2,7 +2,8 @@ var app = angular.module('app', [
 	'ui.router', 
 	'Devise', 
 	'templates', 
-	'restangular'
+	'restangular',
+	'youtube-embed'
 ])
 
 .config(function($stateProvider, $urlRouterProvider){
@@ -69,6 +70,12 @@ var app = angular.module('app', [
       			});
 				}
 			}
+		})
+
+		.state('whyhirechang', {
+			url: '/whyhirechang',
+			templateUrl: 'views/whyhirechang.html',
+			controller: 'WhyHireChangController'
 		})
 
 })

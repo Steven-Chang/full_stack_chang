@@ -1,0 +1,73 @@
+// I change the background color of body for this page using jquery in application.js
+
+#why-hire-chang {
+  padding-top: 40px;
+
+  .container {
+    width: 940px;
+  }
+
+  #exit-sign-container {
+    margin: 0 0 30px 160px;
+
+    img {
+      width: 115px;
+    }
+  }
+
+  #tv-container {
+    margin-bottom: 15px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+
+    img {
+      position: absolute;
+      left: 175px;
+
+      width: 560px;
+    }
+  }
+
+  #vcr-player {
+    position: relative;
+    text-align: center;
+
+    img {
+      width: 560px;
+    }
+
+    #video-slot{
+      position: absolute;
+      
+      height: 96px;
+      width: 560px;
+      
+      left: 175px;
+      top: 0px;
+    }
+  }
+
+  #phone-container{
+    cursor: pointer;
+    margin: 0 0 0 470px;
+
+    img {
+      width: 180px;
+    }
+  }
+
+  #phone-in-hand-container {
+    overflow: visible;
+    position: relative;
+
+    img {
+      display: none;
+      position: absolute;
+
+      top: -480px;
+      right: 200px;
+    }
+  }
+
+}
