@@ -21,6 +21,10 @@
     float: none;
   }
 
+  #add-project-form {
+    display: none;
+  }
+
   .date {
     font-size: 12px;
     font-weight: 200;
@@ -42,24 +46,6 @@
         font-weight: 200;
       }
     }
-  }
-
-  .jumbotron {
-    margin-bottom: 15px;
-    padding: 30px 0px 15px;
-
-    #home-main-image {
-      background-color: aliceblue;
-      border: 1px solid black;
-      margin-bottom: 15px;
-      overflow: hidden;
-      padding: 10px;
-
-    }
-  }
-
-  .most-recently-updated-projects-header {
-    margin-bottom: 10px;
   }
 
   .portfolio-project {
