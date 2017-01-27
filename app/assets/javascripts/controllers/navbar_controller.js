@@ -1,4 +1,4 @@
-app.controller('NavCtrl', ['$scope', 'Auth', '$rootScope', '$state', function($scope, Auth, $rootScope, $state){
+app.controller('NavCtrl', ['$scope', 'Auth', '$rootScope', '$state', '$location', function($scope, Auth, $rootScope, $state, $location){
   $scope.signedIn = Auth.isAuthenticated;
   $scope.logout = function(){
     Auth.logout().then(function(oldUser){
@@ -6,25 +6,11 @@ app.controller('NavCtrl', ['$scope', 'Auth', '$rootScope', '$state', function($s
       // but if I don't have this code here, then for some reason
       // If I do a browser refresh, the browser thinks i'm still logged in.
       console.log( "Logged Out" );
+      $state.go( $location.$$url.split("/")[1] );
+      $rootScope.user = undefined
     }, function(error){
       console.log( "Error" );
     });
   };
 
-  Auth.currentUser().then(function (user){
-    $rootScope.user = user
-  });
-
-  $scope.$on('devise:new-registration', function (e, user){
-    $rootScope.user = user
-  });
-
-  $scope.$on('devise:login', function (e, user){
-    $rootScope.user = user
-  });
-
-  // This is broadcast supposedly
-  $scope.$on('devise:logout', function (e, user){
-    $rootScope.user = undefined
-  });
 }])

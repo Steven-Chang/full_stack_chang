@@ -18,8 +18,22 @@ var app = angular.module('app', [
 			resolve: {
 				projects: function(Restangular){
 					return Restangular.all('projects').getList()
-						.then(function(businesses){
-							return businesses;
+						.then(function(projects){
+							return projects;
+      			});
+				}
+			}
+		})
+
+		.state('projects', {
+			url: '/projects',
+			templateUrl: 'views/projects.html',
+			controller: 'ProjectsController',
+			resolve: {
+				projects: function(Restangular){
+					return Restangular.all('projects').getList()
+						.then(function(projects){
+							return projects;
       			});
 				}
 			}
