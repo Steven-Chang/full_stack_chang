@@ -55,12 +55,13 @@
     }
 
     .project-image {
-      height: 256px;
+      max-height: 256px;
       overflow: hidden;
 
       img {
         height: auto;
         max-width: 343px;
+        width: 100%;
       }
     }
   }
