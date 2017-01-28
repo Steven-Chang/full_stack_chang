@@ -1,28 +1,39 @@
-<nav class="navbar navbar-default navbar-static-top" id="navbar">
-  <div class="container">
+<nav class="navbar navbar-default" id="navbar">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    </div>
 
     <a ui-sref="home">
-      <div id="logo" class="navbar-shadow" style="display:inline-block">
+      <div id="logo" class="navbar-shadow">
         <div class="glyphicon glyphicon-tasks chips"></div>
       </div>
 
-      <div id="headers-container">
-        <h3 class="navbar-shadow" id="navbar-header">
+      <div id="navbar-header">
+        <h3 class="navbar-shadow">
           Steven Chang
         </h3>
-        <div class="sub-header navbar-shadow">
-          <div>
-            Full Stack Developer
-          </div>
+      </div>
+
+      <div class="navbar-shadow" id="sub-header">
+        <div>
+          Full Stack Developer
         </div>
       </div>
     </a>
 
-    <h3 class="navbar-shadow" id="navbar-options">
-
-      <a ui-sref="home" ng-show="signedIn()" ng-click="logout()" class="glyphicon glyphicon-log-out navbar-option"></a>
-
-      <a ui-sref="login" ng-hide="signedIn()" class="glyphicon glyphicon-log-in navbar-option"></a>
+    <div class="navbar-collapse collapse navbar-shadow navbar-right" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a ui-sref="portfolio"><span class="glyphicon glyphicon-book"></span> Portfolio</a></li>
+          <li><a ui-sref="login" ng-hide="signedIn()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="#" ng-show="signedIn()" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>Logout</a>  </li>
+        </ul>
     </div>
-  </h3>
+
+  </div>
 </nav>

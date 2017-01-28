@@ -1,4 +1,4 @@
-app.controller('ProjectsController', ['$scope', '$timeout', 'Auth', 'projects', function($scope, $timeout, Auth, projects){
+app.controller('PortfolioController', ['$scope', '$timeout', 'Auth', 'projects', function($scope, $timeout, Auth, projects){
 
 	// --------------------
 	// Private

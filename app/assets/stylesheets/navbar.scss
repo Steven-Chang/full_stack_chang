@@ -1,19 +1,27 @@
 #navbar {
   background-color: #44749D;
+  min-height: 65px;
   
-  .container {
-    position: relative;
+  .container-fluid {
 
-    #logo {
-      height: 60px;
-    }
+    .navbar-header {
+      min-height: 63px;
 
-    .chips {
-      color: orange;
-      font-size: 47px;
+      .navbar-toggle {
+        border-color: white;
+        margin-top: 15px;
+        span {
+          background-color: white;
+        }
+      }
 
-      position: absolute;
-      top: 10px;
+      .navbar-toggle:focus {
+          background-color: #44749D;
+      }
+
+      .navbar-toggle:hover {
+          background-color: #44749D;
+      }
     }
 
     .navbar-shadow {
@@ -22,38 +30,51 @@
              0px 18px 23px rgba(0,0,0,0.1);
     }
 
-    #headers-container {
-      display: inline-block;
-      margin-left: 50px;
-      vertical-align: top;
 
-      #navbar-header {
+    #logo {
+      position: absolute;
+      top: 10px;
+
+      .chips {
+        color: orange;
+        font-size: 47px;
+      }
+    }
+
+    #navbar-header {
+      position: absolute;
+      top: -10px;
+      left: 70px;
+
+      h3 {
         color: #ffff00;
         font-weight: 400;
-        margin-top: 9px;
       }
     }
 
-    #navbar-options {
-      position: absolute;
-      top: -1px;
-      right: 15px;
-
-      a {
-        color: #fff;
-        font-size: 20px;
-      }
-
-      .navbar-option {
-        margin-left: 8px;
-      }
-    }
-
-    .sub-header {
+    #sub-header {
       color: #85bb65;
       font-size: 14px;
-      margin-bottom: 10px;
-      margin-top: -10px;
+      position: absolute;
+      top: 35px;
+      left: 70px;
+    }
+
+    #myNavbar {
+      background-color: #44749D;
+
+      ul {
+        margin-top: 5px;
+
+        span {
+          margin-right: 5px;
+        }
+      }
+
+      a {
+        color: #ffff00;
+        font-weight: 400;
+      }
     }
   }
 };

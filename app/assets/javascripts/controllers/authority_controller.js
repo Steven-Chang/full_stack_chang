@@ -1,4 +1,4 @@
-app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', function($scope, $rootScope, Auth, $state){
+app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', '$window', function($scope, $rootScope, Auth, $state, $window){
     var config = {headers: {'X-HTTP-Method-Override': 'POST'}}
 
     $scope.user = {
@@ -10,7 +10,7 @@ app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', func
     $scope.register = function(){
       Auth.register($scope.user, config).then(function(user){
         $rootScope.user = user
-        $state.go('home');
+        $window.history.back();
       }, function(response){
         console.log("Error");
       });
@@ -19,9 +19,10 @@ app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', func
     $scope.login = function(){
       Auth.login($scope.user, config).then(function(user){
         $rootScope.user = user
-        $state.go('home');
+        $window.history.back();
       }, function(response){
         console.log("Error");
       });
     }
+
   }])

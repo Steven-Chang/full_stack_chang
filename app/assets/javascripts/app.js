@@ -25,10 +25,10 @@ var app = angular.module('app', [
 			}
 		})
 
-		.state('projects', {
-			url: '/projects',
-			templateUrl: 'views/projects.html',
-			controller: 'ProjectsController',
+		.state('portfolio', {
+			url: '/portfolio',
+			templateUrl: 'views/portfolio.html',
+			controller: 'PortfolioController',
 			resolve: {
 				projects: function(Restangular){
 					return Restangular.all('projects').getList()
