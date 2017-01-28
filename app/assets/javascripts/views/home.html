@@ -49,16 +49,16 @@
     <li class="col-md-4 col-sm-6" ng-repeat="post in blogPosts | orderBy : 'date_added' : true">
       <div class="portfolio-project">
         <div class="project-header">
-          <h4>{{ project.title }}</h4>
+          <h4>{{ post.title }}</h4>
           <div class="date">
-            {{ project.date_added | date:'mediumDate' }}
+            {{ post.date_added | date:'mediumDate' }}
           </div>
         </div>
         <div class="project-image">
-          <img ng-src="{{ project.image_url }}">
+          <img ng-src="{{ post.image_url }}">
         </div>
         <div class="project-description">
-          {{ project.description }}
+          {{ post.description }}
         </div>
       </div>
     </li>
