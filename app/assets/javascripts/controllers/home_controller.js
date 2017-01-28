@@ -1,8 +1,10 @@
-app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'projects', function($scope, $timeout, Auth, projects){
+app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', function($scope, $timeout, Auth, blogPosts){
 
 	// --------------------
 	// Private
 	// --------------------
+
+  var projects = blogPosts;
 
 	// --------------------
 	// Public

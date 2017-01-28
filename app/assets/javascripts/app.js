@@ -7,19 +7,19 @@ var app = angular.module('app', [
 ])
 
 .config(function($stateProvider, $urlRouterProvider){
-	$urlRouterProvider.otherwise('/home')
+	$urlRouterProvider.otherwise('/')
 
 	$stateProvider
 
 		.state('home', {
-			url: '/home',
+			url: '/',
 			templateUrl: 'views/home.html',
 			controller: 'HomeController',
 			resolve: {
-				projects: function(Restangular){
-					return Restangular.all('projects').getList()
-						.then(function(projects){
-							return projects;
+				blogPosts: function(Restangular){
+					return Restangular.all('blog_posts').getList()
+						.then(function(blogPosts){
+							return blogPosts;
       			});
 				}
 			}
