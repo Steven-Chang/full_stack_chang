@@ -4,31 +4,31 @@
     <div class="col-xs-12">
       <!-- Form to add projects in easily. -->
       <a href="#">
-        <h4 ng-click="addProjectFormVisible = !addProjectFormVisible; slideToggleAddProjectForm();">Add a new project 
-          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addProjectFormVisible"></span>
-          <span class="glyphicon glyphicon-triangle-top" ng-show="addProjectFormVisible"></span>
+        <h4 ng-click="addBlogPostsFormVisible = !addBlogPostsFormVisible; slideToggleAddBlogPostForm();">Add a new post 
+          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addBlogPostsFormVisible"></span>
+          <span class="glyphicon glyphicon-triangle-top" ng-show="addBlogPostsFormVisible"></span>
         </h4>
       </a>
-      <form ng-submit="newProjectHub.createNewProject()" id="add-project-form">
+      <form ng-submit="newBlogPostHub.createNewBlogPost()" id="add-blog-post-form">
 
         <div class="field">
-          <input class="form-control" ng-model="newProjectHub.title" placeholder="Project Title" required>
+          <input class="form-control" ng-model="newBlogPostHub.title" placeholder="Title" required>
         </div>
 
         <div class="field">
-          <textarea class="form-control" rows="4" ng-model="newProjectHub.description" placeholder="Description" required></textarea>
+          <textarea class="form-control" rows="4" ng-model="newBlogPostHub.description" placeholder="Description" required></textarea>
         </div>
 
         <div class="field">
-          <input class="form-control" ng-model="newProjectHub.url" placeholder="Link e.g. #/tetris">
+          <input type="text" data-provide='datepicker' class="form-control" id="date-picker" ng-model="newBlogPostHub.dateAdded" placeholder="Date Added">
         </div>
 
         <div class="field">
-          <input type="text" data-provide='datepicker' class="form-control" id="date-picker" ng-model="newProjectHub.dateAdded" placeholder="Date Added">
+          <input type="text" class="form-control" ng-model="newBlogPostHub.imageUrl" placeholder="Cover Image Address">
         </div>
 
         <div class="field">
-          <input type="text" class="form-control" ng-model="newProjectHub.imageUrl" placeholder="Cover Image Address">
+          <input class="form-control" ng-model="newBlogPostHub.youtubeUrl" placeholder="Youtube Url">
         </div>
 
         <div class="field">
@@ -46,20 +46,16 @@
   </div>
 
   <ul class="list-grid row">
-    <li class="col-md-4 col-sm-6" ng-repeat="project in projects | orderBy : 'date_added' : true">
+    <li class="col-md-4 col-sm-6" ng-repeat="post in blogPosts | orderBy : 'date_added' : true">
       <div class="portfolio-project">
         <div class="project-header">
-          <a ng-href="{{ project.url }}">
-            <h4>{{ project.title }}</h4>
-          </a>
+          <h4>{{ project.title }}</h4>
           <div class="date">
             {{ project.date_added | date:'mediumDate' }}
           </div>
         </div>
         <div class="project-image">
-          <a ng-href="{{ project.url }}">
-            <img ng-src="{{ project.image_url }}">
-          </a>
+          <img ng-src="{{ project.image_url }}">
         </div>
         <div class="project-description">
           {{ project.description }}

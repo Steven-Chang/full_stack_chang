@@ -1,7 +1,7 @@
 class BlogPostsController < ApplicationController
 
   def index
-    blog_posts = Project.all
+    blog_posts = BlogPost.all
 
     respond_to do |format|
       format.json { render :json => blog_posts, :status => 200 }
