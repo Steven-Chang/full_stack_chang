@@ -54,8 +54,8 @@
             {{ post.date_added | date:'mediumDate' }}
           </div>
         </div>
-        <div class="project-image-frame">
-          <div class="project-image">
+        <div class="project-image-frame" id="{{'project-image-frame-' + $index}}">
+          <div class="project-image" ng-click="initiateVideo($index, post.youtube_url)">
             <img ng-src="{{ post.image_url }}">
           </div>
         </div>
