@@ -41,11 +41,12 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', fun
   $scope.blogPosts = blogPosts;
 
   $scope.initiateVideo = function( index, youtubeUrl ){
-    var youtubeUrl = youtubeUrl.replace("watch?v=", "v/");
-    var youtubeUrl = "<iframe src=\"" + youtubeUrl + "?rel=0&autoplay=1" + "\" frameborder=\"0\" allowfullscreen></iframe>";
-    var divId = "#project-image-frame-" + index;
     if ( youtubeUrl ){
+      var youtubeUrl = youtubeUrl.replace("watch?v=", "v/");
+      var youtubeUrl = "<iframe src=\"" + youtubeUrl + "?rel=0&autoplay=1" + "\" frameborder=\"0\" allowfullscreen></iframe>";
+      var divId = "#project-image-frame-" + index;
       $( divId ).html(youtubeUrl);
+      $( divId ).css({"width": "100%", "max-width": "343px", "height": "200px"});
     };
   };
 
