@@ -16,7 +16,21 @@
  *= require_self
 
 */
+
 @import "bootstrap-sprockets";
+
+// https://github.com/twbs/bootstrap-sass
+// You can override these by simply redefining the variable before the @import directive
+// $screen-xs: 0px;
+// $screen-sm: 480px;
+// $screen-md: 768px;
+// $screen-lg: 992px;
+
+// Point at which the navbar becomes uncollapsed.
+// $grid-float-breakpoint: @screen-sm-min;
+
+// Point at which the navbar begins collapsing.
+// $grid-float-breakpoint-max: (@grid-float-breakpoint - 1)
 @import "bootstrap";
 
 html {

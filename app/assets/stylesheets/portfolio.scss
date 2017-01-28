@@ -3,10 +3,6 @@
     margin: 0 0 1px 0;
   }
 
-  img {
-    width: 100%;
-  }
-
   ul.list-grid {
     display: block;
     list-style: none;
@@ -51,10 +47,21 @@
   .portfolio-project {
     margin-bottom: 10px;
 
-    .project-image {
+    .project-image-frame {
       border: 1px solid lightgray;
+      display: inline-block;
       margin-bottom: 8px;
-      padding: 2px;
+      padding: 3px;
+    }
+
+    .project-image {
+      height: 256px;
+      overflow: hidden;
+
+      img {
+        height: auto;
+        max-width: 343px;
+      }
     }
   }
 }

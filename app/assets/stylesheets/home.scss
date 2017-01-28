@@ -51,10 +51,21 @@
   .portfolio-project {
     margin-bottom: 10px;
 
-    .project-image {
+    .project-image-frame {
       border: 1px solid lightgray;
+      display: inline-block;
       margin-bottom: 8px;
-      padding: 2px;
+      padding: 3px;
+    }
+
+    .project-image {
+      height: 256px;
+      overflow: hidden;
+
+      img {
+        height: auto;
+        max-width: 343px;
+      }
     }
   }
 }
