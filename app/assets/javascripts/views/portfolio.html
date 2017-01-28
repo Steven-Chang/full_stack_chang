@@ -49,18 +49,16 @@
     <li class="col-md-4 col-sm-6" ng-repeat="project in projects | orderBy : 'date_added' : true">
       <div class="portfolio-project">
         <div class="project-header">
-          <a ng-href="{{ project.url }}">
-            <h4>{{ project.title }}</h4>
-          </a>
+          <h4><a ng-href="{{ project.url }}">{{ project.title }}</a></h4>
           <div class="date">
             {{ project.date_added | date:'mediumDate' }}
           </div>
         </div>
-        <div class="project-image">
-          <a ng-href="{{ project.url }}">
+        <a ng-href="{{ project.url }}">
+          <div class="project-image">
             <img ng-src="{{ project.image_url }}">
-          </a>
-        </div>
+          </div>
+        </a>
         <div class="project-description">
           {{ project.description }}
         </div>
