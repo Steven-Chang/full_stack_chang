@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170128071302) do
+ActiveRecord::Schema.define(version: 20170129034505) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 20170128071302) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "blog_posts_tags", id: false, force: :cascade do |t|
+    t.integer "blog_post_id"
+    t.integer "tag_id"
+  end
+
+  add_index "blog_posts_tags", ["blog_post_id"], name: "index_blog_posts_tags_on_blog_post_id"
+  add_index "blog_posts_tags", ["tag_id"], name: "index_blog_posts_tags_on_tag_id"
 
   create_table "levels", force: :cascade do |t|
     t.integer  "score_id",   null: false
@@ -60,6 +68,12 @@ ActiveRecord::Schema.define(version: 20170128071302) do
   end
 
   add_index "scores", ["project_id"], name: "index_scores_on_project_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "tag",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
