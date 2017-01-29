@@ -15,6 +15,7 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', fun
   $scope.newBlogPostHub = {
   	description: "",
   	imageUrl: "",
+    tags: ["asdf", "Sanzxcvzxta", "Czxcvzxcvruz", "Sandfjdfta", "Cruz", "Scbvncnta", "Cfhjgfhjruz", "Sancvbcvta", "Crucvbncvz", "Santdghdfha", "Crucvbncvnz", "Sandfghdfta", "Crucvbncbvz", "Santcvbncvna", "Crcvbncvuz", "Sancbncvta", "Crucvbncz", "Santcbvncva", "Ccvbncvnbuz"],
   	title: "",
   	youtubeUrl: "",
   	dateAdded: "",
@@ -35,7 +36,10 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', fun
           $scope.newBlogPostHub.postingNewBlogPost = false;
         });
       };
-  	}
+  	},
+    removeTag: function( index ){
+      this.tags.splice(index, 1);
+    }
   };
 
   $scope.blogPosts = blogPosts;

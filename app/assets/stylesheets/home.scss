@@ -25,6 +25,29 @@
 
   #add-blog-post-form {
     display: none;
+    #form-tag-container {
+      height: auto;
+
+      .tag-container {
+        display: inline-block;
+        margin-bottom: 4px;
+        margin-right: 4px;
+        padding: 2px;
+        border: 1px solid lightgrey;
+
+        span {
+          color: #337ab7;
+          font-size: 12px;
+        }
+      }
+    }
+
+    #plus-sign {
+      color: #337ab7;
+      position: absolute;
+      top: 9px;
+      right: 9px;
+    }
   }
 
   .project-description {

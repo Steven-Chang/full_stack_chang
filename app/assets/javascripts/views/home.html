@@ -31,6 +31,17 @@
           <input class="form-control" ng-model="newBlogPostHub.youtubeUrl" placeholder="Youtube Url">
         </div>
 
+        <div class="field" style="position: relative;">
+          <input class="form-control" placeholder="Tag">
+          <div class="glyphicon glyphicon-plus" id="plus-sign"></div>
+        </div>
+
+        <div class="field" ng-show="newBlogPostHub.tags.length">
+          <div class="form-control" id="form-tag-container">
+            <div class="tag-container" ng-repeat="tag in newBlogPostHub.tags">{{ tag }} <span class="glyphicon glyphicon-remove" ng-click="newBlogPostHub.removeTag($index)"></span></div>
+          </div>
+        </div>
+
         <div class="field">
           <input type="submit" value="Create" class="btn btn-info">
         </div>
@@ -54,7 +65,7 @@
             {{ post.date_added | date:'mediumDate' }}
           </div>
         </div>
-        <div class="blog-post-image-frame" id="{{'project-image-frame-' + $index}}">
+        <div class="blog-post-image-frame" id="{{'project-image-frame-' + $index}}" ng-show="post.image_url">
           <div class="blog-post-image">
             <img ng-src="{{ post.image_url }}">
           </div>

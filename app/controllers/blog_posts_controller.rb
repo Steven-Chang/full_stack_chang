@@ -17,6 +17,13 @@ class BlogPostsController < ApplicationController
     end
   end
 
+  # Gotta figure out the deleting of tags on destroy
+  # The key is to destroy all tags that aren't being used anymore
+  # tags.each do |tag| if tag.blog_posts.empty? tag.destroy end
+  def destroy
+
+  end
+
   private
 
   def post_params
