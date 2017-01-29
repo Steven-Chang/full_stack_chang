@@ -27,40 +27,53 @@
     display: none;
   }
 
-  .date {
-    font-size: 12px;
-    font-weight: 200;
-    margin-bottom: 0px;
-  }
-
   .project-description {
     font-size: 13px;
     font-weight: 200;
     padding: 0 3px;
   }
 
-  .project-header {
-    padding: 0 3px;
-    margin-bottom: 5px;
+  .blog-post {
+    margin-bottom: 25px;
 
-    a {
+    .blog-post-header {
+      padding: 0 3px;
+      margin-bottom: 5px;
+
       h4 {
         font-weight: 200;
       }
+
+      .date {
+        font-size: 12px;
+        font-weight: 200;
+        margin-bottom: 0px;
+      }
     }
-  }
 
-  .portfolio-project {
-    margin-bottom: 10px;
-
-    .project-image-frame {
+    .blog-post-image-frame {
       border: 1px solid lightgray;
       display: inline-block;
       margin-bottom: 8px;
       padding: 3px;
+      position: relative;
+
+      .play-button-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        height: 60px;
+        width: 60px;
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
     }
 
-    .project-image {
+    .blog-post-image {
       max-height: 256px;
       overflow: hidden;
 

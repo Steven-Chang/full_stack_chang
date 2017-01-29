@@ -41,22 +41,28 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <h5>Blog</h5>
+      <h5>Micro Blog</h5>
     </div>
   </div>
 
   <ul class="list-grid row">
     <li class="col-xs-12 col-md-4 col-sm-6" ng-repeat="post in blogPosts | orderBy : 'date_added' : true">
-      <div class="portfolio-project">
-        <div class="project-header">
+      <div class="blog-post">
+        <div class="blog-post-header">
           <h4>{{ post.title }}</h4>
           <div class="date">
             {{ post.date_added | date:'mediumDate' }}
           </div>
         </div>
-        <div class="project-image-frame" id="{{'project-image-frame-' + $index}}">
-          <div class="project-image" ng-click="initiateVideo($index, post.youtube_url)">
+        <div class="blog-post-image-frame" id="{{'project-image-frame-' + $index}}">
+          <div class="blog-post-image">
             <img ng-src="{{ post.image_url }}">
+          </div>
+
+          <div class="play-button-container" ng-show="post.youtube_url" ng-click="initiateVideo($index, post.youtube_url)">
+            <a href="#">
+              <img src="http://orig15.deviantart.net/3967/f/2014/046/c/f/simplistic_play_icon__ico__png__by_micahpkay-d6opha8.png">
+            </a>
           </div>
         </div>
         <div class="project-description">
