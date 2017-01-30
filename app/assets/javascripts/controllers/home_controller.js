@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', function($scope, $timeout, Auth, blogPosts){
+app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', 'Restangular', function($scope, $timeout, Auth, blogPosts, Restangular){
 
 	// --------------------
 	// Private
@@ -81,6 +81,13 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', fun
       $( divId ).html(youtubeUrl);
       $( divId ).css({"width": "100%", "max-width": "343px", "height": "200px"});
     };
+  };
+
+  $scope.retrieveAllBlogPostsViaTag = function( tag ){
+    Restangular.all('blog_posts').getList([tag])
+            .then(function(blogPosts){
+              $scope.blogPosts = blogPosts;
+            });
   };
 
   $timeout(function(){

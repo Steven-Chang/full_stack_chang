@@ -1,7 +1,16 @@
 class BlogPostsController < ApplicationController
 
   def index
-    blog_posts = BlogPost.all
+    if params["0"]
+      tag = params["0"]
+      tags = Tag.where('lower(tag) = ?', tag.downcase)
+      blog_posts = []
+      tags.each do |t|
+        blog_posts += t.blog_posts
+      end
+    else
+      blog_posts = BlogPost.all
+    end
 
     respond_to do |format|
       format.json { render :json => blog_posts.to_json(:include => :tags), :status => 200 }
@@ -14,8 +23,8 @@ class BlogPostsController < ApplicationController
 
     params[:tags].each do |tag|
       Tag.where(:tag => tag).first_or_create do |t|
-        blog_post.tags << t
       end
+      blog_post.tags << Tag.where(:tag => tag).first
     end
 
     respond_to do |format|
