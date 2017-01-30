@@ -34,7 +34,7 @@
         <div class="field" style="position: relative;">
           <input class="form-control" placeholder="Tag" ng-model="newBlogPostHub.tag" ng-keypress="newBlogPostHub.addTagOnKeyPress($event);">
 
-          <div class="glyphicon glyphicon-plus" id="plus-sign" ng-click="newBlogPostHub.addTag()"></div>
+          <div class="glyphicon glyphicon-plus" id="plus-sign" ng-click="newBlogPostHub.addTagAndReset()"></div>
         </div>
 
         <div class="field" ng-show="newBlogPostHub.tags.length">

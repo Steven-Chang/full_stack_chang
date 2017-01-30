@@ -21,24 +21,18 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', fun
   	youtubeUrl: "",
   	dateAdded: "",
     postingNewBlogPost: false,
-    addTag: function(){
-      if (this.tag.length){
+    addTagAndReset: function(){
+      this.removeWhiteSpacesFromTag();
+      if (this.tag.length && this.tagIsUnique()){
         this.tags.push(this.tag);
-        this.tag = "";
       };
+      this.tag = "";
     },
     // keyCode 13 === Enter
     addTagOnKeyPress: function($event){
-      // Stop the form from sending.
-      $timeout(function(){
-        $scope.newBlogPostHub.tag = $scope.newBlogPostHub.tag.replace(/ /g,'');
-      }, 1);
       if ($event.keyCode === 13){
         $event.preventDefault();
-        if (this.tag.length){
-          this.tags.push( this.tag );
-          this.tag = "";
-        };
+        this.addTagAndReset();
       };
     },
   	createNewBlogPost: function(){
@@ -60,6 +54,12 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', fun
   	},
     removeTag: function( index ){
       this.tags.splice(index, 1);
+    },
+    removeWhiteSpacesFromTag: function(){
+      $scope.newBlogPostHub.tag = $scope.newBlogPostHub.tag.replace(/ /g,'');
+    },
+    tagIsUnique: function(){
+      return this.tags.findIndex( item => this.tag.toLowerCase() === item.toLowerCase() ) < 0;
     }
   };
 
