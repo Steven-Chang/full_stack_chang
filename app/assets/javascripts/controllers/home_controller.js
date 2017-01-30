@@ -15,11 +15,32 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', fun
   $scope.newBlogPostHub = {
   	description: "",
   	imageUrl: "",
-    tags: ["asdf", "Sanzxcvzxta", "Czxcvzxcvruz", "Sandfjdfta", "Cruz", "Scbvncnta", "Cfhjgfhjruz", "Sancvbcvta", "Crucvbncvz", "Santdghdfha", "Crucvbncvnz", "Sandfghdfta", "Crucvbncbvz", "Santcvbncvna", "Crcvbncvuz", "Sancbncvta", "Crucvbncz", "Santcbvncva", "Ccvbncvnbuz"],
+    tag: "",
+    tags: [],
   	title: "",
   	youtubeUrl: "",
   	dateAdded: "",
     postingNewBlogPost: false,
+    addTag: function(){
+      if (this.tag.length){
+        this.tags.push(this.tag);
+        this.tag = "";
+      };
+    },
+    // keyCode 13 === Enter
+    addTagOnKeyPress: function($event){
+      // Stop the form from sending.
+      $timeout(function(){
+        $scope.newBlogPostHub.tag = $scope.newBlogPostHub.tag.replace(/ /g,'');
+      }, 1);
+      if ($event.keyCode === 13){
+        $event.preventDefault();
+        if (this.tag.length){
+          this.tags.push( this.tag );
+          this.tag = "";
+        };
+      };
+    },
   	createNewBlogPost: function(){
       if ( !$scope.newBlogPostHub.postingNewBlogPost ){
         $scope.newBlogPostHub.postingNewBlogPost = true;
