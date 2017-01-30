@@ -38,7 +38,12 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', fun
   	createNewBlogPost: function(){
       if ( !$scope.newBlogPostHub.postingNewBlogPost ){
         $scope.newBlogPostHub.postingNewBlogPost = true;
-        blogPosts.post({description: $scope.newBlogPostHub.description, image_url: $scope.newBlogPostHub.imageUrl, title: $scope.newBlogPostHub.title, youtube_url: $scope.newBlogPostHub.youtubeUrl, date_added: $scope.newBlogPostHub.dateAdded})
+        blogPosts.post( { description: $scope.newBlogPostHub.description, 
+                          image_url: $scope.newBlogPostHub.imageUrl, 
+                          title: $scope.newBlogPostHub.title, 
+                          youtube_url: $scope.newBlogPostHub.youtubeUrl, 
+                          date_added: $scope.newBlogPostHub.dateAdded, 
+                          tags: $scope.newBlogPostHub.tags } )
         .then(function( result ){
           $scope.blogPosts.push(result);
           $scope.newBlogPostHub.description = "";
@@ -46,6 +51,9 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', fun
           $scope.newBlogPostHub.title = "";
           $scope.newBlogPostHub.youtubeUrl = "";
           $scope.newBlogPostHub.dateAdded = "";
+          $scope.newBlogPostHub.tags = [];
+          $scope.newBlogPostHub.tag = "";
+          console.log( $scope.blogPosts );
         })
         .finally(function(){
           $scope.newBlogPostHub.postingNewBlogPost = false;

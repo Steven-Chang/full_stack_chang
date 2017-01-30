@@ -4,7 +4,7 @@ class BlogPostsController < ApplicationController
     blog_posts = BlogPost.all
 
     respond_to do |format|
-      format.json { render :json => blog_posts, :status => 200 }
+      format.json { render :json => blog_posts.to_json(:include => :tags), :status => 200 }
     end
   end
 
@@ -12,8 +12,14 @@ class BlogPostsController < ApplicationController
     blog_post = BlogPost.new(post_params)
     blog_post.save
 
+    params[:tags].each do |tag|
+      Tag.where(:tag => tag).first_or_create do |t|
+        blog_post.tags << t
+      end
+    end
+
     respond_to do |format|
-      format.json { render :json => blog_post, :status => 200 }
+      format.json { render :json => blog_post.to_json(:include => :tags), :status => 200 }
     end
   end
 

@@ -50,12 +50,6 @@
     }
   }
 
-  .project-description {
-    font-size: 13px;
-    font-weight: 200;
-    padding: 0 3px;
-  }
-
   .blog-post {
     margin-bottom: 25px;
 
@@ -81,10 +75,21 @@
       padding: 3px;
       position: relative;
 
+      .blog-post-image {
+        max-height: 256px;
+        overflow: hidden;
+
+        img {
+          height: auto;
+          max-width: 343px;
+          width: 100%;
+        }
+      }
+
       .play-button-container {
         position: absolute;
-        bottom: 0;
-        left: 0;
+        bottom: 5px;
+        left: 5px;
 
         height: 60px;
         width: 60px;
@@ -96,14 +101,15 @@
       }
     }
 
-    .blog-post-image {
-      max-height: 256px;
-      overflow: hidden;
+    .blog-post-description {
+      font-size: 14px;
+      font-weight: 200;
+      padding: 0 3px;
+    }
 
-      img {
-        height: auto;
-        max-width: 343px;
-        width: 100%;
+    .post-tags {
+      a {
+        font-weight: 200;
       }
     }
   }

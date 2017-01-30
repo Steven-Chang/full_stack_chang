@@ -77,8 +77,11 @@
             </a>
           </div>
         </div>
-        <div class="project-description">
+        <div class="blog-post-description">
           {{ post.description }}
+        </div>
+        <div class="post-tags">
+          <a href="#" ng-click="" ng-repeat="tag in post.tags"> #{{ tag.tag }}</a>
         </div>
       </div>
     </li>
