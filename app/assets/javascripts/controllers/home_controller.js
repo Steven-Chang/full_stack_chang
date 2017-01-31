@@ -37,6 +37,9 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', 'Re
         this.addTagAndReset();
       };
     },
+    returnMatchingTag: function(word){
+      return word.toLowerCase() === $scope.newBlogPostHub.tag.toLowerCase();
+    },
   	createNewBlogPost: function(){
       if ( !$scope.newBlogPostHub.postingNewBlogPost ){
         $scope.newBlogPostHub.postingNewBlogPost = true;
@@ -69,7 +72,7 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', 'Re
       $scope.newBlogPostHub.tag = $scope.newBlogPostHub.tag.replace(/ /g,'');
     },
     tagIsUnique: function(){
-      return this.tags.findIndex( item => this.tag.toLowerCase() === item.toLowerCase() ) < 0;
+      return !this.tags.find(this.returnMatchingTag)
     }
   };
 

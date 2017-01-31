@@ -1,20 +1,20 @@
-<div navbar-and-container>
+<div header-and-bootstrapped>
 
-  <h4>Admin Log in</h4>
+  <h4>Sign up</h4>
 
-  <form ng-submit="login()">
+  <form ng-submit="register()">
     <div class="field">
       <input type="email" class="form-control text-input-width-control" placeholder="Email" ng-model="user.email" autofocus>
     </div>
     <div class="field">
+      <input type="username" class="form-control text-input-width-control" placeholder="Username" ng-model="user.username" autofocus>
+    </div>
+    <div class="field">
       <input type="password" class="form-control text-input-width-control" placeholder="Password" ng-model="user.password">
     </div>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" ng-model="user.remember_me"> Remember Me
-      </label>
+    <div class="actions">
+      <input type="submit" class="btn btn-info" value="Log In">
     </div>
-    <input type="submit" class="btn btn-info" value="Log In">
   </form>
 
 </div>
