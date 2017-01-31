@@ -12,7 +12,7 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', 'Re
   $scope.signedIn = Auth.isAuthenticated;
   $scope.addBlogPostsFormVisible = false;
   $scope.stackText = "{ backEnd : RUBY ON RAILS, frontEnd : ANGULAR }";
-  $scope.theAimText = "theAim = [ FUN, FUNCTIONAL, HIGH QUALITY ]"
+  $scope.theAimText = "theAim = [ FUN, FUNCTIONAL, DIFFERENT ]"
 
   $scope.newBlogPostHub = {
   	description: "",
