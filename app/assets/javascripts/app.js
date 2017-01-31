@@ -6,7 +6,7 @@ var app = angular.module('app', [
 	'youtube-embed'
 ])
 
-.config(function($stateProvider, $urlRouterProvider){
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 	$urlRouterProvider.otherwise('/')
 
 	$stateProvider
@@ -92,7 +92,7 @@ var app = angular.module('app', [
 			controller: 'WhyHireChangController'
 		})
 
-})
+}])
 
 .config(
   ['RestangularProvider',
