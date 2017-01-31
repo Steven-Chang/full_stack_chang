@@ -11,7 +11,7 @@
           {{ theAimText }}
         </div>
         <div id="linked-in-image">
-          <a href="https://www.linkedin.com/in/steven-chang-863a68b2?trk=hp-identity-name">
+          <a ng-href="https://www.linkedin.com/in/steven-chang-863a68b2?trk=hp-identity-name">
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="home-banner-text">
           </a>
         </div>
@@ -23,12 +23,10 @@
     <div class="row" ng-show="signedIn()">
       <div class="col-xs-12">
         <!-- Form to add projects in easily. -->
-        <a href="#">
-          <h4 ng-click="addBlogPostsFormVisible = !addBlogPostsFormVisible; slideToggleAddBlogPostForm();">Add a new post 
-            <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addBlogPostsFormVisible"></span>
-            <span class="glyphicon glyphicon-triangle-top" ng-show="addBlogPostsFormVisible"></span>
-          </h4>
-        </a>
+        <h4 ng-click="addBlogPostsFormVisible = !addBlogPostsFormVisible; slideToggleAddBlogPostForm();" class="fake-link">Add a new post 
+          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addBlogPostsFormVisible"></span>
+          <span class="glyphicon glyphicon-triangle-top" ng-show="addBlogPostsFormVisible"></span>
+        </h4>
         <form ng-submit="newBlogPostHub.createNewBlogPost()" id="add-blog-post-form">
 
           <div class="field">
@@ -92,16 +90,14 @@
             </div>
 
             <div class="play-button-container" ng-show="post.youtube_url" ng-click="initiateVideo($index, post.youtube_url)">
-              <a href="#">
-                <img src="http://res.cloudinary.com/digguide/image/upload/s--65APZZ7U--/c_scale,w_105/v1485650789/Personal%20Site/simplistic_play_icon__ico__png__by_micahpkay-d6opha8.png">
-              </a>
+              <img src="http://res.cloudinary.com/digguide/image/upload/s--65APZZ7U--/c_scale,w_105/v1485650789/Personal%20Site/simplistic_play_icon__ico__png__by_micahpkay-d6opha8.png" class="fake-link">
             </div>
           </div>
           <div class="blog-post-description">
             {{ post.description }}
           </div>
           <div class="post-tags">
-            <a href="#" ng-repeat="tag in post.tags" ng-click="retrieveAllBlogPostsViaTag(tag.tag)"> #{{ tag.tag }}</a>
+            <a ng-href="#" ng-repeat="tag in post.tags" ng-click="retrieveAllBlogPostsViaTag(tag.tag); $event.preventDefault();"> #{{ tag.tag }}</a>
           </div>
         </div>
       </li>
