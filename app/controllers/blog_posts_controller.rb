@@ -21,7 +21,7 @@ class BlogPostsController < ApplicationController
     blog_post = BlogPost.new(post_params)
     blog_post.save
 
-    if params[:tags].length
+    if params[:tags]
       params[:tags].each do |tag|
         Tag.where(:tag => tag).first_or_create do |t|
         end
