@@ -16,12 +16,12 @@ var app = angular.module('app', [
 			templateUrl: 'views/home.html',
 			controller: 'HomeController',
 			resolve: {
-				blogPosts: function(Restangular){
+				blogPosts: ['Restangular', function(Restangular){
 					return Restangular.all('blog_posts').getList()
 						.then(function(blogPosts){
 							return blogPosts;
       			});
-				}
+				}]
 			}
 		})
 
@@ -30,12 +30,12 @@ var app = angular.module('app', [
 			templateUrl: 'views/portfolio.html',
 			controller: 'PortfolioController',
 			resolve: {
-				projects: function(Restangular){
+				projects: ['Restangular', function(Restangular){
 					return Restangular.all('projects').getList()
 						.then(function(projects){
 							return projects;
       			});
-				}
+				}]
 			}
 		})
 
@@ -43,11 +43,11 @@ var app = angular.module('app', [
 			url: '/login',
 			templateUrl: 'views/login.html',
 			controller: 'AuthController',
-			onEnter: function(Auth, $state){
+			onEnter: ['Auth', '$state', function(Auth, $state){
 				if ( Auth.isAuthenticated() ){
 					$state.go('home');
 				};
-			}
+			}]
 		})
 
 		.state('register', {
@@ -55,20 +55,20 @@ var app = angular.module('app', [
 			templateUrl: 'views/register.html',
 			controller: 'AuthController',
 			resolve: {
-				numberOfUsers: function(Restangular){
+				numberOfUsers: ['Restangular', function(Restangular){
 					return Restangular.oneUrl('number_of_users').get()
 						.then(function(response){
 							return response.number_of_users;
       			});
-      	}
+      	}]
 			},
-			onEnter: function(Auth, $state, numberOfUsers){
+			onEnter: ['Auth', '$state', 'numberOfUsers', function(Auth, $state, numberOfUsers){
 				if ( Auth.isAuthenticated() ){
 					$state.go('dashboard');
 				} else if ( numberOfUsers >= 1 ){
 					$state.go('home');
 				};
-			}
+			}]
 		})
 
 		.state('tetris', {
