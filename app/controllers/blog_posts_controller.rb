@@ -21,14 +21,16 @@ class BlogPostsController < ApplicationController
     blog_post = BlogPost.new(post_params)
     blog_post.save
 
-    params[:tags].each do |tag|
-      Tag.where(:tag => tag).first_or_create do |t|
+    if params[:tags].length
+      params[:tags].each do |tag|
+        Tag.where(:tag => tag).first_or_create do |t|
+        end
+        blog_post.tags << Tag.where(:tag => tag).first
       end
-      blog_post.tags << Tag.where(:tag => tag).first
-    end
 
-    respond_to do |format|
-      format.json { render :json => blog_post.to_json(:include => :tags), :status => 200 }
+      respond_to do |format|
+        format.json { render :json => blog_post.to_json(:include => :tags), :status => 200 }
+      end
     end
   end
 
