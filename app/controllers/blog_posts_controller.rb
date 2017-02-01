@@ -27,10 +27,10 @@ class BlogPostsController < ApplicationController
         end
         blog_post.tags << Tag.where(:tag => tag).first
       end
+    end
 
-      respond_to do |format|
-        format.json { render :json => blog_post.to_json(:include => :tags), :status => 200 }
-      end
+    respond_to do |format|
+      format.json { render :json => blog_post.to_json(:include => :tags), :status => 200 }
     end
   end
 
