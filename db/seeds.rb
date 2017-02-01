@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 puts "This will not touch any users or projects..."
+puts "This should be run after making the Tetris project and any other games that have scores..."
 puts "Destroying all scores, levels and lines..."
 Score.destroy_all
 
