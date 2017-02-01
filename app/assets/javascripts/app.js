@@ -76,13 +76,13 @@ var app = angular.module('app', [
 			templateUrl: 'views/tetris.html',
 			controller: 'TetrisController',
 			resolve: {
-				highScoresAndAssociations: function( Restangular ){
+				highScoresAndAssociations: ['Restangular', function( Restangular ){
 					return Restangular.all('scores').getList({
 						title: "Tetris"})
 						.then(function( scores ){
 							return scores;
       			});
-				}
+				}]
 			}
 		})
 
