@@ -6,7 +6,6 @@
   iframe {
     height: 100%;
     width: 100%;
-    max-width: 343px;
   }
 
   ul.list-grid {
@@ -17,7 +16,6 @@
   }
 
   ul.list-grid > li {
-    font-size: 14px;
     display: inline-block;
     vertical-align: top;
     float: none;
@@ -114,12 +112,22 @@
       .blog-post-image {
         max-height: 256px;
         overflow: hidden;
+        z-index: 100;
 
         img {
           height: auto;
           max-width: 343px;
           width: 100%;
         }
+      }
+
+      .youtube-container {
+        height: 0px;
+        width: 98%;
+
+        position: absolute;
+        top: 3px;
+        left: 3px;
       }
 
       .play-button-container {

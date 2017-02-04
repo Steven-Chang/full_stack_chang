@@ -13,6 +13,8 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', 'Re
   $scope.addBlogPostsFormVisible = false;
   $scope.stackText = "{ backEnd : RUBY ON RAILS, frontEnd : ANGULAR }";
   $scope.theAimText = "theAim = [ FUN, FUNCTIONAL, DIFFERENT ]"
+  $scope.youTubePlayerVariables = { controls: 0, frameborder: 0, showinfo: 0, rel: 0 
+  };
 
   $scope.newBlogPostHub = {
   	description: "",
@@ -78,14 +80,15 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', 'Re
 
   $scope.blogPosts = blogPosts;
 
-  $scope.initiateVideo = function( index, youtubeUrl ){
-    if ( youtubeUrl ){
-      var youtubeUrl = youtubeUrl.replace("watch?v=", "v/");
-      var youtubeUrl = "<iframe src=\"" + youtubeUrl + "?rel=0&autoplay=1" + "\" frameborder=\"0\" allowfullscreen></iframe>";
-      var divId = "#project-image-frame-" + index;
-      $( divId ).html(youtubeUrl);
-      $( divId ).css({"width": "100%", "max-width": "343px", "height": "200px"});
-    };
+  // I wonder if you can insert it in at 0% and then change the class of it
+  // well i mean switch classes...
+  $scope.initiateVideo = function( index ){
+    // Gotta remove the image container
+    // and increase the size of the container
+    $("#play-button-container-" + index).remove();
+    $("#youtube-container-" + index).css("height", "98%");
+    $("#blog-post-image-"+ index).css("height", "0px");
+    $("#project-image-frame-" + index).css("min-height", "275px");
   };
 
   $scope.retrieveAllBlogPostsViaTag = function( tag ){
