@@ -85,6 +85,7 @@
   }
 
   .blog-post {
+    font-size: 14px;
     margin-bottom: 25px;
 
     .blog-post-header {
@@ -146,14 +147,12 @@
     }
 
     .blog-post-description {
-      font-size: 14px;
       font-weight: 200;
       padding: 0 3px;
     }
 
     .post-tags {
       a {
-        font-size: 14px;
         font-weight: 200;
       }
     }
