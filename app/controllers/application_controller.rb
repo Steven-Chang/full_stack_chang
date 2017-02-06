@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   respond_to :json
 
   def index
+    puts 3
+    puts cookies[:remember_user_token]
     render 'application/index'
   end
 

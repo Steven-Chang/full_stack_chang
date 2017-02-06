@@ -1,5 +1,11 @@
 app.controller('NavCtrl', ['$scope', 'Auth', '$rootScope', '$state', '$location', function($scope, Auth, $rootScope, $state, $location){
   $scope.signedIn = Auth.isAuthenticated;
+
+  Auth.currentUser().then(function (user){
+    $rootScope.user = user
+  });
+
+
   $scope.logout = function(){
     Auth.logout().then(function(oldUser){
       // This should happen automatically and it does
