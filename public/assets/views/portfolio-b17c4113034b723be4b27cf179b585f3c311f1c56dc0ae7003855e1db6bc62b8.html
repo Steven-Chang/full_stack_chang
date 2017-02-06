@@ -1,0 +1,70 @@
+<div navbar-and-container id="portfolio">
+
+  <div class="row" ng-show="signedIn()">
+    <div class="col-xs-12">
+      <!-- Form to add projects in easily. -->
+      <h4 ng-click="addProjectFormVisible = !addProjectFormVisible; slideToggleAddProjectForm();" class="fake-link">Add a new project 
+        <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addProjectFormVisible"></span>
+        <span class="glyphicon glyphicon-triangle-top" ng-show="addProjectFormVisible"></span>
+      </h4>
+      <form ng-submit="newProjectHub.createNewProject()" id="add-project-form">
+
+        <div class="field">
+          <input class="form-control" ng-model="newProjectHub.title" placeholder="Project Title" required>
+        </div>
+
+        <div class="field">
+          <textarea class="form-control" rows="4" ng-model="newProjectHub.description" placeholder="Description" required></textarea>
+        </div>
+
+        <div class="field">
+          <input class="form-control" ng-model="newProjectHub.url" placeholder="Link e.g. #/tetris">
+        </div>
+
+        <div class="field">
+          <input type="text" data-provide='datepicker' class="form-control" id="date-picker" ng-model="newProjectHub.dateAdded" placeholder="Date Added">
+        </div>
+
+        <div class="field">
+          <input type="text" class="form-control" ng-model="newProjectHub.imageUrl" placeholder="Cover Image Address">
+        </div>
+
+        <div class="field">
+          <input type="submit" value="Create" class="btn btn-info">
+        </div>
+      </form>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h5>Portfolio</h5>
+    </div>
+  </div>
+
+  <ul class="list-grid row">
+    <li class="col-xs-12 col-md-4 col-sm-6" ng-repeat="project in projects | orderBy : 'date_added' : true">
+      <div class="portfolio-project">
+        <div class="project-header">
+          <h4><a ng-href="{{ project.url }}">{{ project.title }}</a></h4>
+          <div class="date">
+            {{ project.date_added | date:'mediumDate' }}
+          </div>
+        </div>
+        <a ng-href="{{ project.url }}">
+          <div class="project-image-frame">
+            <div class="project-image">
+              <img ng-src="{{ project.image_url }}">
+            </div>
+          </div>
+        </a>
+        <div class="project-description">
+          {{ project.description }}
+        </div>
+      </div>
+    </li>
+  </ul>
+
+</div>
+
