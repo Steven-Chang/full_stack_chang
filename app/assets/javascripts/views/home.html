@@ -102,9 +102,7 @@
               <youtube-video video-url="post.youtube_url" player-vars="youTubePlayerVariables"  player-height="'100%'" ng-if="post.youtube_url" ></youtube-video>
             </div>
           </div> 
-          <div class="blog-post-description">
-            {{ post.description }}
-          </div>
+          <div class="blog-post-description" style="white-space: pre-wrap;">{{ post.description }}</div>
           <div class="post-tags">
             <a ng-href="#" ng-repeat="tag in post.tags" ng-click="retrieveAllBlogPostsViaTag(tag.tag); $event.preventDefault();"> #{{ tag.tag }}</a>
           </div>
