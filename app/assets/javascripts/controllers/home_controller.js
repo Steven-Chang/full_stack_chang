@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', 'Restangular', function($scope, $timeout, Auth, blogPosts, Restangular){
+app.controller('HomeController', ['$ngConfirm', '$scope', '$timeout', 'Auth', 'blogPosts', 'Restangular', function($ngConfirm, $scope, $timeout, Auth, blogPosts, Restangular){
 
 	// --------------------
 	// Private
