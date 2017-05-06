@@ -80,6 +80,10 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', 'Re
 
   $scope.blogPosts = blogPosts;
 
+  $scope.deleteBlogPost = function(){
+    alert("I'm trying not to make a sound");
+  };
+
   // I wonder if you can insert it in at 0% and then change the class of it
   // well i mean switch classes...
   $scope.initiateVideo = function( index ){
