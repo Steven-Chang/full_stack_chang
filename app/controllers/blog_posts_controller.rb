@@ -38,7 +38,9 @@ class BlogPostsController < ApplicationController
   # The key is to destroy all tags that aren't being used anymore
   # tags.each do |tag| if tag.blog_posts.empty? tag.destroy end
   def destroy
+    BlogPost.find(params[:id]).destroy
 
+    render json: { message: "removed" }, status: :ok
   end
 
   private

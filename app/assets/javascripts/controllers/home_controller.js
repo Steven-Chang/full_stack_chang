@@ -80,8 +80,11 @@ app.controller('HomeController', ['$scope', '$timeout', 'Auth', 'blogPosts', 'Re
 
   $scope.blogPosts = blogPosts;
 
-  $scope.deleteBlogPost = function(){
-    alert("I'm trying not to make a sound");
+  $scope.deleteBlogPost = function(post){
+    post.remove().then(function(){
+      var index = $scope.blogPosts.indexOf(post);
+      if (index > -1) $scope.blogPosts.splice(index, 1);
+    });
   };
 
   // I wonder if you can insert it in at 0% and then change the class of it

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :projects, only: [:index, :create]
   resources :scores, only: [:index, :create]
-  resources :blog_posts, only: [:index, :create]
+  resources :blog_posts, only: [:index, :create, :destroy]
 
   get 'number_of_users' => 'users#return_number_of_users'
   # The priority is based upon order of creation: first created -> highest priority.
