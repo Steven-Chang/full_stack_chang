@@ -81,10 +81,27 @@ app.controller('HomeController', ['$ngConfirm', '$scope', '$timeout', 'Auth', 'b
   $scope.blogPosts = blogPosts;
 
   $scope.deleteBlogPost = function(post){
-    post.remove().then(function(){
-      var index = $scope.blogPosts.indexOf(post);
-      if (index > -1) $scope.blogPosts.splice(index, 1);
-    });
+    $ngConfirm({
+      title: 'Sure you wanna blaze this shit?',
+      content: '',
+      scope: $scope,
+      buttons: {
+        delete: {
+          text: 'Delete',
+          btnClass: 'btn-primary',
+          action: function(scope){
+            post.remove().then(function(){
+              var index = scope.blogPosts.indexOf(post);
+              if (index > -1) scope.blogPosts.splice(index, 1);
+            });
+          }
+        },
+        close: function(scope, button){
+          text: 'Cancel'
+          // close the modal
+        }
+      }
+    })
   };
 
   // I wonder if you can insert it in at 0% and then change the class of it

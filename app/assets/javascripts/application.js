@@ -25,4 +25,8 @@
 
 //= require bootstrap-datepicker
 
+// FOR ANGULAR-CONFIRM
+// https://github.com/craftpip/angular-confirm
+//= require angular-confirm/dist/angular-confirm.min
+
 //= require_tree .
