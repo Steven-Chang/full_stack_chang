@@ -49,38 +49,12 @@
   }
 
   #home-banner {
-    background-color: #00091e;
-    background-image: url("http://res.cloudinary.com/digguide/image/upload/s--IC3myzCE--/v1485791038/Chang_Bear_vzlalx.jpg");
-    background-size: contain;
-    color: white;
-    height: 800px;
-    margin-top: -20px;
-    margin-bottom: 20px;
-    padding: 15px 0 15px 15px;
-    position: relative;
+    margin: 60px 0px;
+    text-align: center;
 
-    .home-banner-text {
-      font-family: montserrat;
-      font-size: 14px;
-      color: #ffff00;
-      margin-bottom: 10px;
-      text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
-             0px 8px 13px rgba(0,0,0,0.1),
-             0px 18px 23px rgba(0,0,0,0.1);
-    }
-
-    #spirit-animal-text {
-
-    }
-    #what-i-want-to-work-on-text {
-      margin-bottom: 15px;
-    }
-    #linked-in-image {
-      width: 40px;
-
-      img {
-        width: 100%;
-      }
+    img {
+      max-width: 100%;
+      max-height: 300px;
     }
   }
 
