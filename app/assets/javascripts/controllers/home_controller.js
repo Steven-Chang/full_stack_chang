@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$ngConfirm', '$scope', '$timeout', 'Auth', 'blogPosts', 'Restangular', function($ngConfirm, $scope, $timeout, Auth, blogPosts, Restangular){
+app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout', 'Auth', 'blogPosts', 'Restangular', function( $filter, $ngConfirm, $scope, $timeout, Auth, blogPosts, Restangular){
 
 	// --------------------
 	// Private
@@ -23,7 +23,7 @@ app.controller('HomeController', ['$ngConfirm', '$scope', '$timeout', 'Auth', 'b
     tags: [],
   	title: "",
   	youtubeUrl: "",
-  	dateAdded: "",
+  	dateAdded: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     postingNewBlogPost: false,
     addTagAndReset: function(){
       this.removeWhiteSpacesFromTag();
