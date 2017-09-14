@@ -44,6 +44,11 @@ group :development, :test do
   gem 'byebug'
 
   gem 'sqlite3'
+  gem 'jasmine-rails'
+  # https://github.com/travisjeffery/sinon-rails
+  gem 'sinon-rails'
+  # To auto test jasmine spec files on saving of any files
+  gem 'guard-jasmine'
 end
 
 group :development do

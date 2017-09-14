@@ -29,4 +29,7 @@
 // https://github.com/craftpip/angular-confirm
 //= require angular-confirm/dist/angular-confirm.min
 
+// ngMocks
+//= require angular-mocks/angular-mocks
+
 //= require_tree .
