@@ -7,6 +7,19 @@ var app = angular.module('app', [
 	'youtube-embed'
 ])
 
+.config(
+  ['RestangularProvider',
+  function(RestangularProvider) {
+
+    // RestangularProvider.setBaseUrl('/api/v1');
+    RestangularProvider.setRequestSuffix('.json');
+
+  }])
+
+.config(['$qProvider', function ($qProvider) {
+  $qProvider.errorOnUnhandledRejections(false);
+}])
+
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 	$urlRouterProvider.otherwise('/')
 
@@ -94,12 +107,3 @@ var app = angular.module('app', [
 		})
 
 }])
-
-.config(
-  ['RestangularProvider',
-  function(RestangularProvider) {
-
-    // RestangularProvider.setBaseUrl('/api/v1');
-    RestangularProvider.setRequestSuffix('.json');
-
-  }]);
