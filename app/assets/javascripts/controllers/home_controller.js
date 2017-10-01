@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout', 'Auth', 'blogPosts', 'Restangular', function( $filter, $ngConfirm, $scope, $timeout, Auth, blogPosts, Restangular){
+app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout', 'Auth', 'blogPosts', 'cloudinary', 'Restangular', function( $filter, $ngConfirm, $scope, $timeout, Auth, blogPosts, cloudinary, Restangular){
 
 	// --------------------
 	// Private
@@ -131,4 +131,76 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
   $scope.slideToggleAddBlogPostForm = function(){
     $( "#add-blog-post-form" ).slideToggle( "slow" );
   };
+
+  $scope.files = {};
+  $scope.uploadedFiles = [];
+
+  $scope.widget = $(".cloudinary_fileupload")
+    .unsigned_cloudinary_upload(cloudinary.config().upload_preset, {}, {
+      // Uncomment the following lines to enable client side image resizing and validation.
+      // Make sure cloudinary/processing is included the js file
+      //disableImageResize: false,
+      //imageMaxWidth: 800,
+      //imageMaxHeight: 600,
+      //acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|ico)$/i,
+      maxFileSize: 2000000, // 2MB
+      dropZone: "#direct_upload_jquery",
+      start: function (e) {
+        $scope.files = {};
+      },
+      fail: function (e, data) {
+        // $scope.status = "Upload failed";
+        // $scope.$apply();
+        /* 
+        if (data.files){
+          var name = data.files[0].name;
+
+          if ( !$scope.files[name] ) {
+            $scope.files[name] = data.files[0];
+          };
+
+          $scope.files[name].status = "Upload failed";
+          $scope.files[name].statusType = "fail";
+          $scope.$apply();
+        };
+        */
+      }
+    })
+    .on("cloudinaryprogress", function (e, data) {
+      /*
+        var name = data.files[0].name;
+        var file = $scope.files[name] || {};
+        file.progress = Math.round((data.loaded * 100.0) / data.total);
+        file.status = "Uploading... " + file.progress + "%";
+        $scope.files[name] = file;
+        $scope.$apply();
+      */
+      })
+    .on("cloudinaryprogressall", function (e, data) {
+      // $scope.progress = Math.round((data.loaded * 100.0) / data.total);
+      // $scope.status = "Uploading... " + $scope.progress + "%";
+      // $scope.$apply();
+    })
+    .on("cloudinarydone", function (e, data) {
+      // $rootScope.photos = $rootScope.photos || [];
+      // data.result.context = {custom: {photo: $scope.title}};
+      // $scope.result = data.result;
+      // var name = data.files[0].name;
+      // var file = $scope.files[name] ||{};
+      // file.name = name;
+      // file.result = data.result;
+      // $scope.files[name] = file;
+      // $rootScope.photos.push(data.result);
+      /*
+      $scope.files = _.omit( $scope.files, [data.result.original_filename + "." + data.result.format]);
+      */
+      $scope.newBlogPostHub.imageUrl = data.result.secure_url
+      $scope.$apply();
+    }).on("cloudinaryfail", function(e, data){
+        // var file = $scope.files[name] ||{};
+        // file.name = name;
+        // file.result = data.result;
+        // $scope.files[name] = file;
+      });
+
 }])

@@ -1,4 +1,5 @@
 var app = angular.module('app', [
+	'cloudinary',
 	'cp.ngConfirm',
 	'ui.router', 
 	'Devise', 
@@ -6,6 +7,14 @@ var app = angular.module('app', [
 	'restangular',
 	'youtube-embed'
 ])
+
+.config(
+  ['cloudinaryProvider', 
+  function (cloudinaryProvider) {
+    cloudinaryProvider
+      .set("cloud_name", "digguide")
+      .set("upload_preset", "thelook");
+  }])
 
 .config(
   ['RestangularProvider',

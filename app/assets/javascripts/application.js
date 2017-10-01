@@ -29,6 +29,13 @@
 // https://github.com/craftpip/angular-confirm
 //= require angular-confirm/dist/angular-confirm.min
 
+// FOR CLOUDINARY
+//= require blueimp-file-upload/js/vendor/jquery.ui.widget
+//= require blueimp-file-upload/js/jquery.iframe-transport
+//= require blueimp-file-upload/js/jquery.fileupload
+//= require cloudinary-jquery-file-upload/cloudinary-jquery-file-upload
+//= require cloudinary_ng/js/angular.cloudinary
+
 // ngMocks
 //= require angular-mocks/angular-mocks
 
