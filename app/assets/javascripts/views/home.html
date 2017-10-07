@@ -85,8 +85,8 @@
     <ul class="list-grid row">
       <li class="col-xs-12 col-md-4 col-sm-6" ng-repeat="post in blogPosts | orderBy : 'date_added' : true">
         <div class="blog-post">
-          <div class="blog-post-header" style="position: relative;">
-            <span style="position: absolute; top: 5px; right: 5px;" class="glyphicon glyphicon-remove" ng-click="deleteBlogPost(post)"></span>
+          <div class="blog-post-header">
+            <span class="glyphicon glyphicon-remove" ng-click="deleteBlogPost(post)"></span>
             <h4>{{ post.title }}</h4>
             <div class="date">
               {{ post.date_added | date:'mediumDate' }}
