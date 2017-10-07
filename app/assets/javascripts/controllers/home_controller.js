@@ -60,7 +60,6 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
           $scope.newBlogPostHub.dateAdded = "";
           $scope.newBlogPostHub.tags = [];
           $scope.newBlogPostHub.tag = "";
-          console.log( $scope.blogPosts );
         })
         .finally(function(){
           $scope.newBlogPostHub.postingNewBlogPost = false;

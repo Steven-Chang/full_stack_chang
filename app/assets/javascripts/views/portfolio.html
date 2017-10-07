@@ -55,7 +55,7 @@
         <a ng-href="{{ project.url }}">
           <div class="project-image-frame">
             <div class="project-image">
-              <img ng-src="{{ project.image_url }}">
+              <img ng-src="{{ project.image_url | linkFilter }}">
             </div>
           </div>
         </a>

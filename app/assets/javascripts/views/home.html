@@ -53,7 +53,7 @@
           </div>
 
           <div ng-if="newBlogPostHub.imageUrl" style="height: 300px">
-            <img ng-src="{{ newBlogPostHub.imageUrl }}" style="height: 100%">
+            <img ng-src="{{ newBlogPostHub.imageUrl | linkFilter }}" style="height: 100%">
           </div>
 
           <div class="field" style="position: relative;">
@@ -92,9 +92,9 @@
               {{ post.date_added | date:'mediumDate' }}
             </div>
           </div>
-          <div class="blog-post-image-frame" id="{{'project-image-frame-' + $index}}" ng-show="post.image_url">
+          <div class="blog-post-image-frame" id="{{'project-image-frame-' + $index}}" ng-if="post.image_url">
             <div class="blog-post-image" id="{{ 'blog-post-image-' + $index }}">
-              <img ng-src="{{ post.image_url }}">
+              <img ng-src="{{ post.image_url | linkFilter }}">
             </div>
 
             <div class="play-button-container" ng-show="post.youtube_url" ng-click="initiateVideo($index)" id="{{'play-button-container-' + $index}}">
