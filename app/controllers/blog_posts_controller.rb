@@ -1,4 +1,5 @@
 class BlogPostsController < ApplicationController
+  before_filter :authenticate_user!, except: [ :index ]
 
   def index
     if params["0"]
