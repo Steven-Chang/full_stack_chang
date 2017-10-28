@@ -1,6 +1,7 @@
 var app = angular.module('app', [
 	'cloudinary',
 	'cp.ngConfirm',
+  'infinite-scroll',
 	'ui.router', 
 	'Devise', 
 	'templates', 
