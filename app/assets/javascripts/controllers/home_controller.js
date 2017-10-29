@@ -52,7 +52,7 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
                           date_added: $scope.newBlogPostHub.dateAdded, 
                           tags: $scope.newBlogPostHub.tags } )
         .then(function( result ){
-          $scope.blogPosts.push(result);
+          $scope.blogPosts.unshift(result);
           $scope.newBlogPostHub.description = "";
           $scope.newBlogPostHub.imageUrl = "";
           $scope.newBlogPostHub.title = "";
@@ -131,6 +131,10 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
     $( "#add-blog-post-form" ).slideToggle( "slow" );
   };
 
+  $scope.test = function(){
+    console.log(123123);
+  };
+
   $scope.files = {};
   $scope.uploadedFiles = [];
 
@@ -174,7 +178,7 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
         $scope.files[name] = file;
         $scope.$apply();
       */
-      })
+    })
     .on("cloudinaryprogressall", function (e, data) {
       // $scope.progress = Math.round((data.loaded * 100.0) / data.total);
       // $scope.status = "Uploading... " + $scope.progress + "%";

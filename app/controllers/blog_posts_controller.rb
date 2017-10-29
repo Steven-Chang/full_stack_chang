@@ -3,15 +3,17 @@ class BlogPostsController < ApplicationController
 
   def index
     if params["0"]
-      tag = params["0"]
-      tags = Tag.where('lower(tag) = ?', tag.downcase)
-      blog_posts = []
-      tags.each do |t|
-        blog_posts += t.blog_posts
-      end
+      passed_in_tag = params["0"]
+
+      blog_posts = BlogPost.joins(:tags)
+      .where('lower(tag) = ?', passed_in_tag.downcase)
+      .uniq
     else
       blog_posts = BlogPost.all
     end
+
+    blog_posts = blog_posts
+    .order( "date_added DESC" )
 
     respond_to do |format|
       format.json { render :json => blog_posts.to_json(:include => :tags), :status => 200 }

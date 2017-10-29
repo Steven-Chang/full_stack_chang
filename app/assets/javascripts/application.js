@@ -36,6 +36,10 @@
 //= require cloudinary-jquery-file-upload/cloudinary-jquery-file-upload
 //= require cloudinary_ng/js/angular.cloudinary
 
+// NG INFINITE SCROLL
+// https://github.com/sroze/ngInfiniteScroll
+//= require ngInfiniteScroll/build/ng-infinite-scroll.min
+
 // ngMocks
 //= require angular-mocks/angular-mocks
 

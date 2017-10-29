@@ -83,7 +83,7 @@
     </div>
 
     <ul class="list-grid row">
-      <li class="col-xs-12 col-md-4 col-sm-6" ng-repeat="post in blogPosts | orderBy : 'date_added' : true">
+      <li class="col-xs-12 col-md-4 col-sm-6" ng-repeat="post in blogPosts" infinite-scroll="test()" infinite-scroll-distance="1">
         <div class="blog-post">
           <div class="blog-post-header">
             <span class="glyphicon glyphicon-remove" ng-click="deleteBlogPost(post)" ng-show="signedIn()"></span>
