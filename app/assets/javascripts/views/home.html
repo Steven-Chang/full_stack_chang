@@ -83,7 +83,7 @@
     </div>
 
     <ul class="list-grid row">
-      <li class="col-xs-12 col-md-4 col-sm-6" ng-repeat="post in blogPosts" infinite-scroll="test()" infinite-scroll-distance="1">
+      <li class="col-xs-12 col-md-4 col-sm-6" ng-repeat="post in blogPosts" infinite-scroll="getBlogPosts()" infinite-scroll-distance="1">
         <div class="blog-post">
           <div class="blog-post-header">
             <span class="glyphicon glyphicon-remove" ng-click="deleteBlogPost(post)" ng-show="signedIn()"></span>
@@ -106,7 +106,7 @@
           </div> 
           <div class="blog-post-description" style="white-space: pre-wrap;">{{ post.description }}</div>
           <div class="post-tags">
-            <a ng-href="#" ng-repeat="tag in post.tags" ng-click="retrieveAllBlogPostsViaTag(tag.tag); $event.preventDefault();"> #{{ tag.tag }}</a>
+            <a ng-href="#" ng-repeat="tag in post.tags" ng-click="setTagAndGetBlogPosts(tag.tag); $event.preventDefault();"> #{{ tag.tag }}</a>
           </div>
         </div>
       </li>

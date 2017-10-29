@@ -41,7 +41,7 @@ var app = angular.module('app', [
 			controller: 'HomeController',
 			resolve: {
 				blogPosts: ['Restangular', function(Restangular){
-					return Restangular.all('blog_posts').getList()
+					return Restangular.all('blog_posts').getList({ "page": 1 })
 						.then(function(blogPosts){
 							return blogPosts;
       			});

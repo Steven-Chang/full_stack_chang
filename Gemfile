@@ -39,6 +39,9 @@ gem 'angular_rails_csrf'
 # https://github.com/Nerian/bootstrap-datepicker-rails
 gem 'bootstrap-datepicker-rails'
 
+# Gemfile for Rails 3+, Sinatra, and Merb
+gem 'will_paginate', '~> 3.1.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

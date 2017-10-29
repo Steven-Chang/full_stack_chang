@@ -4,15 +4,19 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
 	// Private
 	// --------------------
 
+  var page = 2;
+  var recentlyCreatedBlogPostIds = [];
+  var searching = false;
+  var selectedTag;
+
 	// --------------------
 	// Public
 	// --------------------
 
+  $scope.blogPosts = blogPosts;
 	// This is a function.
   $scope.signedIn = Auth.isAuthenticated;
   $scope.addBlogPostsFormVisible = false;
-  $scope.stackText = "{ backEnd : RUBY ON RAILS, frontEnd : ANGULAR }";
-  $scope.theAimText = "theAim = [ FUN, FUNCTIONAL, DIFFERENT ]"
   $scope.youTubePlayerVariables = { controls: 0, frameborder: 0, showinfo: 0, rel: 0 
   };
 
@@ -60,6 +64,7 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
           $scope.newBlogPostHub.dateAdded = "";
           $scope.newBlogPostHub.tags = [];
           $scope.newBlogPostHub.tag = "";
+          recentlyCreatedBlogPostIds = recentlyCreatedBlogPostIds.push( result.id );
         })
         .finally(function(){
           $scope.newBlogPostHub.postingNewBlogPost = false;
@@ -76,8 +81,6 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
       return !this.tags.find(this.returnMatchingTag)
     }
   };
-
-  $scope.blogPosts = blogPosts;
 
   $scope.deleteBlogPost = function(post){
     $ngConfirm({
@@ -103,6 +106,24 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
     })
   };
 
+  $scope.getBlogPosts = function(){
+    if ( !searching ){
+      searching = true;
+      var params = {
+        "page": page,
+        "tag": selectedTag,
+        "ids_to_exclude[]": recentlyCreatedBlogPostIds
+      };
+      Restangular.all( 'blog_posts' ).getList( params )
+        .then(function( blogPosts ){
+          if ( blogPosts.length ){
+            $scope.blogPosts = $scope.blogPosts.concat( blogPosts );
+            searching = false;
+          };
+        });
+    };
+  };
+
   // I wonder if you can insert it in at 0% and then change the class of it
   // well i mean switch classes...
   $scope.initiateVideo = function( index ){
@@ -114,11 +135,13 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
     $("#project-image-frame-" + index).css("min-height", "275px");
   };
 
-  $scope.retrieveAllBlogPostsViaTag = function( tag ){
-    Restangular.all('blog_posts').getList([tag])
-            .then(function(blogPosts){
-              $scope.blogPosts = blogPosts;
-            });
+  $scope.setTagAndGetBlogPosts = function( tag ){
+    recentlyCreatedBlogPostIds = [];
+    selectedTag = tag;
+    page = 1;
+    $scope.blogPosts = [];
+    searching = false;
+    $scope.getBlogPosts();
   };
 
   $timeout(function(){
@@ -129,10 +152,6 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
 
   $scope.slideToggleAddBlogPostForm = function(){
     $( "#add-blog-post-form" ).slideToggle( "slow" );
-  };
-
-  $scope.test = function(){
-    console.log(123123);
   };
 
   $scope.files = {};

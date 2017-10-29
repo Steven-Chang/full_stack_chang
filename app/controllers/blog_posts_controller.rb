@@ -2,18 +2,22 @@ class BlogPostsController < ApplicationController
   before_filter :authenticate_user!, except: [ :index ]
 
   def index
-    if params["0"]
-      passed_in_tag = params["0"]
-
+    if params["tag"]
       blog_posts = BlogPost.joins(:tags)
-      .where('lower(tag) = ?', passed_in_tag.downcase)
+      .where('lower(tag) = ?', params["tag"].downcase)
       .uniq
     else
       blog_posts = BlogPost.all
     end
 
+    if params["ids_to_exclude"]
+      blog_posts
+      .where.not("blog_post.id": params["ids_to_exclude"])
+    end
+
     blog_posts = blog_posts
-    .order( "date_added DESC" )
+      .order( "date_added DESC" )
+      .paginate(:page => params[:page], :per_page => 12)
 
     respond_to do |format|
       format.json { render :json => blog_posts.to_json(:include => :tags), :status => 200 }
