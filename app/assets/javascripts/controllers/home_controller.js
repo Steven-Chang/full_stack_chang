@@ -119,6 +119,7 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
           if ( blogPosts.length ){
             $scope.blogPosts = $scope.blogPosts.concat( blogPosts );
             searching = false;
+            page += 1;
           };
         });
     };
