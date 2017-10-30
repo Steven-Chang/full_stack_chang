@@ -42,6 +42,9 @@ gem 'bootstrap-datepicker-rails'
 # Gemfile for Rails 3+, Sinatra, and Merb
 gem 'will_paginate', '~> 3.1.0'
 
+# https://github.com/watir/watir-rails
+gem "watir-rails"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
