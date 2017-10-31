@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030232857) do
+ActiveRecord::Schema.define(version: 20171031052549) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20171030232857) do
   end
 
   add_index "levels", ["score_id"], name: "index_levels_on_score_id"
+
+  create_table "line_markets", force: :cascade do |t|
+    t.integer  "nba_game_id", null: false
+    t.float    "home_line"
+    t.float    "away_line"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "lines", force: :cascade do |t|
     t.integer  "score_id",   null: false
