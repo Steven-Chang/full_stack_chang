@@ -124,16 +124,22 @@
       margin-bottom: 8px;
       padding: 3px;
       position: relative;
+      width: 100%;
 
       .blog-post-image {
-        max-height: 256px;
+        background-color: black;
+        height: 275px;
         overflow: hidden;
-        z-index: 100;
+        position: relative;
 
         img {
-          height: auto;
-          max-width: 343px;
-          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: -100%;
+          right: -100%;
+          bottom: 0;
+          margin: auto;
         }
       }
 

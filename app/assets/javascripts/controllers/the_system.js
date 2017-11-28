@@ -10,13 +10,9 @@ app.controller('TheSystem', ['$scope', 'Restangular', function($scope, Restangul
   // Public
   // ---------------------
 
-  $scope.results;
+  $scope.results = "Test";
 
   $scope.init = function(){
-    Restangular.allUrl('competitions', 'http://sandbox.whapi.com/v1/').getList().then(function(response){
-      $scope.results = response;
-    });
-
+    // Get all games that were on today or before
   };
-
 }])

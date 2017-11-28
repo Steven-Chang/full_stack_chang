@@ -74,6 +74,12 @@ var app = angular.module('app', [
 			}]
 		})
 
+		.state('thesystem', {
+			url: '/the-system',
+			templateUrl: 'views/the_system.html',
+			controller: 'TheSystem'
+		})
+
 		.state('register', {
 			url: '/register',
 			templateUrl: 'views/register.html',
