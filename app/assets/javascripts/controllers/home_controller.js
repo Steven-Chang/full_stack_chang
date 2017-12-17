@@ -3,7 +3,6 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
 	// --------------------
 	// Private
 	// --------------------
-
   var page = 2;
   var recentlyCreatedBlogPostIds = [];
   var searching = false;

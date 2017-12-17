@@ -35,6 +35,12 @@ var app = angular.module('app', [
 
 	$stateProvider
 
+		.state('gamblingclub', {
+			url: '/gamblingclub',
+			templateUrl: 'views/gambling_club.html',
+			controller: 'GamblingClubController'
+		})
+
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/home.html',
@@ -74,12 +80,6 @@ var app = angular.module('app', [
 			}]
 		})
 
-		.state('thesystem', {
-			url: '/the-system',
-			templateUrl: 'views/the_system.html',
-			controller: 'TheSystem'
-		})
-
 		.state('register', {
 			url: '/register',
 			templateUrl: 'views/register.html',
@@ -95,7 +95,7 @@ var app = angular.module('app', [
 			onEnter: ['Auth', '$state', 'numberOfUsers', function(Auth, $state, numberOfUsers){
 				if ( Auth.isAuthenticated() ){
 					$state.go('dashboard');
-				} else if ( numberOfUsers >= 1 ){
+				} else if ( numberOfUsers >= 2 ){
 					$state.go('home');
 				};
 			}]

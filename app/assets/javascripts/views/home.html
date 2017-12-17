@@ -1,8 +1,20 @@
-<div id="home">
+<div id="home" style="background-color: black;">
   <nav-bar></nav-bar>
 
-  <div id="home-banner">
-    <img ng-src="https://res.cloudinary.com/digguide/image/upload/v1494288512/Personal%20Site/A-Book-of-Five-Rings.jpg">
+  <div id="home-banner" style="background-color: black; margin-top: 0px; position: relative; padding-top: 0px;">
+    <div style="width: 100%; max-width: 635px; text-align: center; display: inline-block;">
+      <div style="position:relative; width:100%; height:0px; padding-bottom:56.25%;">
+        <iframe style="width:100%; height:100%; position: absolute; top: 0px; left: 0px; border: 0;"
+            src="http://www.youtube.com/embed/yr1Qe2m8oOA?rel=0">
+        </iframe>
+      </div>
+    </div>
+    <div>
+      <img src="http://res.cloudinary.com/digguide/image/upload/v1513056317/Full_Stack_Chang_Danger_Banner_nkyzwx.jpg" style="max-width: 635px; width: 100%;">
+    </div>
+  </div>
+  <div style="height: 500px; background-color: white; font-size: 32px;">
+    MY SITE / MUSIC VIDEOS / CODING / PORTFOLIO
   </div>
 
   <div class="container">
@@ -21,13 +33,12 @@
 
           <div class="field">
             <textarea class="form-control" rows="4" ng-model="newBlogPostHub.description" placeholder="Description" required></textarea>
-          </div>
 
           <div class="field">
             <input type="text" 
-            autocomplete="off"
+            autocomplete="off"    
             data-provide='datepicker' 
-            class="form-control" 
+            class="form- " 
             id="date-picker" 
             ng-model="newBlogPostHub.dateAdded" 
             placeholder="Date Added">
