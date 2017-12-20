@@ -146,7 +146,7 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
 
   $timeout(function(){
     $('#date-picker').datepicker({
-      format: "dd/mm/yyyy"
+      format: 'EEE dd MMMM yyyy'
     });
   }, 100);
 

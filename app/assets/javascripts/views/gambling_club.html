@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-xs-12">
           <h1 style="color: white">GAMBLING CLUB</h1>
-          <h4 style="color: white">STATS AS AT 17 DECEMBER 2017</h4>
+          <h4 style="color: white">Last updated {{ lastUpdatedDate | date : "EEEE, d MMMM, y" }}</h4>
           <h5 style="color: white">Total $: $650</h5>
           <h5 style="color: white"># Of Days In Operation: {{ numberOfDaysInOperation }}</h5>
           <h5 style="color: white">Next Deposit Date: 28 December 2017</h5>
@@ -49,10 +49,12 @@
       <div class="row">
         <div class="col-xs-12">
           <h2>Add Entry</h2>
-          <form>
+          <form ng-submit="createEntry()">
             <div class="form-group">
-              <label for="date">Date</label>
-              <input class="form-control" id="date" placeholder="Date">
+              <label for="date-picker">Date</label>
+              <input class="form-control" id="date-picker" type="text" 
+            autocomplete="off"    
+            data-provide='datepicker' ng-model="entry.date">
             </div>
             <div class="form-group">
               <label for="entry-type">Entry Type:</label>
@@ -78,9 +80,8 @@
             </div>
             <div class="form-group">
               <label for="member-type">Member</label>
-              <select class="form-control" id="member-type" ng-model="entry.member_id">
-                <option value="1">Steven Chang</option>
-                <option value="2">Chris Asnins</option>
+              <select class="form-control" id="member-type" ng-model="entry.user_id">
+                <option ng-repeat="user in users" ng-value="user.id">{{ user.username }}</option>
               </select>
             </div>
             <div class="form-check" ng-show="entry.type === 'win' || entry.type === 'loss'">

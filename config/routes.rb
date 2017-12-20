@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   devise_for :users
   root 'application#index'
-
+  resources :gambling_club_entries
   resources :projects, only: [:index, :create]
   resources :scores, only: [:index, :create]
   resources :blog_posts, only: [:index, :create, :destroy]
+  resources :users, only: [:index]
 
   get 'number_of_users' => 'users#return_number_of_users'
   # The priority is based upon order of creation: first created -> highest priority.
