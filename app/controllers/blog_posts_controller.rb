@@ -53,7 +53,7 @@ class BlogPostsController < ApplicationController
   private
 
   def post_params
-    params.require(:blog_post).permit(:description, :image_url, :title, :youtube_url, :date_added)
+    params.require(:blog_post).permit(:description, :guarantee, :image_url, :title, :youtube_url, :date_added)
   end
 
 end

@@ -3,6 +3,7 @@ class GamblingClubEntriesController < ApplicationController
 
   def index
     gambling_club_entries = GamblingClubEntry.all
+    gambling_club_entries.order("date DESC, created_at DESC")
 
     respond_to do |format|
       format.json { render :json => gambling_club_entries, :status => 200 }
@@ -27,7 +28,7 @@ class GamblingClubEntriesController < ApplicationController
   private
 
   def entry_params
-    params.require(:gambling_club_entry).permit()
+    params.require(:gambling_club_entry).permit(:amount, :date, :user_id, :description, :gambling, :guarantee, :odds, :wager)
   end
 
 end

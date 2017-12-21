@@ -5,7 +5,7 @@
         <div class="col-xs-12">
           <h1 style="color: white">GAMBLING CLUB</h1>
           <h4 style="color: white">Last updated {{ lastUpdatedDate | date : "EEEE, d MMMM, y" }}</h4>
-          <h5 style="color: white">Total $: $650</h5>
+          <h5 style="color: white">Total: Deposit - Withdrawal + Win amounts - losses</h5>
           <h5 style="color: white"># Of Days In Operation: {{ numberOfDaysInOperation }}</h5>
           <h5 style="color: white">Next Deposit Date: 28 December 2017</h5>
         </div>
@@ -16,7 +16,6 @@
                 <th scope="col">Member</th>
                 <th scope="col">+/-</th>
                 <th scope="col"># of Bets</th>
-                <th scope="col">Active Days</th>
               </tr>
             </thead>
             <tbody>
@@ -24,19 +23,16 @@
                 <th scope="row">Chris</th>
                 <td>+$250</td>
                 <td>30</td>
-                <td>4</td>
               </tr>
               <tr>
                 <th scope="row">Steve</th>
                 <td>$0</td>
                 <td>0</td>
-                <td>4</td>
               </tr>
               <tr>
                 <th scope="row">Total</th>
                 <td>+$250</td>
                 <td>30</td>
-                <td>N/A</td>
               </tr>
             </tbody>
           </table>
@@ -65,18 +61,22 @@
                 <option value="withdrawal">Withdrawal</option>
               </select>
             </div>
-            <div class="form-group">
-              <label for="amount" ng-show="entry.type === 'win' || entry.type === 'loss'">Wager</label>
-              <label for="amount" ng-hide="entry.type === 'win' || entry.type === 'loss'">Amount</label>
-              <input class="form-control" id="amount" ng-model="entry.amount">
+            <div class="form-group" ng-show="entry.type === 'win' || entry.type === 'loss'">
+              <label for="amount">Wager</label>
+              <input class="form-control" id="amount" ng-model="entry.wager">
             </div>
             <div class="form-group" ng-show="entry.type === 'win' || entry.type === 'loss'">
               <label for="odds">Odds</label>
-              <input class="form-control" id="odds" placeholder="Odds">
+              <input class="form-control" id="odds" placeholder="Odds" ng-model="entry.odds">
+            </div>
+            <div class="form-group" ng-hide="entry.type === 'loss'">
+              <label for="amount" ng-show="entry.type === 'win'">Win</label>
+              <label for="amount" ng-show="entry.type === 'deposit' || entry.type ==='withdrawal'">Amount</label>
+              <input class="form-control" id="amount" ng-model="entry.amount">
             </div>
             <div class="form-group" ng-show="entry.type === 'win' || entry.type === 'loss'">
               <label for="description">Description</label>
-              <input class="form-control" id="description" placeholder="Description">
+              <input class="form-control" id="description" placeholder="Description" ng-model="entry.description">
             </div>
             <div class="form-group">
               <label for="member-type">Member</label>
@@ -86,8 +86,8 @@
             </div>
             <div class="form-check" ng-show="entry.type === 'win' || entry.type === 'loss'">
               <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                Pick of the day
+                <input type="checkbox" class="form-check-input" ng-model="entry.guarantee">
+                Guarantee
               </label>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -97,6 +97,42 @@
     </div>
   </div>
   <div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>Entries</h2>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Description</th>
+                <th scope="col">+</th>
+                <th scope="col">-</th>
+                <th scope="col">Wager</th>
+                <th scope="col">Odds</th>
+                <th scope="col">Guarantee</th>
+                <th scope="col">Member</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="entry in entries">
+                <td>{{ entry.date | date }}</td>
+                <th scope="row">{{ entry.description }}</th>
+                <td>{{  ( entry.amount > 0 ) ? ('$' + entry.amount) : '' }}</td>
+                <td>{{ ( entry.amount < 0 ) ? ('$' + entry.amount * -1) : '' }}</td>
+                <td>{{ ( entry.gambling ? '$' + entry.wager : '' ) }}</td>
+                <td>{{ entry.odds }}</td>
+                <td>{{ entry.guarantee ? '*' : '' }}</td>
+                <td>{{ returnUsernameById( entry.user_id ) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-hide="true">
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
@@ -129,37 +165,6 @@
                 <td>+$45</td>
                 <td>+1.43</td>
                 <td>1.76</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <h2>Results</h2>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">Member</th>
-                <th scope="col">+/-</th>
-                <th scope="col">Odds</th>
-                <th scope="col">Wager</th>
-                <th scope="col">Pick of the Day</th>
-                <th scope="col">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Chris</th>
-                <td>+$45</td>
-                <td>2</td>
-                <td>$45</td>
-                <td>Yes</td>
-                <td>Bucks to beat bulls.</td>
               </tr>
             </tbody>
           </table>

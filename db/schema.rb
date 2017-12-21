@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215212458) do
+ActiveRecord::Schema.define(version: 20171220133902) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -39,6 +39,9 @@ ActiveRecord::Schema.define(version: 20171215212458) do
     t.boolean  "gambling"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.boolean  "guarantee"
+    t.float    "wager"
+    t.float    "odds"
   end
 
   create_table "levels", force: :cascade do |t|
