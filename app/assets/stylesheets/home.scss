@@ -82,11 +82,12 @@
   }
 
   #home-banner {
-    margin-top: -85px;
+    margin: 60px 0px;
     text-align: center;
 
     img {
       max-width: 100%;
+      max-height: 300px;
     }
   }
 
@@ -123,22 +124,16 @@
       margin-bottom: 8px;
       padding: 3px;
       position: relative;
-      width: 100%;
 
       .blog-post-image {
-        background-color: black;
-        height: 275px;
+        max-height: 256px;
         overflow: hidden;
-        position: relative;
+        z-index: 100;
 
         img {
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: -100%;
-          right: -100%;
-          bottom: 0;
-          margin: auto;
+          height: auto;
+          max-width: 343px;
+          width: 100%;
         }
       }
 

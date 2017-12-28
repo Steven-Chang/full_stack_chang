@@ -25,6 +25,15 @@ class GamblingClubEntriesController < ApplicationController
     render json: { message: "removed" }, status: :ok
   end
 
+  def get_balance
+    balance = GamblingClubEntry.sum( :amount )
+    object_to_send_back = { balance: balance }
+
+    respond_to do |format|
+      format.json { render :json => object_to_send_back, status => 200 }
+    end
+  end
+
   private
 
   def entry_params

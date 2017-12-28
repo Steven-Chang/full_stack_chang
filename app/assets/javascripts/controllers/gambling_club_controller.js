@@ -6,6 +6,13 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Rest
   	return Math.ceil( ( new Date() - startingDate ) / ( 24 * 60 * 60 * 1000 ) )
   };
 
+  var getBalance = function(){
+    Restangular.oneUrl('balance').get()
+      .then(function(response){
+        $scope.balance = response.balance;
+      });
+  };
+
   var resetEntry = function(){
     $scope.entry.amount = 0;
     $scope.entry.description = undefined;
@@ -30,6 +37,7 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Rest
   }, 100);
 
   $scope.creatingEntry = false;
+  $scope.balance;
   $scope.entries;
   $scope.entry = {
   	amount: 0,
@@ -94,6 +102,7 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Rest
   $scope.init = function(){
   	$scope.numberOfDaysInOperation = getDaysSinceDate( "14 December 2017" );
     $scope.getEntries();
+    getBalance();
   };
 
   $scope.returnUsernameById = function( userId ){

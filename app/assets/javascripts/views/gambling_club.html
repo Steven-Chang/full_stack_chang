@@ -5,7 +5,7 @@
         <div class="col-xs-12">
           <h1 style="color: white">GAMBLING CLUB</h1>
           <h4 style="color: white">Last updated {{ lastUpdatedDate | date : "EEEE, d MMMM, y" }}</h4>
-          <h5 style="color: white">Total: Deposit - Withdrawal + Win amounts - losses</h5>
+          <h5 style="color: white">Balances: ${{ balance }}</h5>
           <h5 style="color: white"># Of Days In Operation: {{ numberOfDaysInOperation }}</h5>
           <h5 style="color: white">Next Deposit Date: 28 December 2017</h5>
         </div>
@@ -116,7 +116,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="entry in entries">
-                <td>{{ entry.date | date }}</td>
+                <td>{{ entry.date | date : 'dd/MMM/yy' }}</td>
                 <th scope="row">{{ entry.description }}</th>
                 <td>{{  ( entry.amount > 0 ) ? ('$' + entry.amount) : '' }}</td>
                 <td>{{ ( entry.amount < 0 ) ? ('$' + entry.amount * -1) : '' }}</td>
