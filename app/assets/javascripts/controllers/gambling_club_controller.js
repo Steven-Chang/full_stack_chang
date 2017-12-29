@@ -1,12 +1,11 @@
-app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Restangular', 'users', function($filter, $scope, $timeout, Restangular, users){
+app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Auth', 'Restangular', 'users', function($filter, $scope, $timeout, Auth, Restangular, users){
 
   // PRIVATE
 
   var getSummary = function(){
     Restangular.oneUrl('gambling_club_summary').get()
-      .then(function(response){
-        $scope.balance = response.balance;
-        $scope.users = response.users;
+      .then(function( response ){
+        $scope.summary = response;
       });
   };
 
@@ -26,6 +25,13 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Rest
     };
   };
 
+  var setNextDepositDate = function(){
+    var date = new Date("28/Dec/2017");
+    var currentDate = new Date();
+
+    
+  };
+
   // PUBLIC
   $timeout(function(){
     $('#date-picker').datepicker({
@@ -34,7 +40,6 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Rest
   }, 100);
 
   $scope.creatingEntry = false;
-  $scope.balance;
   $scope.entries;
   $scope.entry = {
   	amount: 0,
@@ -47,8 +52,10 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Rest
   	user_id: users[0].id,
     wager: undefined
   };
+  $scope.nextDepositDate;
+  $scope.summary;
   $scope.lastUpdatedDate;
-  $scope.numberOfDaysInOperation;
+  $scope.signedIn = Auth.isAuthenticated;
   $scope.users = users;
 
   var setEntryParamsDependingOnEntryType = function(){
@@ -99,6 +106,7 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Rest
   $scope.init = function(){
     $scope.getEntries();
     getSummary();
+    setNextDepositDate();
   };
 
   $scope.returnUsernameById = function( userId ){

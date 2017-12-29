@@ -27,18 +27,19 @@ class GamblingClubEntriesController < ApplicationController
 
   def summary
     balance = GamblingClubEntry.sum( :amount )
+    net_gambling_outcome = GamblingClubEntry.where(:gambling => true).sum(:amount)
     users = []
     User.all.each do |user|
       user_summary = { 
         id: user.id,
         username: user.username,
-        gambling_balance: GamblingClubEntry.where(user_id: user.id).where(gambling: true).sum(:amount),
-        number_of_bets: GamblingClubEntry.where(user_id: user.id).where(gambling: true).count
+        gambling_balance: GamblingClubEntry.where(user_id: user.id).where(gambling: true).sum(:amount)
       }
       users.push( user_summary )
     end
     object_to_send_back = {
       balance: balance,
+      net_gambling_outcome: net_gambling_outcome,
       users: users
     }
 
