@@ -1,6 +1,6 @@
-<div ng-init="init()">
+<div ng-init="init()" id="gambling-club">
   <nav-bar></nav-bar>
-  <div style="background: black; margin-top: -20px; padding: 50px 0">
+  <div style="background: black; margin-top: -20px; padding: 50px 0" class="form-group">
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-6">
@@ -33,12 +33,13 @@
       </div>
     </div>
   </div>
-  <div ng-show="signedIn()">
+  <div ng-show="signedIn()" class="form-group">
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h2>Add Entry</h2>
-          <form ng-submit="createEntry()">
+          <h4 ng-click="slideToggleAddEntryForm(); addEntryFormVisible = !addEntryFormVisible" style="cursor: pointer">Add Entry <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addEntryFormVisible"></span>
+          <span class="glyphicon glyphicon-triangle-top" ng-show="addEntryFormVisible"></span></h4>
+          <form ng-submit="createEntry()" id="add-entry-form">
             <div class="form-group">
               <label for="date-picker">Date</label>
               <input class="form-control" id="date-picker" type="text" 
@@ -93,7 +94,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h2>Entries</h2>
+          <h4>Entries</h4>
           <table class="table table-bordered">
             <thead>
               <tr>

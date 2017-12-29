@@ -41,6 +41,7 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Auth
     });
   }, 100);
 
+  $scope.addEntryFormVisible = false;
   $scope.creatingEntry = false;
   $scope.entries;
   $scope.entry = {
@@ -118,6 +119,10 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Auth
         return user.username
       };
     };
+  };
+
+  $scope.slideToggleAddEntryForm = function(){
+    $( "#add-entry-form" ).slideToggle( "slow" );
   };
 
 }])
