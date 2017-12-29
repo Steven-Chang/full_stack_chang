@@ -89,6 +89,7 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Auth
       $scope.entries.post( $scope.entry ).then(function( newPost ){
         $scope.entries.unshift( newPost );
         resetEntry();
+        getSummary();
       }, function(error){
         console.log( error );
       })

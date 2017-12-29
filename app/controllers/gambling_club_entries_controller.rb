@@ -2,8 +2,7 @@ class GamblingClubEntriesController < ApplicationController
   before_filter :authenticate_user!, except: [ :index, :summary ]
 
   def index
-    gambling_club_entries = GamblingClubEntry.all
-    gambling_club_entries.order("date DESC, created_at DESC")
+    gambling_club_entries = GamblingClubEntry.all.order("date DESC, created_at DESC")
 
     respond_to do |format|
       format.json { render :json => gambling_club_entries, :status => 200 }
