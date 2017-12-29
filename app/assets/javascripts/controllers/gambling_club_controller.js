@@ -26,10 +26,12 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Auth
   };
 
   var setNextDepositDate = function(){
-    var date = new Date("28/Dec/2017");
+    $scope.nextDepositDate = new Date("14/Dec/2017");
     var currentDate = new Date();
-
-    
+    currentDate.setHours(0,0,0,0);
+    while( $scope.nextDepositDate < currentDate ){
+      $scope.nextDepositDate.setDate( $scope.nextDepositDate.getDate() + 7 )
+    };
   };
 
   // PUBLIC
