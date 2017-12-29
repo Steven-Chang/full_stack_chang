@@ -1,15 +1,12 @@
 app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Restangular', 'users', function($filter, $scope, $timeout, Restangular, users){
 
   // PRIVATE
-  var getDaysSinceDate = function( startingDate ){
-  	var startingDate = new Date( startingDate );
-  	return Math.ceil( ( new Date() - startingDate ) / ( 24 * 60 * 60 * 1000 ) )
-  };
 
-  var getBalance = function(){
-    Restangular.oneUrl('balance').get()
+  var getSummary = function(){
+    Restangular.oneUrl('gambling_club_summary').get()
       .then(function(response){
         $scope.balance = response.balance;
+        $scope.users = response.users;
       });
   };
 
@@ -100,9 +97,8 @@ app.controller('GamblingClubController', ['$filter', '$scope', '$timeout', 'Rest
   };
 
   $scope.init = function(){
-  	$scope.numberOfDaysInOperation = getDaysSinceDate( "14 December 2017" );
     $scope.getEntries();
-    getBalance();
+    getSummary();
   };
 
   $scope.returnUsernameById = function( userId ){

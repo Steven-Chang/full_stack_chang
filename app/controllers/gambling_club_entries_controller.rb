@@ -1,5 +1,5 @@
 class GamblingClubEntriesController < ApplicationController
-  before_filter :authenticate_user!, except: [ :index ]
+  before_filter :authenticate_user!, except: [ :index, :summary ]
 
   def index
     gambling_club_entries = GamblingClubEntry.all
@@ -25,9 +25,22 @@ class GamblingClubEntriesController < ApplicationController
     render json: { message: "removed" }, status: :ok
   end
 
-  def get_balance
+  def summary
     balance = GamblingClubEntry.sum( :amount )
-    object_to_send_back = { balance: balance }
+    users = []
+    User.all.each do |user|
+      user_summary = { 
+        id: user.id,
+        username: user.username,
+        gambling_balance: GamblingClubEntry.where(user_id: user.id).where(gambling: true).sum(:amount),
+        number_of_bets: GamblingClubEntry.where(user_id: user.id).where(gambling: true).count
+      }
+      users.push( user_summary )
+    end
+    object_to_send_back = {
+      balance: balance,
+      users: users
+    }
 
     respond_to do |format|
       format.json { render :json => object_to_send_back, status => 200 }

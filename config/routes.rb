@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
 
   get 'number_of_users' => 'users#return_number_of_users'
-  get 'balance' => 'gambling_club_entries#get_balance'
+  get 'gambling_club_summary' => 'gambling_club_entries#summary'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
