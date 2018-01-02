@@ -10,6 +10,12 @@ var app = angular.module('app', [
 ])
 
 .config(
+	['$locationProvider', function($locationProvider){
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
+	}])
+
+.config(
   ['cloudinaryProvider', 
   function (cloudinaryProvider) {
     cloudinaryProvider
