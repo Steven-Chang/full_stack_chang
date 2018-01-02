@@ -100,11 +100,7 @@
               <tr>
                 <th scope="col">Date</th>
                 <th scope="col">Description</th>
-                <th scope="col">+</th>
-                <th scope="col">-</th>
-                <th scope="col">Wager</th>
-                <th scope="col">Odds</th>
-                <th scope="col">Guarantee</th>
+                <th scope="col">+/-</th>
                 <th scope="col">Member</th>
               </tr>
             </thead>
@@ -112,11 +108,7 @@
               <tr ng-repeat="entry in entries">
                 <td>{{ entry.date | date : 'dd/MMM/yy' }}</td>
                 <th scope="row">{{ entry.description }}</th>
-                <td><span ng-if="entry.amount > 0">{{ entry.amount | currency }}</span></td>
-                <td><span ng-if="entry.amount < 0">{{ entry.amount | currency }}</span></td>
-                <td>{{ entry.wager | currency }}</td>
-                <td>{{ entry.odds }}</td>
-                <td>{{ entry.guarantee ? '*' : '' }}</td>
+                <td>{{ entry.amount | currency }}</td>
                 <td>{{ returnUsernameById( entry.user_id ) }}</td>
               </tr>
             </tbody>
