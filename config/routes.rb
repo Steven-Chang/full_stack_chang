@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get 'number_of_users' => 'users#return_number_of_users'
   get 'gambling_club_summary' => 'gambling_club_entries#summary'
+
+  # Need this for prettifying url
   get '*path', :to => redirect('/#!/%{path}')
 
   # The priority is based upon order of creation: first created -> highest priority.

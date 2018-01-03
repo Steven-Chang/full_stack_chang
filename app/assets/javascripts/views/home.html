@@ -104,7 +104,7 @@
               <youtube-video video-url="post.youtube_url" player-vars="youTubePlayerVariables"  player-height="'100%'" ng-if="post.youtube_url" ></youtube-video>
             </div>
           </div> 
-          <div class="blog-post-description" style="white-space: pre-wrap;">{{ post.description }}</div>
+          <div class="blog-post-description" style="white-space: pre-wrap;">{{ post.description | limitTo: ( post.descriptionFullyVisible ? 10000000 : 200 ) }}<span ng-hide="post.descriptionFullyVisible || post.description.length <= 200" ng-click="post.descriptionFullyVisible = !post.descriptionFullyVisible">...</span><span ng-show="post.descriptionFullyVisible && post.description.length > 200"></span></div>
           <div class="post-tags">
             <a ng-href="#" ng-repeat="tag in post.tags" ng-click="setTagAndGetBlogPosts(tag.tag); $event.preventDefault();"> #{{ tag.tag }}</a>
           </div>
