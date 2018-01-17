@@ -8,6 +8,11 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
   var searching = false;
   var selectedTag;
 
+  var urlify = function( text ){
+    var urlRegex = />{2}/g;
+    console.log(text.search(urlRegex));
+  };
+
 	// --------------------
 	// Public
 	// --------------------
