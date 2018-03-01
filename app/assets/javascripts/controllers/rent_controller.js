@@ -48,14 +48,16 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
       .then(function( response ){
         $scope.transactions.unshift( response );
         updateUsersBalance( $scope.newTransaction.user_id );
-        updateUsersBond( $scope.newTransaction.user_id )
+        updateUsersBond( $scope.newTransaction.user_id );
+        $scope.newTransaction.amount = 0;
+        $scope.newTransaction.description = "";
       });
   };
 
   $scope.deleteRentTransaction = function( $index ) {
     $scope.transactions[$index].remove()
       .then(function(){
-        $scope.transactions[$index].splice( $index, 1  );
+        $scope.transactions.splice( $index, 1  );
       });
   };
 
