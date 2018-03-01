@@ -97,7 +97,7 @@
                 <td>{{ transaction.date }}</td>
                 <td>{{ transaction.description }}</td>
                 <td>{{ transaction.amount | currency }}</td>
-                <td><span class="glyphicon glyphicon-trash" ng-click="deleteRentTransaction( transaction_id, $index )"></span></td>
+                <td><span class="glyphicon glyphicon-trash" ng-click="deleteRentTransaction( $index )"></span></td>
               </tr>
             </thead>
           </table>
