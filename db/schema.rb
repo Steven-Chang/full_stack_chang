@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301044713) do
+ActiveRecord::Schema.define(version: 20180301064446) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(version: 20180301044713) do
     t.datetime "date_added"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "rent_transactions", force: :cascade do |t|
+    t.date     "date",                                              null: false
+    t.string   "description",                                       null: false
+    t.decimal  "amount",      precision: 8, scale: 2, default: 0.0, null: false
+    t.integer  "user_id",                                           null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
   end
 
   create_table "scores", force: :cascade do |t|

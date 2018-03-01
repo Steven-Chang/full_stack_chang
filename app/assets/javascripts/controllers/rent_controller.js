@@ -2,9 +2,9 @@ app.controller('RentController', ['$scope', function( $scope ){
   // PRIVATE
 
   // PUBLIC
-  $scope.cheyennePassword = "ants777"
-  $scope.danPassword = "frogs777"
-  $scope.sidPassword = "birds777"
+  $scope.cheyennePassword = "ants777";
+  $scope.danPassword = "frogs777";
+  $scope.sidPassword = "birds777";
   $scope.password;
   $scope.selectedTenant;
   $scope.transactions = [
