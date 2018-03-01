@@ -52,6 +52,13 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
       });
   };
 
+  $scope.deleteRentTransaction = function( $index ) {
+    $scope.transactions[$index].remove()
+      .then(function(){
+        $scope.transactions[$index].splice( $index, 1  );
+      });
+  };
+
   $scope.getTransactions = function( tenant ){
     $scope.selectedTenant = tenant;
     $scope.transactions = undefined;

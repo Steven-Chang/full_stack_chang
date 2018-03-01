@@ -28,6 +28,9 @@ class RentTransactionsController < ApplicationController
   end
 
   def destroy
+    @rent_transaction.destroy
+
+    render json: { message: "removed" }, status: :ok
   end
 
   private
