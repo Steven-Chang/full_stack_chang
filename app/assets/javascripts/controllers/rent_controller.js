@@ -1,4 +1,4 @@
-app.controller('RentController', ['$filter', '$scope', '$timeout', 'Auth', 'Restangular', function( $filter, $scope, $timeout, Auth, Restangular ){
+app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout', 'Restangular', function( $filter, $rootScope, $scope, $timeout, Restangular ){
 
   // PRIVATE
   var updateUsersBalance = function( tenant_id ){
@@ -22,7 +22,7 @@ app.controller('RentController', ['$filter', '$scope', '$timeout', 'Auth', 'Rest
   // PUBLIC
   $scope.balance;
   $scope.bond;
-  $scope.currentUser;
+  $scope.currentUser = $rootScope.user;
   $scope.newTransaction = {
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     user_id: undefined
@@ -37,6 +37,10 @@ app.controller('RentController', ['$filter', '$scope', '$timeout', 'Auth', 'Rest
       format: 'D dd MM yyyy'
     });
   }, 100);
+
+  $scope.$watch('$root.user', function(){
+    $scope.currentUser = $rootScope.user;
+  });
 
   $scope.createRentTransaction = function(){
     Restangular.all('rent_transactions')
@@ -70,12 +74,6 @@ app.controller('RentController', ['$filter', '$scope', '$timeout', 'Auth', 'Rest
       .then(function( tenants ){
         $scope.tenants = tenants;
         $scope.newTransaction.user_id = tenants[0].id
-      });
-
-    Auth
-      .currentUser()
-      .then(function( user ){
-        $scope.currentUser = user;
       });
   };
 }]);
