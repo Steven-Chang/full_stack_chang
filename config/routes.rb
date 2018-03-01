@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   resources :rent_transactions, except: [:show]
   resources :users, only: [:index]
 
-  get 'users/:id/bond' => 'users#bond'
-  get 'users/:id/balance' => 'users#balance'
+  get 'users/:user_id/bond' => 'users#bond'
+  get 'users/:user_id/balance' => 'users#balance'
   get 'number_of_users' => 'users#return_number_of_users'
   get 'tenants' => 'users#tenants'
 

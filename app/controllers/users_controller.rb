@@ -19,12 +19,13 @@ class UsersController < ApplicationController
     tenants = User.where(:tenant => true)
 
     respond_to do |format|
-      format.json { render :json => tenants, status => 200 }
+      format.json { render :json => tenants.to_json({:methods => [:password]}), status => 200 }
     end
   end
 
   def bond
     user_id = params[:user_id]
+    puts user_id
     bond = RentTransaction.get_bond_for_user( user_id )
 
     respond_to do |format|

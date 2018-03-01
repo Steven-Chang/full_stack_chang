@@ -3,7 +3,7 @@ class RentTransactionsController < ApplicationController
 
   def index
     user_id = params[:user_id]
-    rent_transactions = RentTransaction.where(:user_id => user_id)
+    rent_transactions = RentTransaction.where(:user_id => user_id).order("date DESC")
 
     respond_to do |format|
       format.json {
@@ -14,6 +14,14 @@ class RentTransactionsController < ApplicationController
   end
 
   def create
+    recent_transaction = RentTransaction.new( rent_transaction_params )
+    respond_to do |format|
+      if recent_transaction.save
+        format.json { render :json => recent_transaction.to_json, status: :created }
+      else
+        format.json { render json: recent_transaction.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update

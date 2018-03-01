@@ -6,4 +6,12 @@ class User < ActiveRecord::Base
 
   has_many :rent_transactions
 
+  def password
+    passwords = {
+      "Cheyenne Harmatz" => "cats",
+      "Dan Nitarski" => "baker",
+      "Sid Sahi" => "ronaldo"
+    }
+    passwords[self.username]
+  end
 end
