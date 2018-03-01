@@ -2,14 +2,16 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   devise_for :users
   root 'application#index'
-  resources :gambling_club_entries
   resources :projects, only: [:index, :create]
   resources :scores, only: [:index, :create]
   resources :blog_posts, only: [:index, :create, :destroy]
+  resources :rent_transactions, except: [:show]
   resources :users, only: [:index]
 
+  get 'users/:id/bond' => 'users#bond'
+  get 'users/:id/balance' => 'users#balance'
   get 'number_of_users' => 'users#return_number_of_users'
-  get 'gambling_club_summary' => 'gambling_club_entries#summary'
+  get 'tenants' => 'users#tenants'
 
   # Need this for prettifying url
   get '*path', :to => redirect('/#!/%{path}')

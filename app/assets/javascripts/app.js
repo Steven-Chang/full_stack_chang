@@ -41,21 +41,6 @@ var app = angular.module('app', [
 
 	$stateProvider
 
-		.state('gamblingclub', {
-			url: '/gamblingclub',
-			templateUrl: 'views/gambling_club.html',
-			controller: 'GamblingClubController',
-			resolve: {
-				users: ['Restangular', function( Restangular ){
-					return Restangular.all( 'users' )
-						.getList()
-						.then(function( users ){
-							return users;
-						});
-				}]
-			}
-		})
-
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/home.html',

@@ -1,4 +1,4 @@
-<div>
+<div ng-init="init()">
   <nav-bar></nav-bar>
   <div class="container" style="margin-top: -20px;">
     <div class="row">
@@ -9,14 +9,8 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <div ng-click="getTenantDetails( 'cheyenne' )">
-          <span style="cursor: pointer;">Cheyenne</span>
-        </div>
-        <div ng-click="getTenantDetails( 'dan' )">
-          <span style="cursor: pointer;">Dan</span>
-        </div>
-        <div ng-click="getTenantDetails( 'sid' )">
-          <span style="cursor: pointer;">Sid</span>
+        <div ng-click="getTransactions( tenant )" ng-repeat="tenant in tenants">
+          <span style="cursor: pointer;">{{ tenant.username }}</span>
         </div>
       </div>
     </div>
@@ -24,7 +18,7 @@
     <div class="row" ng-show="selectedTenant">
       <hr>
       <div class="col-xs-12">
-        <h2>{{ selectedTenant | uppercase }}</h2>
+        <h2>{{ selectedTenant.username | uppercase }}</h2>
       </div>
 
       <div class="col-xs-12">
@@ -34,9 +28,18 @@
         </div>
       </div>
 
-      <div class="col-xs-12" ng-show="(password === cheyennePassword && selectedTenant === 'cheyenne') || (password === danPassword && selectedTenant === 'dan') || (password === sidPassword && selectedTenant === 'sid')">
+      <div class="col-xs-12" ng-show="(password === cheyennePassword && selectedTenant.username === 'Cheyenne Harmatz') || (password === danPassword && selectedTenant.username === 'Dan Nitarski') || (password === sidPassword && selectedTenant.username === 'Sid Sahi')">
+        <div ng-if="transactions.balance === 0">
+          You currently don't owe anything.
+        </div>
+        <div ng-if="transactions.balance > 0">
+          You currently owe {{ transactions.balance | currency }}.
+        </div>
+        <div ng-if="transactions.balance < 0">
+          You currently owe {{ transactions.balance | currency }}.
+        </div>
         <div>
-          Bond: $300
+          Bond: {{ bond | currency }}
         </div>
         <div>
           <table class="table table-striped">

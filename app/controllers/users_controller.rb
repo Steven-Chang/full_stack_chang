@@ -15,4 +15,36 @@ class UsersController < ApplicationController
     end
   end
 
+  def tenants
+    tenants = User.where(:tenant => true)
+
+    respond_to do |format|
+      format.json { render :json => tenants, status => 200 }
+    end
+  end
+
+  def bond
+    user_id = params[:user_id]
+    bond = RentTransaction.get_bond_for_user( user_id )
+
+    respond_to do |format|
+      format.json {
+        render :json => { bond: bond },
+        status => 200
+      }
+    end
+  end
+
+  def balance
+    user_id = params[:user_id]
+    balance = RentTransaction.get_balance_for_user( user_id )
+
+    respond_to do |format|
+      format.json {
+        render :json => { balance: balance },
+        status => 200
+      }
+    end
+  end
+
 end

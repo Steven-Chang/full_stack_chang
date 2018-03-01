@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301064446) do
+ActiveRecord::Schema.define(version: 20180301081533) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20180301064446) do
     t.datetime "updated_at",                             null: false
     t.string   "username"
     t.boolean  "admin",                  default: false
+    t.boolean  "tenant",                 default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
