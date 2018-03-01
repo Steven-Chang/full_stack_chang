@@ -46,9 +46,11 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
     Restangular.all('rent_transactions')
       .post( $scope.newTransaction )
       .then(function( response ){
-        $scope.transactions.unshift( response );
-        updateUsersBalance( $scope.newTransaction.user_id );
-        updateUsersBond( $scope.newTransaction.user_id );
+        if( $scope.transactions.length > 0 && $scope.transactions[0].user_id === response.user_id ){
+          $scope.transactions.unshift( response );
+          updateUsersBalance( $scope.newTransaction.user_id );
+          updateUsersBond( $scope.newTransaction.user_id );
+        };
         $scope.newTransaction.amount = 0;
         $scope.newTransaction.description = "";
       });
