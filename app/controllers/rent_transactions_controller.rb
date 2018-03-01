@@ -1,5 +1,7 @@
 class RentTransactionsController < ApplicationController
   before_action :set_rent_transaction, only: [:update, :destroy]
+  # later on we're gonna have to change this because we only want admins to be able to create delete update
+  before_filter :authenticate_user!, except: [:index]
 
   def index
     user_id = params[:user_id]

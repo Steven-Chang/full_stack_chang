@@ -91,13 +91,13 @@
                 <th scope="col">Date</th>
                 <th scope="col">Description</th>
                 <th scope="col">+/-</th>
-                <th scope="col"></th>
+                <th scope="col" ng-if="currentUser.admin"></th>
               </tr>
               <tr ng-repeat="transaction in transactions">
                 <td>{{ transaction.date }}</td>
                 <td>{{ transaction.description }}</td>
                 <td>{{ transaction.amount | currency }}</td>
-                <td><span class="glyphicon glyphicon-trash" ng-click="deleteRentTransaction( $index )"></span></td>
+                <td ng-if="currentUser.admin"><span class="glyphicon glyphicon-trash" ng-click="deleteRentTransaction( $index )"></span></td>
               </tr>
             </thead>
           </table>
