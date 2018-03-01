@@ -95,6 +95,12 @@ var app = angular.module('app', [
 			}]
 		})
 
+		.state('rent', {
+			url: '/rent',
+			templateUrl: 'views/rent.html',
+			controller: 'RentController'
+		})
+
 		.state('register', {
 			url: '/register',
 			templateUrl: 'views/register.html',

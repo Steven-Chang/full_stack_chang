@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171220133902) do
+ActiveRecord::Schema.define(version: 20180301044713) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -30,19 +30,6 @@ ActiveRecord::Schema.define(version: 20171220133902) do
 
   add_index "blog_posts_tags", ["blog_post_id"], name: "index_blog_posts_tags_on_blog_post_id"
   add_index "blog_posts_tags", ["tag_id"], name: "index_blog_posts_tags_on_tag_id"
-
-  create_table "gambling_club_entries", force: :cascade do |t|
-    t.datetime "date",        null: false
-    t.integer  "user_id",     null: false
-    t.float    "amount",      null: false
-    t.text     "description"
-    t.boolean  "gambling"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.boolean  "guarantee"
-    t.float    "wager"
-    t.float    "odds"
-  end
 
   create_table "levels", force: :cascade do |t|
     t.integer  "score_id",   null: false
