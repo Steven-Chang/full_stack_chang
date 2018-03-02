@@ -21,10 +21,10 @@ namespace :fsc do
       description = "Rent #{ todays_date } - #{ date_in_six_days }"
 
       rent_details_by_day[current_day_name].each do |tenant_details|
-        tenant = User.where(:username => tenant_details.username).first
+        tenant = User.where(:username => tenant_details[:username]).first
         new_rent_transaction = RentTransaction.new
         new_rent_transaction.user_id = tenant.id
-        new_rent_transaction.amount = tenant_details.amount
+        new_rent_transaction.amount = tenant_details[:amount]
         new_rent_transaction.description = description
         new_rent_transaction.save
       end
