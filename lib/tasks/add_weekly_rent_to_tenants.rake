@@ -23,6 +23,7 @@ namespace :fsc do
       rent_details_by_day[current_day_name].each do |tenant_details|
         tenant = User.where(:username => tenant_details[:username]).first
         new_rent_transaction = RentTransaction.new
+        new_rent_transaction.date = Date.today
         new_rent_transaction.user_id = tenant.id
         new_rent_transaction.amount = tenant_details[:amount]
         new_rent_transaction.description = description
