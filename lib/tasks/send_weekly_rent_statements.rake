@@ -7,7 +7,7 @@ namespace :fsc do
 
 
 from = Email.new(email: 'prime_pork@hotmail.com')
-to = Email.new(email: 'admin@livefinder.com')
+to = Email.new(email: 'stevenchang5000@gmail.com')
 subject = 'Sending with SendGrid is Fun'
 content = Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
 mail = SendGrid::Mail.new(from, subject, to, content)
