@@ -21,6 +21,7 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
 
   // PUBLIC
   $scope.balance;
+  $scope.creatingRentTransaction = false;
   $scope.bond;
   $scope.currentUser = $rootScope.user;
   $scope.newTransaction = {
@@ -43,23 +44,29 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
   });
 
   $scope.createRentTransaction = function(){
-    Restangular.all('rent_transactions')
-      .post( $scope.newTransaction )
-      .then(function( response ){
-        if( $scope.selectedTenant.id === response.user_id ){
-          $scope.transactions.unshift( response );
-          updateUsersBalance( $scope.newTransaction.user_id );
-          updateUsersBond( $scope.newTransaction.user_id );
-        };
-        $scope.newTransaction.amount = 0;
-        $scope.newTransaction.description = "";
-      });
+    if ( !$scope.creatingRentTransaction ){
+      $scope.creatingRentTransaction = true;
+      Restangular.all('rent_transactions')
+        .post( $scope.newTransaction )
+        .then(function( response ){
+          if( $scope.selectedTenant.id === response.user_id ){
+            $scope.transactions.unshift( response );
+            updateUsersBalance( $scope.newTransaction.user_id );
+            updateUsersBond( $scope.newTransaction.user_id );
+          };
+          $scope.newTransaction.amount = 0;
+          $scope.newTransaction.description = "";
+          $scope.creatingRentTransaction = false;
+        });
+    };
   };
 
   $scope.deleteRentTransaction = function( $index ) {
     $scope.transactions[$index].remove()
       .then(function(){
         $scope.transactions.splice( $index, 1  );
+        updateUsersBalance( $scope.selectedTenant.id );
+        updateUsersBond( $scope.selectedTenant.id );
       });
   };
 
