@@ -2,7 +2,7 @@ namespace :fsc do
   desc "Adding weekly rent to tenants"
   task :add_rent_to_tenants => :environment do
     rent_details_by_day = {
-      "Friday" => [{
+      "Saturday" => [{
         :username => "Dan Nitarski",
         :amount => 130
       }, {
