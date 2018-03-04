@@ -5,7 +5,7 @@ namespace :fsc do
     require 'sendgrid-ruby'
     include SendGrid
 
-    if Time.now.gmtime.strftime("%A") == "Monday"
+    if Time.now.gmtime.strftime("%A") == "Sunday"
       from = Email.new(email: 'prime_pork@hotmail.com', name: "Steven Chang")
       subject = 'Rent'
 
