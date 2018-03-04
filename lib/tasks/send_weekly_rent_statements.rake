@@ -10,6 +10,8 @@ namespace :fsc do
       subject = 'Rent'
 
       User.where(:tenant => true).each do |user|
+        bond = RentTransaction.get_bond_for_user( user.id )
+        balance = RentTransaction.get_balance_for_user( user.id )
         to = Email.new(email: "stevenchang5000@gmail.com")
 html = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html data-editor-version='2' class='sg-campaigns' xmlns='http://www.w3.org/1999/xhtml'>
@@ -185,11 +187,11 @@ html = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.
             height='100%'
             valign='top'
             bgcolor=''>
-            <div><u>Dan Nitarski</u></div>
+            <div><u>#{ user.username }</u></div>
 
-<div><strong>Balance: $#{ user.balance }</strong></div>
+<div><strong>Balance: $#{ balance }</strong></div>
 
-<div>Bond: $#{ user.bond }</div>
+<div>Bond: $#{ bond }</div>
 
         </td>
       </tr>
