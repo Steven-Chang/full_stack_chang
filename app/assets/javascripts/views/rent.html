@@ -93,13 +93,15 @@
                 <th scope="col">+/-</th>
                 <th scope="col" ng-if="currentUser.admin"></th>
               </tr>
+            </thead>
+            <tbody>
               <tr ng-repeat="transaction in transactions">
                 <td>{{ transaction.date }}</td>
                 <td>{{ transaction.description }}</td>
                 <td>{{ transaction.amount | currency }}</td>
                 <td ng-if="currentUser.admin"><span class="glyphicon glyphicon-trash" ng-click="deleteRentTransaction( $index )" style="cursor: pointer;"></span></td>
               </tr>
-            </thead>
+            </tbody>
           </table>
         </div>
       </div>
