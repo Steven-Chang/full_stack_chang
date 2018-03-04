@@ -298,7 +298,7 @@ html = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.
   </body>
 </html>"
 
-        content = Content.new(type: 'text/plain', value: html)
+        content = Content.new(type: 'text/html', value: html)
         mail = SendGrid::Mail.new(from, subject, to, content)
 
         sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
