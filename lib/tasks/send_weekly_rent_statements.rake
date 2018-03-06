@@ -5,21 +5,14 @@ namespace :fsc do
     require 'sendgrid-ruby'
     include SendGrid
 
-    puts "THISSSSSS THISSSS THISSSSS THISSSSSSS"
     if Time.now.gmtime.strftime("%A") == "Tuesday"
-      puts 4321412341241234
       from = Email.new(email: 'prime_pork@hotmail.com', name: "Steven Chang")
-      puts 98734537838543
       subject = 'Rent'
-      puts 3242352344333453
 
       User.where(:tenant => true).each do |user|
-        puts 987782359824354392857423
         bond = RentTransaction.get_bond_for_user( user.id )
-        puts 948093829580923485293452
         balance = RentTransaction.get_balance_for_user( user.id )
-        puts 87664728342
-        to = Email.new(email: ["stevenchang5000@gmail.com", user.email])
+        to = Email.new(email: user.email)
 html = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html data-editor-version='2' class='sg-campaigns' xmlns='http://www.w3.org/1999/xhtml'>
   <head>
