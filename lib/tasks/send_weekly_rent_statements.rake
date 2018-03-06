@@ -7,8 +7,11 @@ namespace :fsc do
 
     puts "THISSSSSS THISSSS THISSSSS THISSSSSSS"
     if Time.now.gmtime.strftime("%A") == "Monday"
+      puts 4321412341241234
       from = Email.new(email: 'prime_pork@hotmail.com', name: "Steven Chang")
+      puts 98734537838543
       subject = 'Rent'
+      puts 3242352344333453
 
       User.where(:tenant => true).each do |user|
         puts 987782359824354392857423
