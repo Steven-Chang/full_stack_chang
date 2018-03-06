@@ -5,14 +5,17 @@ namespace :fsc do
     require 'sendgrid-ruby'
     include SendGrid
 
-    if Time.now.gmtime.strftime("%A") == "Sunday"
+    if Time.now.gmtime.strftime("%A") == "Monday"
       from = Email.new(email: 'prime_pork@hotmail.com', name: "Steven Chang")
       subject = 'Rent'
 
       User.where(:tenant => true).each do |user|
+        puts 987782359824354392857423
         bond = RentTransaction.get_bond_for_user( user.id )
+        puts 948093829580923485293452
         balance = RentTransaction.get_balance_for_user( user.id )
-        to = Email.new(email: "stevenchang5000@gmail.com")
+        puts 87664728342
+        to = Email.new(email: ["stevenchang5000@gmail.com", user.email])
 html = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html data-editor-version='2' class='sg-campaigns' xmlns='http://www.w3.org/1999/xhtml'>
   <head>
@@ -230,7 +233,7 @@ html = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.
             <div>
 <div style='font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; font-family: arial; font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);'>Name: Steven Chang</div>
 
-<div style='font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; font-family: arial; font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);'>BSB: 014275</div>
+<div style='font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; font-family: arial; font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);'>BSB: 014274</div>
 
 <div style='font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; font-family: arial; font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);'>Account Number: 571706197&nbsp;</div>
 </div>
