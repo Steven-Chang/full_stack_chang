@@ -6,7 +6,7 @@ namespace :fsc do
     include SendGrid
 
     puts "THISSSSSS THISSSS THISSSSS THISSSSSSS"
-    if Time.now.gmtime.strftime("%A") == "Monday"
+    if Time.now.gmtime.strftime("%A") == "Tuesday"
       puts 4321412341241234
       from = Email.new(email: 'prime_pork@hotmail.com', name: "Steven Chang")
       puts 98734537838543
