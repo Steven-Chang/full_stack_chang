@@ -10,6 +10,9 @@ namespace :fsc do
         }, {
           :username => "Sid Sahi",
           :amount => 149
+        }, {
+          :username => "Isabel Lozano",
+          :amount => 130
         }],
         "Thursday" => [{
           :username => "Cheyenne Harmatz",
