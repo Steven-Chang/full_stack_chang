@@ -1,6 +1,8 @@
-app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout', 'DisplayService', 'Restangular', function( $filter, $rootScope, $scope, $timeout, DisplayService, Restangular ){
+app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout', 'Auth', 'DisplayService', 'Restangular', function( $filter, $rootScope, $scope, $timeout, Auth, DisplayService, Restangular ){
 
   // PRIVATE
+  var config = {headers: {'X-HTTP-Method-Override': 'POST'}}
+
   var updateUsersBalance = function( tenant_id ){
     Restangular
       .one("users", tenant_id)
@@ -21,14 +23,24 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
 
   // PUBLIC
   $scope.addRentFormVisible = true;
+  $scope.addTenantFormVisible = false;
   $scope.balance;
   $scope.creatingRentTransaction = false;
   $scope.bond;
   $scope.currentUser = $rootScope.user;
+
+  $scope.newTenant = {
+    email: "",
+    username: "",
+    remember_me: false,
+    tenant: true
+  };
+
   $scope.newTransaction = {
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     user_id: undefined
   };
+
   $scope.password;
   $scope.selectedTenant;
   $scope.tenants;
@@ -60,6 +72,17 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
           $scope.creatingRentTransaction = false;
         });
     };
+  };
+
+  $scope.createTenant = function(){
+    Auth.register($scope.newTenant, config)
+    .then(function( tenant ){
+      $scope.newTenant.email = "";
+      $scope.newTenant.username = "";
+      $scope.tenants.push( tenant );
+    }, function(response){
+      console.log("Error");
+    });
   };
 
   $scope.deleteRentTransaction = function( $index ) {
