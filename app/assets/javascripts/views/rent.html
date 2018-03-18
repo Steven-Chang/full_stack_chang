@@ -7,18 +7,13 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-xs-12">
-        <div ng-click="getTransactions( tenant )" ng-repeat="tenant in tenants">
-          <span style="cursor: pointer;">{{ tenant.username }}</span>
-        </div>
-      </div>
-    </div>
-
     <div class="row" ng-show="currentUser.admin">
       <div class="col-xs-12">
-        <hr>
-        <form ng-submit="createRentTransaction()">
+        <h4 ng-click="addRentFormVisible = !addRentFormVisible; slideToggleContainer( '#rent-transaction-form' );" class="fake-link">Add a new post 
+          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addRentFormVisible"></span>
+          <span class="glyphicon glyphicon-triangle-top" ng-show="addRentFormVisible"></span>
+        </h4>
+        <form ng-submit="createRentTransaction()" id="rent-transaction-form">
           <div class="form-group">
             <select class="custom-select" ng-model="newTransaction.user_id" ng-options="tenant.id as tenant.username for tenant in tenants">
             </select>
@@ -53,8 +48,16 @@
 
           <input type="submit" value="Create" class="btn btn-primary">
         </form>
+        <hr>
       </div>
+    </div>
 
+    <div class="row">
+      <div class="col-xs-12">
+        <div ng-click="getTransactions( tenant )" ng-repeat="tenant in tenants">
+          <span style="cursor: pointer;">{{ tenant.username }}</span>
+        </div>
+      </div>
     </div>
 
     <div class="row" ng-show="selectedTenant">

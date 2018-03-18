@@ -1,4 +1,4 @@
-app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout', 'Restangular', function( $filter, $rootScope, $scope, $timeout, Restangular ){
+app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout', 'DisplayService', 'Restangular', function( $filter, $rootScope, $scope, $timeout, DisplayService, Restangular ){
 
   // PRIVATE
   var updateUsersBalance = function( tenant_id ){
@@ -20,6 +20,7 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
   };
 
   // PUBLIC
+  $scope.addRentFormVisible = true;
   $scope.balance;
   $scope.creatingRentTransaction = false;
   $scope.bond;
@@ -93,5 +94,9 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
         $scope.tenants = tenants;
         $scope.newTransaction.user_id = tenants[0].id
       });
+  };
+
+  $scope.slideToggleContainer = function( id ){
+    DisplayService.slideToggleContainer( id );
   };
 }]);
