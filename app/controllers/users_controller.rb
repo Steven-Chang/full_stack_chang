@@ -48,4 +48,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_other_params
+    user_id = params[:user_id]
+    user = User.find(user_id)
+    user.tenant = params[:tenant]
+    user.admin = params[:admin]
+    user.save
+
+    respond_to do |format|
+      format.json {
+        render :json => user,
+        status => 200
+      }
+    end
+  end
+
 end

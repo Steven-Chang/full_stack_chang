@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'users/:user_id/bond' => 'users#bond'
   get 'users/:user_id/balance' => 'users#balance'
   get 'number_of_users' => 'users#return_number_of_users'
+  put 'users/:user_id' => 'users#update_other_params'
   get 'tenants' => 'users#tenants'
 
   # Need this for prettifying url
