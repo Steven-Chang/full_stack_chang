@@ -111,6 +111,13 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
       .getList()
       .then(function( tenants ){
         $scope.tenants = tenants;
+        for (var i = 0; i < $scope.tenants.length; i++){
+          var tenant = $scope.tenants[i];
+          if ( tenant.username === "Steven Chang" ){
+            break
+          };
+        };
+        $scope.tenants.splice( i, 1 );
         $scope.newTransaction.user_id = tenants[0].id
       });
   };
