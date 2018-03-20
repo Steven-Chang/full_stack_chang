@@ -1,0 +1,35 @@
+<div id="why-hire-chang">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="exit-sign-container">
+          <a ui-sref="home">
+            <img src="http://res.cloudinary.com/digguide/image/upload/s--2CiGCmkb--/v1473935972/Personal%20Site/Portflio/Why%20Hire%20Chang/647453_exit_sign.jpg">
+          </a>
+        </div>
+        <div id="tv-container">
+          <img src='http://res.cloudinary.com/digguide/image/upload/s--DdFiNHCA--/v1473826744/Personal%20Site/Portflio/Why%20Hire%20Chang/static_screen1.gif' id='static-image' ng-show="staticImageVisible">
+          <div id="video">
+            <youtube-video player="videoPlayer" video-id="theRing" player-width="'560px'" player-height="'315px'" player-vars="youTubePlayerVariables"></youtube-video>
+          </div>
+        </div>
+        <div id="vcr-player">
+          <img src="http://res.cloudinary.com/digguide/image/upload/s--LDW_C12v--/v1473829975/Personal%20Site/Portflio/Why%20Hire%20Chang/Samsung-DVD-Recorder-Vcr-Combo_20090669014_1.jpg">
+
+          <div id="video-slot" ng-click="clickVideoSlot()" ng-show="videoSlotVisible"></div>
+
+        </div>
+
+        <div id="phone-container" ng-click="runPhoneClickEvents()" ng-show="phoneVisible">
+          <img src='http://res.cloudinary.com/digguide/image/upload/s--DQUoAK0_--/v1473938839/Personal%20Site/Portflio/Why%20Hire%20Chang/phone-ringing.gif' id='phone-image'>
+        </div>
+
+        <div id="phone-in-hand-container">
+          <img src="http://res.cloudinary.com/digguide/image/upload/s--NoyswzwG--/v1473969943/Personal%20Site/Portflio/Why%20Hire%20Chang/phone_in_hand.png" id="phone-in-hand">
+        </div>
+        <audio src="audios/phone.mp3" id="phone-audio" loop="true"></audio>
+        <audio src="audios/scream.mp3" id="scream-audio"></audio>
+      </div>
+    </div>
+  </div>
+</div>
