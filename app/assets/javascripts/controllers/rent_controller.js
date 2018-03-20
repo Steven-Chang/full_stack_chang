@@ -108,7 +108,7 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
   $scope.init = function(){
     Restangular
       .all('tenants')
-      .getList()
+      .getList({ page: "rent" })
       .then(function( tenants ){
         $scope.tenants = tenants;
         for (var i = 0; i < $scope.tenants.length; i++){

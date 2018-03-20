@@ -1,6 +1,7 @@
-class CreateCleaningTasks < ActiveRecord::Migration
+class CreateCleaningRecords < ActiveRecord::Migration
   def change
-    create_table :cleaning_tasks do |t|
+    create_table :cleaning_records do |t|
+      t.integer :user_id, null: false
       t.string :description, null: false
       t.decimal :points, precision: 3, scale: 2, default: 0.0
 

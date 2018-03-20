@@ -17,9 +17,14 @@ class UsersController < ApplicationController
 
   def tenants
     tenants = User.where(:tenant => true)
+    if params[:page] == "cleaning"
+      attached_methods = [:cleaning_points]
+    elsif params[:page] == "rent"
+      attached_methods = [:password]
+    end
 
     respond_to do |format|
-      format.json { render :json => tenants.to_json({:methods => [:password]}), status => 200 }
+      format.json { render :json => tenants.to_json({:methods => attached_methods}), status => 200 }
     end
   end
 

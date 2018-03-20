@@ -8,9 +8,10 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
   $scope.init = function(){
   	Restangular
   		.all('tenants')
-  		.getList()
+  		.getList({page: "cleaning"})
   		.then(function( tenants ){
   			$scope.tenants = tenants;
+  			console.log($scope.tenants);
   		})
   };
 
