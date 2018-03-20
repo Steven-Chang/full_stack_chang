@@ -25,7 +25,6 @@ class UsersController < ApplicationController
 
   def bond
     user_id = params[:user_id]
-    puts user_id
     bond = RentTransaction.get_bond_for_user( user_id )
 
     respond_to do |format|

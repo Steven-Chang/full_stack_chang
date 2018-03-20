@@ -1,4 +1,4 @@
-app.controller('PortfolioController', ['$scope', '$timeout', 'Auth', 'projects', function($scope, $timeout, Auth, projects){
+app.controller('PortfolioController', ['$scope', '$timeout', 'Auth', 'DatetimeService', 'projects', function($scope, $timeout, Auth, DatetimeService, projects){
 
 	// --------------------
 	// Private
@@ -40,11 +40,7 @@ app.controller('PortfolioController', ['$scope', '$timeout', 'Auth', 'projects',
 
   $scope.projects = projects;
 
-  $timeout(function(){
-    $('#date-picker').datepicker({
-      format: "dd/mm/yyyy"
-    });
-  }, 100)
+  DatetimeService.initiateDatePicker('#date-picker');
 
   $scope.slideToggleAddProjectForm = function(){
     $( "#add-project-form" ).slideToggle( "slow" );

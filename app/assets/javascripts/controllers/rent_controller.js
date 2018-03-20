@@ -1,4 +1,4 @@
-app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout', 'Auth', 'DisplayService', 'Restangular', function( $filter, $rootScope, $scope, $timeout, Auth, DisplayService, Restangular ){
+app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $rootScope, $scope, $timeout, Auth, DatetimeService, DisplayService, Restangular ){
 
   // PRIVATE
   var config = {headers: {'X-HTTP-Method-Override': 'POST'}}
@@ -46,11 +46,7 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
   $scope.tenants;
   $scope.transactions;
 
-  $timeout(function(){
-    $('#date-picker').datepicker({
-      format: 'D dd MM yyyy'
-    });
-  }, 100);
+  DatetimeService.initiateDatePicker('#date-picker');
 
   $scope.$watch('$root.user', function(){
     $scope.currentUser = $rootScope.user;

@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout', 'Auth', 'blogPosts', 'cloudinary', 'Restangular', function( $filter, $ngConfirm, $scope, $timeout, Auth, blogPosts, cloudinary, Restangular){
+app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout', 'Auth', 'blogPosts', 'cloudinary', 'DatetimeService', 'Restangular', function( $filter, $ngConfirm, $scope, $timeout, Auth, blogPosts, cloudinary, DatetimeService, Restangular){
 
 	// --------------------
 	// Private
@@ -86,6 +86,8 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
     }
   };
 
+  DatetimeService.initiateDatePicker("#date-picker");
+
   $scope.deleteBlogPost = function(post){
     $ngConfirm({
       title: 'Sure you wanna blaze this shit?',
@@ -148,12 +150,6 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
     searching = false;
     $scope.getBlogPosts();
   };
-
-  $timeout(function(){
-    $('#date-picker').datepicker({
-      format: 'EEE dd MMMM yyyy'
-    });
-  }, 100);
 
   $scope.slideToggleAddBlogPostForm = function(){
     $( "#add-blog-post-form" ).slideToggle( "slow" );
