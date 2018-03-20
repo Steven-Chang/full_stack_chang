@@ -29,6 +29,10 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
   $scope.bond;
   $scope.currentUser = $rootScope.user;
 
+  $scope.newTask = {
+
+  };
+
   $scope.newTenant = {
     email: "",
     username: "",
