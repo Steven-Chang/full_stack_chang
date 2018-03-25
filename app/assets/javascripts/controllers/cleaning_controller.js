@@ -1,10 +1,25 @@
 app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeout', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $rootScope, $scope, $timeout, Auth, DatetimeService, DisplayService, Restangular ){
 
   //// PRIVATE ////
+  var setWeekStartingDates = function(){
+    var today = new Date();
+    var daysToMinus = today.getDay() - 1;
+    if ( daysToMinus < 0 ){
+      daysToMinus = 6;
+    };
+    today.setDate( today.getDate() - daysToMinus );
+    $scope.dates.push( today );
+  };
 
   //// PUBLIC ////
   $scope.addTenantFormVisible = false;
   $scope.creatingTask = false;
+  $scope.dates = [];
+  $scope.newRecord = {
+    description: "",
+    points: 1,
+    user_id: 0
+  };
   $scope.newTask = {
     description: "",
     points: 1
@@ -15,8 +30,20 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
     remember_me: false,
     tenant: true
   };
+  $scope.records;
   $scope.tasks;
   $scope.tenants;
+
+  $scope.createRecord = function(){
+    if ( !$scope.creatingRecord ){
+      $scope.creatingRecord = true;
+      Restangular.all('cleaning_records')
+        .post( $scope.creatingRecord )
+        .then(function( response ){
+          $scope.records.push( response );
+        });
+    };
+  };
 
   $scope.createTask = function(){
     if ( !$scope.creatingTask ){
@@ -49,6 +76,7 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
   		.getList({page: "cleaning"})
   		.then(function( tenants ){
   			$scope.tenants = tenants;
+        $scope.newRecord.user_id = tenants[0].id;
   		})
 
     Restangular
@@ -56,7 +84,10 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
       .getList()
       .then(function(tasks){
         $scope.tasks = tasks;
+        $scope.newRecord.description = tasks[0].description;
       });
+
+    setWeekStartingDates();
   };
 
   $scope.slideToggleContainer = function( id ){
