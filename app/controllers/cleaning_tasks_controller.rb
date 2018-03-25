@@ -25,6 +25,6 @@ class CleaningTasksController < ApplicationController
   end
 
   def cleaning_task_params
-    params.require(:cleaning_task).permit(:description, :points)
+    params.require(:cleaning_task).permit(:description)
   end
 end
