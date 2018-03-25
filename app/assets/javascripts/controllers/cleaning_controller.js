@@ -25,9 +25,17 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
     if ( !$scope.creatingRecord ){
       $scope.creatingRecord = true;
       Restangular.all('cleaning_records')
-        .post( $scope.creatingRecord )
+        .post( $scope.newRecord )
         .then(function( response ){
-          $scope.records.push( response );
+          for(var i = 0; i < $scope.tenants.length; i++){
+            if( $scope.tenants[i].id === response.user_id ){
+              if( $scope.tenants[i].cleaning_summary[response.cleaning_task_id] ){
+                $scope.tenants[i].cleaning_summary[response.cleaning_task_id] += 1;
+              } else {
+                $scope.tenants[i].cleaning_summary[response.cleaning_task_id] = 1;
+              };
+            };
+          };
         });
     };
   };

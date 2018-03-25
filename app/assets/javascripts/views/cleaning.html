@@ -108,6 +108,7 @@
           <tbody>
             <tr ng-repeat="task in tasks">
               <th scope="row">{{ task.description }}</th>
+              <td ng-repeat="tenant in tenants">{{ tenant.summary[task.id] }}</td>
             </tr>
           </tbody>
         </table>

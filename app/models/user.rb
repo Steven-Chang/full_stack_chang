@@ -7,7 +7,12 @@ class User < ActiveRecord::Base
   has_many :cleaning_records
   has_many :rent_transactions
 
-  def cleaning_summary 
+  def cleaning_summary
+    summary = {}
+    CleaningTask.all.each do |ct|
+      summary[ct.id] = CleaningRecord.where(:user_id => self.id).where(:cleaning_task_id => ct.id).length
+    end
+    summary
   end
 
   def password
