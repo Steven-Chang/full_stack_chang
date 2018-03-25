@@ -71,11 +71,13 @@
           <thead>
             <tr>
               <th scope="col">Tasks</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="task in tasks">
               <th scope="row">{{ task.description }}</th>
+              <td><a ng-click="deleteCleaningTask( $index )" style="cursor: pointer">delete</a></td>
             </tr>
           </tbody>
         </table>

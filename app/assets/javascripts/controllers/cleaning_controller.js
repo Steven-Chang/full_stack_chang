@@ -81,6 +81,13 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
       });
   };
 
+  $scope.deleteCleaningTask = function( $index ){
+    $scope.tasks[$index].remove()
+      .then(function(){
+        $scope.tasks.splice( $index, 1 );
+      });
+  };
+
   $scope.init = function(){
     Restangular
       .all('tenants')

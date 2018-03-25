@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable #:validatable
 
-  has_many :cleaning_records
-  has_many :rent_transactions
+  has_many :cleaning_records, dependent: :destroy
+  has_many :rent_transactions, dependent: :destroy
 
   def cleaning_summary
     summary = {}

@@ -1,4 +1,5 @@
 class CleaningTasksController < ApplicationController
+  before_action :set_cleaning_task, only: [:destroy]
   # later on we're gonna have to change this because we only want admins to be able to create delete update
   before_filter :authenticate_user!, except: [:index]
 
@@ -22,6 +23,18 @@ class CleaningTasksController < ApplicationController
         format.json { render json: cleaning_task.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy
+    @cleaning_task.destroy
+
+    render json: { message: "removed" }, status: :ok
+  end
+
+  private
+
+  def set_cleaning_task
+    @cleaning_task = CleaningTask.find(params[:id])
   end
 
   def cleaning_task_params
