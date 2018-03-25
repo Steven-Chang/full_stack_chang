@@ -1,4 +1,5 @@
 class CleaningRecordsController < ApplicationController
+  before_action :set_cleaning_record, only: [:destroy]
   # later on we're gonna have to change this because we only want admins to be able to create delete update
   before_filter :authenticate_user!, except: [:index]
 
@@ -22,6 +23,18 @@ class CleaningRecordsController < ApplicationController
         format.json { render json: cleaning_record.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy
+    @cleaning_record.destroy
+
+    render json: { message: "removed" }, status: :ok
+  end
+
+  private
+
+  def set_cleaning_record
+    @cleaning_record = CleaningRecord.find(params[:id])
   end
 
   def cleaning_record_params

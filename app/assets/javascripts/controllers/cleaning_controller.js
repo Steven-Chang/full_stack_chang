@@ -1,5 +1,19 @@
 app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeout', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $rootScope, $scope, $timeout, Auth, DatetimeService, DisplayService, Restangular ){
 
+  // Private
+
+  var updateUserCleaningSummary = function( cleaningSummary, plusOrMinus ){
+    for(var i = 0; i < $scope.tenants.length; i++){
+      if( $scope.tenants[i].id === cleaningSummary.user.id ){
+        if( $scope.tenants[i].cleaning_summary[cleaningSummary.cleaning_task.id] ){
+          $scope.tenants[i].cleaning_summary[cleaningSummary.cleaning_task.id] += ( 1 * plusOrMinus );
+        } else {
+          $scope.tenants[i].cleaning_summary[cleaningSummary.cleaning_task.id] = 1;
+        };
+      };
+    };
+  };
+
   //// PUBLIC ////
   $scope.addTenantFormVisible = false;
   $scope.cleaningRecords = [];
@@ -29,15 +43,7 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
       Restangular.all('cleaning_records')
         .post( $scope.newRecord )
         .then(function( response ){
-          for(var i = 0; i < $scope.tenants.length; i++){
-            if( $scope.tenants[i].id === response.user.id ){
-              if( $scope.tenants[i].cleaning_summary[response.cleaning_task.id] ){
-                $scope.tenants[i].cleaning_summary[response.cleaning_task.id] += 1;
-              } else {
-                $scope.tenants[i].cleaning_summary[response.cleaning_task.id] = 1;
-              };
-            };
-          };
+          updateUserCleaningSummary( response, 1 );
           $scope.creatingRecord = false;
           $scope.cleaningRecords.unshift( response );
         });
@@ -66,6 +72,13 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
     }, function(response){
       console.log("Error");
     });
+  };
+
+  $scope.deleteCleaningRecord = function( $index ){
+    $scope.cleaningRecords[$index].remove()
+      .then(function(){
+        updateUserCleaningSummary( $scope.cleaningRecords.splice( $index, 1  )[0], -1 )
+      });
   };
 
   $scope.init = function(){
