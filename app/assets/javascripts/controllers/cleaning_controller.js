@@ -1,28 +1,15 @@
 app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeout', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $rootScope, $scope, $timeout, Auth, DatetimeService, DisplayService, Restangular ){
 
-  //// PRIVATE ////
-  var setWeekStartingDates = function(){
-    var today = new Date();
-    var daysToMinus = today.getDay() - 1;
-    if ( daysToMinus < 0 ){
-      daysToMinus = 6;
-    };
-    today.setDate( today.getDate() - daysToMinus );
-    $scope.dates.push( today );
-  };
-
   //// PUBLIC ////
   $scope.addTenantFormVisible = false;
   $scope.creatingTask = false;
   $scope.dates = [];
   $scope.newRecord = {
-    description: "",
-    points: 1,
+    cleaning_task_id: 0,
     user_id: 0
   };
   $scope.newTask = {
-    description: "",
-    points: 1
+    description: ""
   };
   $scope.newTenant = {
     email: "",
@@ -53,7 +40,6 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
         .then(function( response ){
           $scope.tasks.push( response );
           $scope.newTask.description = "";
-          $scope.newTask.points = 1;
           $scope.creatingTask = false;
         });
     };
@@ -84,10 +70,8 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
       .getList()
       .then(function(tasks){
         $scope.tasks = tasks;
-        $scope.newRecord.description = tasks[0].description;
+        $scope.newRecord.cleaning_task_id = tasks[0].id;
       });
-
-    setWeekStartingDates();
   };
 
   $scope.slideToggleContainer = function( id ){

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180325120217) do
+ActiveRecord::Schema.define(version: 20180325124119) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -32,11 +32,11 @@ ActiveRecord::Schema.define(version: 20180325120217) do
   add_index "blog_posts_tags", ["tag_id"], name: "index_blog_posts_tags_on_tag_id"
 
   create_table "cleaning_records", force: :cascade do |t|
-    t.integer  "user_id",                                           null: false
-    t.string   "description",                                       null: false
-    t.decimal  "points",      precision: 3, scale: 2, default: 0.0
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.integer  "user_id",          null: false
+    t.string   "description",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "cleaning_task_id"
   end
 
   create_table "cleaning_tasks", force: :cascade do |t|

@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   has_many :cleaning_records
   has_many :rent_transactions
 
+  def cleaning_summary 
+  end
+
   def password
     passwords = {
       "Cheyenne Harmatz" => "cats",
@@ -17,7 +20,4 @@ class User < ActiveRecord::Base
     passwords[self.username]
   end
 
-  def cleaning_points
-    self.cleaning_records.sum(:points)
-  end
 end

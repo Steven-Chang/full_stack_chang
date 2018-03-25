@@ -17,10 +17,10 @@ class UsersController < ApplicationController
 
   def tenants
     tenants = User.where(:tenant => true)
-    if params[:page] == "cleaning"
-      attached_methods = [:cleaning_points]
-    elsif params[:page] == "rent"
+    if params[:page] == "rent"
       attached_methods = [:password]
+    elsif params[:page] == "cleaning"
+      attached_methods = [:cleaning_summary]
     end
 
     respond_to do |format|

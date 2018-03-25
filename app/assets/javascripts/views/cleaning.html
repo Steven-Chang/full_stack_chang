@@ -37,13 +37,11 @@
           <thead>
             <tr>
               <th scope="col">Housemates</th>
-              <th scope="col">Points</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="tenant in tenants">
               <th scope="row">{{ tenant.username }}</th>
-              <td>{{ tenant.cleaning_points }}</td>
             </tr>
           </tbody>
         </table>
@@ -65,27 +63,17 @@
               placeholder="Description">
           </div>
 
-          <div class="form-group">
-            <input type="text" 
-              autocomplete="off"
-              class="form-control" 
-              ng-model="newTask.points" 
-              placeholder="Points">
-          </div>
-
           <input type="submit" value="Create" class="btn btn-primary">
         </form>
         <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">Tasks</th>
-              <th scope="col">Points</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="task in tasks">
               <th scope="row">{{ task.description }}</th>
-              <td>{{ task.points }}</td>
             </tr>
           </tbody>
         </table>
@@ -104,16 +92,8 @@
           </div>
 
           <div class="form-group">
-            <select class="custom-select" ng-model="newRecord.description" ng-options="task.description as task.description for task in tasks">
+            <select class="custom-select" ng-model="newRecord.cleaning_task_id" ng-options="task.id as task.description for task in tasks">
             </select>
-          </div>
-
-          <div class="form-group">
-            <input type="text" 
-              autocomplete="off"
-              class="form-control" 
-              ng-model="newRecord.points" 
-              placeholder="Points">
           </div>
 
           <input type="submit" value="Create" class="btn btn-primary">
@@ -121,13 +101,13 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Date</th>
-              <th scope="col" ng-repeat="task in tasks">{{ task.description }}</th>
+              <th scope="col"></th>
+              <th scope="col" ng-repeat="tenant in tenants">{{ tenant.username }}</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="date in dates">
-              <th scope="row">{{ date | date : 'd MMM yy' }}</th>
+            <tr ng-repeat="task in tasks">
+              <th scope="row">{{ task.description }}</th>
             </tr>
           </tbody>
         </table>
