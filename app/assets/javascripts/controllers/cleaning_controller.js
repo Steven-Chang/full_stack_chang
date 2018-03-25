@@ -69,13 +69,13 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
   };
 
   $scope.init = function(){
-  	Restangular
-  		.all('tenants')
-  		.getList({page: "cleaning"})
-  		.then(function( tenants ){
-  			$scope.tenants = tenants;
+    Restangular
+      .all('tenants')
+      .getList({page: "cleaning"})
+      .then(function( tenants ){
+        $scope.tenants = tenants;
         $scope.newRecord.user_id = tenants[0].id;
-  		})
+      })
 
     Restangular
       .all('cleaning_tasks')
@@ -83,6 +83,13 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
       .then(function(tasks){
         $scope.tasks = tasks;
         $scope.newRecord.cleaning_task_id = tasks[0].id;
+      });
+
+    Restangular
+      .all('cleaning_records')
+      .getList()
+      .then(function(cleaning_records){
+        $scope.cleaningRecords = cleaning_records;
       });
 
     DatetimeService.initiateDatePicker('#date-picker');

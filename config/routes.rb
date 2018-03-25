@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   devise_for :users
   root 'application#index'
-  resources :cleaning_records, only: [:create]
+  resources :cleaning_records, only: [:index, :create]
   resources :cleaning_tasks, only: [:index, :create]
   resources :projects, only: [:index, :create]
   resources :scores, only: [:index, :create]
