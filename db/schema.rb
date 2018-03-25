@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180325130601) do
+ActiveRecord::Schema.define(version: 20180325131313) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20180325130601) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "cleaning_task_id"
+    t.date     "date"
   end
 
   create_table "cleaning_tasks", force: :cascade do |t|

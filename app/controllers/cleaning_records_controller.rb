@@ -6,7 +6,7 @@ class CleaningRecordsController < ApplicationController
     cleaning_record = CleaningRecord.new(cleaning_record_params)
     respond_to do |format|
       if cleaning_record.save
-        format.json { render :json => cleaning_record.to_json, status: :created }
+        format.json { render :json => cleaning_record, status: :created }
       else
         format.json { render json: cleaning_record.errors, status: :unprocessable_entity }
       end
@@ -14,6 +14,6 @@ class CleaningRecordsController < ApplicationController
   end
 
   def cleaning_record_params
-    params.require(:cleaning_record).permit(:cleaning_task_id, :user_id)
+    params.require(:cleaning_record).permit(:cleaning_task_id, :user_id, :date)
   end
 end

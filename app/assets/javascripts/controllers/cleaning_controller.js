@@ -2,10 +2,12 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
 
   //// PUBLIC ////
   $scope.addTenantFormVisible = false;
+  $scope.cleaningRecords = [];
   $scope.creatingTask = false;
   $scope.dates = [];
   $scope.newRecord = {
     cleaning_task_id: 0,
+    date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     user_id: 0
   };
   $scope.newTask = {
@@ -36,6 +38,8 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
               };
             };
           };
+          $scope.creatingRecord = false;
+          $scope.cleaningRecords.unshift( response );
         });
     };
   };
@@ -80,6 +84,8 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
         $scope.tasks = tasks;
         $scope.newRecord.cleaning_task_id = tasks[0].id;
       });
+
+    DatetimeService.initiateDatePicker('#date-picker');
   };
 
   $scope.slideToggleContainer = function( id ){
