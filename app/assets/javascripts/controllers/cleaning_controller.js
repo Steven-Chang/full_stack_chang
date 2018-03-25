@@ -30,11 +30,11 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
         .post( $scope.newRecord )
         .then(function( response ){
           for(var i = 0; i < $scope.tenants.length; i++){
-            if( $scope.tenants[i].id === response.user_id ){
-              if( $scope.tenants[i].cleaning_summary[response.cleaning_task_id] ){
-                $scope.tenants[i].cleaning_summary[response.cleaning_task_id] += 1;
+            if( $scope.tenants[i].id === response.user.id ){
+              if( $scope.tenants[i].cleaning_summary[response.cleaning_task.id] ){
+                $scope.tenants[i].cleaning_summary[response.cleaning_task.id] += 1;
               } else {
-                $scope.tenants[i].cleaning_summary[response.cleaning_task_id] = 1;
+                $scope.tenants[i].cleaning_summary[response.cleaning_task.id] = 1;
               };
             };
           };
