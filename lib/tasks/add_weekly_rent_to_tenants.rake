@@ -17,6 +17,10 @@ namespace :fsc do
         "Thursday" => [{
           :username => "Cheyenne Harmatz",
           :amount => 150
+        }],
+        "Friday" => [{
+          :username => "Ella Kabel",
+          :amount => 150
         }]
       }
 

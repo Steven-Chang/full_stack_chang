@@ -35,6 +35,7 @@ app.controller('CleaningController', ['$filter', '$rootScope', '$scope', '$timeo
   };
   $scope.records;
   $scope.tasks;
+  $scope.tasksFormVisible = false;
   $scope.tenants;
 
   $scope.createRecord = function(){

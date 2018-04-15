@@ -71,13 +71,13 @@
           <thead>
             <tr>
               <th scope="col">Tasks</th>
-              <th></th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="task in tasks">
               <th scope="row">{{ task.description }}</th>
-              <td><a ng-click="deleteCleaningTask( $index )" style="cursor: pointer">delete</a></td>
+              <td><a ng-click="deleteCleaningTask( $index )" style="cursor: pointer"><span class="glyphicon glyphicon-trash "></span></a></td>
             </tr>
           </tbody>
         </table>
@@ -119,7 +119,7 @@
               <th scole="col">Date</th>
               <th scole="col">Tenant</th>
               <th scole="col">Task</th>
-              <th scole="col"></th>
+              <th scole="col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -127,7 +127,7 @@
               <td>{{ cleaningRecord.date }}</td>
               <td>{{ cleaningRecord.user.username }}</td>
               <td>{{ cleaningRecord.cleaning_task.description }}</td>
-              <td><a ng-click="deleteCleaningRecord( $index )" style="cursor: pointer">delete</a></td>
+              <td><a ng-click="deleteCleaningRecord( $index )" style="cursor: pointer"><span class="glyphicon glyphicon-trash "></span></a></td>
             </tr>
           </tbody>
         </table>
