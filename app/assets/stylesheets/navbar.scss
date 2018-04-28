@@ -63,6 +63,15 @@
     #myNavbar {
       background-color: #44749D;
 
+      .dropdown-menu {
+        background-color: #44749D;
+        padding: 20px;
+
+        .dropdown-item {
+          display: block;
+        }
+      }
+
       .dropdown-toggle {
         background-color: #44749D;
       }
