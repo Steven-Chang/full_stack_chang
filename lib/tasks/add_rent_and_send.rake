@@ -51,8 +51,8 @@ namespace :fsc do
             new_rent_transaction.description = description
             new_rent_transaction.save
 
-            bond = RentTransaction.get_bond_for_user( user.id )
-            balance = RentTransaction.get_balance_for_user( user.id )
+            bond = RentTransaction.get_bond_for_user( tenant.id )
+            balance = RentTransaction.get_balance_for_user( tenant.id )
             email_content = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html data-editor-version='2' class='sg-campaigns' xmlns='http://www.w3.org/1999/xhtml'>
   <head>
