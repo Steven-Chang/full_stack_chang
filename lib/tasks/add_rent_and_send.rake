@@ -42,7 +42,7 @@ namespace :fsc do
         description = "Rent #{ todays_date } - #{ date_in_thirteen_days }"
 
         rent_details_by_day[current_day_name].each do |tenant_details|
-          if ( Date.today - tenant_datails[:initial_date] ).to_i % 14 == 0
+          if ( Date.today - tenant_details[:initial_date] ).to_i % 14 == 0
             tenant = User.where(:username => tenant_details[:username]).first
             new_rent_transaction = RentTransaction.new
             new_rent_transaction.date = Date.today
