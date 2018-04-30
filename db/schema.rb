@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180325131313) do
+ActiveRecord::Schema.define(version: 20180430133336) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -54,14 +54,6 @@ ActiveRecord::Schema.define(version: 20180325131313) do
 
   add_index "levels", ["score_id"], name: "index_levels_on_score_id"
 
-  create_table "line_markets", force: :cascade do |t|
-    t.integer  "nba_game_id", null: false
-    t.float    "home_line"
-    t.float    "away_line"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "lines", force: :cascade do |t|
     t.integer  "score_id",   null: false
     t.integer  "lines",      null: false
@@ -71,19 +63,36 @@ ActiveRecord::Schema.define(version: 20180325131313) do
 
   add_index "lines", ["score_id"], name: "index_lines_on_score_id"
 
-  create_table "nba_games", force: :cascade do |t|
-    t.string   "william_hill_id", null: false
-    t.datetime "start_date",      null: false
-    t.integer  "home_id",         null: false
-    t.integer  "away_id",         null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+  create_table "market_descriptions", force: :cascade do |t|
+    t.string   "description", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "nba_teams", force: :cascade do |t|
+  create_table "markets", force: :cascade do |t|
+    t.integer  "market_description_id", null: false
+    t.integer  "match_id",              null: false
+    t.float    "odds",                  null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "match_types", force: :cascade do |t|
     t.string   "name",       null: false
+    t.string   "league"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer  "home_id",       null: false
+    t.integer  "away_id",       null: false
+    t.integer  "match_type_id", null: false
+    t.datetime "date",          null: false
+    t.integer  "home_score"
+    t.integer  "away_score"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "projects", force: :cascade do |t|
@@ -117,6 +126,12 @@ ActiveRecord::Schema.define(version: 20180325131313) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "tag",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
