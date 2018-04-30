@@ -5,11 +5,6 @@ namespace :fsc do
 
     if Date.today > Date.new(2018, 03, 10)
       rent_details_by_day = {
-        "Monday" => [{
-          :username => "Steven Chang",
-          :amount => 300,
-          :initial_date => Date.new( 2018, 04, 30 )
-        }],
         "Tuesday" => [{
           :username => "Dan Nitarski",
           :amount => 260,
