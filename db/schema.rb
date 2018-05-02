@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430133336) do
+ActiveRecord::Schema.define(version: 20180501133608) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -63,18 +63,19 @@ ActiveRecord::Schema.define(version: 20180430133336) do
 
   add_index "lines", ["score_id"], name: "index_lines_on_score_id"
 
-  create_table "market_descriptions", force: :cascade do |t|
-    t.string   "description", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "market_types", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "markets", force: :cascade do |t|
-    t.integer  "market_description_id", null: false
-    t.integer  "match_id",              null: false
-    t.float    "odds",                  null: false
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.integer  "market_type_id", null: false
+    t.integer  "match_id",       null: false
+    t.float    "odds",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "description"
   end
 
   create_table "match_types", force: :cascade do |t|
@@ -85,14 +86,16 @@ ActiveRecord::Schema.define(version: 20180430133336) do
   end
 
   create_table "matches", force: :cascade do |t|
-    t.integer  "home_id",       null: false
-    t.integer  "away_id",       null: false
-    t.integer  "match_type_id", null: false
-    t.datetime "date",          null: false
+    t.integer  "home_id",         null: false
+    t.integer  "away_id",         null: false
+    t.integer  "match_type_id",   null: false
+    t.datetime "date",            null: false
     t.integer  "home_score"
     t.integer  "away_score"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "bookie_match_id"
+    t.string   "website"
   end
 
   create_table "projects", force: :cascade do |t|

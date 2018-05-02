@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MarketDescriptionTest < ActiveSupport::TestCase
+class MarketTypeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

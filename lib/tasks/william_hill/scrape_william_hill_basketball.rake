@@ -1,3 +1,5 @@
+require_relative '../../task_helpers/gambling_helper'
+
 namespace :fsc do
   desc "Scraping William Hill Basketball"
   task :scrape_william_hill_basketball => :environment do
@@ -8,15 +10,13 @@ namespace :fsc do
 
     browser.goto('https://www.williamhill.com.au/legacysports/SportsGenericTopMenu?sportname=basketball-us')
 
+    match_type = GamblingHelper.find_or_create_match_type( "basketball", "nba" )
+
     # This goes through all the straight bets
     # so that we can get all the different team names
     browser.elements(css: "a[data-link-bettype]").each do |element|
       if element.attribute_value("data-link-bettype") == "101"
-        unless Team.where(:name => element.attribute_value("data-link-competitorname").downcase ).count > 0
-          new_team = Team.new
-          new_team.name = element.attribute_value("data-link-competitorname").downcase
-          new_team.save
-        end
+        GamblingHelper.find_or_create_team( element.attribute_value("data-link-competitorname" )
       end
     end
 
@@ -25,43 +25,49 @@ namespace :fsc do
     browser.elements(css: "a[data-link-eventid]").each do |element|
       # This is about creating the nba game
       # The date is wrong unfortunately as it is adjusted fro sydney time or whatever before it's scraped
-      nba_game = NbaGame.where(:william_hill_id => element.attribute_value("data-link-eventid") ).first
+      bookie_match_id = element.attribute_value("data-link-eventid")
+      nba_game = Match.where(:bookie_match_id => bookie_match_id ).first
       unless nba_game
-        nba_game = NbaGame.new
-        nba_game.william_hill_id = element.attribute_value("data-link-eventid")
-        nba_game.start_date = browser.element( text: element.attribute_value("data-link-eventname") ).parent.time.attribute_value("data-race-date")
-        home_team_name = nil
-        away_team_name = nil
+        nba_game = Match.new
+        nba_game.bookie_match_id = bookie_match_id
+        nba_game.date = browser.element( text: element.attribute_value("data-link-eventname") ).parent.time.attribute_value("data-race-date")
+        nba_game.match_type_id = match_type.id
         browser.elements(css: "a[data-link-eventid]").each do |element_two|
-          if element_two.attribute_value("data-link-compid") == "1" && element_two.attribute_value("data-link-eventid") == nba_game.william_hill_id
+
+          if element_two.attribute_value("data-link-compid") == "1" && element_two.attribute_value("data-link-eventid") == nba_game.bookie_match_id
             away_team_name = element_two.attribute_value("data-link-competitorname").downcase
           end
 
-          if element_two.attribute_value("data-link-compid") == "2" && element_two.attribute_value("data-link-eventid") == nba_game.william_hill_id
+          if element_two.attribute_value("data-link-compid") == "2" && element_two.attribute_value("data-link-eventid") == nba_game.bookie_match_id
             home_team_name = element_two.attribute_value("data-link-competitorname").downcase
           end
         end
-        nba_game.home_id = NbaTeam.where(:name => home_team_name).first.id
-        nba_game.away_id = NbaTeam.where(:name => away_team_name).first.id
+        nba_game.home_id = Team.where(:name => home_team_name).first.id
+        nba_game.away_id = Team.where(:name => away_team_name).first.id
         nba_game.save
       end
 
       # Now that the game has been created
       # Should attach all of the bet's related to it
+      # right now the issue is that we're overwriting the first one...
+      # An easy fix would be to make sure there's always two
       if element.attribute_value("data-link-bettype") == "102"
-        line_market = LineMarket.where( :nba_game_id => nba_game.id ).first
-        unless line_market
-          line_market = LineMarket.new
-          line_market.nba_game_id = nba_game.id
-          line_market.save
-        end
-
+        markets = Market.where( :match_id => nba_game.id )
         if element.attribute_value( "data-link-compid" ) == "1"
-          line_market.away_line = element.attribute_value( "data-link-points" ).to_f
+          market_type = GamblingHelper.find_or_create_market_type( "away line" )
         else
-          line_market.home_line = element.attribute_value( "data-link-points" ).to_f
+          market_type = GamblingHelper.find_or_create_market_type( "home line" )
         end
-        line_market.save
+        market = markets.where(:market_type_id => market_type.id)
+        unless market
+          market = Market.new
+          market.match_id = nba_game.id
+          market.market_type_id = market_type.id
+        end
+        market.description = element.attribute_value( "data-link-points" ).to_f
+        market.odds = element.attribute_value( "data-link-pricetowin" ).to_f
+
+        market.save
       end
     end
 
