@@ -16,7 +16,7 @@ namespace :fsc do
     # so that we can get all the different team names
     browser.elements(css: "a[data-link-bettype]").each do |element|
       if element.attribute_value("data-link-bettype") == "101"
-        GamblingHelper.find_or_create_team( element.attribute_value("data-link-competitorname" )
+        GamblingHelper.find_or_create_team( element.attribute_value( "data-link-competitorname" ) )
       end
     end
 
@@ -33,7 +33,6 @@ namespace :fsc do
         nba_game.date = browser.element( text: element.attribute_value("data-link-eventname") ).parent.time.attribute_value("data-race-date")
         nba_game.match_type_id = match_type.id
         browser.elements(css: "a[data-link-eventid]").each do |element_two|
-
           if element_two.attribute_value("data-link-compid") == "1" && element_two.attribute_value("data-link-eventid") == nba_game.bookie_match_id
             away_team_name = element_two.attribute_value("data-link-competitorname").downcase
           end

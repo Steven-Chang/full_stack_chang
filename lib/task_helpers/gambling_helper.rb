@@ -3,10 +3,11 @@
 
 module GamblingHelper
   def self.find_or_create_match_type( match_type, league = nil )
-    mt = MatchType.where(:name => match_type )
+    match_types = MatchType.where(:name => match_type )
     if league
-      mt = match_type.where(:league => league )
+      match_types = match_types.where(:league => league )
     end
+    mt = match_types.first
     unless mt
       mt = MatchType.new
       mt.name = match_type
