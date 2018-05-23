@@ -1,24 +1,41 @@
-app.controller('FarmingController', ['$scope', '$state', 'Auth', 'Restangular', function( $scope, $state, Auth, Restangular ){
+app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Restangular', function( $filter, $scope, $state, Auth, Restangular ){
 
   // Private
-  var calculateCurrentPlusMinus = function(){
-    if ( $scope.currentPlusMinus >= 0 ){
-      $scope.currentPerDayAim = "Achieved!";
+  var numberOfDaysUntilNewYear = function(){
+    var today = new Date();
+    var newYearsDay = new Date("01/01/2019");
+    var timeDiff = Math.abs( newYearsDay.getTime() - today.getTime() );
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    return diffDays
+  };
+
+  var calculateCurrentPerDayAim = function(){
+    if ( $scope.currentPlusMinus >= $scope.aim ){
+      $scope.currentPerDayAim = 0;
     } else {
-      $scope.currentPerDayAim = ( $scope.currentPlusMinus * -1 ) / new Date()
+      $scope.currentPerDayAim = ( $scope.aim - $scope.currentPlusMinus ) / numberOfDaysUntilNewYear()
     };
   };
 
   var calculateCurrentPlusMinus = function(){
-    for( var i = 0; i < $scope.farming_transactions.length; i++ ) {
-      $scope.currentPlusMinus += $scope.farming_transactions.amount;
+    for( var i = 0; i < $scope.farmingTransactions.length; i++ ) {
+      $scope.currentPlusMinus += parseInt($scope.farmingTransactions[i].amount);
     };
   };
 
   //// PUBLIC ////
-  $scope.farming_transactions;
-  $scope.currentPerDayAim;
+  $scope.aim = 25000;
+  $scope.creatingFarmingTransaction = false;
+  $scope.farmingTransactions;
+  $scope.currentPerDayAim = 0;
   $scope.currentPlusMinus = 0;
+  $scope.newFarmingTransaction = {
+    date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
+    description: "",
+    amount: 0,
+    odds: "",
+    farming: true
+  };
 
   $scope.init = function(){
     Auth.currentUser()
@@ -27,9 +44,10 @@ app.controller('FarmingController', ['$scope', '$state', 'Auth', 'Restangular', 
           Restangular.all('farming_transactions')
             .getList()
             .then(function( response ){
-              $scope.farming_transactions = response;
-              calculateCurrentPlusMinus;
-              calculateCurrentPerDayAim;
+              console.log( response );
+              $scope.farmingTransactions = response;
+              calculateCurrentPlusMinus();
+              calculateCurrentPerDayAim();
             }, function( error ){
               console.log( "Couldn't get them transactions from the back end" );
             });
@@ -39,6 +57,23 @@ app.controller('FarmingController', ['$scope', '$state', 'Auth', 'Restangular', 
       }, function( error ){
         $state.go( 'home' )
       });
+  };
+
+  $scope.createFarmingTransaction = function(){
+    if ( !$scope.creatingFarmingTransaction ){
+      $scope.creatingRentTransaction = true;
+      Restangular.all('farming_transactions')
+        .post( $scope.newFarmingTransaction )
+        .then(function( response ){
+          $scope.farmingTransactions.unshift( response );
+          calculateCurrentPlusMinus();
+          calculateCurrentPerDayAim();
+          $scope.newFarmingTransaction.amount = 0;
+          $scope.newTransnewFarmingTransactionaction.description = "";
+          $scope.newTransnewFarmingTransactionaction.odds = "";
+          $scope.creatingFarmingTransaction = false;
+        });
+    };
   };
 
 }]);

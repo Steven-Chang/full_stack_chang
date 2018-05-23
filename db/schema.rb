@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180523113150) do
+ActiveRecord::Schema.define(version: 20180523131302) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -51,6 +51,9 @@ ActiveRecord::Schema.define(version: 20180523113150) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.integer  "user_id"
+    t.date     "date"
+    t.decimal  "odds",        precision: 18, scale: 8
+    t.boolean  "farming"
   end
 
   create_table "levels", force: :cascade do |t|
