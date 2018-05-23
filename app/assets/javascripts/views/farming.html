@@ -1,0 +1,23 @@
+<div id="farming" ng-init="init()">
+  <h1>Farming</h1>
+  <h2>Farm then carry!</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Year</th>
+        <th scope="col">Aim</th>
+        <th scope="col">Current Per Day Aim</th>
+        <th scope="col">+/-</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">2018</th>
+        <td>$25000</td>
+        <td>{{ currentPerDayAim }}</td>
+        <td>{{ currentPlusMinus }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

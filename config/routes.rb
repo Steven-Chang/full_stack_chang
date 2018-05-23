@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'application#index'
   resources :cleaning_records, only: [:index, :create, :destroy]
   resources :cleaning_tasks, only: [:index, :create, :destroy]
-  resources :gambling_transactions, except: [:show]
+  resources :farming_transactions, except: [:show]
   resources :projects, only: [:index, :create]
   resources :scores, only: [:index, :create]
   resources :blog_posts, only: [:index, :create, :destroy]

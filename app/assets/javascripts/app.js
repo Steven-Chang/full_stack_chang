@@ -47,6 +47,12 @@ var app = angular.module('app', [
 			controller: 'CleaningController'
 		})
 
+		.state('farming', {
+			url: '/farming',
+			templateUrl: 'views/farming.html',
+			controller: 'FarmingController'
+		})
+
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/home.html',
