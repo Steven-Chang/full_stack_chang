@@ -17,16 +17,25 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
     };
   };
 
-  var calculateCurrentPlusMinus = function(){
+  var calculatePlusMinus = function(){
     $scope.currentPlusMinus = 0;
+    $scope.farmingPlusMinus = 0;
+    $scope.gamblingPlusMinus = 0;
     for( var i = 0; i < $scope.farmingTransactions.length; i++ ) {
       $scope.currentPlusMinus += parseInt($scope.farmingTransactions[i].amount);
+      if ( $scope.farmingTransactions[i].farming ){
+        $scope.farmingPlusMinus += parseInt($scope.farmingTransactions[i].amount);
+      } else {
+        $scope.gamblingPlusMinus += parseInt($scope.farmingTransactions[i].amount);
+      };
     };
   };
 
   //// PUBLIC ////
   $scope.aim = 25000;
   $scope.creatingFarmingTransaction = false;
+  $scope.farmingPlusMinus = 0;
+  $scope.gamblingPlusMinus = 0;
   $scope.farmingTransactions;
   $scope.currentPerDayAim = 0;
   $scope.currentPlusMinus = 0;
@@ -46,7 +55,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
             .getList()
             .then(function( response ){
               $scope.farmingTransactions = response;
-              calculateCurrentPlusMinus();
+              calculatePlusMinus();
               calculateCurrentPerDayAim();
             }, function( error ){
               console.log( "Couldn't get them transactions from the back end" );
@@ -66,7 +75,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
         .post( $scope.newFarmingTransaction )
         .then(function( response ){
           $scope.farmingTransactions.unshift( response );
-          calculateCurrentPlusMinus();
+          calculatePlusMinus();
           calculateCurrentPerDayAim();
           $scope.newFarmingTransaction.amount = 0;
           $scope.newTransnewFarmingTransactionaction.description = "";

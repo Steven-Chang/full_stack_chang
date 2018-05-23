@@ -12,6 +12,8 @@
               <th scope="col">Aim</th>
               <th scope="col">Current Per Day Aim</th>
               <th scope="col">+/-</th>
+              <th scope="col">Farming +/-</th>
+              <th scope="col">Gambling +/-</th>
             </tr>
           </thead>
           <tbody>
@@ -20,6 +22,8 @@
               <td>{{ aim | currency }}</td>
               <td>{{ currentPerDayAim | currency }}</td>
               <td>{{ currentPlusMinus | currency }}</td>
+              <td>{{ farmingPlusMinus| currency }}</td>
+              <td>{{ gamblingPlusMinus | currency }}</td>
             </tr>
           </tbody>
         </table>
