@@ -44,7 +44,6 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
           Restangular.all('farming_transactions')
             .getList()
             .then(function( response ){
-              console.log( response );
               $scope.farmingTransactions = response;
               calculateCurrentPlusMinus();
               calculateCurrentPerDayAim();
