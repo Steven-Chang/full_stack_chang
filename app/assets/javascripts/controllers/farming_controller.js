@@ -18,6 +18,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
   };
 
   var calculateCurrentPlusMinus = function(){
+    $scope.currentPlusMinus = 0;
     for( var i = 0; i < $scope.farmingTransactions.length; i++ ) {
       $scope.currentPlusMinus += parseInt($scope.farmingTransactions[i].amount);
     };
