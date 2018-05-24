@@ -1,9 +1,13 @@
 app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Restangular', function( $filter, $scope, $state, Auth, Restangular ){
 
   // Private
+  var calculateAim = function(){
+    $scope.aim -= $scope.currentPlusMinus;
+  };
+
   var numberOfDaysUntilNewYear = function(){
     var today = new Date();
-    var newYearsDay = new Date("01/01/2019");
+    var newYearsDay = new Date("01/01/2026");
     var timeDiff = Math.abs( newYearsDay.getTime() - today.getTime() );
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
     return diffDays
@@ -32,7 +36,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
   };
 
   //// PUBLIC ////
-  $scope.aim = 25000;
+  $scope.aim = 1000000;
   $scope.creatingFarmingTransaction = false;
   $scope.farmingPlusMinus = 0;
   $scope.gamblingPlusMinus = 0;
@@ -56,6 +60,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
             .then(function( response ){
               $scope.farmingTransactions = response;
               calculatePlusMinus();
+              calculateAim();
               calculateCurrentPerDayAim();
             }, function( error ){
               console.log( "Couldn't get them transactions from the back end" );
