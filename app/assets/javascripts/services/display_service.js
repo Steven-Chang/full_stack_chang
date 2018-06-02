@@ -13,8 +13,12 @@ app.service('DisplayService', [
 
   var displayService = {};
 
-  displayService.slideToggleContainer = function( id ){
-    $( id ).slideToggle( "slow" );
+  displayService.slideToggleContainer = function( element, toggleSpeed ){
+    if ( !toggleSpeed ){
+      var toggleSpeed = "slow";
+    };
+
+    $( element ).slideToggle( toggleSpeed );
   };
 
   return displayService;

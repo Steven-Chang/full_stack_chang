@@ -105,7 +105,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Dis
   };
 
   $scope.slideToggleContainer = function( element ){
-    DisplayService.slideToggleContainer( element );
+    DisplayService.slideToggleContainer( element, "fast" );
   };
 
 }]);
