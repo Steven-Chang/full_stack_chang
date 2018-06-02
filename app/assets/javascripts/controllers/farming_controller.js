@@ -1,4 +1,4 @@
-app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'DisplayService', 'Restangular', function( $filter, $scope, $state, Auth, DisplayService, Restangular ){
+app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $scope, $state, Auth, DatetimeService, DisplayService, Restangular ){
 
   // Private
   var calculateAim = function(){
@@ -76,6 +76,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Dis
               calculatePlusMinus();
               calculateAim();
               calculateCurrentPerDayAim();
+              DatetimeService.initiateDatePicker('#date-picker');
             }, function( error ){
               console.log( "Couldn't get them transactions from the back end" );
             });
