@@ -92,17 +92,19 @@
               <th scope="col">Description</th>
               <th scope="col">Amount</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody ng-repeat="transaction in farmingTransactions">
-            <tr>
+            <tr ng-click="slideToggleContainer(  '#farming-transaction-' + $index )">
               <td>{{ transaction.date | date : 'd MMM yy' }}</td>
               <td>{{ transaction.description }}</td>
               <td>{{ transaction.amount | currency }}</td>
               <td><a href="#"><span class="glyphicon glyphicon-trash" ng-click="deleteTransaction( $index )"></span></a></td>
+              <td><a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span></a></td>
             </tr>
-            <tr class="sub-table-row">
-              <td colspan="4">
+            <tr class="sub-table-row" id="farming-transaction-{{ $index }}" style="display: none;">
+              <td colspan="5">
                 <div ng-if="transaction.odds">
                   <strong># Odds:</strong> {{ transaction.odds }}
                 </div>

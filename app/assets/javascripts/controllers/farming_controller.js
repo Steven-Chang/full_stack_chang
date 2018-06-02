@@ -1,4 +1,4 @@
-app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Restangular', function( $filter, $scope, $state, Auth, Restangular ){
+app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'DisplayService', 'Restangular', function( $filter, $scope, $state, Auth, DisplayService, Restangular ){
 
   // Private
   var calculateAim = function(){
@@ -102,6 +102,10 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
           $scope.creatingFarmingTransaction = false;
         });
     };
+  };
+
+  $scope.slideToggleContainer = function( element ){
+    DisplayService.slideToggleContainer( element );
   };
 
 }]);
