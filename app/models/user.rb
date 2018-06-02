@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :cleaning_records, dependent: :destroy
   has_many :rent_transactions, dependent: :destroy
-  has_many :farming_transactions, -> { order( date: :desc ) }, dependent: :destroy
+  has_many :farming_transactions, -> { order( date: :desc, created_at: :desc ) }, dependent: :destroy
 
   def cleaning_summary
     summary = {}
