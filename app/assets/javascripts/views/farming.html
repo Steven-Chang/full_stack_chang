@@ -108,7 +108,7 @@
             </tr>
             <tr class="sub-table-row" id="farming-transaction-{{ $index }}" style="display: none;">
               <td colspan="5">
-                <div ng-if="transaction.odds">
+                <div ng-if="transaction.odds && transaction.odds > 1">
                   <strong># Odds:</strong> {{ transaction.odds }}
                 </div>
                 <div>

@@ -112,8 +112,8 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Dat
           calculatePlusMinus();
           calculateCurrentPerDayAim();
           $scope.newFarmingTransaction.amount = 0;
-          $scope.newTransnewFarmingTransactionaction.description = "";
-          $scope.newTransnewFarmingTransactionaction.odds = "";
+          $scope.newFarmingTransaction.description = undefined;
+          $scope.newFarmingTransaction.odds = undefined;
           $scope.creatingFarmingTransaction = false;
         });
     };
