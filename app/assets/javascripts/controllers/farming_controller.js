@@ -13,6 +13,14 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Dat
     return diffDays
   };
 
+  var numberOfDaysSinceTheStart = function(){
+    var today = new Date();
+    var startingDay = new Date("05/23/2018");
+    var timeDiff = Math.abs( today.getTime() - startingDay.getTime() );
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    return diffDays
+  };
+
   var calculateCurrentPerDayAim = function(){
     if ( $scope.currentPlusMinus >= $scope.aim ){
       $scope.currentPerDayAim = 0;
@@ -35,6 +43,10 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Dat
     };
   };
 
+  var calculateDailyPlusMinus = function(){
+    $scope.currentDailyPlusMinus = $scope.currentPlusMinus / numberOfDaysSinceTheStart();
+  };
+
   //// PUBLIC ////
   $scope.aim = 1000000;
   $scope.creatingFarmingTransaction = false;
@@ -44,6 +56,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Dat
   $scope.farmingTransactions;
   $scope.currentPerDayAim = 0;
   $scope.currentPlusMinus = 0;
+  $scope.currentDailyPlusMinus = 0;
   $scope.newFarmingTransaction = {
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     description: "",
@@ -77,6 +90,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Dat
               calculateAim();
               calculateCurrentPerDayAim();
               DatetimeService.initiateDatePicker('#date-picker');
+              calculateDailyPlusMinus();
             }, function( error ){
               console.log( "Couldn't get them transactions from the back end" );
             });
