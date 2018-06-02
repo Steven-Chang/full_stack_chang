@@ -101,7 +101,7 @@
               <td>{{ transaction.description }}</td>
               <td>{{ transaction.amount | currency }}</td>
               <td><a href="#"><span class="glyphicon glyphicon-trash" ng-click="deleteTransaction( $index )"></span></a></td>
-              <td><a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span></a></td>
+              <td><a href="#" ng-click="slideToggleContainer(  '#farming-transaction-' + $index )"><span class="glyphicon glyphicon-triangle-bottom"></span></a></td>
             </tr>
             <tr class="sub-table-row" id="farming-transaction-{{ $index }}" style="display: none;">
               <td colspan="5">
