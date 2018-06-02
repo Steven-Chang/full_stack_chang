@@ -38,6 +38,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
   //// PUBLIC ////
   $scope.aim = 1000000;
   $scope.creatingFarmingTransaction = false;
+  $scope.deletingFarmingTransaction = false;
   $scope.farmingPlusMinus = 0;
   $scope.gamblingPlusMinus = 0;
   $scope.farmingTransactions;
@@ -49,6 +50,19 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Res
     amount: 0,
     odds: "",
     farming: true
+  };
+
+  $scope.deleteTransaction = function( $index ){
+    if ( !$scope.deletingFarmingTransaction ){
+      $scope.deletingFarmingTransaction = true;
+      $scope.farmingTransactions[$index].remove()
+        .then(function(){
+          $scope.farmingTransactions.splice( $index, 1  );
+          calculatePlusMinus();
+          calculateCurrentPerDayAim();
+          $scope.deletingFarmingTransaction = false;
+        });
+    };
   };
 
   $scope.init = function(){

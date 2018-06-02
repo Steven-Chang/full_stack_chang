@@ -3,27 +3,31 @@
   <div class="container" style="margin-top: -20px;">
     <div class="row">
       <div class="col-xs-12">
-        <h1>Farming</h1>
+        <h1>Farming $1.5m by 40</h1>
 
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Year</th>
               <th scope="col">Aim</th>
               <th scope="col">Current Per Day Aim</th>
               <th scope="col">+/-</th>
-              <th scope="col">Farming +/-</th>
-              <th scope="col">Gambling +/-</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">2018</th>
               <td>{{ aim | currency }}</td>
               <td>{{ currentPerDayAim | currency }}</td>
               <td>{{ currentPlusMinus | currency }}</td>
-              <td>{{ farmingPlusMinus| currency }}</td>
-              <td>{{ gamblingPlusMinus | currency }}</td>
+            </tr>
+            <tr class="sub-table-row">
+              <td colspan="5">
+                <div>
+                  # <strong>Farming: </strong> {{ farmingPlusMinus| currency }}
+                </div>
+                <div>
+                  # <strong>Gambling: </strong> {{ gamblingPlusMinus | currency }}
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -68,7 +72,7 @@
               class="form-control">
           </div>
 
-          <div class="form-check">
+          <div class="form-check form-group">
             <input type="checkbox" class="form-check-input" ng-model="newFarmingTransaction.farming" id="new-farm-transaction-farming">
             <label class="form-check-label" for="new-farm-transaction-farming">Farming?</label>
           </div>
@@ -87,17 +91,25 @@
               <th scope="col">Date</th>
               <th scope="col">Description</th>
               <th scope="col">Amount</th>
-              <th scope="col">Odds</th>
-              <th scope="col">Farming</th>
+              <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr ng-repeat="transaction in farmingTransactions">
-              <th scope="row">{{ transaction.date | date }}</th>
+          <tbody ng-repeat="transaction in farmingTransactions">
+            <tr>
+              <td>{{ transaction.date | date : 'd MMM yy' }}</td>
               <td>{{ transaction.description }}</td>
               <td>{{ transaction.amount | currency }}</td>
-              <td>{{ transaction.odds }}</td>
-              <td>{{ transaction.farming }}</td>
+              <td><a href="#"><span class="glyphicon glyphicon-trash" ng-click="deleteTransaction( $index )"></span></a></td>
+            </tr>
+            <tr class="sub-table-row">
+              <td colspan="4">
+                <div ng-if="transaction.odds">
+                  <strong># Odds:</strong> {{ transaction.odds }}
+                </div>
+                <div>
+                  <strong># Farming:</strong> {{ transaction.farming }}
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

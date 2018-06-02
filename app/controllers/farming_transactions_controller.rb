@@ -1,6 +1,7 @@
 class FarmingTransactionsController < ApplicationController
   before_filter :authenticate_user!
   before_action :authenticate_admin
+  before_action :set_farming_transaction, only: [:destroy]
 
   def index
     respond_to do |format|
@@ -21,6 +22,12 @@ class FarmingTransactionsController < ApplicationController
     end
   end
 
+  def destroy
+    @farming_transaction.destroy
+
+    render json: { message: "removed" }, status: :ok
+  end
+
   private
 
   def farming_transaction_params
@@ -29,5 +36,9 @@ class FarmingTransactionsController < ApplicationController
 
   def authenticate_admin
     redirect_to root_path unless current_user && current_user.admin
+  end
+
+  def set_farming_transaction
+    @farming_transaction = FarmingTransaction.find( params[:id] )
   end
 end
