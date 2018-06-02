@@ -48,7 +48,7 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Dat
   };
 
   //// PUBLIC ////
-  $scope.aim = 1000000;
+  $scope.aim = 1500000;
   $scope.creatingFarmingTransaction = false;
   $scope.deletingFarmingTransaction = false;
   $scope.farmingPlusMinus = 0;
