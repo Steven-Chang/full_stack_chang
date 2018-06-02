@@ -1,4 +1,4 @@
-app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $scope, $state, Auth, DatetimeService, DisplayService, Restangular ){
+app.controller('FarmingController', ['$filter', '$ngConfirm', '$scope', '$state', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, Auth, DatetimeService, DisplayService, Restangular ){
 
   // Private
   var calculateAim = function(){
@@ -67,14 +67,30 @@ app.controller('FarmingController', ['$filter', '$scope', '$state', 'Auth', 'Dat
 
   $scope.deleteTransaction = function( $index ){
     if ( !$scope.deletingFarmingTransaction ){
-      $scope.deletingFarmingTransaction = true;
-      $scope.farmingTransactions[$index].remove()
-        .then(function(){
-          $scope.farmingTransactions.splice( $index, 1  );
-          calculatePlusMinus();
-          calculateCurrentPerDayAim();
-          $scope.deletingFarmingTransaction = false;
-        });
+      $ngConfirm({
+        title: 'Confirm Delete',
+        content: '',
+        scope: $scope,
+        buttons: {
+          delete: {
+            text: 'Delete',
+            btnClass: 'btn-primary',
+            action: function(scope){
+              $scope.deletingFarmingTransaction = true;
+              $scope.farmingTransactions[$index].remove()
+                .then(function(){
+                  $scope.farmingTransactions.splice( $index, 1  );
+                  calculatePlusMinus();
+                  calculateCurrentPerDayAim();
+                  $scope.deletingFarmingTransaction = false;
+                });
+            }
+          },
+          close: function(scope, button){
+            text: 'Cancel'
+          }
+        }
+      });
     };
   };
 
