@@ -111,10 +111,10 @@ app.controller('FarmingController', ['$filter', '$ngConfirm', '$scope', '$state'
               console.log( "Couldn't get them transactions from the back end" );
             });
         } else {
-          $state.go( 'home' )
+          $state.go( 'login' )
         };
       }, function( error ){
-        $state.go( 'home' )
+        $state.go( 'login' )
       });
   };
 

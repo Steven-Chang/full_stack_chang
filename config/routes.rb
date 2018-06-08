@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  devise_for :users
   root 'application#index'
+
+  devise_for :users
   resources :cleaning_records, only: [:index, :create, :destroy]
   resources :cleaning_tasks, only: [:index, :create, :destroy]
-  resources :clients
   resources :farming_transactions, except: [:show]
   resources :jobs
   resources :projects, only: [:index, :create]
@@ -12,15 +12,16 @@ Rails.application.routes.draw do
   resources :blog_posts, only: [:index, :create, :destroy]
   resources :rent_transactions, except: [:show]
   resources :users, only: [:index]
+ # Need this for prettifying url
+  get '*path', :to => redirect('/#!/%{path}')
+
+  resources :clients
 
   get 'users/:user_id/bond' => 'users#bond'
   get 'users/:user_id/balance' => 'users#balance'
   get 'number_of_users' => 'users#return_number_of_users'
   put 'users/:user_id' => 'users#update_other_params'
   get 'tenants' => 'users#tenants'
-
-  # Need this for prettifying url
-  get '*path', :to => redirect('/#!/%{path}')
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
