@@ -10,15 +10,26 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
     email: "",
     name: ""
   };
+  $scope.newJob = {
+    client_id: undefined,
+    user_id: undefined,
+    start_time: new Date(),
+    end_time: new Date()
+  };
+  $scope.user;
 
   $scope.init = function(){
     Auth.currentUser()
       .then(function( user ){
         if ( user.admin ){
+          $scope.newJob.user_id = user.id;
           Restangular.all('clients')
             .getList()
             .then(function( response ){
-              $scope.clients = response;
+              if ( response.length > 0 ){
+                $scope.clients = response;
+                $scope.newJob.client_id = response[0].id;
+              };
             }, function( error ){
             	alert( "Couldn't get them clients from the back end my man!");
             });

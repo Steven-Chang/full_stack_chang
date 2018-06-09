@@ -49,7 +49,32 @@
 
     <div class="row">
       <div class="col-xs-12">
-        
+        <h3>Create New Job</h3>
+        <form ng-submit="createJob()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <input moment-picker="newJob.start_time" locale="en" format="LL" class="form-control" ng-model="newJob.start_time" format="DD/MM/YYYY" placeholder="Start">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <input moment-picker="newJob.end_time" locale="en" format="LL" class="form-control" ng-model="newJob.end_time" format="DD/MM/YYYY" placeholder="Finish">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <select ng-model="newJob.client_id" ng-options="x.id as x.name for x in clients" class="form-control"></select>
+          </div>
+          <div class="form-group">
+            <input type="text"
+              class="form-control"
+              ng-model="newJob.description"
+              placeholder="Description"
+              required>
+          </div>
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
       </div>
     </div>
 

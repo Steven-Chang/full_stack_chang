@@ -43,4 +43,8 @@
 // ngMocks
 //= require angular-mocks/angular-mocks
 
+// https://github.com/indrimuska/angular-moment-picker
+//= require moment/min/moment-with-locales.min
+//= require angular-moment-picker/dist/angular-moment-picker.min
+
 //= require_tree .
