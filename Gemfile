@@ -13,6 +13,8 @@ gem 'sass-rails', '~> 5.0'
 
 gem 'sendgrid-ruby'
 
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -33,8 +35,9 @@ gem 'bower-rails'
 gem 'devise'
 # allows us to place our html views in the assets/javascript directory
 gem 'angular-rails-templates'
-# Bootstrap also requires the 'sass-rails' gem, which should be included in your gemfile
-gem 'bootstrap-sass', '~> 3.3.6'
+
+gem 'bootstrap', '~> 4.1.1'
+
 # This will allow our API to expose only those fields that are necessary to Angular frontend.
 gem 'active_model_serializers', '~> 0.10.0'
 
