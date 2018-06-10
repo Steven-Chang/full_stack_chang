@@ -4,8 +4,7 @@ class ClientPaymentsController < ApplicationController
   # GET /client_payments
   # GET /client_payments.json
   def index
-    @client_payments = ClientPayment.all
-    puts @client_payments
+    @client_payments = ClientPayment.all.order(date: :desc)
 
     render :json => @client_payments
   end
