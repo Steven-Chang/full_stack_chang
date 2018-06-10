@@ -25,6 +25,7 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
   $scope.deletingJob = false;
   $scope.deletingPayment = false;
   $scope.jobs;
+  $scope.visibleSection = "clients";
 
   $scope.newClient = {
     email: "",

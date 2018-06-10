@@ -1,0 +1,22 @@
+#work {
+	#sub-nav {
+		background: #1e547d;
+		margin: -20px 0 15px 0;
+
+		a {
+			color: white;
+		}
+
+		a:hover {
+			color: #f2e6cf;
+		}
+
+		.link-container {
+			padding: 10px;
+		}
+
+		.link-selected {
+			color: #f2e6cf;
+		}
+	}
+}
