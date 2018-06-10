@@ -36,7 +36,8 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
     cost: 0,
     user_id: undefined,
     start_time: undefined,
-    end_time: undefined
+    end_time: undefined,
+    taxable: true
   };
 
   $scope.newPayment = {
@@ -103,6 +104,7 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
           $scope.newJob.start_time = undefined;
           $scope.newJob.end_time = undefined;
           $scope.newJob.cost = 0;
+          $scope.newJob.description = "";
           $scope.creatingJob = false;
           setClients();
         });

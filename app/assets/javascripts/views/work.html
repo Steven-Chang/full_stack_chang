@@ -108,6 +108,11 @@
             </div>
           </div>
 
+          <div class="form-check form-group">
+            <input type="checkbox" class="form-check-input" ng-model="newJob.taxable" id="new-job-taxable">
+            <label class="form-check-label" for="new-job-taxable">Taxable</label>
+          </div>
+
           <input type="submit" value="Create" class="btn btn-primary">
         </form>
       </div>
@@ -133,13 +138,16 @@
               <td>{{ job.cost | currency }}</td>
               <td><a href="#" ng-click="deleteJob( $index )" class="glyphicon glyphicon-trash"></a></td>
             </tr>
-            <tr ng-if="job.end_time || job.description" class="sub-table-row">
+            <tr class="sub-table-row">
               <td colspan="4">
                 <div ng-if="job.end_time">
                   # Finished: {{ job.end_time | date : 'medium' }}
                 </div>
                 <div ng-if="job.description">
                   # Description: {{ job.description }}
+                </div>
+                <div>
+                  # Taxable: {{ job.taxable }}
                 </div>
               </td>
             </tr>

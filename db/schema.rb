@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180610004606) do
+ActiveRecord::Schema.define(version: 20180610013509) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text     "description"
@@ -72,14 +72,15 @@ ActiveRecord::Schema.define(version: 20180610004606) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.integer  "client_id",                                          null: false
-    t.integer  "user_id",                                            null: false
+    t.integer  "client_id",                                           null: false
+    t.integer  "user_id",                                             null: false
     t.datetime "start_time"
     t.datetime "end_time"
-    t.text     "description",                                        null: false
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.text     "description",                                         null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.decimal  "cost",        precision: 18, scale: 8, default: 0.0
+    t.boolean  "taxable",                              default: true
   end
 
   create_table "levels", force: :cascade do |t|
