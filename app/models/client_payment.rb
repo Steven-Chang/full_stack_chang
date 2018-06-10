@@ -1,3 +1,3 @@
-class ClientPayment < ActiveRecord::Base
+class ClientPayment < ApplicationRecord
   belongs_to :client
 end

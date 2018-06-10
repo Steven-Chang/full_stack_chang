@@ -1,4 +1,4 @@
-class RentTransaction < ActiveRecord::Base
+class RentTransaction < ApplicationRecord
 
   def self.get_bond_for_user( user_id )
     bond_transactions = RentTransaction.where(:user_id => user_id).where('LOWER(description) LIKE :search_string', search_string: "bond")

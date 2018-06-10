@@ -1,3 +1,3 @@
-class Match < ActiveRecord::Base
+class Match < ApplicationRecord
   has_many :markets, :dependent => :destroy
 end

@@ -1,4 +1,4 @@
-class Score < ActiveRecord::Base
+class Score < ApplicationRecord
   belongs_to :project
   has_one :level, dependent: :destroy
   has_one :line, dependent: :destroy

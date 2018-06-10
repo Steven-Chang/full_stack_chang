@@ -1,2 +1,2 @@
-class MarketType < ActiveRecord::Base
+class MarketType < ApplicationRecord
 end

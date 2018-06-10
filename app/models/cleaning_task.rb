@@ -1,2 +1,2 @@
-class CleaningTask < ActiveRecord::Base
+class CleaningTask < ApplicationRecord
 end

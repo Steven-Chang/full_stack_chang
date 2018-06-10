@@ -1,3 +1,3 @@
-class Level < ActiveRecord::Base
+class Level < ApplicationRecord
   belongs_to :score
 end

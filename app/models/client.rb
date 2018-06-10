@@ -1,4 +1,4 @@
-class Client < ActiveRecord::Base
+class Client < ApplicationRecord
   has_many :client_payments, :dependent => :destroy
   has_many :jobs, :dependent => :destroy
 

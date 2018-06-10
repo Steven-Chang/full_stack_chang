@@ -1,3 +1,3 @@
-class FarmingTransaction < ActiveRecord::Base
+class FarmingTransaction < ApplicationRecord
   belongs_to :user
 end

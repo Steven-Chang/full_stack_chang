@@ -1,2 +1,2 @@
-class MatchType < ActiveRecord::Base
+class MatchType < ApplicationRecord
 end
