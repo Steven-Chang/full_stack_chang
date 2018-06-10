@@ -133,7 +133,7 @@
           </thead>
           <tbody ng-repeat="job in jobs">
             <tr>
-              <td>{{ job.start_time | date : 'medium' }}</td>
+              <td>{{ job.start_time | date : 'd MMM yyyy h:mm a' }}</td>
               <td>{{ job.client.name }}</td>
               <td>{{ job.cost | currency }}</td>
               <td><a href="#" ng-click="deleteJob( $index )" class="glyphicon glyphicon-trash"></a></td>
@@ -141,7 +141,7 @@
             <tr class="sub-table-row">
               <td colspan="4">
                 <div ng-if="job.end_time">
-                  # Finished: {{ job.end_time | date : 'medium' }}
+                  # Finished: {{ job.end_time | date : 'd MMM yyyy h:mm a' }}
                 </div>
                 <div ng-if="job.description">
                   # Description: {{ job.description }}
