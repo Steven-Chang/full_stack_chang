@@ -210,7 +210,7 @@
           </thead>
           <tbody ng-repeat="payment in payments">
             <tr>
-              <td>{{ payment.date | date : 'short' }}</td>
+              <td>{{ payment.date | date : 'd MMM yyyy' }}</td>
               <td>{{ payment.client.name }}</td>
               <td>{{ payment.amount | currency }}</td>
               <td><a href="#" ng-click="deletePayment( $index )" class="glyphicon glyphicon-trash"></a></td>
