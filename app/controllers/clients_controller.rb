@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :authenticate_admin
   before_action :set_client, only: [:show, :edit, :update, :destroy]
 

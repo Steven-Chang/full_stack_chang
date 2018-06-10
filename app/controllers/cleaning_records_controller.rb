@@ -1,7 +1,7 @@
 class CleaningRecordsController < ApplicationController
   before_action :set_cleaning_record, only: [:destroy]
   # later on we're gonna have to change this because we only want admins to be able to create delete update
-  before_filter :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index]
 
   def index
     cleaning_records = CleaningRecord.all.order("date DESC")

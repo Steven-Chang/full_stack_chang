@@ -1,7 +1,7 @@
 class CleaningTasksController < ApplicationController
   before_action :set_cleaning_task, only: [:destroy]
   # later on we're gonna have to change this because we only want admins to be able to create delete update
-  before_filter :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index]
 
   def index
     cleaning_tasks = CleaningTask.all
