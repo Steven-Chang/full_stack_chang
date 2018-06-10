@@ -8,7 +8,7 @@ class ClientsController < ApplicationController
   def index
     @clients = Client.all
 
-    respond_with @clients
+    render :json => @clients
   end
 
   # GET /clients/1

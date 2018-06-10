@@ -1,10 +1,11 @@
 class JobsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.all
+    render :json => current_user.jobs.order(start_time: :desc)
   end
 
   # GET /jobs/1
@@ -28,10 +29,8 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
-        format.json { render :show, status: :created, location: @job }
+        format.json { render :json => @job, status: :created }
       else
-        format.html { render :new }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +68,6 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.fetch(:job, {})
+      params.require( :job ).permit( :client_id, :user_id, :start_time, :end_time, :description, :cost )
     end
 end

@@ -1,5 +1,6 @@
 class Client < ActiveRecord::Base
-  has_many :users
+  has_many :client_payments, :dependent => :destroy
+  has_many :jobs, :dependent => :destroy
 
-  validates :name, presence: true 
+  validates :name, presence: true
 end

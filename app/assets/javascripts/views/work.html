@@ -33,14 +33,22 @@
           <thead>
             <tr>
               <th scope="col">Client</th>
-              <th scope="col" colspan="2">Email</th>
+              <th scope="col">Balance</th>
+              <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr ng-repeat="client in clients">
+          <tbody ng-repeat="client in clients">
+            <tr>
               <td>{{ client.name }}</td>
-              <td>{{ client.email }}</td>
+              <td>{{ client.balance | currency }}</td>
               <td><a href="#" ng-click="deleteClient( $index )" class="glyphicon glyphicon-trash"></a></td>
+            </tr>
+            <tr class="sub-table-row" ng-if="client.email">
+              <td colspan="3">
+                <div ng-if="client.email">
+                  # {{ client.email }}
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -54,15 +62,31 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
-                <input moment-picker="newJob.start_time" locale="en" format="LL" class="form-control" ng-model="newJob.start_time" format="DD/MM/YYYY" placeholder="Start">
+                <input moment-picker="newJob.start_time" 
+                  locale="en" 
+                  format="MMMM Do YYYY, h:mm a" 
+                  class="form-control" 
+                  placeholder="Start" 
+                  today="true"
+                  keyboard="true"
+                  ng-model="newJob.start_time">
               </div>
             </div>
+
             <div class="col-sm-6">
               <div class="form-group">
-                <input moment-picker="newJob.end_time" locale="en" format="LL" class="form-control" ng-model="newJob.end_time" format="DD/MM/YYYY" placeholder="Finish">
+                <input moment-picker="newJob.end_time" 
+                  locale="en" 
+                  format="MMMM Do YYYY, h:mm a"
+                  class="form-control" 
+                  placeholder="Finish" 
+                  today="true"
+                  keyboard="true"
+                  ng-model="newJob.end_time">
               </div>
             </div>
           </div>
+
           <div class="form-group">
             <select ng-model="newJob.client_id" ng-options="x.id as x.name for x in clients" class="form-control"></select>
           </div>
@@ -73,8 +97,118 @@
               placeholder="Description"
               required>
           </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="text"
+                class="form-control"
+                ng-model="newJob.cost"
+                placeholder="Cost">
+            </div>
+          </div>
+
           <input type="submit" value="Create" class="btn btn-primary">
         </form>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xs-12">
+        <hr>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Started</th>
+              <th scope="col">Client</th>
+              <th scope="col">Cost</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="job in jobs">
+            <tr>
+              <td>{{ job.start_time | date : 'medium' }}</td>
+              <td>{{ job.client.name }}</td>
+              <td>{{ job.cost | currency }}</td>
+              <td><a href="#" ng-click="deleteJob( $index )" class="glyphicon glyphicon-trash"></a></td>
+            </tr>
+            <tr ng-if="job.end_time || job.description" class="sub-table-row">
+              <td colspan="4">
+                <div ng-if="job.end_time">
+                  # Finished: {{ job.end_time | date : 'medium' }}
+                </div>
+                <div ng-if="job.description">
+                  # Description: {{ job.description }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Add Client Payment</h3>
+        <form ng-submit="createPayment()">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <input moment-picker="newPayment.date" 
+                  locale="en" 
+                  format="MMMM Do YYYY" 
+                  class="form-control" 
+                  placeholder="Date" 
+                  today="true"
+                  keyboard="true"
+                  ng-model="newPayment.date"
+                  required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <select ng-model="newPayment.client_id" ng-options="x.id as x.name for x in clients" class="form-control"></select>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="text"
+                class="form-control"
+                ng-model="newPayment.amount"
+                placeholder="Amount"
+                required>
+            </div>
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <hr>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Client</th>
+              <th scope="col">Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="payment in payments">
+            <tr>
+              <td>{{ payment.date | date : 'short' }}</td>
+              <td>{{ payment.client.name }}</td>
+              <td>{{ payment.amount | currency }}</td>
+              <td><a href="#" ng-click="deletePayment( $index )" class="glyphicon glyphicon-trash"></a></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
