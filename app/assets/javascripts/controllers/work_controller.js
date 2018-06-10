@@ -1,6 +1,20 @@
 app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', '$timeout', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $rootScope, $scope, $state, $timeout, Auth, DatetimeService, DisplayService, Restangular ){
 
-  // Private
+  //// PRIVATE
+
+  var setClients = function(){
+    Restangular.all('clients')
+      .getList()
+      .then(function( response ){
+        $scope.clients = response;
+        if ( response.length > 0 ){
+          $scope.newJob.client_id = response[0].id;
+          $scope.newPayment.client_id = response[0].id;
+        };
+      }, function( error ){
+        alert( "Couldn't get them clients from the back end my man!");
+      });
+  };
 
   //// PUBLIC ////
   $scope.clients;
@@ -8,6 +22,8 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
   $scope.creatingJob = false;
   $scope.creatingPayment = false;
   $scope.deletingClient = false;
+  $scope.deletingJob = false;
+  $scope.deletingPayment = false;
   $scope.jobs;
 
   $scope.newClient = {
@@ -37,17 +53,8 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
       .then(function( user ){
         if ( user.admin ){
           $scope.newJob.user_id = user.id;
-          Restangular.all('clients')
-            .getList()
-            .then(function( response ){
-              $scope.clients = response;
-              if ( response.length > 0 ){
-                $scope.newJob.client_id = response[0].id;
-                $scope.newPayment.client_id = response[0].id;
-              };
-            }, function( error ){
-            	alert( "Couldn't get them clients from the back end my man!");
-            });
+
+          setClients();
 
           Restangular.all('jobs')
             .getList()
@@ -56,7 +63,6 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
             }, function( error ){
               alert( "Couldn't get them jobs from the back end my man!");
             });
-
 
           Restangular.all('client_payments')
             .getList()
@@ -98,6 +104,7 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
           $scope.newJob.end_time = undefined;
           $scope.newJob.cost = 0;
           $scope.creatingJob = false;
+          setClients();
         });
     };
   };
@@ -111,6 +118,7 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
           $scope.payments.unshift( response );
           $scope.newPayment.amount = 0;
           $scope.creatingPayment = false;
+          setClients();
         });
     };
   };
@@ -131,6 +139,62 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
                 .then(function(){
                   $scope.clients.splice( $index, 1  );
                   $scope.deletingClient = false;
+                });
+            }
+          },
+          close: function(scope, button){
+            text: 'Cancel'
+          }
+        }
+      });
+    };
+  };
+
+  $scope.deleteJob = function( $index ){
+    if ( !$scope.deletingClient ){
+      $ngConfirm({
+        title: 'Confirm Delete',
+        content: '',
+        scope: $scope,
+        buttons: {
+          delete: {
+            text: 'Delete',
+            btnClass: 'btn-primary',
+            action: function(scope){
+              $scope.deletingJob = true;
+              $scope.jobs[$index].remove()
+                .then(function(){
+                  $scope.jobs.splice( $index, 1  );
+                  $scope.deletingJob = false;
+                  setClients();
+                });
+            }
+          },
+          close: function(scope, button){
+            text: 'Cancel'
+          }
+        }
+      });
+    };
+  };
+
+  $scope.deletePayment = function( $index ){
+    if ( !$scope.deletingPayment ){
+      $ngConfirm({
+        title: 'Confirm Delete',
+        content: '',
+        scope: $scope,
+        buttons: {
+          delete: {
+            text: 'Delete',
+            btnClass: 'btn-primary',
+            action: function(scope){
+              $scope.deletingPayment = true;
+              $scope.payments[$index].remove()
+                .then(function(){
+                  $scope.payments.splice( $index, 1  );
+                  $scope.deletingPayment = false;
+                  setClients();
                 });
             }
           },

@@ -1,0 +1,157 @@
+<div ng-init="init()">
+  <nav-bar></nav-bar>
+  <div class="container" style="margin-top: -20px;">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>Rent Spreadsheet</h1>
+        <h5>Aim: Automate / Online Access Via Phone</h5>
+        <div>
+          <ul>
+            <li>
+              Automatically adds rent weekly for each of my tenants.
+            </li>
+            <li>
+              Automatically sends out a weekly balance to all tenants and to myself via email.
+            </li>
+            <li>
+              Online access and mobile friendly so that I can add items to each tenant's rent, as necessary, on the fly.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row" ng-show="currentUser.admin">
+      <div class="col-xs-12">
+        <h4 ng-click="addRentFormVisible = !addRentFormVisible; slideToggleContainer( '#rent-transaction-form' );" class="fake-link">Add a new post 
+          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addRentFormVisible"></span>
+          <span class="glyphicon glyphicon-triangle-top" ng-show="addRentFormVisible"></span>
+        </h4>
+        <form ng-submit="createRentTransaction()" id="rent-transaction-form">
+          <div class="form-group">
+            <select class="custom-select" ng-model="newTransaction.user_id" ng-options="tenant.id as tenant.username for tenant in tenants">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <input type="text" 
+              autocomplete="off"
+              data-provide='datepicker' 
+              class="form-control" 
+              id="date-picker" 
+              ng-model="newTransaction.date" 
+              placeholder="Date">
+          </div>
+
+          <div class="form-group">
+            <input type="text"
+              ng-model="newTransaction.description"
+              placeholder="Description"
+              class="form-control">
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="text"
+                class="form-control"
+                ng-model="newTransaction.amount"
+                placeholder="Amount">
+            </div>
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+        <hr>
+      </div>
+
+      <div class="col-xs-12">
+        <h4 ng-click="addTenantFormVisible = !addTenantFormVisible; slideToggleContainer( '#add-tenant-form' );" class="fake-link">Add a new tenant
+          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addTenantFormVisible"></span>
+          <span class="glyphicon glyphicon-triangle-top" ng-show="addTenantFormVisible"></span>
+        </h4>
+
+        <form ng-submit="createTenant()" id="add-tenant-form" style="display: none;">
+          <div class="form-group">
+            <input type="text" 
+              autocomplete="off"
+              class="form-control" 
+              ng-model="newTenant.email" 
+              placeholder="Email">
+          </div>
+
+          <div class="form-group">
+            <input type="text" 
+              autocomplete="off"
+              class="form-control" 
+              ng-model="newTenant.username" 
+              placeholder="Username">
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div ng-click="getTransactions( tenant )" ng-repeat="tenant in tenants">
+          <span style="cursor: pointer;">{{ tenant.username }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" ng-show="selectedTenant">
+      <hr>
+      <div class="col-xs-12">
+        <h2>{{ selectedTenant.username | uppercase }}</h2>
+      </div>
+
+      <div class="col-xs-12" ng-hide="password === selectedTenant.password || currentUser.admin">
+        <div class="form-group">
+          <input type="text" class="form-control" id="password" ng-model="password" placeholder="password">
+        </div>
+      </div>
+
+      <div class="col-xs-12" ng-show="password === selectedTenant.password || currentUser.admin">
+        <div style="margin-bottom: 15px;">
+          <div>
+            Balance: {{ balance | currency }}
+          </div>
+          <div ng-if="balance <= 0">
+            You're all paid up.
+          </div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          Bond: {{ bond | currency }}
+        </div>
+
+        <hr>
+
+        <div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Description</th>
+                <th scope="col">+/-</th>
+                <th scope="col" ng-if="currentUser.admin"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="transaction in transactions">
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.amount | currency }}</td>
+                <td ng-if="currentUser.admin"><span class="glyphicon glyphicon-trash" ng-click="deleteRentTransaction( $index )" style="cursor: pointer;"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
