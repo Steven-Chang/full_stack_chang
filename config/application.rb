@@ -11,10 +11,6 @@ module FullStackChang
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
-    # In Rails 5.0, returning false in an Active Record or Active Model callback will not have this side effect of halting the callback chain. Instead, callback chains must be explicitly halted by calling throw(:abort).
-    ActiveSupport.halt_callback_chains_on_return_false = false
-
-
     config.active_record.belongs_to_required_by_default = true
 
     config.to_prepare do
