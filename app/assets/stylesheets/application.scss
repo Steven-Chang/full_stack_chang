@@ -10,16 +10,22 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require jquery-ui
- *= require bootstrap-datepicker3
- *= require angular-confirm/dist/angular-confirm.min
- *= require angular-moment-picker/dist/angular-moment-picker.min
- *= require_tree .
- *= require_self
-
 */
 
+@import "jquery-ui";
 @import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-datepicker3";
+@import "angular-confirm/dist/angular-confirm.min";
+@import "angular-moment-picker/dist/angular-moment-picker.min";
+
+@import "home";
+@import "navbar";
+@import "portfolio";
+@import "tetris";
+@import "users";
+@import "why_hire_chang";
+@import "work";
 
 // https://github.com/twbs/bootstrap-sass
 // You can override these by simply redefining the variable before the @import directive
@@ -33,7 +39,6 @@
 
 // Point at which the navbar begins collapsing.
 // $grid-float-breakpoint-max: (@grid-float-breakpoint - 1)
-@import "bootstrap";
 
 html {
   height: 100%;
