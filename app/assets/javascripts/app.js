@@ -21,7 +21,8 @@ var app = angular.module('app', [
   function (cloudinaryProvider) {
     cloudinaryProvider
       .set("cloud_name", "digguide")
-      .set("upload_preset", "thelook");
+      .set("upload_preset", "thelook")
+      .set("secure", "true")
   }])
 
 .config(
