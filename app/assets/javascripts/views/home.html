@@ -10,7 +10,7 @@
 
   <div class="container">
     <div class="row" ng-show="signedIn()">
-      <div class="col-xs-12">
+      <div class="col-12">
         <!-- Form to add projects in easily. -->
         <h4 ng-click="addBlogPostsFormVisible = !addBlogPostsFormVisible; slideToggleAddBlogPostForm();" class="fake-link">Add a new post 
           <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addBlogPostsFormVisible"></span>
@@ -80,13 +80,13 @@
     </div>
 
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-12">
         <h5>Micro Blog</h5>
       </div>
     </div>
 
     <ul class="list-grid row">
-      <li class="col-xs-12 col-md-4 col-sm-6" ng-repeat="post in blogPosts" infinite-scroll="getBlogPosts()" infinite-scroll-distance="1">
+      <li class="col-12 col-md-4 col-sm-6" ng-repeat="post in blogPosts" infinite-scroll="getBlogPosts()" infinite-scroll-distance="1">
         <div class="blog-post">
           <div class="blog-post-header">
             <span class="glyphicon glyphicon-remove" ng-click="deleteBlogPost(post)" ng-show="signedIn()"></span>

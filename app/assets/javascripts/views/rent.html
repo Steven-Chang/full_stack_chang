@@ -2,7 +2,7 @@
   <nav-bar></nav-bar>
   <div class="container" style="margin-top: -20px;">
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-12">
         <h1>Rent Spreadsheet</h1>
         <h5>Aim: Automate / Online Access Via Phone</h5>
         <div>
@@ -24,7 +24,7 @@
     <hr>
 
     <div class="row" ng-show="currentUser.admin">
-      <div class="col-xs-12">
+      <div class="col-12">
         <h4 ng-click="addRentFormVisible = !addRentFormVisible; slideToggleContainer( '#rent-transaction-form' );" class="fake-link">Add a new post 
           <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addRentFormVisible"></span>
           <span class="glyphicon glyphicon-triangle-top" ng-show="addRentFormVisible"></span>
@@ -67,7 +67,7 @@
         <hr>
       </div>
 
-      <div class="col-xs-12">
+      <div class="col-12">
         <h4 ng-click="addTenantFormVisible = !addTenantFormVisible; slideToggleContainer( '#add-tenant-form' );" class="fake-link">Add a new tenant
           <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addTenantFormVisible"></span>
           <span class="glyphicon glyphicon-triangle-top" ng-show="addTenantFormVisible"></span>
@@ -97,7 +97,7 @@
     </div>
 
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-12">
         <div ng-click="getTransactions( tenant )" ng-repeat="tenant in tenants">
           <span style="cursor: pointer;">{{ tenant.username }}</span>
         </div>
@@ -106,17 +106,17 @@
 
     <div class="row" ng-show="selectedTenant">
       <hr>
-      <div class="col-xs-12">
+      <div class="col-12">
         <h2>{{ selectedTenant.username | uppercase }}</h2>
       </div>
 
-      <div class="col-xs-12" ng-hide="password === selectedTenant.password || currentUser.admin">
+      <div class="col-12" ng-hide="password === selectedTenant.password || currentUser.admin">
         <div class="form-group">
           <input type="text" class="form-control" id="password" ng-model="password" placeholder="password">
         </div>
       </div>
 
-      <div class="col-xs-12" ng-show="password === selectedTenant.password || currentUser.admin">
+      <div class="col-12" ng-show="password === selectedTenant.password || currentUser.admin">
         <div style="margin-bottom: 15px;">
           <div>
             Balance: {{ balance | currency }}

@@ -1,93 +1,54 @@
 #navbar {
   background-color: #44749D;
   min-height: 65px;
-  
-  .container-fluid {
 
-    .navbar-header {
-      min-height: 63px;
+  .navbar-shadow {
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+           0px 8px 13px rgba(0,0,0,0.1),
+           0px 18px 23px rgba(0,0,0,0.1);
+  }
 
-      .navbar-toggle {
-        border-color: white;
-        margin-top: 15px;
-        span {
-          background-color: white;
-        }
-      }
+  .navbar-toggler {
+    border-color: white;
 
-      .navbar-toggle:focus {
-          background-color: #44749D;
-      }
-
-      .navbar-toggle:hover {
-          background-color: #44749D;
-      }
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
     }
+  }
 
-    .navbar-shadow {
-      text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
-             0px 8px 13px rgba(0,0,0,0.1),
-             0px 18px 23px rgba(0,0,0,0.1);
+
+  #navbar-header {
+    h3 {
+      color: #ffff00;
+      margin-bottom: 0;
     }
+  }
 
+  #sub-header {
+    color: #85bb65;
+    font-size: 14px;
+  }
 
-    #logo {
-      position: absolute;
-      top: 10px;
-
-      .chips {
-        color: orange;
-        font-size: 47px;
-      }
-    }
-
-    #navbar-header {
-      position: absolute;
-      top: -10px;
-      left: 85px;
-
-      h3 {
-        color: #ffff00;
-        font-weight: 400;
-      }
-    }
-
-    #sub-header {
-      color: #85bb65;
-      font-size: 14px;
-      position: absolute;
-      top: 35px;
-      left: 85px;
-    }
-
-    #myNavbar {
+  #navbar-header-content {
+    .dropdown-menu {
       background-color: #44749D;
+      border: 0;
 
-      .dropdown-menu {
-        background-color: #44749D;
-        padding: 20px;
-
-        .dropdown-item {
-          display: block;
-        }
-      }
-
-      .dropdown-toggle {
+      a:hover {
         background-color: #44749D;
       }
 
-      ul {
-        margin-top: 5px;
-
-        span {
-          margin-right: 8px;
-        }
+      .dropdown-item {
+        display: block;
       }
+    }
 
-      a {
-        color: #ffff00;
-        font-weight: 400;
-      }
+    .dropdown-toggle {
+      background-color: #44749D;
+    }
+
+    a {
+      color: #ffff00;
     }
   }
 };

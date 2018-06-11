@@ -1,7 +1,7 @@
 <div navbar-and-container id="portfolio">
 
   <div class="row" ng-show="signedIn()">
-    <div class="col-xs-12">
+    <div class="col-12">
       <!-- Form to add projects in easily. -->
       <h4 ng-click="addProjectFormVisible = !addProjectFormVisible; slideToggleAddProjectForm();" class="fake-link">Add a new project 
         <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addProjectFormVisible"></span>
@@ -38,13 +38,13 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-12">
       <h5>Portfolio</h5>
     </div>
   </div>
 
   <ul class="list-grid row">
-    <li class="col-xs-12 col-md-4 col-sm-6" ng-repeat="project in projects | orderBy : 'date_added' : true">
+    <li class="col-12 col-md-4 col-sm-6" ng-repeat="project in projects | orderBy : 'date_added' : true">
       <div class="portfolio-project">
         <div class="project-header">
           <h4><a ng-href="{{ project.url }}">{{ project.title }}</a></h4>
