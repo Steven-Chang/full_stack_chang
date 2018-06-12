@@ -11,9 +11,10 @@
     <div class="row" ng-show="signedIn()">
       <div class="col-12">
         <!-- Form to add projects in easily. -->
-        <h4 ng-click="addBlogPostsFormVisible = !addBlogPostsFormVisible; slideToggleAddBlogPostForm();" class="fake-link">Add a new post 
-          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addBlogPostsFormVisible"></span>
-          <span class="glyphicon glyphicon-triangle-top" ng-show="addBlogPostsFormVisible"></span>
+        <h4>
+          <a href="#" ng-click="addBlogPostsFormVisible = !addBlogPostsFormVisible; slideToggleAddBlogPostForm();">Add a new post 
+          <i class="fas fa-caret-down" ng-hide="addBlogPostsFormVisible"></i>
+          <i class="fas fa-caret-up" ng-show="addBlogPostsFormVisible"></i></a>
         </h4>
         <form ng-submit="newBlogPostHub.createNewBlogPost()" id="add-blog-post-form">
 
@@ -100,7 +101,7 @@
             </div>
 
             <div class="play-button-container" ng-show="post.youtube_url" ng-click="initiateVideo($index)" id="{{'play-button-container-' + $index}}">
-              <img src="https://res.cloudinary.com/digguide/image/upload/s--65APZZ7U--/c_scale,w_105/v1485650789/Personal%20Site/simplistic_play_icon__ico__png__by_micahpkay-d6opha8.png" class="fake-link">
+              <a href="#"><img src="https://res.cloudinary.com/digguide/image/upload/s--65APZZ7U--/c_scale,w_105/v1485650789/Personal%20Site/simplistic_play_icon__ico__png__by_micahpkay-d6opha8.png"></a>
             </div>
             <div class="youtube-container" id="{{ 'youtube-container-' + $index }}">
               <youtube-video video-url="post.youtube_url" player-vars="youTubePlayerVariables"  player-height="'100%'" ng-if="post.youtube_url" ></youtube-video>

@@ -23,9 +23,8 @@
 
       <div class="col-12">
         <hr>
-        <h4 ng-click="addTenantFormVisible = !addTenantFormVisible; slideToggleContainer( '#add-tenant-form' );" class="fake-link">Add a new tenant
-          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addTenantFormVisible"></span>
-          <span class="glyphicon glyphicon-triangle-top" ng-show="addTenantFormVisible"></span>
+        <h4><a href="#" ng-click="addTenantFormVisible = !addTenantFormVisible; slideToggleContainer( '#add-tenant-form' );">Add a new tenant <i class="fas fa-caret-down" ng-hide="addTenantFormVisible"></i>
+          <i class="fas fa-caret-up" ng-show="addTenantFormVisible"></i></a>
         </h4>
 
         <form ng-submit="createTenant()" id="add-tenant-form" style="display: none;">
@@ -65,9 +64,9 @@
 
       <div class="col-12">
         <hr>
-        <h4 ng-click="addTaskFormVisible = !addTaskFormVisible; slideToggleContainer( '#add-task-form' );" class="fake-link">Add a new task
-          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addTaskFormVisible"></span>
-          <span class="glyphicon glyphicon-triangle-top" ng-show="addTaskFormVisible"></span>
+        <h4><a href="#" ng-click="addTaskFormVisible = !addTaskFormVisible; slideToggleContainer( '#add-task-form' );">Add a new task           <i class="fas fa-caret-down" ng-hide="addTaskFormVisible"></i>
+          <i class="fas fa-caret-up" ng-show="addTaskFormVisible"></i>
+        </a>
         </h4>
 
         <form ng-submit="createTask()" id="add-task-form" style="display: none;">
@@ -99,9 +98,8 @@
 
       <div class="col-12">
         <hr>
-        <h4 ng-click="addRecordFormVisible = !addRecordFormVisible; slideToggleContainer( '#add-record-form' );" class="fake-link">Add a new record
-          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addRecordFormVisible"></span>
-          <span class="glyphicon glyphicon-triangle-top" ng-show="addRecordFormVisible"></span>
+        <h4><a href="#" ng-click="addRecordFormVisible = !addRecordFormVisible; slideToggleContainer( '#add-record-form' );">Add a new record <i class="fas fa-caret-down" ng-hide="addRecordFormVisible"></i>
+          <i class="fas fa-caret-up" ng-show="addRecordFormVisible"></i></a>
         </h4>
         <form ng-submit="createRecord()" id="add-record-form" style="display: none;">
           <div class="form-group">

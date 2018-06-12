@@ -3,9 +3,8 @@
   <div class="row" ng-show="signedIn()">
     <div class="col-12">
       <!-- Form to add projects in easily. -->
-      <h4 ng-click="addProjectFormVisible = !addProjectFormVisible; slideToggleAddProjectForm();" class="fake-link">Add a new project 
-        <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addProjectFormVisible"></span>
-        <span class="glyphicon glyphicon-triangle-top" ng-show="addProjectFormVisible"></span>
+      <h4><a href="#" ng-click="addProjectFormVisible = !addProjectFormVisible; slideToggleAddProjectForm();">Add a new project <i class="fas fa-caret-down" ng-hide="addProjectFormVisible"></i>
+          <i class="fas fa-caret-up" ng-show="addProjectFormVisible"></i></a>
       </h4>
       <form ng-submit="newProjectHub.createNewProject()" id="add-project-form">
 

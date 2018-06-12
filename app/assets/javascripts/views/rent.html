@@ -25,9 +25,8 @@
 
     <div class="row" ng-show="currentUser.admin">
       <div class="col-12">
-        <h4 ng-click="addRentFormVisible = !addRentFormVisible; slideToggleContainer( '#rent-transaction-form' );" class="fake-link">Add a new post 
-          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addRentFormVisible"></span>
-          <span class="glyphicon glyphicon-triangle-top" ng-show="addRentFormVisible"></span>
+        <h4><a href="#" ng-click="addRentFormVisible = !addRentFormVisible; slideToggleContainer( '#rent-transaction-form' );">Add a new post <i class="fas fa-caret-down" ng-hide="addRentFormVisible"></i>
+          <i class="fas fa-caret-up" ng-show="addRentFormVisible"></i></a>
         </h4>
         <form ng-submit="createRentTransaction()" id="rent-transaction-form">
           <div class="form-group">
@@ -70,9 +69,8 @@
       </div>
 
       <div class="col-12">
-        <h4 ng-click="addTenantFormVisible = !addTenantFormVisible; slideToggleContainer( '#add-tenant-form' );" class="fake-link">Add a new tenant
-          <span class="glyphicon glyphicon-triangle-bottom" ng-hide="addTenantFormVisible"></span>
-          <span class="glyphicon glyphicon-triangle-top" ng-show="addTenantFormVisible"></span>
+        <h4><a href="#" ng-click="addTenantFormVisible = !addTenantFormVisible; slideToggleContainer( '#add-tenant-form' );">Add a new tenant <i class="fas fa-caret-down" ng-hide="addTenantFormVisible"></i>
+          <i class="fas fa-caret-up" ng-show="addTenantFormVisible"></i></a>
         </h4>
 
         <form ng-submit="createTenant()" id="add-tenant-form" style="display: none;">
