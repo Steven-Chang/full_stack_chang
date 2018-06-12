@@ -37,14 +37,21 @@
       <li class="nav-item" ng-hide="signedIn()">
         <a ui-sref="login" class="nav-link">
           Admin
-          <img cl-src="Personal Site/wayne_bennett_small.png"  alt="admin login" 
+          <img cl-src="Personal Site/wayne_bennett_small.png"  
+            alt="admin login" 
             width="75"
             class="d-none d-sm-flex">
         </a>
       </li>
 
       <li class="nav-item" ng-show="signedIn()">
-        <a class="nav-link" href="#" ng-click="logout()">Logout</a>
+        <a class="nav-link" href="#" ng-click="logout()">
+          Logout
+          <img cl-src="Personal Site/isaiah_thomas_head"  
+            alt="logout" 
+            width="75"
+            class="d-none d-sm-flex">
+        </a>
       </li>
     </ul>
   </div>
