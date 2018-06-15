@@ -61,7 +61,7 @@
             <tr>
               <td>{{ client.name }}</td>
               <td>{{ client.balance | currency }}</td>
-              <td><a href="#" ng-click="deleteClient( $index )" class="glyphicon glyphicon-trash"></a></td>
+              <td><a href="#" ng-click="deleteClient( $index )" class="fa fa-trash-alt"></a></td>
             </tr>
             <tr class="sub-table-row" ng-if="client.email">
               <td colspan="3">
@@ -155,7 +155,7 @@
               <td>{{ job.start_time | date : 'd MMM yyyy h:mm a' }}</td>
               <td>{{ job.client.name }}</td>
               <td>{{ job.cost | currency }}</td>
-              <td><a href="#" ng-click="deleteJob( $index )" class="glyphicon glyphicon-trash"></a></td>
+              <td><a href="#" ng-click="deleteJob( $index )" class="fa fa-trash-alt"></a></td>
             </tr>
             <tr class="sub-table-row">
               <td colspan="4">
@@ -232,7 +232,7 @@
               <td>{{ payment.date | date : 'd MMM yyyy' }}</td>
               <td>{{ payment.client.name }}</td>
               <td>{{ payment.amount | currency }}</td>
-              <td><a href="#" ng-click="deletePayment( $index )" class="glyphicon glyphicon-trash"></a></td>
+              <td><a href="#" ng-click="deletePayment( $index )" class="fa fa-trash-alt"></a></td>
             </tr>
           </tbody>
         </table>

@@ -1,0 +1,17 @@
+<%= form_with(model: creditor, local: true) do |form| %>
+  <% if creditor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(creditor.errors.count, "error") %> prohibited this creditor from being saved:</h2>
+
+      <ul>
+      <% creditor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

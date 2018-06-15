@@ -49,6 +49,12 @@ var app = angular.module('app', [
 			controller: 'CleaningController'
 		})
 
+		.state("loans", {
+			url: "loans",
+			templateUrl: "views/loans.html", 
+			controller: "LoansController"
+		})
+
 		.state('work', {
 			url: '/work',
 			templateUrl: 'views/work.html',
