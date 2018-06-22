@@ -1,4 +1,4 @@
-app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $rootScope, $scope, $timeout, Auth, DatetimeService, DisplayService, Restangular ){
+app.controller('RentController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$timeout', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $rootScope, $scope, $timeout, Auth, DatetimeService, DisplayService, Restangular ){
 
   // PRIVATE
   var config = {headers: {'X-HTTP-Method-Override': 'POST'}}
@@ -28,6 +28,7 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
   $scope.creatingRentTransaction = false;
   $scope.bond;
   $scope.currentUser = $rootScope.user;
+  $scope.deletingTransaction = false;
 
   $scope.newTask = {
 
@@ -86,12 +87,34 @@ app.controller('RentController', ['$filter', '$rootScope', '$scope', '$timeout',
   };
 
   $scope.deleteRentTransaction = function( $index ) {
-    $scope.transactions[$index].remove()
-      .then(function(){
-        $scope.transactions.splice( $index, 1  );
-        updateUsersBalance( $scope.selectedTenant.id );
-        updateUsersBond( $scope.selectedTenant.id );
+    if ( !$scope.deletingTransaction ){
+      $ngConfirm({
+        title: 'Confirm Delete',
+        content: '',
+        scope: $scope,
+        buttons: {
+          delete: {
+            text: 'Delete',
+            btnClass: 'btn-primary',
+            action: function(scope){
+              $scope.deletingTransaction = true;
+              $scope.transactions[$index].remove()
+                .then(function(){
+                  $scope.transactions.splice( $index, 1  );
+                  updateUsersBalance( $scope.selectedTenant.id );
+                  updateUsersBond( $scope.selectedTenant.id );
+                })
+                .finally(function(){
+                  $scope.deletingTransaction = false;
+                });
+            }
+          },
+          close: function(scope, button){
+            text: 'Cancel'
+          }
+        }
       });
+    };
   };
 
   $scope.getTransactions = function( tenant ){
