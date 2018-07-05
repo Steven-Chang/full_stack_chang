@@ -1,1 +1,134 @@
-<h1>Test</h1>
+<nav-bar></nav-bar>
+<div id="farming" ng-init="init()" class="pt-3 pb-5 pt-sm-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>{{ aim | currency }} by 40</h1>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">+/-</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Daily Aim:</th>
+              <td>{{ currentPerDayAim | currency }}</td>
+            </tr>
+            <tr>
+              <th>Balance:</th>
+              <td>{{ currentPlusMinus | currency }}</td>
+            </tr>
+            <tr>
+              <th>Gambling:</th>
+              <td>{{ gamblingPlusMinus | currency }}</td>
+            </tr>
+            <tr>
+              <th>Eveything Else:</th>
+              <td>{{ farmingPlusMinus| currency }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-12">
+        <h4>Create Transaction Type</h4>
+        <form ng-submit="createTransactionType()">
+          <div class="form-group">
+            <input type="text"
+              ng-model="newTransactionType.description"
+              placeholder="Transaction Type"
+              class="form-control">
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h3>Create New Transaction</h3>
+        <form ng-submit="createFarmingTransaction()">
+          <div class="form-group">
+            <select ng-model="selectedTransactionType" ng-options="item.description for item in transactionTypes" class="form-control"></select>
+          </div>
+
+          <div class="form-group">
+            <input type="text" 
+              autocomplete="off"
+              data-provide='datepicker' 
+              class="form-control" 
+              id="date-picker" 
+              ng-model="newTransaction.date" 
+              placeholder="Date">
+          </div>
+
+          <div class="form-group">
+            <input type="text"
+              ng-model="newTransaction.description"
+              placeholder="Description"
+              class="form-control">
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">$</div>
+              </div>
+              <input type="text"
+                class="form-control"
+                ng-model="newTransaction.amount"
+                placeholder="Amount">
+            </div>
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Description</th>
+              <th scope="col">Amount</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="transaction in farmingTransactions">
+            <tr>
+              <td>{{ transaction.date | date : 'd MMM yy' }}</td>
+              <td>{{ transaction.description }}</td>
+              <td>{{ transaction.amount | currency }}</td>
+              <td><a href="#"><span class="fa fa-trash-alt" ng-click="deleteTransaction( $index )"></span></a></td>
+              <td><a href="#" ng-click="slideToggleContainer(  '#farming-transaction-' + $index )"><span class="glyphicon glyphicon-triangle-bottom"></span></a></td>
+            </tr>
+            <tr class="sub-table-row" id="farming-transaction-{{ $index }}" style="display: none;">
+              <td colspan="5">
+                <div ng-if="transaction.odds && transaction.odds > 1">
+                  <strong># Odds:</strong> {{ transaction.odds }}
+                </div>
+                <div>
+                  <strong># Farming:</strong> {{ transaction.farming }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :bets
   resources :transaction_types
   resources :tenancy_agreements
   resources :transactions
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
   get 'tenants' => 'users#tenants'
 
  # Need this for prettifying url
-  get '*path', :to => redirect('/#!/%{path}')
+  get '/', :to => redirect('/#!/')
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

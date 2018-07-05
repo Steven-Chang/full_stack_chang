@@ -5,6 +5,8 @@ class TransactionTypesController < ApplicationController
   # GET /transaction_types.json
   def index
     @transaction_types = TransactionType.all
+
+    render :json => @transaction_types
   end
 
   # GET /transaction_types/1
@@ -26,14 +28,10 @@ class TransactionTypesController < ApplicationController
   def create
     @transaction_type = TransactionType.new(transaction_type_params)
 
-    respond_to do |format|
-      if @transaction_type.save
-        format.html { redirect_to @transaction_type, notice: 'Transaction type was successfully created.' }
-        format.json { render :show, status: :created, location: @transaction_type }
-      else
-        format.html { render :new }
-        format.json { render json: @transaction_type.errors, status: :unprocessable_entity }
-      end
+    if @transaction_type.save
+      render :json => @transaction_type
+    else
+      render :json => @transaction_type.errors
     end
   end
 
@@ -69,6 +67,6 @@ class TransactionTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_type_params
-      params.fetch(:transaction_type, {})
+      params.require(:transaction_type).permit(:description)
     end
 end

@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180705015931) do
+ActiveRecord::Schema.define(version: 20180705072624) do
+
+  create_table "bets", force: :cascade do |t|
+    t.decimal "odds", precision: 18, scale: 8, default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "blog_posts", force: :cascade do |t|
     t.text "description"

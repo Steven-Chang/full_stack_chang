@@ -11,12 +11,6 @@ var app = angular.module('app', [
 ])
 
 .config(
-	['$locationProvider', function($locationProvider){
-    // use the HTML5 History API
-    $locationProvider.html5Mode(true);
-	}])
-
-.config(
   ['cloudinaryProvider', 
   function (cloudinaryProvider) {
     cloudinaryProvider
@@ -59,12 +53,6 @@ var app = angular.module('app', [
 			url: '/work',
 			templateUrl: 'views/work.html',
 			controller: "WorkController"
-		})
-
-		.state('farming', {
-			url: '/farming',
-			templateUrl: 'views/farming.html',
-			controller: 'FarmingController'
 		})
 
 		.state('home', {
