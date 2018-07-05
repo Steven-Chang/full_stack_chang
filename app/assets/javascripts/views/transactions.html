@@ -90,6 +90,14 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <input type="text"
+              ng-show="selectedTransactionType.description == 'bet'"
+              ng-model="newTransaction.odds"
+              class="form-control"
+              placeholder="odds">
+          </div>
+
           <input type="submit" value="Create" class="btn btn-primary">
         </form>
         <hr>

@@ -41,7 +41,7 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     description: "",
     amount: 0,
-    odds: "",
+    odds: undefined,
     transaction_type_id: undefined
   };
 
@@ -69,8 +69,8 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     Restangular.all( "transaction_types" )
       .post( $scope.newTransactionType )
       .then(function( response ){
-        console.log( response );
         $scope.transactionTypes.push( response );
+        $scope.newTransactionType.description = "";
       }, function( errors ){
         console.log( errors );
       });
