@@ -1,3 +1,3 @@
 class PropertySerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :address
 end

@@ -5,6 +5,8 @@ class PropertiesController < ApplicationController
   # GET /properties.json
   def index
     @properties = Property.all
+
+    render :json => @properties
   end
 
   # GET /properties/1
@@ -26,14 +28,10 @@ class PropertiesController < ApplicationController
   def create
     @property = Property.new(property_params)
 
-    respond_to do |format|
-      if @property.save
-        format.html { redirect_to @property, notice: 'Property was successfully created.' }
-        format.json { render :show, status: :created, location: @property }
-      else
-        format.html { render :new }
-        format.json { render json: @property.errors, status: :unprocessable_entity }
-      end
+    if @property.save
+      render :json => @property
+    else
+      render :json => @property.errors, status: :unprocessable_entity
     end
   end
 
@@ -69,6 +67,6 @@ class PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      params.fetch(:property, {})
+      params.require(:property).permit(:address)
     end
 end

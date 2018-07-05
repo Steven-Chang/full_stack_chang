@@ -1,0 +1,47 @@
+<nav-bar></nav-bar>
+<div id="properties" ng-init="init()" class="pt-3 pb-5 pt-sm-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Properties</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h4>Create Transaction Type</h4>
+        <form ng-submit="createProperty()">
+          <div class="form-group">
+            <input type="text"
+              ng-model="newProperty.address"
+              placeholder="Address"
+              class="form-control"
+              required>
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Address</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="property in properties">
+              <th>{{ property.address }}</th>
+              <td><span class="fa fa-trash-alt" ng-click="deleteProperty( $index )"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

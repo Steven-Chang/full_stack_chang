@@ -37,6 +37,12 @@ var app = angular.module('app', [
 
 	$stateProvider
 
+		.state('farming', {
+			url: '/farming',
+			templateUrl: 'views/farming.html',
+			controller: 'FarmingController'
+		})
+
 		.state('cleaning', {
 			url: '/cleaning',
 			templateUrl: 'views/cleaning.html',
@@ -81,6 +87,12 @@ var app = angular.module('app', [
       			});
 				}]
 			}
+		})
+
+		.state('properties', {
+			url: '/properties',
+			templateUrl: 'views/properties.html',
+			controller: 'PropertiesController'
 		})
 
 		.state('login', {
