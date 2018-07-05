@@ -1,0 +1,2 @@
+module TenancyAgreementsHelper
+end

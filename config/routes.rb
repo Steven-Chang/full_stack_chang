@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :transaction_types
+  resources :tenancy_agreements
+  resources :transactions
   resources :creditors
   resources :client_payments
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)

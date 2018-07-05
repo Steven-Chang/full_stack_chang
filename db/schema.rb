@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614020924) do
+ActiveRecord::Schema.define(version: 20180705015931) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text "description"
@@ -175,6 +175,32 @@ ActiveRecord::Schema.define(version: 20180614020924) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tenancy_agreements", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "address", null: false
+    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
+    t.date "starting_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transaction_types", force: :cascade do |t|
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.date "date", null: false
+    t.string "description", null: false
+    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
+    t.string "resource_class"
+    t.string "resource_id"
+    t.integer "transaction_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
