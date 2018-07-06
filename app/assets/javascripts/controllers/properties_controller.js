@@ -42,7 +42,8 @@ app.controller('PropertiesController', ['$filter', '$ngConfirm', '$scope', '$sta
               $scope.properties[$index]
                 .remove()
                 .then(function( response ){
-                  $scope.properties[$index].splice( $index, 1 );
+                  console.log(1231);
+                  $scope.properties.splice( $index, 1 );
                 }, function( errors ){
                   console.log( errors );
                 })
