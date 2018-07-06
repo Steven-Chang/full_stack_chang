@@ -4,7 +4,13 @@ class TenancyAgreementsController < ApplicationController
   # GET /tenancy_agreements
   # GET /tenancy_agreements.json
   def index
-    @tenancy_agreements = TenancyAgreement.all
+    if params[:property_id]
+      @tenancy_agreements = TenancyAgreement.where(:property_id => params[:property_id])
+    else
+      @tenancy_agreements = TenancyAgreement.all
+    end
+
+    render :json => @tenancy_agreements
   end
 
   # GET /tenancy_agreements/1

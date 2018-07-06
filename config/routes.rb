@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :properties
+  resources :properties do
+    resources :tenancy_agreements
+  end
   resources :bets
   resources :transaction_types
   resources :tenancy_agreements

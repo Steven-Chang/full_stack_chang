@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180705090635) do
+ActiveRecord::Schema.define(version: 20180706093122) do
 
   create_table "bets", force: :cascade do |t|
     t.decimal "odds", precision: 18, scale: 8, default: "0.0", null: false
@@ -233,6 +233,8 @@ ActiveRecord::Schema.define(version: 20180705090635) do
     t.string "username"
     t.boolean "admin", default: false
     t.boolean "tenant", default: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

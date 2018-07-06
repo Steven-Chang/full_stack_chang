@@ -13,10 +13,21 @@ app.controller('PropertiesShowController', ['$filter', '$ngConfirm', '$scope', '
       });
   };
 
+  var getTenancyAgreements = function(){
+    Restangular.one("properties", $state.params.id)
+      .getList("tenancy_agreements")
+      .then(function( response ){
+        $scope.tenancyAgreements = response;
+      }, function( errors ){
+        console.log( errors );
+      });
+  };
+
 	// --------------------
 	// Public
 	// --------------------
-  $scope.property
+  $scope.property;
+  $scope.tenancyAgreements;
 
   $scope.init = function(){
     Auth.currentUser()

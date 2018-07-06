@@ -1,1 +1,19 @@
-<h1>Properties</h1>
+<nav-bar></nav-bar>
+<div id="properties-show" ng-init="init()" class="pt-3 pb-5 pt-sm-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>{{ property.address }}</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h3>Tenants</h3>
+        <ul>
+          <li ng-repeat="tenancyAgreement in tenancyAgreements">{{ tenancyAgreement.user.first_name }} {{ tenancyAgreement.user.last_name }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

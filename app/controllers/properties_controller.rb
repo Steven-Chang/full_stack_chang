@@ -12,6 +12,7 @@ class PropertiesController < ApplicationController
   # GET /properties/1
   # GET /properties/1.json
   def show
+    render :json => @property
   end
 
   # GET /properties/new
