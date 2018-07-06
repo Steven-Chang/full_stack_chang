@@ -94,6 +94,11 @@ var app = angular.module('app', [
 			templateUrl: 'views/properties.html',
 			controller: 'PropertiesController'
 		})
+		.state('propertiesshow', {
+			url: '/properties/:id',
+			templateUrl: 'views/properties/show.html',
+			controller: 'PropertiesShowController'
+		})
 
 		.state('login', {
 			url: '/login',

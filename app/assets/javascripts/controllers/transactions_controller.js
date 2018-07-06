@@ -2,6 +2,17 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   // Private
 
+  var getProperties = function(){
+    Restangular.all("properties")
+      .getList()
+      .then(function( response ){
+        $scope.properties = response;
+        $scope.selectedProperty = response[0];
+      }, function( errors ){
+        console.log( errors );
+      });
+  };
+
   var getTransactions = function(){
     Restangular.all("transactions")
       .getList()
@@ -33,6 +44,8 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.currentPerDayAim = 0;
   $scope.currentPlusMinus = 0;
   $scope.currentDailyPlusMinus = 0;
+  $scope.properties = [];
+  $scope.selectedProperty;
   $scope.selectedTransactionType;
   $scope.transactions = [];
   $scope.transactionTypes = [];
@@ -112,6 +125,7 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
           DatetimeService.initiateDatePicker('#date-picker');
           getTransactions();
           getTransactionTypes();
+          getProperties();
         } else {
           $state.go( 'login' )
         };

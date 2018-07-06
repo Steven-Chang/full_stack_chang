@@ -36,7 +36,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="property in properties">
-              <th>{{ property.address }}</th>
+              <th><a ui-sref="propertiesshow({ id: property.id })">{{ property.address }}</a></th>
               <td><span class="fa fa-trash-alt" ng-click="deleteProperty( $index )"></span></td>
             </tr>
           </tbody>

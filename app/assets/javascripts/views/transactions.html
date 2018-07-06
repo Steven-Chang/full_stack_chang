@@ -61,6 +61,10 @@
             <select ng-model="selectedTransactionType" ng-options="item.description for item in transactionTypes" class="form-control"></select>
           </div>
 
+          <div class="form-group" ng-show="selectedTransactionType.description == 'property'">
+            <select ng-model="selectedProperty" ng-options="property.address for property in properties" class="form-control"></select>
+          </div>
+
           <div class="form-group">
             <input type="text" 
               autocomplete="off"
