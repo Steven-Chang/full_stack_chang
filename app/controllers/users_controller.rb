@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-    respond_to do |format|
-      format.json { render :json => User.all, status => 200 }
-    end
+    render :json => User.all
   end
 
   def return_number_of_users

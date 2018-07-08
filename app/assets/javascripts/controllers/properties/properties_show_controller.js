@@ -1,4 +1,4 @@
-app.controller('PropertiesShowController', ['$filter', '$ngConfirm', '$scope', '$state', '$timeout', 'Auth', 'DatetimeService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, $timeout, Auth, DatetimeService, Restangular){
+app.controller('PropertiesShowController', ['$filter', '$ngConfirm', '$scope', '$state', '$timeout', 'Auth', 'BackEndService', 'DatetimeService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, $timeout, Auth, BackEndService, DatetimeService, Restangular){
 
 	// --------------------
 	// Private
@@ -23,6 +23,15 @@ app.controller('PropertiesShowController', ['$filter', '$ngConfirm', '$scope', '
       });
   };
 
+  var getUsers = function(){
+    BackEndService.getUsers()
+      .then(function( response ){
+        $scope.users = response;
+      }, function( errors ){
+        console.log( errors );
+      });
+  };
+
 	// --------------------
 	// Public
 	// --------------------
@@ -34,6 +43,7 @@ app.controller('PropertiesShowController', ['$filter', '$ngConfirm', '$scope', '
       .then(function( user ){
         if ( user.admin ){
           getProperty();
+          getUsers();
         } else {
           $state.go( 'login' )
         };

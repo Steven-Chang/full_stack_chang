@@ -1,0 +1,68 @@
+<nav-bar></nav-bar>
+<div id="properties" ng-init="init()" class="pt-3 pb-5 pt-sm-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Users</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h4>Create User</h4>
+        <form ng-submit="createUser()">
+          <div class="form-group">
+            <input type="text"
+              ng-model="newUser.email"
+              placeholder="Email"
+              class="form-control"
+              required>
+          </div>
+
+          <div class="form-group">
+            <input type="text"
+              ng-model="newUser.username"
+              placeholder="Username"
+              class="form-control">
+          </div>
+
+          <div class="form-group">
+            <input type="text"
+              ng-model="newUser.first_name"
+              placeholder="First Name"
+              class="form-control">
+          </div>
+
+          <div class="form-group">
+            <input type="text"
+              ng-model="newUser.last_name"
+              placeholder="Last_name"
+              class="form-control">
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Address</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="property in properties">
+              <th><a ui-sref="propertiesshow({ id: property.id })">{{ property.address }}</a></th>
+              <td><span class="fa fa-trash-alt" ng-click="deleteProperty( $index )"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
