@@ -159,6 +159,12 @@ var app = angular.module('app', [
 			controller: 'TransactionsController'
 		})
 
+		.state('users', {
+			url: "/users",
+			templateUrl: "views/users/users.html",
+			controller: "UsersController"
+		})
+
 		.state('whyhirechang', {
 			url: '/whyhirechang',
 			templateUrl: 'views/whyhirechang.html',

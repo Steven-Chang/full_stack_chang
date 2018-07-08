@@ -40,4 +40,13 @@ app.controller('UsersController', ['$filter', '$ngConfirm', '$scope', '$state', 
       });
   };
 
+  $scope.createUser = function(){
+    Auth.register( $scope.newUser )
+      .then(function( user ){
+        $scope.users.unshift( user );
+      }, function( errors ){
+        console.log( errors );
+      });
+  };
+
 }])

@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   resources :client_payments
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root 'application#index'
-  devise_for :users
+
+  devise_for :users, controllers: { 
+    registrations: "users/registrations"
+  }
+
   resources :cleaning_records, only: [:index, :create, :destroy]
   resources :cleaning_tasks, only: [:index, :create, :destroy]
   resources :clients
