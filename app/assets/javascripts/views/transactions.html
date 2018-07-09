@@ -61,8 +61,12 @@
             <select ng-model="selectedTransactionType" ng-options="item.description for item in transactionTypes" class="form-control"></select>
           </div>
 
-          <div class="form-group" ng-show="selectedTransactionType.description == 'property'">
+          <div class="form-group" ng-show="selectedTransactionType.description == 'property' || selectedTransactionType.description == 'rent'">
             <select ng-model="selectedProperty" ng-options="property.address for property in properties" class="form-control"></select>
+          </div>
+
+          <div class="form-group" ng-show="selectedTransactionType.description == 'rent'">
+            <select ng-model="selectedTenancyAgreement" ng-options="tenancyAgreement.user.username for tenancyAgreement in tenancyAgreements" class="form-control"></select>
           </div>
 
           <div class="form-group">

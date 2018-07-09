@@ -13,6 +13,17 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       });
   };
 
+  var getTenancyAgreements = function( propertyId ){
+    Restangular.one("properties", propertyId)
+      .getList( "tenancy_agreements" )
+      .then(function( response ){
+        $scope.tenancyAgreements = response;
+        $scope.selectedTenancyAgreement = response[0];
+      }, function( errors ){
+        console.log( errors );
+      });
+  };
+
   var getTransactions = function(){
     Restangular.all("transactions")
       .getList()
@@ -38,6 +49,7 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.aim = 1500000;
   $scope.creatingTransaction = false;
   $scope.deletingTransaction = false;
+  $scope.tenancyAgreements;
   $scope.TransactionPlusMinus = 0;
   $scope.gamblingPlusMinus = 0;
   $scope.transactions;
@@ -46,6 +58,7 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.currentDailyPlusMinus = 0;
   $scope.properties = [];
   $scope.selectedProperty;
+  $scope.selectedTenancyAgreement;
   $scope.selectedTransactionType;
   $scope.transactions = [];
   $scope.transactionTypes = [];
@@ -61,6 +74,12 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.newTransactionType = {
     description: ""
   };
+
+  $scope.$watch("selectedProperty", function( newValue, oldValue ){
+    if ( newValue && newValue.id ){
+      getTenancyAgreements( newValue.id );
+    };
+  });
 
   $scope.createNewTransaction = function(){
     if ( !$scope.creatingTransaction ){
