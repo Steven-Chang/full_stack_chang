@@ -9,10 +9,57 @@
 
     <div class="row">
       <div class="col-12">
+        <h4>Create Tenancy Agreement</h4>
+        <form ng-submit="createTenancyAgreement()">
+          <div class="form-group">
+            <select id="userSelect" ng-model="newTenancyAgreement.user_id" class="form-control" convert-to-number>
+              <option ng-repeat="user in users" value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupPrepend2">$</span>
+                </div>
+                <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Amount" aria-describedby="inputGroupPrepend2" ng-model="newTenancyAgreement.amount" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text"
+              ng-model="newTenancyAgreement.starting_date"
+              placeholder="Starting Date"
+              class="form-control"
+              id="date-picker">
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
         <h3>Tenants</h3>
-        <ul>
-          <li ng-repeat="tenancyAgreement in tenancyAgreements">{{ tenancyAgreement.user.first_name }} {{ tenancyAgreement.user.last_name }}</li>
-        </ul>
+
+        <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Fortnightly Rent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="tenancyAgreement in tenancyAgreements">
+      <td>{{ tenancyAgreement.user.first_name }} {{ tenancyAgreement.user.last_name }}</td>
+      <td>{{ tenancyAgreement.amount | currency }}</td>
+    </tr>
+  </tbody>
+        </table>
       </div>
     </div>
   </div>

@@ -37,6 +37,13 @@ app.controller('PropertiesShowController', ['$filter', '$ngConfirm', '$scope', '
 	// --------------------
   $scope.property;
   $scope.tenancyAgreements;
+  $scope.users;
+  $scope.newTenancyAgreement = {
+    user_id: undefined,
+    amount: 0,
+    starting_date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
+    property_id: $state.params.id
+  };
 
   $scope.init = function(){
     Auth.currentUser()
@@ -44,11 +51,24 @@ app.controller('PropertiesShowController', ['$filter', '$ngConfirm', '$scope', '
         if ( user.admin ){
           getProperty();
           getUsers();
+          getTenancyAgreements();
+          DatetimeService.initiateDatePicker("#date-picker");
         } else {
           $state.go( 'login' )
         };
       }, function( error ){
         $state.go( 'login' )
+      });
+  };
+
+  $scope.createTenancyAgreement = function(){
+    console.log(123);
+    Restangular.all("tenancy_agreements")
+      .post( $scope.newTenancyAgreement )
+      .then(function( response ){
+        $scope.tenancyAgreements.unshift( response );
+      }, function( errors ){
+        console.log( errors );
       });
   };
 

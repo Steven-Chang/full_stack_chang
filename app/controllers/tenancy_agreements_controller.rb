@@ -32,14 +32,10 @@ class TenancyAgreementsController < ApplicationController
   def create
     @tenancy_agreement = TenancyAgreement.new(tenancy_agreement_params)
 
-    respond_to do |format|
-      if @tenancy_agreement.save
-        format.html { redirect_to @tenancy_agreement, notice: 'Tenancy agreement was successfully created.' }
-        format.json { render :show, status: :created, location: @tenancy_agreement }
-      else
-        format.html { render :new }
-        format.json { render json: @tenancy_agreement.errors, status: :unprocessable_entity }
-      end
+    if @tenancy_agreement.save
+      render :json => @tenancy_agreement, status: :created
+    else
+      render :json => @tenancy_agreement.errors, status: :unprocessable_entity
     end
   end
 
@@ -75,6 +71,6 @@ class TenancyAgreementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tenancy_agreement_params
-      params.fetch(:tenancy_agreement, {})
+      params.require(:tenancy_agreement).permit(:user_id, :amount, :starting_date, :property_id)
     end
 end
