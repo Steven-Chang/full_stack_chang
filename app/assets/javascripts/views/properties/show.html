@@ -51,12 +51,14 @@
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Fortnightly Rent</th>
+      <th scope="col">Starting Date</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="tenancyAgreement in tenancyAgreements">
       <td>{{ tenancyAgreement.user.username }}</td>
       <td>{{ tenancyAgreement.amount | currency }}</td>
+      <td>{{ tenancyAgreement.starting_date | date }}</td>
     </tr>
   </tbody>
         </table>
