@@ -13,7 +13,7 @@
         <form ng-submit="createTenancyAgreement()">
           <div class="form-group">
             <select id="userSelect" ng-model="newTenancyAgreement.user_id" class="form-control" convert-to-number>
-              <option ng-repeat="user in users" value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+              <option ng-repeat="user in users" value="{{ user.id }}">{{ user.username }}</option>
             </select>
           </div>
 

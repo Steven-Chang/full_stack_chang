@@ -2,6 +2,16 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   // Private
 
+  var getClients = function(){
+    Restangular.all("clients")
+      .getList()
+      .then(function( response ){
+        $scope.clients = response;
+      }, function( errors ){
+        console.log( errors );
+      });
+  };
+
   var getProperties = function(){
     Restangular.all("properties")
       .getList()
