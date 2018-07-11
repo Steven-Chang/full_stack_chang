@@ -55,7 +55,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="tenancyAgreement in tenancyAgreements">
-      <td>{{ tenancyAgreement.user.first_name }} {{ tenancyAgreement.user.last_name }}</td>
+      <td>{{ tenancyAgreement.user.username }}</td>
       <td>{{ tenancyAgreement.amount | currency }}</td>
     </tr>
   </tbody>
