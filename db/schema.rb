@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180712065305) do
+ActiveRecord::Schema.define(version: 20180712072137) do
 
   create_table "bets", force: :cascade do |t|
     t.decimal "odds", precision: 18, scale: 8, default: "0.0", null: false
@@ -218,7 +218,6 @@ ActiveRecord::Schema.define(version: 20180712065305) do
     t.date "date", null: false
     t.string "description", null: false
     t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
-    t.integer "tranxaction_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
