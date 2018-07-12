@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180712082640) do
+ActiveRecord::Schema.define(version: 20180712082813) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text "description"
@@ -124,19 +124,6 @@ ActiveRecord::Schema.define(version: 20180712082640) do
     t.string "league"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "matches", force: :cascade do |t|
-    t.integer "home_id", null: false
-    t.integer "away_id", null: false
-    t.integer "match_type_id", null: false
-    t.datetime "date", null: false
-    t.integer "home_score"
-    t.integer "away_score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "bookie_match_id"
-    t.string "website"
   end
 
   create_table "projects", force: :cascade do |t|
