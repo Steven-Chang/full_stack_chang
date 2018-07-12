@@ -1,2 +1,0 @@
-class MarketType < ApplicationRecord
-end

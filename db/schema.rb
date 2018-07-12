@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180712082147) do
+ActiveRecord::Schema.define(version: 20180712082640) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text "description"
@@ -175,12 +175,6 @@ ActiveRecord::Schema.define(version: 20180712082147) do
 
   create_table "tags", force: :cascade do |t|
     t.string "tag", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "teams", force: :cascade do |t|
-    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

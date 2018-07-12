@@ -1,2 +1,0 @@
-class MatchType < ApplicationRecord
-end

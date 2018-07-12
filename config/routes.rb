@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   resources :properties do
     resources :tenancy_agreements
   end
-  resources :bets
   resources :tenancy_agreements
   resources :creditors
   resources :client_payments
