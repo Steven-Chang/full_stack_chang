@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :rent_transactions, dependent: :destroy
   has_many :farming_transactions, -> { order( date: :desc, created_at: :desc ) }, dependent: :destroy
   has_many :tenancy_agreements
+  has_many :transactables, as: :transactable
+  has_many :transactions, through: :transactables
 
   def cleaning_summary
     summary = {}

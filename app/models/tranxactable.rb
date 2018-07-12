@@ -1,0 +1,2 @@
+class Tranxactable < ApplicationRecord
+end

@@ -78,7 +78,9 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     description: "",
     amount: 0,
     odds: undefined,
-    transaction_type_id: undefined
+    transaction_type_id: undefined,
+    resource_type: undefined,
+    resource_type_id: undefined
   };
 
   $scope.newTransactionType = {
