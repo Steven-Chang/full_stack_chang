@@ -1,3 +1,3 @@
 class Tranxaction < ApplicationRecord
-  belongs_to :transaction_type
+  has_many :tranxactables
 end

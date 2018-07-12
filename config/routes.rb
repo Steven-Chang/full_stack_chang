@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+  root 'application#index'
+
+  resources :tranxactions
+  resources :tranxaction_types
   resources :properties do
     resources :tenancy_agreements
   end
@@ -6,8 +11,6 @@ Rails.application.routes.draw do
   resources :tenancy_agreements
   resources :creditors
   resources :client_payments
-  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  root 'application#index'
 
   devise_for :users, controllers: { 
     registrations: "users/registrations"

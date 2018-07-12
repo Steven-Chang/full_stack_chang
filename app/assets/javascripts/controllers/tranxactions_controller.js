@@ -1,4 +1,4 @@
-app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$state', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, Auth, DatetimeService, DisplayService, Restangular ){
+app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$state', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, Auth, DatetimeService, DisplayService, Restangular ){
 
   // Private
 
@@ -34,22 +34,22 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       });
   };
 
-  var getTransactions = function(){
-    Restangular.all("transactions")
+  var getTranxactions = function(){
+    Restangular.all("tranxactions")
       .getList()
       .then(function( response ){
-        $scope.transactions = response;
+        $scope.tranxactions = response;
       }, function( errors ){
         console.log( errors );
       });
   };
 
-  var getTransactionTypes = function(){
-    Restangular.all("transaction_types")
+  var getTranxactionTypes = function(){
+    Restangular.all("tranxaction_types")
       .getList()
       .then(function( response ){
-        $scope.transactionTypes = response;
-        $scope.selectedTransactionType = response[0];
+        $scope.tranxactionTypes = response;
+        $scope.selectedTranxactionType = response[0];
       }, function( errors ){
         console.log( errors );
       });
@@ -57,33 +57,31 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   //// PUBLIC ////
   $scope.aim = 1500000;
-  $scope.creatingTransaction = false;
-  $scope.deletingTransaction = false;
+  $scope.creatingTranxaction = false;
+  $scope.deletingTranxaction = false;
   $scope.tenancyAgreements;
-  $scope.TransactionPlusMinus = 0;
   $scope.gamblingPlusMinus = 0;
-  $scope.transactions;
   $scope.currentPerDayAim = 0;
   $scope.currentPlusMinus = 0;
   $scope.currentDailyPlusMinus = 0;
   $scope.properties = [];
   $scope.selectedProperty;
   $scope.selectedTenancyAgreement;
-  $scope.selectedTransactionType;
-  $scope.transactions = [];
-  $scope.transactionTypes = [];
+  $scope.selectedTranxactionType;
+  $scope.tranxactions = [];
+  $scope.tranxactionTypes = [];
 
-  $scope.newTransaction = {
+  $scope.newTranxaction = {
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     description: "",
     amount: 0,
     odds: undefined,
-    transaction_type_id: undefined,
+    tranxaction_type_id: undefined,
     resource_type: undefined,
     resource_type_id: undefined
   };
 
-  $scope.newTransactionType = {
+  $scope.newTranxactionType = {
     description: ""
   };
 
@@ -93,35 +91,35 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     };
   });
 
-  $scope.createNewTransaction = function(){
-    if ( !$scope.creatingTransaction ){
-      $scope.creatingTransaction = true;
-      Restangular.all("transactions")
-        .post( $scope.newTransactions )
+  $scope.createNewTranxaction = function(){
+    if ( !$scope.creatingTranxaction ){
+      $scope.creatingTranxaction = true;
+      Restangular.all("tranxactions")
+        .post( $scope.newTranxactions )
         .then(function( response ){
-          $scope.transactions.unshfit( response );
-          $scope.newTransaction.amount = 0;
-          $scope.newTransaction.description = undefined;
-          $scope.creatingTransaction = false;
+          $scope.tranxactions.unshfit( response );
+          $scope.newTranxaction.amount = 0;
+          $scope.newTranxaction.description = undefined;
+          $scope.creatingTranxaction = false;
         }, function( errors ){
           console.log( errors );
         })
     };
   };
 
-  $scope.createTransactionType = function(){
-    Restangular.all( "transaction_types" )
-      .post( $scope.newTransactionType )
+  $scope.createTranxactionType = function(){
+    Restangular.all( "tranxaction_types" )
+      .post( $scope.newTranxactionType )
       .then(function( response ){
-        $scope.transactionTypes.push( response );
-        $scope.newTransactionType.description = "";
+        $scope.tranxactionTypes.push( response );
+        $scope.newTranxactionType.description = "";
       }, function( errors ){
         console.log( errors );
       });
   };
 
-  $scope.deleteTransaction = function( $index ){
-    if ( !$scope.deletingTransactionTransaction ){
+  $scope.deleteTranxaction = function( $index ){
+    if ( !$scope.deletingTranxactionTranxaction ){
       $ngConfirm({
         title: 'Confirm Delete',
         content: '',
@@ -131,13 +129,13 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
             text: 'Delete',
             btnClass: 'btn-primary',
             action: function(scope){
-              $scope.deletingTransactionTransaction = true;
-              $scope.TransactionTransactions[$index].remove()
+              $scope.deletingTranxactionTranxaction = true;
+              $scope.TranxactionTranxactions[$index].remove()
                 .then(function(){
-                  $scope.TransactionTransactions.splice( $index, 1  );
+                  $scope.TranxactionTranxactions.splice( $index, 1  );
                   calculatePlusMinus();
                   calculateCurrentPerDayAim();
-                  $scope.deletingTransactionTransaction = false;
+                  $scope.deletingTranxactionTranxaction = false;
                 });
             }
           },
@@ -154,8 +152,8 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       .then(function( user ){
         if ( user.admin ){
           DatetimeService.initiateDatePicker('#date-picker');
-          getTransactions();
-          getTransactionTypes();
+          getTranxactions();
+          getTranxactionTypes();
           getProperties();
         } else {
           $state.go( 'login' )
@@ -201,14 +199,14 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   var calculatePlusMinus = function(){
     $scope.currentPlusMinus = 0;
-    $scope.TransactionPlusMinus = 0;
+    $scope.TranxactionPlusMinus = 0;
     $scope.gamblingPlusMinus = 0;
-    for( var i = 0; i < $scope.TransactionTransactions.length; i++ ) {
-      $scope.currentPlusMinus += parseInt($scope.TransactionTransactions[i].amount);
-      if ( $scope.TransactionTransactions[i].Transaction ){
-        $scope.TransactionPlusMinus += parseInt($scope.TransactionTransactions[i].amount);
+    for( var i = 0; i < $scope.TranxactionTranxactions.length; i++ ) {
+      $scope.currentPlusMinus += parseInt($scope.TranxactionTranxactions[i].amount);
+      if ( $scope.TranxactionTranxactions[i].Tranxaction ){
+        $scope.TranxactionPlusMinus += parseInt($scope.TranxactionTranxactions[i].amount);
       } else {
-        $scope.gamblingPlusMinus += parseInt($scope.TransactionTransactions[i].amount);
+        $scope.gamblingPlusMinus += parseInt($scope.TranxactionTranxactions[i].amount);
       };
     };
   };
@@ -221,24 +219,24 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
 
   $scope.aim = 1500000;
-  $scope.creatingTransactionTransaction = false;
-  $scope.deletingTransactionTransaction = false;
-  $scope.TransactionPlusMinus = 0;
+  $scope.creatingTranxactionTranxaction = false;
+  $scope.deletingTranxactionTranxaction = false;
+  $scope.TranxactionPlusMinus = 0;
   $scope.gamblingPlusMinus = 0;
-  $scope.TransactionTransactions;
+  $scope.TranxactionTranxactions;
   $scope.currentPerDayAim = 0;
   $scope.currentPlusMinus = 0;
   $scope.currentDailyPlusMinus = 0;
-  $scope.newTransactionTransaction = {
+  $scope.newTranxactionTranxaction = {
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     description: "",
     amount: 0,
     odds: "",
-    Transaction: true
+    Tranxaction: true
   };
 
-  $scope.deleteTransaction = function( $index ){
-    if ( !$scope.deletingTransactionTransaction ){
+  $scope.deleteTranxaction = function( $index ){
+    if ( !$scope.deletingTranxactionTranxaction ){
       $ngConfirm({
         title: 'Confirm Delete',
         content: '',
@@ -248,13 +246,13 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
             text: 'Delete',
             btnClass: 'btn-primary',
             action: function(scope){
-              $scope.deletingTransactionTransaction = true;
-              $scope.TransactionTransactions[$index].remove()
+              $scope.deletingTranxactionTranxaction = true;
+              $scope.TranxactionTranxactions[$index].remove()
                 .then(function(){
-                  $scope.TransactionTransactions.splice( $index, 1  );
+                  $scope.TranxactionTranxactions.splice( $index, 1  );
                   calculatePlusMinus();
                   calculateCurrentPerDayAim();
-                  $scope.deletingTransactionTransaction = false;
+                  $scope.deletingTranxactionTranxaction = false;
                 });
             }
           },
@@ -270,17 +268,17 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     Auth.currentUser()
       .then(function( user ){
         if ( user.admin ){
-          Restangular.all('Transaction_transactions')
+          Restangular.all('Tranxaction_tranxactions')
             .getList()
             .then(function( response ){
-              $scope.TransactionTransactions = response;
+              $scope.TranxactionTranxactions = response;
               calculatePlusMinus();
               calculateAim();
               calculateCurrentPerDayAim();
               DatetimeService.initiateDatePicker('#date-picker');
               calculateDailyPlusMinus();
             }, function( error ){
-              console.log( "Couldn't get them transactions from the back end" );
+              console.log( "Couldn't get them tranxactions from the back end" );
             });
         } else {
           $state.go( 'login' )
@@ -290,19 +288,19 @@ app.controller('TransactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       });
   };
 
-  $scope.createTransactionTransaction = function(){
-    if ( !$scope.creatingTransactionTransaction ){
-      $scope.creatingRentTransaction = true;
-      Restangular.all('Transaction_transactions')
-        .post( $scope.newTransactionTransaction )
+  $scope.createTranxactionTranxaction = function(){
+    if ( !$scope.creatingTranxactionTranxaction ){
+      $scope.creatingRentTranxaction = true;
+      Restangular.all('Tranxaction_tranxactions')
+        .post( $scope.newTranxactionTranxaction )
         .then(function( response ){
-          $scope.TransactionTransactions.unshift( response );
+          $scope.TranxactionTranxactions.unshift( response );
           calculatePlusMinus();
           calculateCurrentPerDayAim();
-          $scope.newTransactionTransaction.amount = 0;
-          $scope.newTransactionTransaction.description = undefined;
-          $scope.newTransactionTransaction.odds = undefined;
-          $scope.creatingTransactionTransaction = false;
+          $scope.newTranxactionTranxaction.amount = 0;
+          $scope.newTranxactionTranxaction.description = undefined;
+          $scope.newTranxactionTranxaction.odds = undefined;
+          $scope.creatingTranxactionTranxaction = false;
         });
     };
   };

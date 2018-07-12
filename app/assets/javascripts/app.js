@@ -153,10 +153,10 @@ var app = angular.module('app', [
 			}
 		})
 
-		.state('transactions', {
-			url: '/transactions',
-			templateUrl: 'views/transactions.html',
-			controller: 'TransactionsController'
+		.state('tranxactions', {
+			url: '/tranxactions',
+			templateUrl: 'views/tranxactions.html',
+			controller: 'TranxactionsController'
 		})
 
 		.state('users', {

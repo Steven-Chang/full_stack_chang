@@ -1,5 +1,5 @@
 <nav-bar></nav-bar>
-<div id="farming" ng-init="init()" class="pt-3 pb-5 pt-sm-5">
+<div id="tranxactions" ng-init="init()" class="pt-3 pb-5 pt-sm-5">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -38,12 +38,12 @@
 
     <div class="row">
       <div class="col-12">
-        <h4>Create Transaction Type</h4>
-        <form ng-submit="createTransactionType()">
+        <h4>Create Tranxaction Type</h4>
+        <form ng-submit="createTranxactionType()">
           <div class="form-group">
             <input type="text"
-              ng-model="newTransactionType.description"
-              placeholder="Transaction Type"
+              ng-model="newTranxactionType.description"
+              placeholder="Tranxaction Type"
               class="form-control">
           </div>
 
@@ -55,17 +55,17 @@
 
     <div class="row">
       <div class="col-12">
-        <h3>Create New Transaction</h3>
-        <form ng-submit="createFarmingTransaction()">
+        <h3>Create New Tranxaction</h3>
+        <form ng-submit="createFarmingTranxaction()">
           <div class="form-group">
-            <select ng-model="selectedTransactionType" ng-options="item.description for item in transactionTypes" class="form-control"></select>
+            <select ng-model="selectedTranxactionType" ng-options="item.description for item in tranxactionTypes" class="form-control"></select>
           </div>
 
-          <div class="form-group" ng-show="selectedTransactionType.description == 'property' || selectedTransactionType.description == 'rent'">
+          <div class="form-group" ng-show="selectedTranxactionType.description == 'property' || selectedTranxactionType.description == 'rent'">
             <select ng-model="selectedProperty" ng-options="property.address for property in properties" class="form-control"></select>
           </div>
 
-          <div class="form-group" ng-show="selectedTransactionType.description == 'rent'">
+          <div class="form-group" ng-show="selectedTranxactionType.description == 'rent'">
             <select ng-model="selectedTenancyAgreement" ng-options="tenancyAgreement.user.username for tenancyAgreement in tenancyAgreements" class="form-control"></select>
           </div>
 
@@ -75,13 +75,13 @@
               data-provide='datepicker' 
               class="form-control" 
               id="date-picker" 
-              ng-model="newTransaction.date" 
+              ng-model="newTranxaction.date" 
               placeholder="Date">
           </div>
 
           <div class="form-group">
             <input type="text"
-              ng-model="newTransaction.description"
+              ng-model="newTranxaction.description"
               placeholder="Description"
               class="form-control">
           </div>
@@ -93,21 +93,21 @@
               </div>
               <input type="text"
                 class="form-control"
-                ng-model="newTransaction.amount"
+                ng-model="newTranxaction.amount"
                 placeholder="Amount">
             </div>
           </div>
 
           <div class="form-group">
             <input type="text"
-              ng-show="selectedTransactionType.description == 'bet'"
-              ng-model="newTransaction.odds"
+              ng-show="selectedTranxactionType.description == 'bet'"
+              ng-model="newTranxaction.odds"
               class="form-control"
               placeholder="odds">
           </div>
 
           <div class="form-check form-group">
-            <input type="checkbox" class="form-check-input" ng-model="newTransaction.taxable" id="taxable">
+            <input type="checkbox" class="form-check-input" ng-model="newTranxaction.taxable" id="taxable">
             <label class="form-check-label" for="taxable">Taxable</label>
           </div>
 
@@ -129,21 +129,21 @@
               <th></th>
             </tr>
           </thead>
-          <tbody ng-repeat="transaction in farmingTransactions">
+          <tbody ng-repeat="tranxaction in farmingTranxactions">
             <tr>
-              <td>{{ transaction.date | date : 'd MMM yy' }}</td>
-              <td>{{ transaction.description }}</td>
-              <td>{{ transaction.amount | currency }}</td>
-              <td><a href="#"><span class="fa fa-trash-alt" ng-click="deleteTransaction( $index )"></span></a></td>
-              <td><a href="#" ng-click="slideToggleContainer(  '#farming-transaction-' + $index )"><span class="glyphicon glyphicon-triangle-bottom"></span></a></td>
+              <td>{{ tranxaction.date | date : 'd MMM yy' }}</td>
+              <td>{{ tranxaction.description }}</td>
+              <td>{{ tranxaction.amount | currency }}</td>
+              <td><a href="#"><span class="fa fa-trash-alt" ng-click="deleteTranxaction( $index )"></span></a></td>
+              <td><a href="#" ng-click="slideToggleContainer(  '#farming-tranxaction-' + $index )"><span class="glyphicon glyphicon-triangle-bottom"></span></a></td>
             </tr>
-            <tr class="sub-table-row" id="farming-transaction-{{ $index }}" style="display: none;">
+            <tr class="sub-table-row" id="farming-tranxaction-{{ $index }}" style="display: none;">
               <td colspan="5">
-                <div ng-if="transaction.odds && transaction.odds > 1">
-                  <strong># Odds:</strong> {{ transaction.odds }}
+                <div ng-if="tranxaction.odds && tranxaction.odds > 1">
+                  <strong># Odds:</strong> {{ tranxaction.odds }}
                 </div>
                 <div>
-                  <strong># Farming:</strong> {{ transaction.farming }}
+                  <strong># Farming:</strong> {{ tranxaction.farming }}
                 </div>
               </td>
             </tr>
