@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180712012220) do
+ActiveRecord::Schema.define(version: 20180712065305) do
 
   create_table "bets", force: :cascade do |t|
     t.decimal "odds", precision: 18, scale: 8, default: "0.0", null: false
@@ -203,6 +203,9 @@ ActiveRecord::Schema.define(version: 20180712012220) do
   create_table "tranxactables", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "resource_type"
+    t.integer "resource_id"
+    t.integer "tranxaction_id"
   end
 
   create_table "tranxaction_types", force: :cascade do |t|
