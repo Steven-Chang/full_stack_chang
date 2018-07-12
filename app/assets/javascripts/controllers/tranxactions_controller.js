@@ -76,9 +76,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     description: "",
     amount: 0,
     odds: undefined,
-    tranxaction_type_id: undefined,
-    resource_type: undefined,
-    resource_type_id: undefined
+    tax: false
   };
 
   $scope.newTranxactionType = {
