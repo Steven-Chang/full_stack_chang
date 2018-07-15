@@ -17,6 +17,10 @@ app.service('BackEndService', ['Restangular',
     return Restangular.all('tranxaction_types').post( newTranxactionType )
   };
 
+  BackEndService.getClients = function(){
+    return Restangular.all('clients').getList()
+  };
+
   BackEndService.getUsers = function(){
     return Restangular.all('users').getList()
   };
