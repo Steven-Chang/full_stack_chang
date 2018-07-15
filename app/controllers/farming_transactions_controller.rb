@@ -34,10 +34,6 @@ class FarmingTransactionsController < ApplicationController
     params.require( :farming_transaction ).permit(:user_id, :amount, :description, :date, :odds, :farming)
   end
 
-  def authenticate_admin
-    redirect_to root_path unless current_user && current_user.admin
-  end
-
   def set_farming_transaction
     @farming_transaction = FarmingTransaction.find( params[:id] )
   end
