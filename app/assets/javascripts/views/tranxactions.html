@@ -4,31 +4,37 @@
     <div class="row">
       <div class="col-12">
         <h1>Tranxactions To Simplify Taxes</h1>
-        <h3>Make Life Easier For Yourself : )</h3>
-
+        <h4>Make Life Easier For Yourself : )</h4>
+        <hr>
+        <h5><a href="https://www.superguide.com.au/boost-your-superannuation/income-tax-rates" target="_blank">Income tax rates for 2018/2019 financial year</a></h5>
         <table class="table">
           <thead>
             <tr>
-              <th scope="col"></th>
-              <th scope="col">+/-</th>
+              <th scope="col">Income</th>
+              <th scope="col">Marginal tax rate</th>
+              <th scope="col">Tax payable*</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th>Daily Aim:</th>
-              <td>{{ currentPerDayAim | currency }}</td>
+              <td>$0-$18,200</td>
+              <td>0%</td>
+              <td>Nil</td>
             </tr>
             <tr>
-              <th>Balance:</th>
-              <td>{{ currentPlusMinus | currency }}</td>
+              <td>$18,201- $37,000</td>
+              <td>19%</td>
+              <td>19 cents for each $1 over $18,200</td>
             </tr>
             <tr>
-              <th>Gambling:</th>
-              <td>{{ gamblingPlusMinus | currency }}</td>
+              <td>$37,001-$90,000</td>
+              <td>32.5%</td>
+              <td>$3,572 plus 32.5 cents for each dollar over $37,000</td>
             </tr>
             <tr>
-              <th>Eveything Else:</th>
-              <td>{{ farmingPlusMinus| currency }}</td>
+              <td>$90,001-$180,000</td>
+              <td>37%</td>
+              <td>$20,797 plus 37 cents for each dollar over $90,000</td>
             </tr>
           </tbody>
         </table>
