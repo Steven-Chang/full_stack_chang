@@ -113,6 +113,10 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
           $scope.tranxactionTypes.unshift( response );
           $scope.newTranxactionType.description = "";
         }, function( errors ){
+          console.log( errors );
+        })
+        .finally(function(){
+          $scope.creatingTranxactionType = false;
         });
     };
   };
