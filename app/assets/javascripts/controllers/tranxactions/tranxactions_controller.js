@@ -34,16 +34,6 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       });
   };
 
-  var getTranxactions = function(){
-    Restangular.all("tranxactions")
-      .getList()
-      .then(function( response ){
-        $scope.tranxactions = response;
-      }, function( errors ){
-        console.log( errors );
-      });
-  };
-
   var getTranxactionTypes = function(){
     Restangular.all("tranxaction_types")
       .getList()
@@ -85,6 +75,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.creatingTranxaction = false;
   $scope.creatingTranxactionType = false;
   $scope.deletingTranxaction = false;
+  $scope.gettingTranxactions = false;
   $scope.tenancyAgreements;
   $scope.gamblingPlusMinus = 0;
   $scope.currentPerDayAim = 0;
@@ -108,6 +99,10 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   $scope.newTranxactionType = {
     description: ""
+  };
+
+  $scope.searchParams = {
+    tranxaction_type_id: undefined
   };
 
   $scope.$watch("selectedProperty", function( newValue, oldValue ){
@@ -180,13 +175,28 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     };
   };
 
+  $scope.getTranxactions = function(  ){
+    if ( !$scope.gettingTranxactions ){
+      $scope.gettingTranxactions = true;
+      BackEndService.getTranxactions( $scope.searchParams )
+        .then(function( response ){
+          $scope.tranxactions = response;
+        }, function( errors ){
+          console.log( errors );
+        })
+        .finally(function(){
+          $scope.gettingTranxactions = false;
+        });
+    };
+  };
+
   $scope.init = function(){
     Auth.currentUser()
       .then(function( user ){
         if ( user.admin ){
           DatetimeService.initiateDatePicker('#date-picker');
           getClients();
-          getTranxactions();
+          $scope.getTranxactions();
           getTranxactionTypes();
           getProperties();
         } else {
@@ -195,10 +205,6 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       }, function( error ){
         $state.go( 'login' )
       });
-  };
-
-  $scope.slideToggleContainer = function( element ){
-    DisplayService.slideToggleContainer( element, "fast" );
   };
 
 }]);
