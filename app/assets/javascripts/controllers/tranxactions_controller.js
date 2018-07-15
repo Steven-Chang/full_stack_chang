@@ -109,7 +109,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       setTranxactables();
       BackEndService.createTranxaction( $scope.newTranxaction )
         .then(function( response ){
-          $scope.tranxactions.unshfit( response );
+          $scope.tranxactions.unshift( response );
           $scope.newTranxaction.amount = 0;
           $scope.newTranxaction.description = undefined;
         }, function( errors ){
