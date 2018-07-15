@@ -1,0 +1,61 @@
+<nav-bar></nav-bar>
+<div id="tranxaction-types" ng-init="init()" class="pt-3 pb-5 pt-sm-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Tranxaction Types</h1>
+        <hr>
+        <h4>Create Tranxaction Type</h4>
+        <form ng-submit="createTranxactionType()">
+          <div class="form-group">
+            <input type="text"
+              ng-model="newTranxactionType.description"
+              placeholder="Tranxaction Type"
+              class="form-control">
+          </div>
+
+          <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+        <hr>
+        <div ng-repeat="tranxactionType in tranxactionTypes" ng-click="getTranxactions( tranxactionType.id )">
+          {{ tranxactionType.description }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3" ng-show="tranxactions.length">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Description</th>
+              <th scope="col">Amount</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="tranxaction in tranxactions">
+            <tr>
+              <td>{{ tranxaction.date | date : 'd MMM yy' }}</td>
+              <td>{{ tranxaction.description }}</td>
+              <td>{{ tranxaction.amount | currency }}</td>
+              <td><a><span class="fa fa-trash-alt" ng-click="deleteTranxaction( $index )"></span></a></td>
+              <td><a ng-click="slideToggleContainer(  '#farming-tranxaction-' + $index )"><span class="glyphicon glyphicon-triangle-bottom"></span></a></td>
+            </tr>
+            <tr class="sub-table-row" id="farming-tranxaction-{{ $index }}" style="display: none;">
+              <td colspan="5">
+                <div ng-if="tranxaction.odds && tranxaction.odds > 1">
+                  <strong># Odds:</strong> {{ tranxaction.odds }}
+                </div>
+                <div>
+                  <strong># Farming:</strong> {{ tranxaction.farming }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

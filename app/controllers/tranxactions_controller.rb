@@ -3,7 +3,11 @@ class TranxactionsController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @tranxactions = Tranxaction.all
+    if params[:tranxaction_type_id]
+      @tranxactions = TranxactionType.find(params[:tranxaction_type_id]).tranxactions
+    else
+      @tranxactions = Tranxaction.all
+    end
 
     render :json => @tranxactions
   end

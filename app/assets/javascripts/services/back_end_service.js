@@ -25,6 +25,14 @@ app.service('BackEndService', ['Restangular',
     return Restangular.all('clients').getList()
   };
 
+  BackEndService.getTranxactions = function( params ){
+    return Restangular.all('tranxactions').getList( params )
+  };
+
+  BackEndService.getTranxactionTypes = function(){
+    return Restangular.all('tranxaction_types').getList()
+  };
+
   BackEndService.getUsers = function(){
     return Restangular.all('users').getList()
   };

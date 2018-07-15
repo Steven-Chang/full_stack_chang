@@ -159,6 +159,12 @@ var app = angular.module('app', [
 			controller: 'TranxactionsController'
 		})
 
+		.state('tranxactiontypes', {
+			url: '/tranxaction-types',
+			templateUrl: 'views/tranxaction_types/tranxaction_types.html',
+			controller: 'TranxactionTypesController'
+		})
+
 		.state('users', {
 			url: "/users",
 			templateUrl: "views/users/users.html",
