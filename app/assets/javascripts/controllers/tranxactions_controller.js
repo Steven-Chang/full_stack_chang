@@ -56,7 +56,6 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   };
 
   //// PUBLIC ////
-  $scope.aim = 1500000;
   $scope.creatingTranxaction = false;
   $scope.deletingTranxaction = false;
   $scope.tenancyAgreements;
