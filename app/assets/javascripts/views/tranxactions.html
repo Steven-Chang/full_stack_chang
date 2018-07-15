@@ -145,8 +145,8 @@
               <td>{{ tranxaction.date | date : 'd MMM yy' }}</td>
               <td>{{ tranxaction.description }}</td>
               <td>{{ tranxaction.amount | currency }}</td>
-              <td><a href="#"><span class="fa fa-trash-alt" ng-click="deleteTranxaction( $index )"></span></a></td>
-              <td><a href="#" ng-click="slideToggleContainer(  '#farming-tranxaction-' + $index )"><span class="glyphicon glyphicon-triangle-bottom"></span></a></td>
+              <td><a><span class="fa fa-trash-alt" ng-click="deleteTranxaction( $index )"></span></a></td>
+              <td><a ng-click="slideToggleContainer(  '#farming-tranxaction-' + $index )"><span class="glyphicon glyphicon-triangle-bottom"></span></a></td>
             </tr>
             <tr class="sub-table-row" id="farming-tranxaction-{{ $index }}" style="display: none;">
               <td colspan="5">

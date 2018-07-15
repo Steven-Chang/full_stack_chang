@@ -75,7 +75,6 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     description: "",
     amount: 0,
-    odds: undefined,
     tax: false
   };
 
@@ -89,11 +88,10 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     };
   });
 
-  $scope.createNewTranxaction = function(){
+  $scope.createTranxaction = function(){
     if ( !$scope.creatingTranxaction ){
       $scope.creatingTranxaction = true;
-      Restangular.all("tranxactions")
-        .post( $scope.newTranxactions )
+      BackEndService.createTranxaction( $scope.newTranxaction )
         .then(function( response ){
           $scope.tranxactions.unshfit( response );
           $scope.newTranxaction.amount = 0;
