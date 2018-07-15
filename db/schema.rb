@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180715025944) do
+ActiveRecord::Schema.define(version: 20180715030503) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text "description"
@@ -95,12 +95,6 @@ ActiveRecord::Schema.define(version: 20180715025944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["score_id"], name: "index_lines_on_score_id"
-  end
-
-  create_table "market_types", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|

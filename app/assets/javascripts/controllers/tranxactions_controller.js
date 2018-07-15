@@ -1,4 +1,4 @@
-app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$state', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, Auth, DatetimeService, DisplayService, Restangular ){
+app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$state', 'Auth', 'BackEndService', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, Auth, BackEndService, DatetimeService, DisplayService, Restangular ){
 
   // Private
 
@@ -57,6 +57,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   //// PUBLIC ////
   $scope.creatingTranxaction = false;
+  $scope.creatingTranxactionType = false;
   $scope.deletingTranxaction = false;
   $scope.tenancyAgreements;
   $scope.gamblingPlusMinus = 0;
@@ -105,14 +106,15 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   };
 
   $scope.createTranxactionType = function(){
-    Restangular.all( "tranxaction_types" )
-      .post( $scope.newTranxactionType )
-      .then(function( response ){
-        $scope.tranxactionTypes.push( response );
-        $scope.newTranxactionType.description = "";
-      }, function( errors ){
-        console.log( errors );
-      });
+    if( !$scope.creatingTranxactionType ){
+      $scope.creatingTranxactionType = true;
+      BackEndService.createTranxactionType( $scope.newTranxactionType )
+        .then(function( response ){
+          $scope.tranxactionTypes.unshift( response );
+          $scope.newTranxactionType.description = "";
+        }, function( errors ){
+        });
+    };
   };
 
   $scope.deleteTranxaction = function( $index ){

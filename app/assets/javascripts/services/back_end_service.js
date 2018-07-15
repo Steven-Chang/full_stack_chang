@@ -13,6 +13,10 @@ app.service('BackEndService', ['Restangular',
 
   var BackEndService = {};
 
+  BackEndService.createTranxactionType = function( newTranxactionType ){
+    return Restangular.all('tranxaction_types').post( newTranxactionType )
+  };
+
   BackEndService.getUsers = function(){
     return Restangular.all('users').getList()
   };
