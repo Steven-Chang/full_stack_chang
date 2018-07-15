@@ -55,6 +55,20 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       });
   };
 
+  var setTranxactables = function(){
+    $scope.newTranxaction.tranxactables = [];
+    $scope.newTranxaction.tranxactables.push({ resource_type: "TranxactionType", resource_id: $scope.selectedTranxactionType.id });
+    if ( $scope.selectedTranxactionType.description === 'property' ){
+      $scope.newTranxaction.tranxactables.push( { resource_type: "Property", resource_id: $scope.selectedProperty.id } );
+    } else if ( $scope.selectedTranxactionType.descriptin === 'rent' ) {
+      $scope.newTranxaction.tranxactables.push( { resource_type: "Property", resource_id: $scope.selectedProperty.id } );
+      $scope.newTranxaction.tranxactables.push( { resource_type: "TenancyAgreement", resource_id: $scope.selectedTenancyAgreement.user_id } );
+      $scope.newTranxaction.tranxactables.push( { resource_type: "User", resource_id: $scope.selectedTenancyAgreement.id } );
+    } else if ( $scope.selectedTranxactionType.description === 'work' ){
+      $scope.newTranxaction.tranxactables.push( { resource_type: "Client", resource_id: $scope.selectedClient.id } );
+    };
+  };
+
   //// PUBLIC ////
   $scope.creatingTranxaction = false;
   $scope.creatingTranxactionType = false;
@@ -75,7 +89,8 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     description: "",
     amount: 0,
-    tax: false
+    tax: false,
+    tranxactables: []
   };
 
   $scope.newTranxactionType = {
@@ -91,6 +106,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.createTranxaction = function(){
     if ( !$scope.creatingTranxaction ){
       $scope.creatingTranxaction = true;
+      setTranxactables();
       BackEndService.createTranxaction( $scope.newTranxaction )
         .then(function( response ){
           $scope.tranxactions.unshfit( response );
