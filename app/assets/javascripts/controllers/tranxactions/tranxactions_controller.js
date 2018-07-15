@@ -55,6 +55,18 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       });
   };
 
+  var setAmount = function(){
+    if ( $scope.revenueOrExpense === 'revenue' ){
+      if ( $scope.newTranxaction.amaount < 0 ) {
+        $scope.newTranxaction.amount = $scope.newTranxaction.amount * -1;
+      };
+    } else {
+      if ( $scope.newTranxaction.amount > 0 ) {
+        $scope.newTranxaction.amount = $scope.newTranxaction.amount * -1;
+      };
+    };
+  };
+
   var setTranxactables = function(){
     $scope.newTranxaction.tranxactables = [];
     $scope.newTranxaction.tranxactables.push({ resource_type: "TranxactionType", resource_id: $scope.selectedTranxactionType.id });
@@ -79,6 +91,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.currentPlusMinus = 0;
   $scope.currentDailyPlusMinus = 0;
   $scope.properties = [];
+  $scope.revenueOrExpense = 'revenue';
   $scope.selectedProperty;
   $scope.selectedTenancyAgreement;
   $scope.selectedTranxactionType;
@@ -107,6 +120,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     if ( !$scope.creatingTranxaction ){
       $scope.creatingTranxaction = true;
       setTranxactables();
+      setAmount();
       BackEndService.createTranxaction( $scope.newTranxaction )
         .then(function( response ){
           $scope.tranxactions.unshift( response );
