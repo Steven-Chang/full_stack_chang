@@ -12,7 +12,7 @@
       <div class="col-12">
         <!-- Form to add projects in easily. -->
         <h4>
-          <a href="#" ng-click="addBlogPostsFormVisible = !addBlogPostsFormVisible; slideToggleAddBlogPostForm();">Add a new post 
+          <a ng-click="addBlogPostsFormVisible = !addBlogPostsFormVisible; slideToggleAddBlogPostForm();">Add a new post 
           <i class="fas fa-caret-down" ng-hide="addBlogPostsFormVisible"></i>
           <i class="fas fa-caret-up" ng-show="addBlogPostsFormVisible"></i></a>
         </h4>
@@ -101,7 +101,7 @@
             </div>
 
             <div class="play-button-container" ng-show="post.youtube_url" ng-click="initiateVideo($index)" id="{{'play-button-container-' + $index}}">
-              <a href="#"><img src="https://res.cloudinary.com/digguide/image/upload/s--65APZZ7U--/c_scale,w_105/v1485650789/Personal%20Site/simplistic_play_icon__ico__png__by_micahpkay-d6opha8.png"></a>
+              <a><img src="https://res.cloudinary.com/digguide/image/upload/s--65APZZ7U--/c_scale,w_105/v1485650789/Personal%20Site/simplistic_play_icon__ico__png__by_micahpkay-d6opha8.png"></a>
             </div>
             <div class="youtube-container" id="{{ 'youtube-container-' + $index }}">
               <youtube-video video-url="post.youtube_url" player-vars="youTubePlayerVariables"  player-height="'100%'" ng-if="post.youtube_url" ></youtube-video>
@@ -109,7 +109,7 @@
           </div> 
           <div class="blog-post-description" style="white-space: pre-wrap;">{{ post.description | limitTo: ( post.descriptionFullyVisible ? 10000000 : 200 ) }}<spam ng-hide="post.descriptionFullyVisible || post.description.length <= 200" ng-click="post.descriptionFullyVisible = !post.descriptionFullyVisible" style="cursor: pointer; color: #337ab7">...</span></div>
           <div class="post-tags">
-            <a ng-href="#" ng-repeat="tag in post.tags" ng-click="setTagAndGetBlogPosts(tag.tag); $event.preventDefault();"> #{{ tag.tag }}</a>
+            <a ng ng-repeat="tag in post.tags" ng-click="setTagAndGetBlogPosts(tag.tag); $event.preventDefault();"> #{{ tag.tag }}</a>
           </div>
         </div>
       </li>
