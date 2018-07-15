@@ -13,7 +13,7 @@ class TranxactionsController < ApplicationController
     Tranxaction.transaction do
       tranxaction.save
       params[:tranxactables].each do |tranxactable|
-        Tranxactable.create(resource_type: tranxactable.resource_type, resource_id: tranxactable.resource_id, tranxaction_id: tranxaction.id)
+        Tranxactable.create(resource_type: tranxactable[:resource_type], resource_id: tranxactable[:resource_id], tranxaction_id: tranxaction.id)
       end
     end
 
