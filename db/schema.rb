@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180712082813) do
+ActiveRecord::Schema.define(version: 20180715024332) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.text "description"
@@ -54,13 +54,6 @@ ActiveRecord::Schema.define(version: 20180712082813) do
   create_table "clients", force: :cascade do |t|
     t.string "name", null: false
     t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "creditors", force: :cascade do |t|
-    t.string "name", null: false
-    t.decimal "balance", precision: 18, scale: 8, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -117,13 +110,6 @@ ActiveRecord::Schema.define(version: 20180712082813) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "description"
-  end
-
-  create_table "match_types", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "league"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
