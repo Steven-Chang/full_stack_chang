@@ -115,11 +115,26 @@
     <div class="row">
       <div class="col-12">
         <h3>Search Transactions</h3>
+        {{ searchParams }}
         <form ng-submit="getTranxactions()">
           <div class="form-group">
-            <select ng-model="searchParams.tranxaction_type_id" ng-options="tranxactionType.id as tranxactionType.description for tranxactionType in tranxactionTypes" class="form-control">
-              <option value="">all tranxaction types</option>
+            <select ng-model="searchParams.tranxactionType" ng-options="tranxactionType.description for tranxactionType in tranxactionTypes" class="form-control">
+              <option value="">All</option>
             </select>
+          </div>
+
+          <div class="form-group" ng-show="searchParams.tranxactionType && searchParams.tranxactionType.description === 'property'">
+            <select ng-model="searchParams.property" ng-options="property.address for property in properties" class="form-control">
+              <option value="">All</option>
+            </select>
+          </div>
+
+          <div class="form-group" ng-show="selectedTranxactionType.description == 'rent'">
+            <select ng-model="selectedTenancyAgreement" ng-options="tenancyAgreement.user.username for tenancyAgreement in tenancyAgreements" class="form-control"></select>
+          </div>
+
+          <div class="form-group" ng-show="selectedTranxactionType.description == 'work'">
+            <select ng-model="selectedClient" ng-options="client.name for client in clients" class="form-control"></select>
           </div>
 
           <input type="submit" value="Search" class="btn btn-primary">

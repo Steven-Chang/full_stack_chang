@@ -102,6 +102,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   };
 
   $scope.searchParams = {
+    tranxactionType: undefined,
     tranxaction_type_id: undefined
   };
 
@@ -110,6 +111,11 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       getTenancyAgreements( newValue.id );
     };
   });
+
+  $scope.$watch("searchParams", function( newValue, oldValue ){
+    console.log("New Value", newValue);
+    console.log("Old Value", oldValue);
+  }, true);
 
   $scope.createTranxaction = function(){
     if ( !$scope.creatingTranxaction ){
