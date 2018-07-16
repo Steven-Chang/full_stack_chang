@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 ruby "2.5.1"
 
+# https://devcenter.heroku.com/articles/bucketeer#using-with-ruby-rails
+gem 'aws-sdk'
+
 gem 'rspotify'
 
 # https://github.com/laserlemon/figaro
