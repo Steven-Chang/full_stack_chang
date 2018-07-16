@@ -2,6 +2,12 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   // Private
 
+  // This is to send to the back end
+  var searchParamsToSendUp = {
+    resource_type: undefined,
+    resource_id: undefined
+  };
+
   var getClients = function(){
     BackEndService.getClients()
       .then(function( response ){
@@ -64,26 +70,29 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     $scope.searchParams.client_id = undefined;
 
     if ( $scope.searchParams.client ){
-      $scope.searchParams.resource_type = "Client";
-      $scope.searchParams.resource_id = $scope.searchParams.client.id;
-      return
-    };
-
-    if ( $scope.searchParams.property ){
-      $scope.searchParams.resource_type = "Property";
-      $scope.searchParams.resource_id = $scope.searchParams.property.id;
+      searchParamsToSendUp.resource_type = "Client";
+      searchParamsToSendUp.resource_id = $scope.searchParams.client.id;
       return
     };
 
     if ( $scope.searchParams.tenancyAgreement ){
-      $scope.searchParams.resource_type = "TenancyAgreement";
-      $scope.searchParams.resource_id = $scope.searchParams.tenancyAgreement.id;
+      searchParamsToSendUp.resource_type = "TenancyAgreement";
+      searchParamsToSendUp.resource_id = $scope.searchParams.tenancyAgreement.id;
+      return
+    };
+
+    if ( $scope.searchParams.property && $scope.searchParams.tranxactionType.description === "property" ){
+      searchParamsToSendUp.resource_type = "Property";
+      searchParamsToSendUp.resource_id = $scope.searchParams.property.id;
       return
     };
 
     if ( $scope.searchParams.tranxactionType ){
-      $scope.searchParams.resource_type = "TranxactionType";
-      $scope.searchParams.resource_id = $scope.searchParams.tranxactionType.id;
+      searchParamsToSendUp.resource_type = "TranxactionType";
+      searchParamsToSendUp.resource_id = $scope.searchParams.tranxactionType.id;
+    } else {
+      searchParamsToSendUp.resource_type = undefined;
+      searchParamsToSendUp.resource_id = undefined;
     };
   };
 
@@ -94,7 +103,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       $scope.newTranxaction.tranxactables.push( { resource_type: "Property", resource_id: $scope.selectedProperty.id } );
     } else if ( $scope.selectedTranxactionType.descriptin === 'rent' ) {
       $scope.newTranxaction.tranxactables.push( { resource_type: "Property", resource_id: $scope.selectedProperty.id } );
-      $scope.newTranxaction.tranxactables.push( { resource_type: "TenancyAgreement", resource_id: $scope.selectedTenancyAgreement.user_id } );
+      $scope.newTranxaction.tranxactables.push( { resource_type: "TenancyAgreement", resource_id: $scope.selectedTenancyAgreement.id } );
       $scope.newTranxaction.tranxactables.push( { resource_type: "User", resource_id: $scope.selectedTenancyAgreement.id } );
     } else if ( $scope.selectedTranxactionType.description === 'work' ){
       $scope.newTranxaction.tranxactables.push( { resource_type: "Client", resource_id: $scope.selectedClient.id } );
@@ -131,6 +140,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     description: ""
   };
 
+  // This is for display and processing purposes
   $scope.searchParams = {
     tranxactionType: undefined,
     tranxaction_type_id: undefined,
@@ -140,8 +150,6 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     tenancy_agreement_id: undefined,
     client: undefined,
     client_id: undefined,
-    resource_type: undefined,
-    resoure_id: undefined
   };
 
   $scope.$watch("selectedProperty", function( newValue, oldValue ){
@@ -152,6 +160,8 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   $scope.$watch("searchParams.tranxactionType", function( newValue, oldValue ){
     if ( !(newValue === oldValue) ){
+      console.log( newValue )
+      console.log( oldValue )
       $scope.searchParams.tranxaction_type_id = undefined;
       $scope.searchParams.property = undefined;
       $scope.searchParams.property_id = undefined;
@@ -230,8 +240,9 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     if ( !$scope.gettingTranxactions ){
       $scope.gettingTranxactions = true;
       setSearchParams();
-      BackEndService.getTranxactions( $scope.searchParams )
+      BackEndService.getTranxactions( searchParamsToSendUp )
         .then(function( response ){
+          console.log( response );
           $scope.tranxactions = response;
         }, function( errors ){
           console.log( errors );
