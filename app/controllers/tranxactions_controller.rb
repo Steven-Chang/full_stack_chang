@@ -9,7 +9,7 @@ class TranxactionsController < ApplicationController
       @tranxactions = Tranxaction.all
     end
 
-    render :json => @tranxactions
+    render :json => @tranxactions.order(date: :desc)
   end
 
   def create
