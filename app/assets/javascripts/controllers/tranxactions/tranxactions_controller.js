@@ -150,8 +150,8 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     };
   });
 
-  $scope.$watch("searchParams", function( newValue, oldValue ){
-    if ( newValue.tranxactionType != oldValue.tranxactionType ){
+  $scope.$watch("searchParams.tranxactionType", function( newValue, oldValue ){
+    if ( !(newValue === oldValue) ){
       $scope.searchParams.tranxaction_type_id = undefined;
       $scope.searchParams.property = undefined;
       $scope.searchParams.property_id = undefined;
