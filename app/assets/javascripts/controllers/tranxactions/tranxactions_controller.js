@@ -82,7 +82,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     };
 
     if ( $scope.searchParams.tranxactionType ){
-      $scope.searchParams.resource_type = $scope.searchParams.tranxactionType.description;
+      $scope.searchParams.resource_type = "TranxactionType";
       $scope.searchParams.resource_id = $scope.searchParams.tranxactionType.id;
     };
   };
