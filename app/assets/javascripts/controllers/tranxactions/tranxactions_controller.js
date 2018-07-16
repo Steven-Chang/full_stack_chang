@@ -63,6 +63,9 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     };
   };
 
+  var setAttachments = function(){
+  };
+
   var setSearchParams = function(){
     $scope.searchParams.tranxaction_type_id = undefined;
     $scope.searchParams.property_id = undefined;
@@ -129,9 +132,10 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.tranxactionTypes = [];
 
   $scope.newTranxaction = {
+    amount: 0,
+    attachments: [],
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     description: "",
-    amount: 0,
     tax: false,
     tranxactables: []
   };
@@ -175,6 +179,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       $scope.creatingTranxaction = true;
       setTranxactables();
       setAmount();
+      setAttachments();
       BackEndService.createTranxaction( $scope.newTranxaction )
         .then(function( response ){
           $scope.tranxactions.unshift( response );
@@ -265,6 +270,18 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       }, function( error ){
         $state.go( 'login' )
       });
+
+    $("#attachments-upload").change(function(){
+      if (this.files && this.files[0]) {
+        console.log(12321);
+        $scope.newTranxaction.attachments = [];
+
+        for ( var i = 0; i < this.files.length; i++ ){
+          $scope.newTranxaction.attachments[i] = this.files[i];
+          console.log( this.files[i] );
+        };
+      }
+    });
   };
 
 }]);

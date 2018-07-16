@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 ruby "2.5.1"
 
-# https://devcenter.heroku.com/articles/bucketeer#using-with-ruby-rails
-gem 'aws-sdk'
+# https://github.com/carrierwaveuploader/carrierwave
+gem 'carrierwave', '~> 1.0'
+gem "fog-aws"
 
 gem 'rspotify'
 
