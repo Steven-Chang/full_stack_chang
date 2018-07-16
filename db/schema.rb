@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716050648) do
+ActiveRecord::Schema.define(version: 20180716061438) do
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer "tranxaction_id", null: false
+    t.string "url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "blog_posts", force: :cascade do |t|
     t.text "description"
