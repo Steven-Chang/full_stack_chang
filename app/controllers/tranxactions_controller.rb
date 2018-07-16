@@ -4,7 +4,7 @@ class TranxactionsController < ApplicationController
 
   def index
     if params[:resource_type] && params[:resource_id]
-      @tranxactions = params[:resource_type].titleize.constantize.find(params[:resource_id]).tranxactions
+      @tranxactions = params[:resource_type].constantize.find(params[:resource_id]).tranxactions
     else
       @tranxactions = Tranxaction.all
     end
