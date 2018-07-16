@@ -3,8 +3,8 @@ class TranxactionsController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    if params[:tranxaction_type_id]
-      @tranxactions = TranxactionType.find(params[:tranxaction_type_id]).tranxactions
+    if params[:resource_type] && params[:resource_id]
+      @tranxactions = params[:resource_type].titleize.constantize.find(params[:resource_id]).tranxactions
     else
       @tranxactions = Tranxaction.all
     end

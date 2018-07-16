@@ -57,6 +57,36 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     };
   };
 
+  var setSearchParams = function(){
+    $scope.searchParams.tranxaction_type_id = undefined;
+    $scope.searchParams.property_id = undefined;
+    $scope.searchParams.tenancy_agreement_id = undefined;
+    $scope.searchParams.client_id = undefined;
+
+    if ( $scope.searchParams.client ){
+      $scope.searchParams.resource_type = "Client";
+      $scope.searchParams.resource_id = $scope.searchParams.client.id;
+      return
+    };
+
+    if ( $scope.searchParams.property ){
+      $scope.searchParams.resource_type = "Property";
+      $scope.searchParams.resource_id = $scope.searchParams.property.id;
+      return
+    };
+
+    if ( $scope.searchParams.tenancyAgreement ){
+      $scope.searchParams.resource_type = "TenancyAgreement";
+      $scope.searchParams.resource_id = $scope.searchParams.tenancyAgreement.id;
+      return
+    };
+
+    if ( $scope.searchParams.tranxactionType ){
+      $scope.searchParams.resource_type = $scope.searchParams.tranxactionType.description;
+      $scope.searchParams.resource_id = $scope.searchParams.tranxactionType.id;
+    };
+  };
+
   var setTranxactables = function(){
     $scope.newTranxaction.tranxactables = [];
     $scope.newTranxaction.tranxactables.push({ resource_type: "TranxactionType", resource_id: $scope.selectedTranxactionType.id });
@@ -103,7 +133,15 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   $scope.searchParams = {
     tranxactionType: undefined,
-    tranxaction_type_id: undefined
+    tranxaction_type_id: undefined,
+    property: undefined,
+    property_id: undefined,
+    tenancyAgreement: undefined,
+    tenancy_agreement_id: undefined,
+    client: undefined,
+    client_id: undefined,
+    resource_type: undefined,
+    resoure_id: undefined
   };
 
   $scope.$watch("selectedProperty", function( newValue, oldValue ){
@@ -113,8 +151,15 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   });
 
   $scope.$watch("searchParams", function( newValue, oldValue ){
-    console.log("New Value", newValue);
-    console.log("Old Value", oldValue);
+    if ( newValue.tranxactionType != oldValue.tranxactionType ){
+      $scope.searchParams.tranxaction_type_id = undefined;
+      $scope.searchParams.property = undefined;
+      $scope.searchParams.property_id = undefined;
+      $scope.searchParams.tenancyAgreement = undefined;
+      $scope.searchParams.tenancy_agreement_id = undefined;
+      $scope.searchParams.client = undefined;
+      $scope.searchParams.client_id = undefined;
+    };
   }, true);
 
   $scope.createTranxaction = function(){
@@ -184,6 +229,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.getTranxactions = function(  ){
     if ( !$scope.gettingTranxactions ){
       $scope.gettingTranxactions = true;
+      setSearchParams();
       BackEndService.getTranxactions( $scope.searchParams )
         .then(function( response ){
           $scope.tranxactions = response;
