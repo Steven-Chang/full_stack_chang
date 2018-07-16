@@ -287,11 +287,11 @@ namespace :fsc do
 </tr>
 </thead>
 <tbody>"
-tenant.rent_transactions.order("date DESC").each do |rent_transaction|
+tenancy_agreement.tranxactions.each do |tranxaction|
   email_content = email_content + "<tr>
-    <td>#{ rent_transaction.date }</td>
-    <td>#{ rent_transaction.description }</td>
-    <td>#{ rent_transaction.amount }</td>
+    <td>#{ tranxaction.date }</td>
+    <td>#{ tranxaction.description }</td>
+    <td>#{ tranxaction.amount }</td>
   </tr>"
 end
 email_content = email_content + "</tbody>
@@ -322,7 +322,7 @@ email_content = email_content + "</tbody>
 
         EmailHelper.send_email( "prime_pork@hotmail.com",
                                 "Steven Chang",
-                                tenant.email,
+                                tenancy_agreement.user.email,
                                 "Rent Spread Sheet",
                                 email_content )
       end
