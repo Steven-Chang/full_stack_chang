@@ -160,8 +160,6 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
   $scope.$watch("searchParams.tranxactionType", function( newValue, oldValue ){
     if ( !(newValue === oldValue) ){
-      console.log( newValue )
-      console.log( oldValue )
       $scope.searchParams.tranxaction_type_id = undefined;
       $scope.searchParams.property = undefined;
       $scope.searchParams.property_id = undefined;
@@ -242,7 +240,6 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       setSearchParams();
       BackEndService.getTranxactions( searchParamsToSendUp )
         .then(function( response ){
-          console.log( response );
           $scope.tranxactions = response;
         }, function( errors ){
           console.log( errors );
