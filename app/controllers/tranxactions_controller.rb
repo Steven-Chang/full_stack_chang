@@ -19,16 +19,6 @@ class TranxactionsController < ApplicationController
       params[:tranxactables].each do |tranxactable|
         Tranxactable.create(resource_type: tranxactable[:resource_type], resource_id: tranxactable[:resource_id], tranxaction_id: tranxaction.id)
       end
-
-      params[:attachments].each do |attachment|
-        response = Aws::S3::Client.new.put_object(
-          bucket: ENV['BUCKETEER_BUCKET_NAME'],
-          key: "uploads/#{ tranxaction.id }/#{ attachment[:name] }",
-          body: File.read( attachment ).open
-        )
-
-        puts response
-      end
     end
 
     if tranxaction.persisted?
@@ -41,6 +31,6 @@ class TranxactionsController < ApplicationController
   private
 
   def tranxaction_params
-    params.require(:tranxaction).permit(:date, :description, :amount, :tax)
+    params.require(:tranxaction).permit(:date, :description, :amount, :tax, { attachments: [] })
   end
 end

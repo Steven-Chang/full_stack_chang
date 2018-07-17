@@ -63,9 +63,6 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     };
   };
 
-  var setAttachments = function(){
-  };
-
   var setSearchParams = function(){
     $scope.searchParams.tranxaction_type_id = undefined;
     $scope.searchParams.property_id = undefined;
@@ -104,7 +101,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     $scope.newTranxaction.tranxactables.push({ resource_type: "TranxactionType", resource_id: $scope.selectedTranxactionType.id });
     if ( $scope.selectedTranxactionType.description === 'property' ){
       $scope.newTranxaction.tranxactables.push( { resource_type: "Property", resource_id: $scope.selectedProperty.id } );
-    } else if ( $scope.selectedTranxactionType.descriptin === 'rent' ) {
+    } else if ( $scope.selectedTranxactionType.description === 'rent' ) {
       $scope.newTranxaction.tranxactables.push( { resource_type: "Property", resource_id: $scope.selectedProperty.id } );
       $scope.newTranxaction.tranxactables.push( { resource_type: "TenancyAgreement", resource_id: $scope.selectedTenancyAgreement.id } );
       $scope.newTranxaction.tranxactables.push( { resource_type: "User", resource_id: $scope.selectedTenancyAgreement.id } );
@@ -179,12 +176,12 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       $scope.creatingTranxaction = true;
       setTranxactables();
       setAmount();
-      setAttachments();
       BackEndService.createTranxaction( $scope.newTranxaction )
         .then(function( response ){
           $scope.tranxactions.unshift( response );
           $scope.newTranxaction.amount = 0;
           $scope.newTranxaction.description = undefined;
+          $scope.newTranxaction.attachments = [];
         }, function( errors ){
           console.log( errors );
         })
@@ -273,13 +270,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
 
     $("#attachments-upload").change(function(){
       if (this.files && this.files[0]) {
-        console.log(12321);
-        $scope.newTranxaction.attachments = [];
-
-        for ( var i = 0; i < this.files.length; i++ ){
-          $scope.newTranxaction.attachments[i] = this.files[i];
-          console.log( this.files[i] );
-        };
+        $scope.newTranxaction.attachments = this.files;
       }
     });
   };
