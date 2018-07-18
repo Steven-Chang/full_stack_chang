@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get 'number_of_users' => 'users#return_number_of_users'
   put 'users/:user_id' => 'users#update_other_params'
   get 'tenants' => 'users#tenants'
+  get 'presigned' => 'tranxactions#presigned'
 
  # Need this for prettifying url
   get '/', :to => redirect('/#!/')

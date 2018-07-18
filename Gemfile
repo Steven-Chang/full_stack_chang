@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby "2.5.1"
 
+gem 'aws-sdk', '~> 3'
+
 gem 'rspotify'
 
 # https://github.com/laserlemon/figaro
@@ -77,7 +79,3 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
-
-# https://github.com/carrierwaveuploader/carrierwave
-gem 'carrierwave', '~> 1.0'
-gem "fog-aws"

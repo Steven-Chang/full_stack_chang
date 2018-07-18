@@ -28,6 +28,17 @@ class TranxactionsController < ApplicationController
     end
   end
 
+  def presigned
+    if params[:filename] && params[:type]
+      s3 = AWS::S3.new
+      obj = s3.buckets[ENV["BUCKET_NAME"]].objects[params[:filename]]
+      url = obj.url_for(:write, :content_type => params[:type], :expires => 10*60)  # Expires 10 Minutes
+      render :json => {:url => url.to_s}
+    else
+      render :json => {:error => 'Invalid Params'}
+    end
+  end
+
   private
 
   def tranxaction_params

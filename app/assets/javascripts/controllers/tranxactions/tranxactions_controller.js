@@ -87,6 +87,7 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
       return
     };
 
+    // This is last bit is to cover all the randon tranxaction types that might pop up in the future... 
     if ( $scope.searchParams.tranxactionType ){
       searchParamsToSendUp.resource_type = "TranxactionType";
       searchParamsToSendUp.resource_id = $scope.searchParams.tranxactionType.id;
