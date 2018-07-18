@@ -17,6 +17,12 @@ namespace :fsc do
         new_tranxaction.save
 
         new_tranxactable = Tranxactable.new
+        new_tranxactable.resource_type = "TranxactionType"
+        new_tranxactable.resource_id = TranxactionType.find_by(description: "rent").id
+        new_tranxactable.tranxaction_id = new_tranxaction.id
+        new_tranxactable.save
+
+        new_tranxactable = Tranxactable.new
         new_tranxactable.resource_type = "User"
         new_tranxactable.resource_id = tenancy_agreement.user_id
         new_tranxactable.tranxaction_id = new_tranxaction.id
