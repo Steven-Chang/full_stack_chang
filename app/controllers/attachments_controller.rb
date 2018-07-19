@@ -1,5 +1,7 @@
 class AttachmentsController < ApplicationController
   before_action :set_attachment, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :authenticate_admin
 
   # GET /attachments
   # GET /attachments.json
@@ -58,6 +60,28 @@ class AttachmentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to attachments_url, notice: 'Attachment was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def presigned
+    if params[:filename]
+      extname = File.extname(params[:filename])
+      filename = "#{SecureRandom.uuid}#{extname}"
+      upload_key = Pathname.new( "uploads/" ).join(filename).to_s
+
+      creds = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
+      s3 = Aws::S3::Resource.new(region: 'ap-southeast-2', credentials: creds)
+      obj = s3.bucket(ENV['BUCKET_NAME_TEMPORARY']).object(upload_key)
+
+      params = { acl: 'public-read' }
+      params[:content_length] = limit if params[:limit]
+
+      render :json => {
+        presigned_url: obj.presigned_url(:put, params),
+        public_url: obj.public_url
+      }
+    else
+      render :json => {:error => 'Invalid Params'}
     end
   end
 

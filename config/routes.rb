@@ -3,11 +3,12 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root 'application#index'
 
-  resources :tranxactions do
+  resources :attachments do
     collection do
       get :presigned
     end
   end
+  resources :tranxactions
   resources :tranxaction_types
   resources :properties do
     resources :tenancy_agreements

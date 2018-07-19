@@ -8,6 +8,21 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
     resource_id: undefined
   };
 
+  var createTranxaction = function(){
+    BackEndService.createTranxaction( $scope.newTranxaction )
+      .then(function( response ){
+        $scope.tranxactions.unshift( response );
+        $scope.newTranxaction.amount = 0;
+        $scope.newTranxaction.description = undefined;
+        $scope.newTranxaction.attachments = [];
+      }, function( errors ){
+        console.log( errors );
+      })
+      .finally(function(){
+        $scope.creatingTranxaction = false;
+      });
+  };
+
   var getClients = function(){
     BackEndService.getClients()
       .then(function( response ){
@@ -172,29 +187,28 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
     };
   }, true);
 
-  $scope.createTranxaction = function(){
+  $scope.uploadFileThenCreateTranxaction = function(){
     if ( !$scope.creatingTranxaction ){
       $scope.creatingTranxaction = true;
       setTranxactables();
       setAmount();
-      BackEndService.createTranxaction( $scope.newTranxaction )
-        .then(function( response ){
-          $scope.tranxactions.unshift( response );
-          $scope.newTranxaction.amount = 0;
-          $scope.newTranxaction.description = undefined;
-          $scope.newTranxaction.attachments = [];
-        }, function( errors ){
-          console.log( errors );
-        })
-        .finally(function(){
-          $scope.creatingTranxaction = false;
-        });
-    };
-  };
 
-  $scope.test = function(){
-    if ( $scope.file ){
-      $scope.getPresignedUrl();
+      if ( $scope.file ){
+        BackEndService.getPresignedUrl( { filename: $scope.file.name, type: $scope.file.type } )
+          .then(function( response ){
+            $http.put( $scope.url, $scope.file, { headers: { 'Content-Type': $scope.file.type } } )
+              .then(function( response ){
+                $scope.newTranxaction.attachments.push( { url: response.presigned_url } );
+                createTranxaction();
+              }, function(errors){
+                console.log( errors );
+              });
+          }, function( errors ){
+            console.log( errors );
+          });
+      } else {
+        createTranxaction();
+      };
     };
   };
 
@@ -241,22 +255,6 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
         }
       });
     };
-  };
-
-  $scope.getPresignedUrl = function(){
-    BackEndService.getPresignedUrl( { filename: $scope.file.name, type: $scope.file.type } )
-      .then(function( response ){
-        $scope.url = response.presigned_url;
-        console.log( response );
-        $http.put( $scope.url, $scope.file, { headers: { 'Content-Type': $scope.file.type } } )
-          .then(function( response ){
-            console.log( response );
-          }, function(errors){
-            console.log( errors );
-          });
-      }, function( errors ){
-        console.log( errors );
-      });
   };
 
   $scope.getTranxactions = function(  ){
