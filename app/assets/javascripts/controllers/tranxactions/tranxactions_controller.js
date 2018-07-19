@@ -1,4 +1,4 @@
-app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$state', 'Auth', 'BackEndService', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, Auth, BackEndService, DatetimeService, DisplayService, Restangular ){
+app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$scope', '$state', 'Auth', 'BackEndService', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, $state, Auth, BackEndService, DatetimeService, DisplayService, Restangular ){
 
   // Private
 
@@ -115,9 +115,9 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
   $scope.creatingTranxaction = false;
   $scope.creatingTranxactionType = false;
   $scope.deletingTranxaction = false;
+  $scope.file;
   $scope.gettingTranxactions = false;
   $scope.tenancyAgreements;
-  $scope.gamblingPlusMinus = 0;
   $scope.currentPerDayAim = 0;
   $scope.currentPlusMinus = 0;
   $scope.currentDailyPlusMinus = 0;
@@ -192,6 +192,12 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
     };
   };
 
+  $scope.test = function(){
+    if ( $scope.file ){
+      $scope.getPresignedUrl();
+    };
+  };
+
   $scope.createTranxactionType = function(){
     if( !$scope.creatingTranxactionType ){
       $scope.creatingTranxactionType = true;
@@ -235,6 +241,22 @@ app.controller('TranxactionsController', ['$filter', '$ngConfirm', '$scope', '$s
         }
       });
     };
+  };
+
+  $scope.getPresignedUrl = function(){
+    BackEndService.getPresignedUrl( { filename: $scope.file.name, type: $scope.file.type } )
+      .then(function( response ){
+        $scope.url = response.presigned_url;
+        console.log( response );
+        $http.put( $scope.url, $scope.file, { headers: { 'Content-Type': $scope.file.type } } )
+          .then(function( response ){
+            console.log( response );
+          }, function(errors){
+            console.log( errors );
+          });
+      }, function( errors ){
+        console.log( errors );
+      });
   };
 
   $scope.getTranxactions = function(  ){

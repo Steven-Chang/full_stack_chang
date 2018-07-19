@@ -28,16 +28,27 @@ class TranxactionsController < ApplicationController
     end
   end
 
-  def presigned
-    if params[:filename] && params[:type]
-      s3 = AWS::S3.new
-      obj = s3.buckets[ENV["BUCKET_NAME"]].objects[params[:filename]]
-      url = obj.url_for(:write, :content_type => params[:type], :expires => 10*60)  # Expires 10 Minutes
-      render :json => {:url => url.to_s}
-    else
-      render :json => {:error => 'Invalid Params'}
-    end
+def presigned
+  if params[:filename] && params[:type]
+    extname = File.extname(params[:filename])
+    filename = "#{SecureRandom.uuid}#{extname}"
+    upload_key = Pathname.new( "uploads/" ).join(filename).to_s
+
+    creds = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
+    s3 = Aws::S3::Resource.new(region: 'ap-southeast-2', credentials: creds)
+    obj = s3.bucket(ENV['BUCKET_NAME_TEMPORARY']).object(upload_key)
+
+    params = { acl: 'public-read' }
+    params[:content_length] = limit if params[:limit]
+
+    render :json => {
+      presigned_url: obj.presigned_url(:put, params),
+      public_url: obj.public_url
+    }
+  else
+    render :json => {:error => 'Invalid Params'}
   end
+end
 
   private
 

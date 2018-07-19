@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root 'application#index'
 
-  resources :tranxactions
+  resources :tranxactions do
+    collection do
+      get :presigned
+    end
+  end
   resources :tranxaction_types
   resources :properties do
     resources :tenancy_agreements
@@ -31,7 +35,6 @@ Rails.application.routes.draw do
   get 'number_of_users' => 'users#return_number_of_users'
   put 'users/:user_id' => 'users#update_other_params'
   get 'tenants' => 'users#tenants'
-  get 'presigned' => 'tranxactions#presigned'
 
  # Need this for prettifying url
   get '/', :to => redirect('/#!/')

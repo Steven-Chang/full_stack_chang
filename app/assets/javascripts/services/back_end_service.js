@@ -25,6 +25,10 @@ app.service('BackEndService', ['Restangular',
     return Restangular.all('clients').getList()
   };
 
+  BackEndService.getPresignedUrl = function( params ){
+    return Restangular.all('tranxactions').customGET("presigned", params)
+  };
+
   BackEndService.getTranxactions = function( params ){
     return Restangular.all('tranxactions').getList( params )
   };
