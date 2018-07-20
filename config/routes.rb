@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
-  resources :attachments
+
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root 'application#index'
 
-  resources :attachments do
-    collection do
-      get :presigned
-    end
-  end
+  # Attachments
+  get "attachments/presigned" => "attachments#presigned"
+  resources :attachments
+
   resources :tranxactions
   resources :tranxaction_types
   resources :properties do
@@ -30,13 +29,14 @@ Rails.application.routes.draw do
   resources :scores, only: [:index, :create]
   resources :blog_posts, only: [:index, :create, :destroy]
   resources :rent_transactions, except: [:show]
-  resources :users, only: [:index]
 
+  # Users
   get 'users/:user_id/bond' => 'users#bond'
   get 'users/:user_id/balance' => 'users#balance'
-  get 'number_of_users' => 'users#return_number_of_users'
   put 'users/:user_id' => 'users#update_other_params'
+  get 'number_of_users' => 'users#return_number_of_users'
   get 'tenants' => 'users#tenants'
+  resources :users, only: [:index]
 
  # Need this for prettifying url
   get '/', :to => redirect('/#!/')

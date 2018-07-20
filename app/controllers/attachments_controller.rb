@@ -1,5 +1,5 @@
 class AttachmentsController < ApplicationController
-  before_action :set_attachment, only: [:show, :edit, :update, :destroy]
+  before_action :set_attachment, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :authenticate_admin
 
@@ -7,11 +7,6 @@ class AttachmentsController < ApplicationController
   # GET /attachments.json
   def index
     @attachments = Attachment.all
-  end
-
-  # GET /attachments/1
-  # GET /attachments/1.json
-  def show
   end
 
   # GET /attachments/new
