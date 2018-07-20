@@ -198,7 +198,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
           .then(function( response ){
             $http.put( $scope.url, $scope.file, { headers: { 'Content-Type': $scope.file.type } } )
               .then(function( response ){
-                $scope.newTranxaction.attachments.push( { url: response.presigned_url } );
+                $scope.newTranxaction.attachments.push( { url: response.presigned_url, aws_key: response.aws_key } );
                 createTranxaction();
               }, function(errors){
                 console.log( errors );

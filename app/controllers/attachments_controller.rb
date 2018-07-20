@@ -60,34 +60,32 @@ class AttachmentsController < ApplicationController
 
   def presigned
     if params[:filename]
-      extname = File.extname(params[:filename])
+      extname = File.extname( params[:filename] )
       filename = "#{SecureRandom.uuid}#{extname}"
-      upload_key = Pathname.new( "uploads/" ).join(filename).to_s
-
-      creds = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
-      s3 = Aws::S3::Resource.new(region: 'ap-southeast-2', credentials: creds)
-      obj = s3.bucket(ENV['BUCKET_NAME_TEMPORARY']).object(upload_key)
+      upload_key = Pathname.new( "uploads/" ).join( filename ).to_s
+      obj = Attachment.aws_resource.bucket( ENV['BUCKET_NAME_TEMPORARY'] ).object( upload_key )
 
       params = { acl: 'public-read' }
       params[:content_length] = limit if params[:limit]
 
       render :json => {
-        presigned_url: obj.presigned_url(:put, params),
+        aws_key: upload_key,
+        presigned_url: obj.presigned_url( :put, params ),
         public_url: obj.public_url
       }
     else
-      render :json => {:error => 'Invalid Params'}
+      render :json => { :error => 'Invalid Params' }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
-      @attachment = Attachment.find(params[:id])
+      @attachment = Attachment.find( params[:id] )
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attachment_params
-      params.fetch(:attachment, {})
+      params.fetch( :attachment, {} )
     end
 end
