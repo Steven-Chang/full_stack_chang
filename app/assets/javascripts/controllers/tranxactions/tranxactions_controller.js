@@ -204,11 +204,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
             var awsKey = response.aws_key;
             $http.put( response.presigned_url, $scope.file, { headers: { 'Content-Type': $scope.file.type } } )
               .then(function( response ){
-                console.log( publicUrl );
-                console.log( awsKey );
-                console.log( $scope.newTranxaction.attachments );
                 $scope.newTranxaction.attachments.push( { url: publicUrl, aws_key: awsKey } );
-                console.log( "What's the motherfucking problem?" );
                 createTranxaction();
               }, function(errors){
                 console.log( errors );

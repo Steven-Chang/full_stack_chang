@@ -169,6 +169,13 @@
               <td>{{ tranxaction.tax }}</td>
               <td><a><span class="fa fa-trash-alt" ng-click="deleteTranxaction( $index )"></span></a></td>
             </tr>
+            <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
+              <td colspan="5">
+                <div ng-repeat="attachment in tranxaction.attachments">
+                  <a ng-href="{{ attachment.url }}" target="_blank">{{ attachment.aws_key }}</a>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

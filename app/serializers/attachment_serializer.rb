@@ -1,3 +1,3 @@
 class AttachmentSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :url, :aws_key
 end
