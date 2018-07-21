@@ -235,7 +235,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
   };
 
   $scope.deleteTranxaction = function( $index ){
-    if ( !$scope.deletingTranxactionTranxaction ){
+    if ( !$scope.deletingTranxaction ){
       $ngConfirm({
         title: 'Confirm Delete',
         content: '',
@@ -245,13 +245,15 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
             text: 'Delete',
             btnClass: 'btn-primary',
             action: function(scope){
-              $scope.deletingTranxactionTranxaction = true;
-              $scope.TranxactionTranxactions[$index].remove()
-                .then(function(){
-                  $scope.TranxactionTranxactions.splice( $index, 1  );
-                  calculatePlusMinus();
-                  calculateCurrentPerDayAim();
-                  $scope.deletingTranxactionTranxaction = false;
+              $scope.deletingTranxaction = true;
+              $scope.tranxactions[$index].remove()
+                .then(function( response ){
+                  $scope.tranxactions.splice( $index, 1  );
+                }, function( errors ){
+                  console.log( errors )
+                })
+                .finally(function(){
+                  $scope.deletingTranxaction = false;
                 });
             }
           },

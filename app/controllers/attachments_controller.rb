@@ -63,7 +63,7 @@ class AttachmentsController < ApplicationController
       extname = File.extname( params[:filename] )
       filename = "#{SecureRandom.uuid}#{extname}"
       upload_key = Pathname.new( "uploads/" ).join( filename ).to_s
-      obj = Attachment.aws_resource.bucket( ENV['BUCKET_NAME_TEMPORARY'] ).object( upload_key )
+      obj = Attachment.aws_resource.bucket( ENV['BUCKET_NAME'] ).object( upload_key )
 
       params = { acl: 'public-read' }
       params[:content_length] = limit if params[:limit]

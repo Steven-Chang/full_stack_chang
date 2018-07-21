@@ -32,6 +32,14 @@ class TranxactionsController < ApplicationController
     end
   end
 
+  def destroy
+    if Tranxaction.find(params[:id]).destroy
+      render json: { message: "removed" }, status: :ok
+    else
+      render json: { message: "Error" }, status: :expectation_failed
+    end
+  end
+
   private
 
   def tranxaction_params
