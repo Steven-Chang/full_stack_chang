@@ -1,6 +1,9 @@
 app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$scope', '$state', 'Auth', 'BackEndService', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, $state, Auth, BackEndService, DatetimeService, DisplayService, Restangular ){
 
   // Private
+  var resetFileInput = function(){
+    $("#attachments-upload").val("");
+  };
 
   // This is to send to the back end
   var searchParamsToSendUp = {
@@ -15,6 +18,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
         $scope.newTranxaction.amount = 0;
         $scope.newTranxaction.description = undefined;
         $scope.newTranxaction.attachments = [];
+        resetFileInput();
       }, function( errors ){
         console.log( errors );
       })
