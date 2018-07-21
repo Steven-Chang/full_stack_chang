@@ -196,9 +196,15 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
       if ( $scope.file ){
         BackEndService.getPresignedUrl( { filename: $scope.file.name, type: $scope.file.type } )
           .then(function( response ){
-            $http.put( $scope.url, $scope.file, { headers: { 'Content-Type': $scope.file.type } } )
+            var publicUrl = response.public_url;
+            var awsKey = response.aws_key;
+            $http.put( response.presigned_url, $scope.file, { headers: { 'Content-Type': $scope.file.type } } )
               .then(function( response ){
-                $scope.newTranxaction.attachments.push( { url: response.presigned_url, aws_key: response.aws_key } );
+                console.log( publicUrl );
+                console.log( awsKey );
+                console.log( $scope.newTranxaction.attachments );
+                $scope.newTranxaction.attachments.push( { url: publicUrl, aws_key: awsKey } );
+                console.log( "What's the motherfucking problem?" );
                 createTranxaction();
               }, function(errors){
                 console.log( errors );
@@ -288,12 +294,6 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
       }, function( error ){
         $state.go( 'login' )
       });
-
-    $("#attachments-upload").change(function(){
-      if (this.files && this.files[0]) {
-        $scope.newTranxaction.attachments = this.files;
-      }
-    });
   };
 
 }]);
