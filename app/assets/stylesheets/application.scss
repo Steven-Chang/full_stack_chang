@@ -43,3 +43,11 @@
 
 // Point at which the navbar begins collapsing.
 // $grid-float-breakpoint-max: (@grid-float-breakpoint - 1)
+
+[ng-click] {
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+}

@@ -14,26 +14,26 @@
             <!-- End Logo -->
             <!-- Begin Navbar Menu -->
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
-                <li ng-hide="loggedIn">
-                    <a ui-sref="login">Login</a>
+                <li ng-hide="signedIn()">
+                    <a ui-sref="login">Admin</a>
                 </li>
                 <!-- User -->
-                <li class="nav-item dropdown" ng-show="loggedIn"><a id="user" rel="nofollow" data-target="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img src="assets/img/avatar/avatar-01.jpg" alt="..." class="avatar rounded-circle"></a>
-                    <ul aria-labelledby="user" class="user-size dropdown-menu" style="padding: 0.9rem 0; display: none;">
+                <li class="nav-item dropdown" ng-show="signedIn()"><a id="user" rel="nofollow" data-target="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img src="images/tape.gif" alt="..." class="avatar rounded-circle"></a>
+                    <ul aria-labelledby="user" class="user-size dropdown-menu" style="padding: 0.9rem 0;">
                         <li>
-                            <a class="dropdown-item" ui-sref="companies"> 
-                                Companies
-                            </a>
+                          <a class="dropdown-item" ui-sref="portfolio">All</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" ui-sref="sites">
-                                Sites
-                            </a>
+                          <a class="dropdown-item" ui-sref="cleaning">Cleaning Roster</a>
                         </li>
-                        <li ng-show="user.is_admin">
-                            <a class="dropdown-item no-padding-bottom" ui-sref="users">
-                                Users
-                            </a>
+                        <li ng-show="user && user.admin">
+                          <a class="dropdown-item" ui-sref="farming">Farming</a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" ui-sref="tranxactions">Tranxactions</a>
+                        </li>
+                        <li ng-show="user && user.admin">
+                          <a class="dropdown-item" ui-sref="work">Work</a>
                         </li>
                         <li class="separator"></li>
                         <li>
@@ -42,7 +42,7 @@
                             </a>
                         </li>
                         <li>
-                            <a ng-click="logOut()" class="dropdown-item"> 
+                            <a ng-click="logout()" class="dropdown-item"> 
                                 Log out
                             </a>
                         </li>
