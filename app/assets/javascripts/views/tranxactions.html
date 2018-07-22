@@ -1,59 +1,63 @@
 <nav-bar></nav-bar>
 <div class="page-content d-flex align-items-stretch" id="tranxactions" ng-init="init()">
-                <div class="content-inner">
-                    <div class="container-fluid">
-                        <!-- Begin Page Header-->
-                        <div class="row">
-                            <div class="page-header">
-                              <div class="d-flex align-items-center">
-                                  <h2 class="page-header-title">Tranxactions</h2>
+  <div class="content-inner">
+    <div class="container-fluid">
+      <!-- Begin Page Header-->
+      <div class="row">
+        <div class="page-header">
+          <div class="d-flex align-items-center">
+              <h2 class="page-header-title">Tranxactions</h2>
+          </div>
+        </div>
+      </div>
+      <!-- End Page Header -->
+      <div class="row">
+        <div class="col-xl-12">
+          <!-- Sorting -->
+          <div class="widget has-shadow">
+            <div class="widget-header bordered no-actions d-flex align-items-center">
+                <h4>Sorting</h4>
+            </div>
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Tax</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="tranxaction in tranxactions" style="border: 0px solid white;">
+                          <tr>
+                            <td>{{ tranxaction.date | date : 'd MMM yy' }}</td>
+                            <td>{{ tranxaction.description }}</td>
+                            <td>{{ tranxaction.amount | currency }}</td>
+                            <td>{{ tranxaction.tax }}</td>
+                            <td class="td-actions">
+                              <a ui-sref=""><i class="la la-edit edit"></i></a>
+                              <a ng-click="deleteTranxaction( $index )"><i class="la la-close delete"></i></a>
+                            </td>
+                          </tr>
+                          <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
+                            <td colspan="5">
+                              <div ng-repeat="attachment in tranxaction.attachments">
+                                <a ng-href="{{ attachment.url }}" target="_blank">{{ attachment.aws_key }}</a>
                               </div>
-                            </div>
-                        </div>
-                        <!-- End Page Header -->
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <!-- Sorting -->
-                                <div class="widget has-shadow">
-                                    <div class="widget-header bordered no-actions d-flex align-items-center">
-                                        <h4>Sorting</h4>
-                                    </div>
-                                    <div class="widget-body">
-                                        <div class="table-responsive">
-                                            <table id="sorting-table" class="table mb-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Description</th>
-                                                        <th>Amount</th>
-                                                        <th>Tax</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody ng-repeat="tranxaction in tranxactions">
-            <tr>
-              <td>{{ tranxaction.date | date : 'd MMM yy' }}</td>
-              <td>{{ tranxaction.description }}</td>
-              <td>{{ tranxaction.amount | currency }}</td>
-              <td>{{ tranxaction.tax }}</td>
-              <td><a><span class="fa fa-trash-alt" ng-click="deleteTranxaction( $index )"></span></a></td>
-            </tr>
-            <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
-              <td colspan="5">
-                <div ng-repeat="attachment in tranxaction.attachments">
-                  <a ng-href="{{ attachment.url }}" target="_blank">{{ attachment.aws_key }}</a>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
                 </div>
-              </td>
-            </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Sorting -->
-                            </div>
-                        </div>
-                        <!-- End Row -->
-                    </div>
-                </div>
+            </div>
+          </div>
+          <!-- End Sorting -->
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+  </div>
 </div>
 <fsc-footer></fsc-footer>

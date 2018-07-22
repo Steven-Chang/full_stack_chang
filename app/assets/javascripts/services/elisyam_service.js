@@ -16,8 +16,6 @@ app.service('ElisyamService', [
   ElisyamService.init = function(){
     (function ($) {
 
-      'use strict';
-
       // ------------------------------------------------------- //
       // Sidebar Functionality
       // ------------------------------------------------------ //
