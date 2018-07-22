@@ -1,63 +1,58 @@
-<nav class="navbar navbar-expand-sm" id="navbar">
-  <a ui-sref="home">
-    <div id="navbar-header">
-      <h3 class="navbar-shadow">
-        Steven Chang
-      </h3>
-    </div>
-
-    <div class="navbar-shadow" id="sub-header">
-      <div>
-        Full Stack Developer / Automator
-      </div>
-    </div>
-  </a>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-header-content" aria-controls="navbar-header-content" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="navbar-collapse collapse navbar-shadow justify-content-end" id="navbar-header-content">
-    <ul class="navbar-nav">
-
-      <li class="dropdown nav-item">
-        <a class="dropdown-toggle nav-link" id="portfolio-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Portfolio
-          <img cl-src="Personal Site/lebron_head.png"  alt="portfolio" 
-            width="75"
-            class="d-none d-sm-flex">
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="portfolio-dropdown">
-          <a class="dropdown-item" ui-sref="portfolio">All</a>
-          <a class="dropdown-item" ui-sref="cleaning">Cleaning Roster</a>
-          <a class="dropdown-item" ui-sref="farming" ng-show="user && user.admin">Farming</a>
-          <a class="dropdown-item" ui-sref="loans" ng-show="user && user.admin">Loans</a>
-          <a class="dropdown-item" ui-sref="rent">Rent</a>
-          <a class="dropdown-item" ui-sref="tranxactions">Tranxactions</a>
-          <a class="dropdown-item" ui-sref="tranxactiontypes">Tranxaction Types</a>
-          <a class="dropdown-item" ui-sref="work" ng-show="user && user.admin">Work</a>
+<!-- Begin Header -->
+<header class="header" ng-init="init()">
+    <nav class="navbar fixed-top">
+        <!-- Begin Topbar -->
+        <div class="navbar-holder d-flex align-items-center align-middle justify-content-between">
+            <!-- Begin Logo -->
+            <div class="navbar-header">
+                <a ui-sref="dashboard" class="navbar-brand">
+                    <div class="brand-image">
+                      <h2 style="margin-top: 0.5rem">Full Stack Chang</h2>
+                    </div>
+                </a>
+            </div>
+            <!-- End Logo -->
+            <!-- Begin Navbar Menu -->
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
+                <li ng-hide="loggedIn">
+                    <a ui-sref="login">Login</a>
+                </li>
+                <!-- User -->
+                <li class="nav-item dropdown" ng-show="loggedIn"><a id="user" rel="nofollow" data-target="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img src="assets/img/avatar/avatar-01.jpg" alt="..." class="avatar rounded-circle"></a>
+                    <ul aria-labelledby="user" class="user-size dropdown-menu" style="padding: 0.9rem 0; display: none;">
+                        <li>
+                            <a class="dropdown-item" ui-sref="companies"> 
+                                Companies
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" ui-sref="sites">
+                                Sites
+                            </a>
+                        </li>
+                        <li ng-show="user.is_admin">
+                            <a class="dropdown-item no-padding-bottom" ui-sref="users">
+                                Users
+                            </a>
+                        </li>
+                        <li class="separator"></li>
+                        <li>
+                            <a ui-sref="usersedit({id: user.id})" class="dropdown-item no-padding-top"> 
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="logOut()" class="dropdown-item"> 
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End User -->
+            </ul>
+            <!-- End Navbar Menu -->
         </div>
-      </li>
-
-      <li class="nav-item" ng-hide="signedIn()">
-        <a ui-sref="login" class="nav-link">
-          Admin
-          <img cl-src="Personal Site/wayne_bennett_small.png"  
-            alt="admin login" 
-            width="75"
-            class="d-none d-sm-flex">
-        </a>
-      </li>
-
-      <li class="nav-item" ng-show="signedIn()">
-        <a class="nav-link" ng-click="logout()">
-          Logout
-          <img cl-src="Personal Site/isaiah_thomas_head"  
-            alt="logout" 
-            width="75"
-            class="d-none d-sm-flex">
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
+        <!-- End Topbar -->
+    </nav>
+</header>
+<!-- End Header -->

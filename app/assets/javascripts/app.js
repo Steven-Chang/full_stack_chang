@@ -10,6 +10,15 @@ var app = angular.module('app', [
 	'youtube-embed'
 ])
 
+.constant('_', window._)
+
+.run(["$rootScope", function($rootScope) {
+  $rootScope._ = window._;
+  // Getting rid of that pre loader
+  $(".loader").fadeOut();
+  $("#preloader").delay(350).fadeOut("slow");
+}])
+
 .config(
   ['cloudinaryProvider', 
   function (cloudinaryProvider) {

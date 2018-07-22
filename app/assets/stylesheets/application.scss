@@ -19,14 +19,17 @@
 @import "angular-moment-picker/dist/angular-moment-picker.min";
 
 @import "home";
-@import "navbar";
 @import "portfolio";
 @import "tetris";
 @import "users";
 @import "why_hire_chang";
 @import "work";
 
- @import "assets/vendors/css/base/elisyam-1.2.min";
+@import "assets/icons/lineawesome/css/line-awesome.min";
+@import "assets/icons/ionicons/css/ionicons.min";
+@import "assets/icons/themify/css/themify-icons.min";
+@import "assets/icons/meteocons/css/meteocons.min";
+@import "assets/vendors/css/base/elisyam-1.2";
 
 // https://github.com/twbs/bootstrap-sass
 // You can override these by simply redefining the variable before the @import directive
@@ -40,60 +43,3 @@
 
 // Point at which the navbar begins collapsing.
 // $grid-float-breakpoint-max: (@grid-float-breakpoint - 1)
-
-html {
-  height: 100%;
-
-  body {
-    background-color: #fff;
-    color: #2F4F4F;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    height: 100%;
-
-    a:link {
-      text-decoration:none;
-      color: #337ab7;
-    }
-
-    a:hover {
-      text-decoration:none;
-      color: #337ab7;
-    }
-
-    a:active {
-      text-decoration:none;
-    }
-
-    a:visited  {
-      text-decoration:none;
-    }
-
-    label {
-      font-size: 14px;
-      font-weight: 200;
-    }
-
-    textarea {
-      resize: none;
-    }
-
-    [ng-click] {
-      cursor: pointer;
-    }
-
-    .field {
-      margin: 10px 0;
-    }
-
-    .sub-table-row {
-      font-size: 14px;
-      text-align: left;
-    }
-
-    .text-input-width-control {
-      max-width: 370px;
-    }
-
-  }
-}
