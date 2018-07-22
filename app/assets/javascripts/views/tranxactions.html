@@ -1,167 +1,35 @@
 <nav-bar></nav-bar>
-<div id="tranxactions" ng-init="init()" class="pt-3 pb-5 pt-sm-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h1>Tranxactions To Simplify Taxes</h1>
-        <h4>Make Life Easier For Yourself : )</h4>
-        <hr>
-        <h5><a href="https://www.superguide.com.au/boost-your-superannuation/income-tax-rates" target="_blank">Income tax rates for 2018/2019 financial year</a></h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Income</th>
-              <th scope="col">Marginal tax rate</th>
-              <th scope="col">Tax payable*</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>$0-$18,200</td>
-              <td>0%</td>
-              <td>Nil</td>
-            </tr>
-            <tr>
-              <td>$18,201- $37,000</td>
-              <td>19%</td>
-              <td>19 cents for each $1 over $18,200</td>
-            </tr>
-            <tr>
-              <td>$37,001-$90,000</td>
-              <td>32.5%</td>
-              <td>$3,572 plus 32.5 cents for each dollar over $37,000</td>
-            </tr>
-            <tr>
-              <td>$90,001-$180,000</td>
-              <td>37%</td>
-              <td>$20,797 plus 37 cents for each dollar over $90,000</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="row">
-      <div class="col-12">
-        <h3>Create New Tranxaction</h3>
-        <form ng-submit="uploadFileThenCreateTranxaction()">
-          <div class="form-group">
-            <select ng-model="selectedTranxactionType" ng-options="item.description for item in tranxactionTypes" class="form-control"></select>
-          </div>
-
-          <div class="form-group" ng-show="selectedTranxactionType.description == 'property' || selectedTranxactionType.description == 'rent'">
-            <select ng-model="selectedProperty" ng-options="property.address for property in properties" class="form-control"></select>
-          </div>
-
-          <div class="form-group" ng-show="selectedTranxactionType.description == 'rent'">
-            <select ng-model="selectedTenancyAgreement" ng-options="tenancyAgreement.user.username for tenancyAgreement in tenancyAgreements" class="form-control"></select>
-          </div>
-
-          <div class="form-group" ng-show="selectedTranxactionType.description == 'work'">
-            <select ng-model="selectedClient" ng-options="client.name for client in clients" class="form-control"></select>
-          </div>
-
-          <div class="form-group">
-            <input type="text" 
-              autocomplete="off"
-              data-provide='datepicker' 
-              class="form-control" 
-              id="date-picker" 
-              ng-model="newTranxaction.date" 
-              placeholder="Date">
-          </div>
-
-          <div class="form-group">
-            <input type="text"
-              ng-model="newTranxaction.description"
-              placeholder="Description"
-              class="form-control">
-          </div>
-
-          <div class="form-group btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn active btn-secondary" ng-click="revenueOrExpense = 'revenue'">
-              <input type="radio"> Revenue
-            </label>
-            <label class="btn btn-secondary" ng-click="revenueOrExpense = 'expense'">
-              <input type="radio"> Expense
-            </label>
-          </div>
-
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">$</div>
-              </div>
-              <input type="text"
-                class="form-control"
-                ng-model="newTranxaction.amount"
-                placeholder="Amount">
-            </div>
-          </div>
-
-          <div class="form-check form-group">
-            <input type="checkbox" class="form-check-input" ng-model="newTranxaction.tax" id="tax">
-            <label class="form-check-label" for="tax">Tax</label>
-          </div>
-
-          <div class="form-group">
-            <input name="file" id="attachments-upload" type="file" file>
-          </div>
-
-          <input type="submit" value="Create" class="btn btn-primary">
-        </form>
-        <hr>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12">
-        <h3>Search Transactions</h3>
-        <form ng-submit="getTranxactions()">
-          <div class="form-group">
-            <select ng-model="searchParams.tranxactionType" ng-options="tranxactionType.description for tranxactionType in tranxactionTypes" class="form-control">
-              <option value="">All</option>
-            </select>
-          </div>
-
-          <div class="form-group" ng-show="searchParams.tranxactionType && ( searchParams.tranxactionType.description === 'property' || searchParams.tranxactionType.description === 'rent' )">
-            <select ng-model="searchParams.property" ng-options="property.address for property in properties" class="form-control">
-              <option value="">All</option>
-            </select>
-          </div>
-
-          <div class="form-group" ng-show="searchParams.tranxactionType && searchParams.tranxactionType.description === 'rent' && searchParams.property">
-            <select ng-model="searchParams.tenancyAgreement" ng-options="tenancyAgreement.user.username for tenancyAgreement in tenancyAgreements" class="form-control">
-              <option value="">All</option>
-            </select>
-          </div>
-
-          <div class="form-group" ng-show="searchParams.tranxactionType && searchParams.tranxactionType.description === 'work'">
-            <select ng-model="searchParams.client" ng-options="client.name for client in clients" class="form-control">
-              <option value="">All</option>
-            </select>
-          </div>
-
-          <input type="submit" value="Search" class="btn btn-primary">
-        </form>
-      </div>
-    </div>
-
-    <div class="row mt-3" ng-show="tranxactions.length">
-      <div class="col-12">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Description</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Tax</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody ng-repeat="tranxaction in tranxactions">
+<div class="page-content d-flex align-items-stretch" id="tranxactions" ng-init="init()">
+                <div class="content-inner">
+                    <div class="container-fluid">
+                        <!-- Begin Page Header-->
+                        <div class="row">
+                            <div class="page-header">
+                              <div class="d-flex align-items-center">
+                                  <h2 class="page-header-title">Tranxactions</h2>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- End Page Header -->
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <!-- Sorting -->
+                                <div class="widget has-shadow">
+                                    <div class="widget-header bordered no-actions d-flex align-items-center">
+                                        <h4>Sorting</h4>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="table-responsive">
+                                            <table id="sorting-table" class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Description</th>
+                                                        <th>Amount</th>
+                                                        <th>Tax</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody ng-repeat="tranxaction in tranxactions">
             <tr>
               <td>{{ tranxaction.date | date : 'd MMM yy' }}</td>
               <td>{{ tranxaction.description }}</td>
@@ -176,9 +44,16 @@
                 </div>
               </td>
             </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Sorting -->
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                </div>
 </div>
+<fsc-footer></fsc-footer>

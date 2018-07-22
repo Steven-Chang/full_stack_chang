@@ -12,6 +12,7 @@ module FullStackChang
     config.load_defaults 5.1
 
     config.active_record.belongs_to_required_by_default = true
+    config.assets.paths << Rails.root.join('public')
 
     config.to_prepare do
       DeviseController.respond_to :html, :json

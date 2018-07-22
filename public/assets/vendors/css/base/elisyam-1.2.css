@@ -321,8 +321,11 @@ table {
 }
 
 .content-inner {
+/*
   width: calc(100% - 240px);
   margin-left: 240px;
+*/
+  width: 100%;
   transition: all 0.3s ease;
 }
 
