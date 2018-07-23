@@ -1,4 +1,5 @@
 var app = angular.module('app', [
+	'angularModalService',
 	'cloudinary',
 	'cp.ngConfirm',
   'infinite-scroll',

@@ -48,4 +48,8 @@
 //= require moment/min/moment-with-locales.min
 //= require angular-moment-picker/dist/angular-moment-picker.min
 
+// ANGULAR MODAL SERVICE
+// https://github.com/dwmkerr/angular-modal-service
+//= require angular-modal-service/dst/angular-modal-service.min
+
 //= require_tree .
