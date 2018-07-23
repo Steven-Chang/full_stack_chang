@@ -21,6 +21,7 @@
 //= require angular-youtube-mb/angular-youtube-embed
 //= require bootstrap-sprockets
 
+// LODASH
 //= require lodash
 //= require restangular
 
@@ -44,6 +45,7 @@
 // ngMocks
 //= require angular-mocks/angular-mocks
 
+// MOMENT
 // https://github.com/indrimuska/angular-moment-picker
 //= require moment/min/moment-with-locales.min
 //= require angular-moment-picker/dist/angular-moment-picker.min
@@ -51,5 +53,8 @@
 // ANGULAR MODAL SERVICE
 // https://github.com/dwmkerr/angular-modal-service
 //= require angular-modal-service/dst/angular-modal-service.min
+
+// NOTY
+//= require assets/vendors/js/noty/noty
 
 //= require_tree .

@@ -1,4 +1,4 @@
-app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$scope', '$state', 'Auth', 'BackEndService', 'DatetimeService', 'ElisyamService', 'FSCModalService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, $state, Auth, BackEndService, DatetimeService, ElisyamService, FSCModalService, Restangular ){
+app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'ElisyamService', 'FSCModalService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, $state, AlertService, Auth, BackEndService, DatetimeService, ElisyamService, FSCModalService, Restangular ){
 
   // Private
   var resetFileInput = function(){
@@ -20,8 +20,9 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
         $scope.newTranxaction.attachments = [];
         resetFileInput();
         $("#new-tranxaction-form").removeClass("was-validated")
+        AlertService.success( "Tranxaction created" );
       }, function( errors ){
-        console.log( errors );
+        AlertService.processErrors( errors );
       })
       .finally(function(){
         $scope.creatingTranxaction = false;
@@ -35,7 +36,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
         $scope.clients = response;
         $scope.selectedClient = response[0];
       }, function( errors ){
-        console.log( errors );
+        AlertService.processErrors( errors );
       });
   };
 
@@ -46,7 +47,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
         $scope.properties = response;
         $scope.selectedProperty = response[0];
       }, function( errors ){
-        console.log( errors );
+        AlertService.processErrors( errors );
       });
   };
 
@@ -57,7 +58,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
         $scope.tenancyAgreements = response;
         $scope.selectedTenancyAgreement = response[0];
       }, function( errors ){
-        console.log( errors );
+        AlertService.processErrors( errors );
       });
   };
 
@@ -68,7 +69,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
         $scope.tranxactionTypes = response;
         $scope.selectedTranxactionType = response[0];
       }, function( errors ){
-        console.log( errors );
+        AlertService.processErrors( errors );
       });
   };
 
@@ -210,10 +211,10 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
                 $scope.newTranxaction.attachments.push( { url: publicUrl, aws_key: awsKey } );
                 createTranxaction();
               }, function(errors){
-                console.log( errors );
+                AlertService.processErrors( errors );
               });
           }, function( errors ){
-            console.log( errors );
+            AlertService.processErrors( errors );
           });
       } else {
         createTranxaction();
@@ -229,7 +230,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
           $scope.tranxactionTypes.unshift( response );
           $scope.newTranxactionType.description = "";
         }, function( errors ){
-          console.log( errors );
+          AlertService.processErrors( errors );
         })
         .finally(function(){
           $scope.creatingTranxactionType = false;
@@ -276,7 +277,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
         .then(function( response ){
           $scope.tranxactions = response;
         }, function( errors ){
-          console.log( errors );
+          AlertService.processErrors( errors );
         })
         .finally(function(){
           $scope.gettingTranxactions = false;
