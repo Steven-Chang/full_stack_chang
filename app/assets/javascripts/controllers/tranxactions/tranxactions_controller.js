@@ -19,6 +19,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
         $scope.newTranxaction.description = undefined;
         $scope.newTranxaction.attachments = [];
         resetFileInput();
+        $("#new-tranxaction-form").removeClass("was-validated")
       }, function( errors ){
         console.log( errors );
       })

@@ -35,15 +35,15 @@
                         <li>
                           <a class="dropdown-item" ui-sref="tranxactions">Tranxactions</a>
                         </li>
+                        <li>
+                            <a ui-sref="users" class="dropdown-item no-padding-top"> 
+                                Users
+                            </a>
+                        </li>
                         <li ng-show="user && user.admin">
                           <a class="dropdown-item" ui-sref="work">Work</a>
                         </li>
                         <li class="separator"></li>
-                        <li>
-                            <a ui-sref="usersedit({id: user.id})" class="dropdown-item no-padding-top"> 
-                                Profile
-                            </a>
-                        </li>
                         <li>
                             <a ng-click="logout()" class="dropdown-item"> 
                                 Log out
