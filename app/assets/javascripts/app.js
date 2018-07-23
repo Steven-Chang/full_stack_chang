@@ -46,12 +46,6 @@ var app = angular.module('app', [
 
 	$stateProvider
 
-		.state('farming', {
-			url: '/farming',
-			templateUrl: 'views/farming.html',
-			controller: 'FarmingController'
-		})
-
 		.state('cleaning', {
 			url: '/cleaning',
 			templateUrl: 'views/cleaning.html',
@@ -112,12 +106,6 @@ var app = angular.module('app', [
 					$state.go('home');
 				};
 			}]
-		})
-
-		.state('rent', {
-			url: '/rent',
-			templateUrl: 'views/rent.html',
-			controller: 'RentController'
 		})
 
 		.state('register', {
