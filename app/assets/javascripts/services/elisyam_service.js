@@ -244,6 +244,25 @@ app.service('ElisyamService', [
     })(jQuery);
   };
 
+  ElisyamService.goTop = function(){
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 350) {
+            $('.go-top').fadeIn(100);
+        } else {
+            $('.go-top').fadeOut(200);
+        }
+    });
+
+    // Animate the scroll to top
+    $('.go-top').click(function (event) {
+        event.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: 0
+        }, 800);
+    })
+  };
+
   ElisyamService.validation = function(){
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.getElementsByClassName('needs-validation');

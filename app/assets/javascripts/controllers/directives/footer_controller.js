@@ -1,4 +1,4 @@
-app.controller('FooterController', ['_', '$scope', '$state', 'Auth', 'Restangular', function( _, $scope, $state, Auth, Restangular ){
+app.controller('FooterController', ['_', '$scope', '$state', 'Auth', 'ElisyamService', 'Restangular', function( _, $scope, $state, Auth, ElisyamService, Restangular ){
 
   // --------------------
   // Private
@@ -7,5 +7,10 @@ app.controller('FooterController', ['_', '$scope', '$state', 'Auth', 'Restangula
   // --------------------
   // Public
   // --------------------
+
+	$scope.init = function(){
+		ElisyamService.goTop();
+	};
+
 
 }]);
