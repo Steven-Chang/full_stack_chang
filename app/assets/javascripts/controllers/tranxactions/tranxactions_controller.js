@@ -1,4 +1,4 @@
-app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$scope', '$state', 'Auth', 'BackEndService', 'DatetimeService', 'DisplayService', 'ElisyamService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, $state, Auth, BackEndService, DatetimeService, DisplayService, ElisyamService, Restangular ){
+app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$scope', '$state', 'Auth', 'BackEndService', 'DatetimeService', 'ElisyamService', 'FSCModalService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, $state, Auth, BackEndService, DatetimeService, ElisyamService, FSCModalService, Restangular ){
 
   // Private
   var resetFileInput = function(){
@@ -25,6 +25,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
       })
       .finally(function(){
         $scope.creatingTranxaction = false;
+        FSCModalService.loading = false;
       });
   };
 
@@ -194,6 +195,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
 
   $scope.uploadFileThenCreateTranxaction = function(){
     if ( !$scope.creatingTranxaction ){
+      FSCModalService.showLoading();
       $scope.creatingTranxaction = true;
       setTranxactables();
       setAmount();
