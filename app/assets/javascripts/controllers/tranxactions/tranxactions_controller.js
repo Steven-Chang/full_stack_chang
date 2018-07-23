@@ -285,7 +285,8 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
     Auth.currentUser()
       .then(function( user ){
         if ( user.admin ){
-          // DatetimeService.initiateDatePicker('#date-picker');
+          DatetimeService.initiateDatePicker('#date-picker');
+          ElisyamService.validation();
           getClients();
           $scope.getTranxactions();
           getTranxactionTypes();

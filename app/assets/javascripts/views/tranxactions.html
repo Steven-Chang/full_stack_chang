@@ -11,6 +11,132 @@
         </div>
       </div>
       <!-- End Page Header -->
+      <div class="row flex-row">
+        <div class="col-12">
+          <div class="widget has-shadow">
+            <div class="widget-header bordered no-actions d-flex align-items-center">
+                <h4>New</h4>
+            </div>
+            <div class="widget-body">
+              <form ng-submit="uploadFileThenCreateTranxaction()" class="needs-validation" novalidate>
+                <div class="form-group row align-items-center mb-5">
+                    <label class="col-lg-3 form-control-label d-flex">Tranxaction Type</label>
+                    <div class="col-lg-9">
+                      <select ng-model="selectedTranxactionType" ng-options="item.description for item in tranxactionTypes" class="form-control"></select>
+                    </div>
+                </div>
+
+                <div class="form-group row align-items-center mb-5" ng-show="selectedTranxactionType.description == 'property' || selectedTranxactionType.description == 'rent'">
+                    <label class="col-lg-3 form-control-label d-flex">Property</label>
+                    <div class="col-lg-9">
+                      <select ng-model="selectedProperty" ng-options="property.address for property in properties" class="form-control"></select>
+                    </div>
+                </div>
+
+                <div class="form-group row align-items-center mb-5" ng-show="selectedTranxactionType.description == 'rent'">
+                    <label class="col-lg-3 form-control-label d-flex">Tenant</label>
+                    <div class="col-lg-9">
+                      <select ng-model="selectedTenancyAgreement" ng-options="tenancyAgreement.user.username for tenancyAgreement in tenancyAgreements" class="form-control"></select>
+                    </div>
+                </div>
+
+                <div class="form-group row align-items-center mb-5" ng-show="selectedTranxactionType.description == 'work'">
+                  <label class="col-lg-3 form-control-label d-flex">Client</label>
+                  <div class="col-lg-9">
+                    <select ng-model="selectedClient" ng-options="client.name for client in clients" class="form-control"></select>
+                  </div>
+                </div>
+
+                <div class="form-group row d-flex align-items-center mb-5">
+                    <label class="col-lg-3 form-control-label d-flex">Date</label>
+                    <div class="col-lg-9">
+                      <input type="text" 
+                        autocomplete="off"
+                        data-provide='datepicker' 
+                        class="form-control" 
+                        id="date-picker" 
+                        ng-model="newTranxaction.date" 
+                        placeholder="Date"
+                        required>
+                        <div class="invalid-feedback">
+                            Please select a date
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row d-flex align-items-center mb-5">
+                    <label class="col-lg-3 form-control-label d-flex">Description</label>
+                    <div class="col-lg-9">
+                      <input type="text"
+                        ng-model="newTranxaction.description"
+                        placeholder="Description"
+                        class="form-control"
+                        required>
+                        <div class="invalid-feedback">
+                            Please enter a description
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row d-flex align-items-center mb-5">
+                  <div class="col-lg-3 form-group">
+                    <label class="form-control-label d-flex">Amount</label>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn active btn-secondary" ng-click="revenueOrExpense = 'revenue'">
+                        <input type="radio">Revenue
+                      </label>
+                      <label class="btn btn-secondary" ng-click="revenueOrExpense = 'expense'">
+                        <input type="radio">Expense
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-lg-9">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                      </div>
+                      <input type="text"
+                        class="form-control"
+                        ng-model="newTranxaction.amount"
+                        placeholder="Amount"
+                        required>
+                        <div class="invalid-feedback">
+                            Please enter an amount
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row d-flex align-items-center mb-5">
+                  <div class="col-lg-3">
+                    
+                  </div>
+                  <div class="col-lg-9">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" ng-model="newTranxaction.tax" id="tax">
+                      <label class="form-check-label" for="tax">Tax</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="em-separator separator-dashed"></div>
+
+                <div class="form-group row d-flex align-items-center mb-5">
+                  <label class="col-lg-3 form-control-label d-flex">Attachments</label>
+                  <div class="col-lg-9">
+                    <input name="file" id="attachments-upload" type="file" file>
+                  </div>
+                </div>
+
+                <div class="text-right">
+                    <button class="btn btn-gradient-01" type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-xl-12">
           <!-- Sorting -->
@@ -37,14 +163,14 @@
                             <td>{{ tranxaction.amount | currency }}</td>
                             <td>{{ tranxaction.tax }}</td>
                             <td class="td-actions">
-                              <a ui-sref=""><i class="la la-edit edit"></i></a>
+                              <a><i class="la la-edit edit"></i></a>
                               <a ng-click="deleteTranxaction( $index )"><i class="la la-close delete"></i></a>
                             </td>
                           </tr>
                           <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
                             <td colspan="5">
                               <div ng-repeat="attachment in tranxaction.attachments">
-                                <a ng-href="{{ attachment.url }}" target="_blank">{{ attachment.aws_key }}</a>
+                                <a ng-href="{{ attachment.url }}" target="_blank"><i class="la la-file-archive-o" style="font-size: 1.6rem"></i> {{ attachment.aws_key }}</a>
                               </div>
                             </td>
                           </tr>
