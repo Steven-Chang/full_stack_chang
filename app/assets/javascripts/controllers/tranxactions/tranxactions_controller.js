@@ -194,7 +194,12 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
     };
   }, true);
 
-  $scope.uploadFileThenCreateTranxaction = function(){
+  $scope.uploadFileThenCreateTranxaction = function( form ){
+    if ( !form.$valid ) {
+      $("#new-tranxaction-form").addClass("was-validated")
+      return;
+    };
+
     if ( !$scope.creatingTranxaction ){
       FSCModalService.showLoading();
       $scope.creatingTranxaction = true;
@@ -290,7 +295,6 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
       .then(function( user ){
         if ( user.admin ){
           DatetimeService.initiateDatePicker('#date-picker');
-          ElisyamService.validation();
           getClients();
           $scope.getTranxactions();
           getTranxactionTypes();

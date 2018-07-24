@@ -22,7 +22,7 @@ class TranxactionsController < ApplicationController
 
       params[:attachments].each do |attachment|
         Attachment.create(resource_type: "Tranxaction", resource_id: tranxaction.id, url: attachment[:url], aws_key: attachment[:aws_key] )
-      end
+      end if params[:attachments]
     end
 
     if tranxaction.persisted?

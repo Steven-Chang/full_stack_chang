@@ -1,5 +1,5 @@
-app.service('ElisyamService', [
-  function() {
+app.service('ElisyamService', ['$timeout', 
+  function( $timeout ) {
 
   'use strict';
 
