@@ -1,4 +1,4 @@
-app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'ElisyamService', 'FSCModalService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, $state, AlertService, Auth, BackEndService, DatetimeService, ElisyamService, FSCModalService, Restangular ){
+app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'ElisyamService', 'FSCModalService', 'Restangular', function( $filter, $http, $scope, $state, AlertService, Auth, BackEndService, DatetimeService, ElisyamService, FSCModalService, Restangular ){
 
   // Private
   var resetFileInput = function(){
@@ -245,35 +245,27 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
 
   $scope.deleteTranxaction = function( $index ){
     if ( !$scope.deletingTranxaction ){
-      $ngConfirm({
-        title: 'Confirm Delete',
-        content: '',
-        scope: $scope,
-        buttons: {
-          delete: {
-            text: 'Delete',
-            btnClass: 'btn-primary',
-            action: function(scope){
-              FSCModalService.showLoading();
-              $scope.deletingTranxaction = true;
-              $scope.tranxactions[$index].remove()
-                .then(function( response ){
-                  $scope.tranxactions.splice( $index, 1  );
-                  AlertService.success("Tranxaction deleted");
-                }, function( errors ){
-                  AlertService.processErrors( errors );
-                })
-                .finally(function(){
-                  $scope.deletingTranxaction = false;
-                  FSCModalService.loading = false;
-                });
-            }
-          },
-          close: function(scope, button){
-            text: 'Cancel'
-          }
-        }
-      });
+      FSCModalService.confirmDelete()
+        .then(function( modal ){
+          modal.close
+            .then(function( confirmed ){
+              if ( confirmed ){
+                FSCModalService.showLoading();
+                $scope.deletingTranxaction = true;
+                $scope.tranxactions[$index].remove()
+                  .then(function( response ){
+                    $scope.tranxactions.splice( $index, 1  );
+                    AlertService.success("Tranxaction deleted");
+                  }, function( errors ){
+                    AlertService.processErrors( errors );
+                  })
+                  .finally(function(){
+                    $scope.deletingTranxaction = false;
+                    FSCModalService.loading = false;
+                  });
+              };
+            });
+        });
     };
   };
 
