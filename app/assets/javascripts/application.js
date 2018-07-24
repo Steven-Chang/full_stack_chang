@@ -55,6 +55,6 @@
 //= require angular-modal-service/dst/angular-modal-service.min
 
 // NOTY
-//= require assets/vendors/js/noty/noty
+//= require assets/vendors/js/noty/noty.min
 
 //= require_tree .

@@ -75,7 +75,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
 
   var setAmount = function(){
     if ( $scope.revenueOrExpense === 'revenue' ){
-      if ( $scope.newTranxaction.amaount < 0 ) {
+      if ( $scope.newTranxaction.amount < 0 ) {
         $scope.newTranxaction.amount = $scope.newTranxaction.amount * -1;
       };
     } else {
