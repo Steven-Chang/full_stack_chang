@@ -5,16 +5,19 @@
             <div class="password-form mx-auto">
                 <div class="logo-centered">
                     <a href="/">
-                        <img src="images/fsc.png" alt="logo">
+                        <img src="images/fsc.png" alt="logo" style="margin-bottom: 0px;">
                     </a>
                 </div>
                 <h3>Admin Log In</h3>
-                <form name="loginForm" ng-submit="login( loginForm )">
+                <form name="loginForm" ng-submit="login( loginForm )" novalidate>
                   <div class="group material-input">
                     <input type="email" ng-model="user.email" autofocus required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Email</label>
+                    <div class="invalid-feedback" style="display: block" ng-show="formSubmitted && !user.email.length">
+                      Please enter an email
+                    </div>
                   </div>
 
                   <div class="group material-input">
@@ -22,6 +25,9 @@
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Password</label>
+                    <div class="invalid-feedback" style="display: block" ng-show="formSubmitted && !user.password.length">
+                      Please enter a password
+                    </div>
                   </div>
 
                   <div class="styled-checkbox">

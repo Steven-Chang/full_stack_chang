@@ -1,6 +1,8 @@
 app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', '$window', 'AlertService', 'FSCModalService', function($scope, $rootScope, Auth, $state, $window, AlertService, FSCModalService){
     var config = {headers: {'X-HTTP-Method-Override': 'POST'}}
 
+    $scope.formSubmitted = false;
+
     $scope.user = {
       email: "",
       password: "",
@@ -17,6 +19,7 @@ app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', '$wi
     };
 
     $scope.login = function( form ){
+      $scope.formSubmitted = true;
       if ( !form.$valid ){
         return;
       };
