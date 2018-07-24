@@ -254,15 +254,18 @@ app.controller('TranxactionsController', ['$filter', '$http', '$ngConfirm', '$sc
             text: 'Delete',
             btnClass: 'btn-primary',
             action: function(scope){
+              FSCModalService.showLoading();
               $scope.deletingTranxaction = true;
               $scope.tranxactions[$index].remove()
                 .then(function( response ){
                   $scope.tranxactions.splice( $index, 1  );
+                  AlertService.success("Tranxaction deleted");
                 }, function( errors ){
-                  console.log( errors )
+                  AlertService.processErrors( errors );
                 })
                 .finally(function(){
                   $scope.deletingTranxaction = false;
+                  FSCModalService.loading = false;
                 });
             }
           },
