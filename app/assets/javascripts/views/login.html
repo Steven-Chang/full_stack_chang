@@ -1,20 +1,43 @@
-<div navbar-and-container>
+<!-- Begin Container -->
+<div class="container-fluid h-100 overflow-y bg-fixed-02">
+    <div class="row flex-row h-100">
+        <div class="col-12 my-auto">
+            <div class="password-form mx-auto">
+                <div class="logo-centered">
+                    <a href="/">
+                        <img src="images/fsc.png" alt="logo">
+                    </a>
+                </div>
+                <h3>Admin Log In</h3>
+                <form name="loginForm" ng-submit="login( loginForm )">
+                  <div class="group material-input">
+                    <input type="email" ng-model="user.email" autofocus required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Email</label>
+                  </div>
 
-  <h4>Admin Log in</h4>
+                  <div class="group material-input">
+                    <input type="password" ng-model="user.password" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Password</label>
+                  </div>
 
-  <form ng-submit="login()">
-    <div class="field">
-      <input type="email" class="form-control text-input-width-control" placeholder="Email" ng-model="user.email" autofocus>
-    </div>
-    <div class="field">
-      <input type="password" class="form-control text-input-width-control" placeholder="Password" ng-model="user.password">
-    </div>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" ng-model="user.remember_me"> Remember Me
-      </label>
-    </div>
-    <input type="submit" class="btn btn-info" value="Log In">
-  </form>
+                  <div class="styled-checkbox">
+                    <input type="checkbox" name="checkbox" id="remember" ng-model="user.remember_me">
+                    <label for="remember">Remember me</label>
+                  </div>
 
+                  <div class="button text-center">
+                    <input type="submit" class="btn btn-lg btn-gradient-01" value="Log In">
+                  </div>
+
+                </form>
+            </div>
+        </div>
+        <!-- End Col -->
+    </div>
+    <!-- End Row -->
 </div>
+<!-- End Container -->

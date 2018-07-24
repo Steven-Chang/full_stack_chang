@@ -19,7 +19,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
         $scope.newTranxaction.description = undefined;
         $scope.newTranxaction.attachments = [];
         resetFileInput();
-        $("#new-tranxaction-form").removeClass("was-validated")
+        $("#new-tranxaction-form").removeClass("was-validated");
         AlertService.success( "Tranxaction created" );
       }, function( errors ){
         AlertService.processErrors( errors );
@@ -196,7 +196,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
 
   $scope.uploadFileThenCreateTranxaction = function( form ){
     if ( !form.$valid ) {
-      $("#new-tranxaction-form").addClass("was-validated")
+      $("#new-tranxaction-form").addClass("was-validated");
       return;
     };
 

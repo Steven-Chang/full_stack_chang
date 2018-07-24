@@ -1,4 +1,4 @@
-app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', '$window', function($scope, $rootScope, Auth, $state, $window){
+app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', '$window', 'AlertService', 'FSCModalService', function($scope, $rootScope, Auth, $state, $window, AlertService, FSCModalService){
     var config = {headers: {'X-HTTP-Method-Override': 'POST'}}
 
     $scope.user = {
@@ -16,12 +16,19 @@ app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', '$wi
       });
     };
 
-    $scope.login = function(){
+    $scope.login = function( form ){
+      if ( !form.$valid ){
+        return;
+      };
+
+      FSCModalService.showLoading();
       Auth.login($scope.user, config).then(function(user){
-        $rootScope.user = user
+        $rootScope.user = user;
+        FSCModalService.loading = false;
         $window.history.back();
       }, function(response){
-        console.log("Error");
+        FSCModalService.loading = false;
+        AlertService.processErrors( response );
       });
     }
 
