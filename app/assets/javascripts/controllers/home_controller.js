@@ -10,7 +10,6 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
 
   var urlify = function( text ){
     var urlRegex = />{2}/g;
-    console.log(text.search(urlRegex));
   };
 
 	// --------------------
