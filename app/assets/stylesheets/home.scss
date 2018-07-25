@@ -123,15 +123,14 @@
       margin-bottom: 8px;
       padding: 3px;
       position: relative;
+      width: 100%;
 
       .blog-post-image {
-        max-height: 256px;
         overflow: hidden;
         z-index: 100;
 
         img {
           height: auto;
-          max-width: 343px;
           width: 100%;
         }
       }
