@@ -19,25 +19,29 @@ class BlogPostsController < ApplicationController
       .order( "date_added DESC" )
       .paginate(:page => params[:page], :per_page => 12)
 
-    respond_to do |format|
-      format.json { render :json => blog_posts.to_json(:include => :tags), :status => 200 }
-    end
+    render :json => blog_posts
   end
 
   def create
     blog_post = BlogPost.new(post_params)
-    blog_post.save
+    BlogPost.transaction do
+      blog_post.save
 
-    if params[:tags]
       params[:tags].each do |tag|
         Tag.where(:tag => tag).first_or_create do |t|
         end
         blog_post.tags << Tag.where(:tag => tag).first
-      end
+      end if params[:tags]
+
+      params[:attachments].each do |attachment|
+        Attachment.create(resource_type: "BlogPost", resource_id: blog_post.id, url: attachment[:url], aws_key: attachment[:aws_key] )
+      end if params[:attachments]
     end
 
-    respond_to do |format|
-      format.json { render :json => blog_post.to_json(:include => :tags), :status => 200 }
+    if blog_post.persisted?
+      render :json => blog_post
+    else
+      render :json => blog_post.errors
     end
   end
 

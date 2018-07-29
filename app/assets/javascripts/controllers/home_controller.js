@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout', 'Auth', 'blogPosts', 'cloudinary', 'DatetimeService', 'Restangular', function( $filter, $ngConfirm, $scope, $timeout, Auth, blogPosts, cloudinary, DatetimeService, Restangular){
+app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', '$timeout', 'Auth', 'BackEndService', 'blogPosts', 'cloudinary', 'DatetimeService', 'FSCModalService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, $timeout, Auth, BackEndService, blogPosts, cloudinary, DatetimeService, FSCModalService, Restangular){
 
 	// --------------------
 	// Private
@@ -7,6 +7,34 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
   var recentlyCreatedBlogPostIds = [];
   var searching = false;
   var selectedTag;
+
+  var createPost = function(){
+    blogPosts.post( { aws_key: $scope.newBlogPostHub.awsKey,
+                      description: $scope.newBlogPostHub.description, 
+                      image_url: $scope.newBlogPostHub.imageUrl, 
+                      title: $scope.newBlogPostHub.title, 
+                      youtube_url: $scope.newBlogPostHub.youtubeUrl, 
+                      date_added: $scope.newBlogPostHub.dateAdded, 
+                      tags: $scope.newBlogPostHub.tags,
+                      attachments: $scope.newBlogPostHub.attachments } )
+    .then(function( result ){
+      $scope.blogPosts.unshift(result);
+      $scope.newBlogPostHub.attachments = [];
+      $scope.newBlogPostHub.awsKey = "";
+      $scope.newBlogPostHub.description = "";
+      $scope.newBlogPostHub.imageUrl = "";
+      $scope.newBlogPostHub.title = "";
+      $scope.newBlogPostHub.youtubeUrl = "";
+      $scope.newBlogPostHub.dateAdded = "";
+      $scope.newBlogPostHub.tags = [];
+      $scope.newBlogPostHub.tag = "";
+      recentlyCreatedBlogPostIds = recentlyCreatedBlogPostIds.push( result.id );
+    })
+    .finally(function(){
+      $scope.newBlogPostHub.postingNewBlogPost = false;
+      FSCModalService.loading = false;
+    });
+  };
 
   var urlify = function( text ){
     var urlRegex = />{2}/g;
@@ -24,6 +52,7 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
   };
 
   $scope.newBlogPostHub = {
+    attachments: [],
   	description: "",
   	imageUrl: "",
     tag: "",
@@ -49,31 +78,6 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
     returnMatchingTag: function(word){
       return word.toLowerCase() === $scope.newBlogPostHub.tag.toLowerCase();
     },
-  	createNewBlogPost: function(){
-      if ( !$scope.newBlogPostHub.postingNewBlogPost ){
-        $scope.newBlogPostHub.postingNewBlogPost = true;
-        blogPosts.post( { description: $scope.newBlogPostHub.description, 
-                          image_url: $scope.newBlogPostHub.imageUrl, 
-                          title: $scope.newBlogPostHub.title, 
-                          youtube_url: $scope.newBlogPostHub.youtubeUrl, 
-                          date_added: $scope.newBlogPostHub.dateAdded, 
-                          tags: $scope.newBlogPostHub.tags } )
-        .then(function( result ){
-          $scope.blogPosts.unshift(result);
-          $scope.newBlogPostHub.description = "";
-          $scope.newBlogPostHub.imageUrl = "";
-          $scope.newBlogPostHub.title = "";
-          $scope.newBlogPostHub.youtubeUrl = "";
-          $scope.newBlogPostHub.dateAdded = "";
-          $scope.newBlogPostHub.tags = [];
-          $scope.newBlogPostHub.tag = "";
-          recentlyCreatedBlogPostIds = recentlyCreatedBlogPostIds.push( result.id );
-        })
-        .finally(function(){
-          $scope.newBlogPostHub.postingNewBlogPost = false;
-        });
-      };
-  	},
     removeTag: function( index ){
       this.tags.splice(index, 1);
     },
@@ -152,6 +156,37 @@ app.controller('HomeController', ['$filter', '$ngConfirm', '$scope', '$timeout',
 
   $scope.slideToggleAddBlogPostForm = function(){
     $( "#add-blog-post-form" ).slideToggle( "slow" );
+  };
+
+  $scope.uploadFileThenCreatePost = function( form ){
+    if ( !form.$valid ) {
+      $("#new-post-form").addClass("was-validated");
+      return;
+    };
+
+    if ( !$scope.newBlogPostHub.postingNewBlogPost ){
+      FSCModalService.showLoading();
+      $scope.newBlogPostHub.postingNewBlogPost = true;
+
+      if ( $scope.file ){
+        BackEndService.getPresignedUrl( { filename: $scope.file.name, type: $scope.file.type } )
+          .then(function( response ){
+            var publicUrl = response.public_url;
+            var awsKey = response.aws_key;
+            $http.put( response.presigned_url, $scope.file, { headers: { 'Content-Type': $scope.file.type } } )
+              .then(function( response ){
+                $scope.newBlogPostHub.attachments.push( { url: publicUrl, aws_key: awsKey } );
+                createPost();
+              }, function(errors){
+                AlertService.processErrors( errors );
+              });
+          }, function( errors ){
+            AlertService.processErrors( errors );
+          });
+      } else {
+        createPost();
+      };
+    };
   };
 
   $scope.files = {};
