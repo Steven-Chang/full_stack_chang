@@ -25,6 +25,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def destroy
+    if Project.find(params[:id]).destroy
+      render json: { message: "Removed" }, status: :ok
+    else
+      render json: { message: "Error" }, status: :expectation_failed
+    end
+  end
+
   private
 
   def project_params

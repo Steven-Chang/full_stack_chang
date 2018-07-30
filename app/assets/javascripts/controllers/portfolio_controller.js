@@ -1,4 +1,4 @@
-app.controller('PortfolioController', ['$scope', '$timeout', 'Auth', 'BackEndService', 'DatetimeService', 'FSCModalService', 'projects', function($scope, $timeout, Auth, BackEndService, DatetimeService, FSCModalService, projects){
+app.controller('PortfolioController', ['$scope', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'FSCModalService', 'projects', function($scope, AlertService, Auth, BackEndService, DatetimeService, FSCModalService, projects){
 
 	// --------------------
 	// Private
@@ -11,6 +11,7 @@ app.controller('PortfolioController', ['$scope', '$timeout', 'Auth', 'BackEndSer
 	// This is a function.
   $scope.signedIn = Auth.isAuthenticated;
   $scope.addProjectFormVisible = false;
+  $scope.deletingProject = false;
 
   $scope.newProjectHub = {
     attachments: [],
@@ -44,6 +45,33 @@ app.controller('PortfolioController', ['$scope', '$timeout', 'Auth', 'BackEndSer
   $scope.projects = projects;
 
   DatetimeService.initiateDatePicker('#date-picker');
+
+  $scope.deleteProject = function( project ){
+    if ( !$scope.deletingProject ){
+      FSCModalService.confirmDelete()
+        .then(function( modal ){
+          modal.close
+            .then(function( confirmed ){
+              if ( confirmed ){
+                FSCModalService.showLoading();
+                $scope.deletingProject = true;
+                project.remove()
+                  .then(function( response ){
+                    var index = $scope.projects.indexOf( project );
+                    if (index > -1) $scope.projects.splice(index, 1);
+                    AlertService.success("Project deleted");
+                  }, function( errors ){
+                    AlertService.processErrors( errors );
+                  })
+                  .finally(function(){
+                    $scope.deletingProject = false;
+                    FSCModalService.loading = false;
+                  });
+              };
+            });
+        });
+    };
+  };
 
   $scope.uploadFileThenCreateProject = function( form ){
     if ( !form.$valid ) {

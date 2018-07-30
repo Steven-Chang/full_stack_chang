@@ -91,7 +91,7 @@ app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', '$
 
   DatetimeService.initiateDatePicker("#date-picker");
 
-  $scope.deleteBlogPost = function(post){
+  $scope.deleteBlogPost = function( post ){
     $ngConfirm({
       title: 'Sure you wanna blaze this shit?',
       content: '',
