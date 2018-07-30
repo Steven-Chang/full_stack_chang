@@ -58,10 +58,10 @@ app.controller('PortfolioController', ['$scope', '$timeout', 'Auth', 'BackEndSer
       if ( $scope.file ){
         BackEndService.getPresignedUrl( { filename: $scope.file.name, type: $scope.file.type } )
           .then(function( response ){
+            var publicUrl = response.public_url;
+            var awsKey = response.aws_key;
             BackEndService.uploadFileToAWS( response.presigned_url, $scope.file, $scope.file.type )
               .then(function( response ){
-                var publicUrl = response.public_url;
-                var awsKey = response.aws_key;
                 $scope.newProjectHub.attachments.push( { url: publicUrl, aws_key: awsKey } );
                 $scope.newProjectHub.createNewProject();
               }, function(errors){

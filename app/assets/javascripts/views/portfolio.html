@@ -85,29 +85,73 @@
         </div>
       </div>
 
-      <ul class="list-grid row">
-        <li class="col-12 col-md-4 col-sm-6" ng-repeat="project in projects | orderBy : 'date_added' : true">
-          <div class="portfolio-project">
-            <div class="project-header">
-              <h4><a ng-href="{{ project.url }}">{{ project.title }}</a></h4>
-              <div class="date">
-                {{ project.date_added | date:'mediumDate' }}
+      <!-- End Page Header -->
+      <div class="row justify-content-center">
+          <div class="col-xl-10 col-12">
+              <!-- Begin Timeline -->
+              <div class="timeline timeline-line-solid">
+                  <!-- Begin Timeline Item -->
+                  <div class="timeline-item" ng-repeat="project in projects | orderBy : 'date_added' : true" infinite-scroll="getBlogPosts()">
+                      <div class="timeline-point timeline-point"></div>
+                      <!-- Begin Timeline Event -->
+                      <div class="timeline-event">
+                          <!-- Begin Widget -->
+                          <div class="widget has-shadow">
+                              <!-- Begin Widget Header -->
+                              <div class="widget-header d-flex align-items-center">
+                                  <div class="d-flex flex-column mr-auto">
+                                      <div class="title">
+                                          <span class="username">{{ project.title }}</span>
+                                      </div>
+                                  </div>
+                                  <div class="widget-options" ng-show="signedIn() && user.admin">
+                                      <div class="dropdown">
+                                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+                                              <i class="la la-ellipsis-h"></i>
+                                          </button>
+                                          <div class="dropdown-menu">
+                                              <a href="#" class="dropdown-item"> 
+                                                  <i class="la la-edit"></i>Edit Project
+                                              </a>
+                                              <a ng-click="deleteProject( project )" class="dropdown-item"> 
+                                                  <i class="la la-trash"></i>Delete Project
+                                              </a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- End Widget Header -->
+                              <!-- Begin Widget Body -->
+                              <div class="widget-body">
+                                <div class="portfolio-project">
+
+                                  <a ng-href="{{ project.url }}">
+                                    <div class="project-image-frame">
+                                      <div class="project-image">
+                                        <img ng-src="{{ project.image_url | linkFilter }}" ng-if="project.image_url">
+                                        <img ng-src="{{ project.attachments[0].url }}" ng-if="project.attachments[0]">
+                                      </div>
+                                    </div>
+                                  </a>
+                                </div>
+                                  <p>
+                                    {{ project.description }}
+                                  </p>
+                              </div>
+                              <!-- End Widget Body -->
+                          </div>
+                          <!-- End Widget -->
+                          <div class="{{ ( $index % 2 === 1 ) ? 'time-left' : 'time-right' }}">{{ project.date_added | date:'mediumDate' }}</div>
+                      </div>
+                      <!-- End Timeline Event -->
+                  </div>
+                  <!-- End Timeline Item -->
               </div>
-            </div>
-            <a ng-href="{{ project.url }}">
-              <div class="project-image-frame">
-                <div class="project-image">
-                  <img ng-src="{{ project.image_url | linkFilter }}" ng-if="project.image_url">
-                  <img ng-src="{{ project.attachments[0].url }}" ng-if="project.attachments[0]">
-                </div>
-              </div>
-            </a>
-            <div class="project-description">
-              {{ project.description }}
-            </div>
+              <!-- End Timeline -->
           </div>
-        </li>
-      </ul>
+      </div>
+
+
 
   </div>
 </div>

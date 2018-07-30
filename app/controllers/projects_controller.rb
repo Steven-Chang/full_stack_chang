@@ -9,10 +9,19 @@ class ProjectsController < ApplicationController
 
   def create
     project = Project.new(project_params)
-    project.save
 
-    respond_to do |format|
-      format.json { render :json => project, :status => 200 }
+    Project.transaction do
+      project.save
+
+      params[:attachments].each do |attachment|
+        Attachment.create(resource_type: "Project", resource_id: project.id, url: attachment[:url], aws_key: attachment[:aws_key] )
+      end if params[:attachments]
+    end
+
+    if project.persisted?
+      render :json => project
+    else
+      render :json => project.errors
     end
   end
 
