@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180720232437) do
+ActiveRecord::Schema.define(version: 20180730110320) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "resource_type", null: false
@@ -108,7 +108,6 @@ ActiveRecord::Schema.define(version: 20180720232437) do
 
   create_table "projects", force: :cascade do |t|
     t.text "description"
-    t.string "image_url"
     t.string "title", null: false
     t.string "url"
     t.datetime "date_added"
