@@ -1,5 +1,5 @@
-app.service('BackEndService', ['Restangular',
-  function( Restangular ) {
+app.service('BackEndService', ['$http', 'Restangular',
+  function( $http, Restangular ) {
 
   'use strict';
 
@@ -39,6 +39,10 @@ app.service('BackEndService', ['Restangular',
 
   BackEndService.getUsers = function(){
     return Restangular.all('users').getList()
+  };
+
+  BackEndService.uploadFileToAWS = function( presignedUrl, file, fileType ){
+    return $http.put( presignedUrl, file, { headers: { 'Content-Type': fileType } } )
   };
 
   return BackEndService;
