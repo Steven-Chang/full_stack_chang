@@ -20,7 +20,7 @@ app.controller('ProjectsEditController', ['$stateParams', '$scope', '$state', 'A
         BackEndService.getProject( $stateParams.id )
           .then(function( response ){
             $scope.project = response;
-            $scope.project.date_added = DatetimeService.formatDate( response.date_added, "EEE d LLLL yyyy" );
+            $scope.project.start_date = DatetimeService.formatDate( response.start_date, "EEE d LLLL yyyy" );
             $scope.project.end_date = DatetimeService.formatDate( response.end_date, "EEE d LLLL yyyy" );
           }, function( errors ){
             AlertService.processErrors( errors );
