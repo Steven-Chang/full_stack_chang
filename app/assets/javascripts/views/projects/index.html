@@ -98,7 +98,7 @@
               <!-- Begin Timeline -->
               <div class="timeline timeline-line-solid">
                   <!-- Begin Timeline Item -->
-                  <div class="timeline-item" ng-repeat="project in projects | orderBy : 'date_added' : true" infinite-scroll="getBlogPosts()">
+                  <div class="timeline-item" ng-repeat="project in projects" infinite-scroll="getBlogPosts()">
                       <div class="timeline-point timeline-point"></div>
                       <!-- Begin Timeline Event -->
                       <div class="timeline-event">
@@ -147,7 +147,7 @@
                               <!-- End Widget Body -->
                           </div>
                           <!-- End Widget -->
-                          <div class="{{ ( $index % 2 === 1 ) ? 'time-left' : 'time-right' }}">{{ project.date_added | date:'mediumDate' }}</div>
+                          <div class="{{ ( $index % 2 === 1 ) ? 'time-left' : 'time-right' }}">{{ project.start_date | date:'mediumDate' }} - {{ project.end_date ? ( project.end_date | date:'mediumDate' ) : "Now" }}</div>
                       </div>
                       <!-- End Timeline Event -->
                   </div>

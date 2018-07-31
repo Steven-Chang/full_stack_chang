@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:destroy, :show, :update]
 
   def index
-    projects = Project.all
+    projects = Project.where(end_date: nil).order("start_date DESC") + Project.where.not( end_date: nil ).order("end_date DESC")
 
     render :json => projects
   end
