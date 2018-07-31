@@ -35,6 +35,7 @@ app.controller('PortfolioController', ['$scope', 'AlertService', 'Auth', 'BackEn
         $scope.newProjectHub.title = "";
         $scope.newProjectHub.url = "";
         $scope.newProjectHub.dateAdded = "";
+        $scope.newProjectHub.endDate = "";
         $scope.newProjectHub.attachments = [];
       })
       .finally(function(){
