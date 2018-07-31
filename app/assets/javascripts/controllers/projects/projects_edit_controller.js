@@ -11,10 +11,10 @@ app.controller('ProjectsEditController', ['$stateParams', '$scope', '$state', 'A
         // Currently we're gonna go back to the projects page on update
         // But later on it should goto the show page, if the show page is going to exist at all... 
         // I can see a lot of reasons for it to exist.
-        FSCModalService.showLoading = false;
+        FSCModalService.loading = false;
         $state.go( "projects" );
       }, function( errors ){
-        FSCModalService.showLoading = false;
+        FSCModalService.loading = false;
         AlertService.processErrors( errors );
       })
       .finally(function(){
