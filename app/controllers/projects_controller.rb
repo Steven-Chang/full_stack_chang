@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_project, only: [:destroy, :show]
+  before_action :set_project, only: [:destroy, :show, :update]
 
   def index
     projects = Project.all
@@ -27,6 +27,16 @@ class ProjectsController < ApplicationController
       render :json => project
     else
       render :json => project.errors
+    end
+  end
+
+  # PATCH/PUT /projects/1
+  # PATCH/PUT /projects/1.json
+  def update
+    if @project.update( project_params )
+      render :json => @project, status: :ok
+    else
+      render :json => @project.errors, status: :unprocessable_entity
     end
   end
 

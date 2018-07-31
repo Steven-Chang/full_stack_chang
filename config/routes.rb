@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :farming_transactions, except: [:show]
   resources :jobs
-  resources :projects, only: [:index, :create, :destroy, :show]
+  resources :projects
   resources :scores, only: [:index, :create]
   resources :blog_posts, only: [:index, :create, :destroy]
   resources :rent_transactions, except: [:show]

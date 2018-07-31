@@ -3,6 +3,24 @@ app.controller('ProjectsEditController', ['$stateParams', '$scope', '$state', 'A
 	// --------------------
 	// Private
 	// --------------------
+  var updatingProject = false;
+
+  var updateProject = function(){
+    $scope.project.put()
+      .then(function( response ){
+        // Currently we're gonna go back to the projects page on update
+        // But later on it should goto the show page, if the show page is going to exist at all... 
+        // I can see a lot of reasons for it to exist.
+        FSCModalService.showLoading = false;
+        $state.go( "projects" );
+      }, function( errors ){
+        FSCModalService.showLoading = false;
+        AlertService.processErrors( errors );
+      })
+      .finally(function(){
+        updatingProject = false;
+      });
+  };
 
 	// --------------------
 	// Public
@@ -30,42 +48,15 @@ app.controller('ProjectsEditController', ['$stateParams', '$scope', '$state', 'A
       });
   };
 
-  $scope.deleteProject = function( project ){
-    if ( !$scope.deletingProject ){
-      FSCModalService.confirmDelete()
-        .then(function( modal ){
-          modal.close
-            .then(function( confirmed ){
-              if ( confirmed ){
-                FSCModalService.showLoading();
-                $scope.deletingProject = true;
-                project.remove()
-                  .then(function( response ){
-                    var index = $scope.projects.indexOf( project );
-                    if (index > -1) $scope.projects.splice(index, 1);
-                    AlertService.success("Project deleted");
-                  }, function( errors ){
-                    AlertService.processErrors( errors );
-                  })
-                  .finally(function(){
-                    $scope.deletingProject = false;
-                    FSCModalService.loading = false;
-                  });
-              };
-            });
-        });
-    };
-  };
-
-  $scope.uploadFileThenCreateProject = function( form ){
+  $scope.uploadFileThenUpdateProject = function( form ){
     if ( !form.$valid ) {
-      $("#add-project-form").addClass("was-validated");
+      $("#edit-project-form").addClass("was-validated");
       return;
     };
 
-    if ( !$scope.newProjectHub.postingNewProject ){
+    if ( !updatingProject ){
       FSCModalService.showLoading();
-      $scope.newProjectHub.postingNewProject = true;
+      updatingProject = true;
 
       if ( $scope.file ){
         BackEndService.getPresignedUrl( { filename: $scope.file.name, type: $scope.file.type } )
@@ -74,8 +65,8 @@ app.controller('ProjectsEditController', ['$stateParams', '$scope', '$state', 'A
             var awsKey = response.aws_key;
             BackEndService.uploadFileToAWS( response.presigned_url, $scope.file, $scope.file.type )
               .then(function( response ){
-                $scope.newProjectHub.attachments.push( { url: publicUrl, aws_key: awsKey } );
-                $scope.newProjectHub.createNewProject();
+                $scope.project.attachments.push( response );
+                updateProject();
               }, function(errors){
                 AlertService.processErrors( errors );
               });
@@ -83,7 +74,7 @@ app.controller('ProjectsEditController', ['$stateParams', '$scope', '$state', 'A
             AlertService.processErrors( errors );
           });
       } else {
-        $scope.newProjectHub.createNewProject();
+        updateProject();
       };
     };
   };

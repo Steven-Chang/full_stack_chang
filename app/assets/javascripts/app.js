@@ -73,12 +73,12 @@ var app = angular.module('app', [
 			}
 		})
 
-		.state('portfolio', {
+		.state('projects', {
 			url: '/projects',
-			templateUrl: 'views/projects/portfolio.html',
-			controller: 'PortfolioController',
+			templateUrl: 'views/projects/index.html',
+			controller: 'ProjectsController',
 			resolve: {
-				projects: ['Restangular', function(Restangular){
+				projects: ['Restangular', function( Restangular ){
 					return Restangular.all('projects').getList()
 						.then(function(projects){
 							return projects;

@@ -1,4 +1,4 @@
-app.controller('PortfolioController', ['$scope', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'FSCModalService', 'projects', function($scope, AlertService, Auth, BackEndService, DatetimeService, FSCModalService, projects){
+app.controller('ProjectsController', ['$scope', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'FSCModalService', 'projects', function($scope, AlertService, Auth, BackEndService, DatetimeService, FSCModalService, projects){
 
 	// --------------------
 	// Private
