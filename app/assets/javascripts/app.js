@@ -74,7 +74,7 @@ var app = angular.module('app', [
 		})
 
 		.state('portfolio', {
-			url: '/portfolio',
+			url: '/projects',
 			templateUrl: 'views/portfolio.html',
 			controller: 'PortfolioController',
 			resolve: {
