@@ -19,6 +19,7 @@ app.controller('PortfolioController', ['$scope', 'AlertService', 'Auth', 'BackEn
   	title: "",
   	url: "",
   	dateAdded: "",
+    endDate: "",
     postingNewProject: false,
   	createNewProject: function(){
       projects.post({ 
@@ -26,6 +27,7 @@ app.controller('PortfolioController', ['$scope', 'AlertService', 'Auth', 'BackEn
         title: $scope.newProjectHub.title, 
         url: $scope.newProjectHub.url, 
         date_added: $scope.newProjectHub.dateAdded, 
+        end_date: $scope.newProjectHub.endDate,
         attachments: $scope.newProjectHub.attachments })
       .then(function( result ){
         $scope.projects.push(result);
@@ -44,7 +46,8 @@ app.controller('PortfolioController', ['$scope', 'AlertService', 'Auth', 'BackEn
 
   $scope.projects = projects;
 
-  DatetimeService.initiateDatePicker('#date-picker');
+  DatetimeService.initiateDatePicker('#date-picker-start');
+  DatetimeService.initiateDatePicker('#date-picker-end');
 
   $scope.deleteProject = function( project ){
     if ( !$scope.deletingProject ){

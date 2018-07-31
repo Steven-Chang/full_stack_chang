@@ -57,12 +57,19 @@
                 </div>
 
                 <div class="form-group row align-items-center">
-                  <label class="col-lg-3 form-control-label d-flex">Date</label>
+                  <label class="col-lg-3 form-control-label d-flex">Start Date</label>
                   <div class="col-lg-9">
-                    <input type="text" data-provide='datepicker' class="form-control" id="date-picker" ng-model="newProjectHub.dateAdded" placeholder="Date Added" required>
+                    <input type="text" data-provide='datepicker' class="form-control" id="date-picker-start" ng-model="newProjectHub.dateAdded" placeholder="Start Date" required>
                     <div class="invalid-feedback">
                       Please enter a date
                     </div>
+                  </div>
+                </div>
+
+                <div class="form-group row align-items-center">
+                  <label class="col-lg-3 form-control-label d-flex">End Date</label>
+                  <div class="col-lg-9">
+                    <input type="text" data-provide='datepicker' class="form-control" id="date-picker-end" ng-model="newProjectHub.endDate" placeholder="End Date">
                   </div>
                 </div>
 
