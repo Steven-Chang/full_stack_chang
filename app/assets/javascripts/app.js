@@ -89,15 +89,7 @@ var app = angular.module('app', [
 		.state('projectsedit', {
 			url: '/projects/:id/edit',
 			templateUrl: 'views/projects/edit.html',
-			controller: 'ProjectsEditController',
-			resolve: {
-				project: ['$routeParams', 'Restangular', function( $routeParams, Restangular ){
-					return Restangular.one( 'projects', $routeParams.id ).get()
-						.then(function( project ){
-							return project;
-      			});
-				}]
-			}
+			controller: 'ProjectsEditController'
 		})
 
 		.state('properties', {

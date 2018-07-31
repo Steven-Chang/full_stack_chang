@@ -1,10 +1,15 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, except: [ :index ]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_project, only: [:destroy, :show]
 
   def index
     projects = Project.all
 
     render :json => projects
+  end
+
+  def show
+    render :json => @project
   end
 
   def create
@@ -26,7 +31,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    if Project.find(params[:id]).destroy
+    if @project.destroy
       render json: { message: "Removed" }, status: :ok
     else
       render json: { message: "Error" }, status: :expectation_failed
@@ -34,6 +39,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def set_project
+    @project = Project.find( params[:id] )
+  end
 
   def project_params
     params.require(:project).permit(:description, :title, :url, :date_added, :end_date)

@@ -29,6 +29,10 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all('attachments').customGET("presigned", params)
   };
 
+  BackEndService.getProject = function( id ){
+    return Restangular.one( "projects", id ).get()
+  };
+
   BackEndService.getTranxactions = function( params ){
     return Restangular.all('tranxactions').getList( params )
   };

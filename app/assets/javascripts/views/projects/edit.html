@@ -8,7 +8,7 @@
           <div class="page-header">
             <div class="d-flex align-items-center">
               <h2 class="page-header-title">Edit Project</h2>
-            </div>
+          </div>
           </div>
       </div>
 
@@ -29,7 +29,7 @@
                 <div class="form-group row align-items-center">
                   <label class="col-lg-3 form-control-label d-flex">Title</label>
                   <div class="col-lg-9">
-                    <input class="form-control" ng-model="newProjectHub.title" placeholder="Title" required>
+                    <input class="form-control" ng-model="project.title" placeholder="Title" required>
                     <div class="invalid-feedback">
                       Please enter a title
                     </div>
@@ -39,7 +39,7 @@
                 <div class="form-group row align-items-center">
                   <label class="col-lg-3 form-control-label d-flex">Description</label>
                   <div class="col-lg-9">
-                    <textarea class="form-control" rows="4" ng-model="newProjectHub.description" placeholder="Description" required></textarea>
+                    <textarea class="form-control" rows="4" ng-model="project.description" placeholder="Description" required></textarea>
                     <div class="invalid-feedback">
                       Please enter a description
                     </div>
@@ -49,7 +49,7 @@
                 <div class="form-group row align-items-center">
                   <label class="col-lg-3 form-control-label d-flex">URL</label>
                   <div class="col-lg-9">
-                    <input class="form-control" ng-model="newProjectHub.url" placeholder="Link e.g. #/tetris">
+                    <input class="form-control" ng-model="project.url" placeholder="Link e.g. #/tetris">
                     <div class="invalid-feedback">
                       Please enter a url
                     </div>
@@ -59,7 +59,7 @@
                 <div class="form-group row align-items-center">
                   <label class="col-lg-3 form-control-label d-flex">Start Date</label>
                   <div class="col-lg-9">
-                    <input type="text" data-provide='datepicker' class="form-control" id="date-picker-start" ng-model="newProjectHub.dateAdded" placeholder="Start Date" required>
+                    <input type="text" data-provide='datepicker' class="form-control" id="date-picker-start" ng-model="project.date_added" placeholder="Start Date" required>
                     <div class="invalid-feedback">
                       Please enter a date
                     </div>
@@ -69,7 +69,7 @@
                 <div class="form-group row align-items-center">
                   <label class="col-lg-3 form-control-label d-flex">End Date</label>
                   <div class="col-lg-9">
-                    <input type="text" data-provide='datepicker' class="form-control" id="date-picker-end" ng-model="newProjectHub.endDate" placeholder="End Date">
+                    <input type="text" data-provide='datepicker' class="form-control" id="date-picker-end" ng-model="project.end_date" placeholder="End Date">
                   </div>
                 </div>
 
@@ -80,6 +80,9 @@
                   <label class="col-lg-3 form-control-label d-flex">Picture</label>
                   <div class="col-lg-9">
                     <input name="file" id="attachments-upload" type="file" file>
+                    <div ng-repeat="attachment in project.attachments" class="mt-3">
+                      <img ng-src="{{ attachment.url }}" style="width: 100%">
+                    </div>
                   </div>
                 </div>
 
