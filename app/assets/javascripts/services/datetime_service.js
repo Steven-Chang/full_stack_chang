@@ -1,5 +1,5 @@
-app.service('DatetimeService', ['$timeout', 
-  function ( $timeout ) {
+app.service('DatetimeService', ['$filter', '$timeout', 
+  function ( $filter, $timeout ) {
 
   'use strict';
 
@@ -20,6 +20,10 @@ app.service('DatetimeService', ['$timeout',
         format: "D dd MM yyyy"
       });
     });
+  };
+
+  DatetimeService.formatDate = function( date, format ){
+    return $filter( 'date' )( date, format )
   };
 
   return DatetimeService;
