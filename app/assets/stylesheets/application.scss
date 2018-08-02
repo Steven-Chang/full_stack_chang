@@ -42,6 +42,10 @@
 // Point at which the navbar begins collapsing.
 // $grid-float-breakpoint-max: (@grid-float-breakpoint - 1)
 
+pre {
+	whitespace: pre-line;
+}
+
 [ng-click] {
   cursor: pointer;
 }
@@ -49,3 +53,4 @@
 .spinner-white {
 	border-top: solid 5px white;
 }
+
