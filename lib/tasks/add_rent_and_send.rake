@@ -7,7 +7,7 @@ namespace :fsc do
     date_in_thirteen_days = (Date.today + 13.days).strftime("%e %b %y").strip
     description = "Rent #{ todays_date } - #{ date_in_thirteen_days }"
 
-    TenancyAgreement.all.each do |tenancy_agreement|
+    TenancyAgreement.where(active: true).each do |tenancy_agreement|
       if ( Date.today - tenancy_agreement.starting_date ).to_i % 14 == 0
         new_tranxaction = Tranxaction.new
         new_tranxaction.date = Date.today
