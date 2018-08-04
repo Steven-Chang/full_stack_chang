@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180731082032) do
+ActiveRecord::Schema.define(version: 20180804012500) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "resource_type", null: false
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20180731082032) do
     t.datetime "updated_at", null: false
     t.integer "property_id"
     t.decimal "bond", precision: 18, scale: 8, default: "0.0"
+    t.boolean "active", default: true
   end
 
   create_table "tranxactables", force: :cascade do |t|
