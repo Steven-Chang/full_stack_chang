@@ -21,8 +21,7 @@
                         <thead>
                           <tr>
                             <th>Starting Date</th>
-                            <th>Rent / Fortnight</th>
-                            <th>Bond</th>
+                            <th>Tenant</th>
                             <th>Active</th>
                             <th>Actions</th>
                           </tr>
@@ -30,8 +29,7 @@
                         <tbody ng-repeat="tenancyAgreement in tenancyAgreements" style="border: 0px solid white;">
                           <tr>
                             <td>{{ tenancyAgreement.starting_date | date : 'd MMM yy' }}</td>
-                            <td>{{ tenancyAgreement.amount | currency }}</td>
-                            <td>{{ tenancyAgreement.bond | currency }}</td>
+                            <td>{{ tenancyAgreement.user.username }}</td>
                             <td>{{ tenancyAgreement.active }}</td>
                             <td class="td-actions">
                               <a><i class="la la-edit edit"></i></a>
@@ -41,11 +39,13 @@
                           <tr class="sub-table-row">
                             <td colspan="5">
                               <div>
-                                {{ tenancyAgreement.property.address }}
+                                Address: {{ tenancyAgreement.property.address }}
                               </div>
-
                               <div>
-                                {{ tenancyAgreement.user.username }}
+                                Rent / Fortnight: {{ tenancyAgreement.amount | currency }}
+                              </div>
+                              <div>
+                                Bond: {{ tenancyAgreement.bond | currency }}
                               </div>
                             </td>
                           </tr>
