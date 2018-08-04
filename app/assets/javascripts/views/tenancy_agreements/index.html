@@ -1,3 +1,64 @@
-<div ng-init="init()">
-  {{ tenancyAgreements }}
+<nav-bar></nav-bar>
+<div class="page-content d-flex align-items-stretch" id="tranxactions" ng-init="init()">
+  <div class="content-inner">
+    <div class="container-fluid">
+      <!-- Begin Page Header-->
+      <div class="row">
+        <div class="page-header">
+          <div class="d-flex align-items-center">
+              <h2 class="page-header-title">Tenancy Agreements</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12">
+          <!-- Sorting -->
+          <div class="widget has-shadow">
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                          <tr>
+                            <th>Starting Date</th>
+                            <th>Rent / Fortnight</th>
+                            <th>Bond</th>
+                            <th>Active</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody ng-repeat="tenancyAgreement in tenancyAgreements" style="border: 0px solid white;">
+                          <tr>
+                            <td>{{ tenancyAgreement.starting_date | date : 'd MMM yy' }}</td>
+                            <td>{{ tenancyAgreement.amount | currency }}</td>
+                            <td>{{ tenancyAgreement.bond | currency }}</td>
+                            <td>{{ tenancyAgreement.active }}</td>
+                            <td class="td-actions">
+                              <a><i class="la la-edit edit"></i></a>
+                              <a ng-click="deleteTenancyAgreement( $index )"><i class="la la-close delete"></i></a>
+                            </td>
+                          </tr>
+                          <tr class="sub-table-row">
+                            <td colspan="5">
+                              <div>
+                                {{ tenancyAgreement.property.address }}
+                              </div>
+
+                              <div>
+                                {{ tenancyAgreement.user.username }}
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+          <!-- End Sorting -->
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+  </div>
 </div>
+<fsc-footer></fsc-footer>
