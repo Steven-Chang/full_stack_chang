@@ -33,6 +33,10 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.one( "projects", id ).get()
   };
 
+  BackEndService.getTenancyAgreements = function(){
+    return Restangular.all('tenancy_agreements').getList()
+  };
+
   BackEndService.getTranxactions = function( params ){
     return Restangular.all('tranxactions').getList( params )
   };

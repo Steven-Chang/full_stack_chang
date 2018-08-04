@@ -4,4 +4,15 @@ app.controller('TenancyAgreementsController', ['$filter', '$ngConfirm', '$scope'
 
   // PUBLIC
 
+  $scope.tenancyAgreements;
+
+  $scope.init = function(){
+    BackEndService.getTenancyAgreements()
+      .then(function( response ){
+        $scope.tenancyAgreements = response;
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+  };
+
 }]);
