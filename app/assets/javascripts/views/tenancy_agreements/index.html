@@ -32,7 +32,7 @@
                             <td>{{ tenancyAgreement.user.username }}</td>
                             <td>{{ tenancyAgreement.active }}</td>
                             <td class="td-actions">
-                              <a><i class="la la-edit edit"></i></a>
+                              <a ui-sref="tenancyagreementsedit({ id: tenancyAgreement.id })"><i class="la la-edit edit"></i></a>
                               <a ng-click="deleteTenancyAgreement( $index )"><i class="la la-close delete"></i></a>
                             </td>
                           </tr>

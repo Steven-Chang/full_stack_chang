@@ -16,6 +16,7 @@ class TenancyAgreementsController < ApplicationController
   # GET /tenancy_agreements/1
   # GET /tenancy_agreements/1.json
   def show
+    render :json => @tenancy_agreement
   end
 
   # GET /tenancy_agreements/new
