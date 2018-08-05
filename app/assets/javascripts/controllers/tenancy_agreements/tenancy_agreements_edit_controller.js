@@ -1,9 +1,8 @@
-app.controller('TenancyAgreementsEditController', ['$filter', '$ngConfirm', '$scope', '$state', '$stateParams', 'Auth', 'BackEndService', 'DatetimeService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, $stateParams, Auth, BackEndService, DatetimeService, Restangular ){
+app.controller('TenancyAgreementsEditController', ['$filter', '$ngConfirm', '$scope', '$state', '$stateParams', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, $stateParams, AlertService, Auth, BackEndService, DatetimeService, Restangular ){
 
   // PRIVATE
 
   // PUBLIC
-
   $scope.tenancyAgreement;
 
   $scope.init = function(){
@@ -23,6 +22,20 @@ app.controller('TenancyAgreementsEditController', ['$filter', '$ngConfirm', '$sc
           };
       }, function( errors ){
         $state.go("login");
+      });
+  };
+
+  $scope.updateTenancyAgreement = function( form ){
+    if ( !form.$valid ) {
+      $("#edit-form").addClass("was-validated");
+      return;
+    };
+
+    $scope.tenancyAgreement.put()
+      .then(function( response ){
+        $state.go("tenancyagreements");
+      }, function( errors ){
+        AlertService.processErrors( errors );
       });
   };
 
