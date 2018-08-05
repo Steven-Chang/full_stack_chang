@@ -140,11 +140,15 @@ var app = angular.module('app', [
 			templateUrl: 'views/tenancy_agreements/index.html',
 			controller: "TenancyAgreementsController"
 		})
-
 		.state('tenancyagreementsedit', {
 			url: '/tenancy-agreements/:id/edit',
 			templateUrl: 'views/tenancy_agreements/edit.html',
 			controller: "TenancyAgreementsEditController"
+		})
+		.state('tenancyagreementsshow', {
+			url: '/tenancy-agreements/:id',
+			templateUrl: 'views/tenancy_agreements/show.html',
+			controller: "TenancyAgreementsShowController"
 		})
 
 		.state('tetris', {

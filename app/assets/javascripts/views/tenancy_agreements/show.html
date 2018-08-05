@@ -1,0 +1,54 @@
+<nav-bar></nav-bar>
+<div class="page-content d-flex align-items-stretch" ng-init="init()">
+  <div class="content-inner">
+    <div class="container-fluid">
+      <!-- Begin Page Header-->
+      <div class="row">
+        <div class="page-header">
+          <div class="d-flex align-items-center">
+              <h2 class="page-header-title">Tenancy Agreement</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12">
+          <!-- Sorting -->
+          <div class="widget has-shadow">
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <tbody>
+                          <tr>
+                            <td class="table-label">Tenant</td>
+                            <td>{{ tenancyAgreement.user.username }}</td>
+                          </tr>
+                          <tr>
+                            <td class="table-label">Address</td`>
+                            <td>{{ tenancyAgreement.property.address }}</td>
+                          </tr>
+                          <tr>
+                            <td class="table-label">Balance</td>
+                            <td>{{ balance | currency }}</td>
+                          </tr>
+                          <tr>
+                            <td class="table-label">Rent / Fortnight</td`>
+                            <td>{{ tenancyAgreement.amount | currency}}</td>
+                          </tr>
+                          <tr>
+                            <td class="table-label">Bond</td`>
+                            <td>{{ tenancyAgreement.bond | currency}}</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+          <!-- End Sorting -->
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+  </div>
+</div>
+<fsc-footer></fsc-footer>

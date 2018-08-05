@@ -1,5 +1,5 @@
 class TenancyAgreementsController < ApplicationController
-  before_action :set_tenancy_agreement, only: [:show, :edit, :update, :destroy]
+  before_action :set_tenancy_agreement, only: [:show, :edit, :update, :destroy, :balance]
 
   # GET /tenancy_agreements
   # GET /tenancy_agreements.json
@@ -58,6 +58,12 @@ class TenancyAgreementsController < ApplicationController
       format.html { redirect_to tenancy_agreements_url, notice: 'Tenancy agreement was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def balance
+    balance = @tenancy_agreement.tranxactions.sum(:amount)
+
+      render :json => { balance: balance }, status => 200
   end
 
   private
