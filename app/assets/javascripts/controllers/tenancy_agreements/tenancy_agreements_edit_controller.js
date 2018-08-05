@@ -1,9 +1,10 @@
-app.controller('TenancyAgreementsEditController', ['$filter', '$ngConfirm', '$scope', '$state', '$stateParams', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, $stateParams, AlertService, Auth, BackEndService, DatetimeService, Restangular ){
+app.controller('TenancyAgreementsEditController', ['$filter', '$ngConfirm', '$scope', '$state', '$stateParams', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'FSCModalService', function( $filter, $ngConfirm, $scope, $state, $stateParams, AlertService, Auth, BackEndService, DatetimeService, FSCModalService ){
 
   // PRIVATE
 
   // PUBLIC
   $scope.tenancyAgreement;
+  $scope.updatingAgreement = false;
 
   $scope.init = function(){
     Auth.currentUser()
@@ -31,12 +32,18 @@ app.controller('TenancyAgreementsEditController', ['$filter', '$ngConfirm', '$sc
       return;
     };
 
-    $scope.tenancyAgreement.put()
-      .then(function( response ){
-        $state.go("tenancyagreements");
-      }, function( errors ){
-        AlertService.processErrors( errors );
-      });
+    if ( !$scope.updatingAgreement ){
+      $scope.updatingAgreement = true;
+      FSCModalService.showLoading();
+      $scope.tenancyAgreement.put()
+        .then(function( response ){
+          FSCModalService.loading = false;
+          $state.go("tenancyagreements");
+        }, function( errors ){
+          FSCModalService.loading = false;
+          AlertService.processErrors( errors );
+        });
+    };
   };
 
 }]);
