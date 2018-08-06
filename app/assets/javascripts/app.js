@@ -53,10 +53,16 @@ var app = angular.module('app', [
 			controller: 'CleaningController'
 		})
 
-		.state('work', {
-			url: '/work',
-			templateUrl: 'views/work.html',
-			controller: "WorkController"
+		.state('clients', {
+			url: '/clients',
+			templateUrl: 'views/clients/index.html',
+			controller: "ClientsController"
+		})
+
+		.state('clientsshow', {
+			url: '/clients/:id',
+			templateUrl: 'views/clients/show.html',
+			controller: "ClientsShowController"
 		})
 
 		.state('home', {

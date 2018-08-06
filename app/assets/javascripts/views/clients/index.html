@@ -1,27 +1,5 @@
 <nav-bar></nav-bar>
 <div ng-init="init()" id="work">
-  <div id="sub-nav">
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="link-container">
-            <a ng-click="visibleSection = 'clients'" ng-class="{ 'link-selected': visibleSection == 'clients' }">Clients</a>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="link-container">
-            <a ng-click="visibleSection = 'jobs'" ng-class="{ 'link-selected': visibleSection == 'jobs' }">Jobs</a>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="link-container">
-            <a ng-click="visibleSection = 'payments'" ng-class="{ 'link-selected': visibleSection == 'payments' }">Payments</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="container pt-3 pb-5 pt-sm-5">
 
     <div class="row" ng-show="visibleSection === 'clients'">

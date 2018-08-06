@@ -26,6 +26,9 @@
                         <li>
                           <a class="dropdown-item" ui-sref="cleaning">Cleaning Roster</a>
                         </li>
+                        <li ng-show="user && user.admin">
+                          <a class="dropdown-item" ui-sref="clients">Clients</a>
+                        </li>
                         <li>
                           <a class="dropdown-item" ui-sref="projects">Projects</a>
                         </li>
@@ -39,9 +42,6 @@
                             <a ui-sref="users" class="dropdown-item no-padding-top"> 
                                 Users
                             </a>
-                        </li>
-                        <li ng-show="user && user.admin">
-                          <a class="dropdown-item" ui-sref="work">Work</a>
                         </li>
                         <li class="separator"></li>
                         <li>

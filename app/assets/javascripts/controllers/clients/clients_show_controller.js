@@ -1,36 +1,9 @@
-app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', '$timeout', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $rootScope, $scope, $state, $timeout, Auth, DatetimeService, DisplayService, Restangular ){
+app.controller('ClientsShowController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', '$stateParams', '$timeout', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', function( $filter, $ngConfirm, $rootScope, $scope, $state, $stateParams, $timeout, AlertService, Auth, BackEndService, DatetimeService ){
 
   //// PRIVATE
 
-  var setClients = function(){
-    Restangular.all('clients')
-      .getList()
-      .then(function( response ){
-        $scope.clients = response;
-        if ( response.length > 0 ){
-          $scope.newJob.client_id = response[0].id;
-          $scope.newPayment.client_id = response[0].id;
-        };
-      }, function( error ){
-        alert( "Couldn't get them clients from the back end my man!");
-      });
-  };
-
   //// PUBLIC ////
-  $scope.clients;
-  $scope.creatingClient = false;
-  $scope.creatingJob = false;
-  $scope.creatingPayment = false;
-  $scope.deletingClient = false;
-  $scope.deletingJob = false;
-  $scope.deletingPayment = false;
-  $scope.jobs;
-  $scope.visibleSection = "clients";
-
-  $scope.newClient = {
-    email: "",
-    name: ""
-  };
+  $scope.client
 
   $scope.newJob = {
     client_id: undefined,
@@ -48,33 +21,19 @@ app.controller('WorkController', ['$filter', '$ngConfirm', '$rootScope', '$scope
   };
 
   $scope.payments;
-  $scope.user;
 
   $scope.init = function(){
     Auth.currentUser()
       .then(function( user ){
         if ( user.admin ){
-          $scope.newJob.user_id = user.id;
-
-          setClients();
-
-          Restangular.all('jobs')
-            .getList()
+          BackEndService.getClient( $stateParams.id )
             .then(function( response ){
-              $scope.jobs = response;
-            }, function( error ){
-              alert( "Couldn't get them jobs from the back end my man!");
-            });
-
-          Restangular.all('client_payments')
-            .getList()
-            .then(function( response ){
-              $scope.payments = response;
-            }, function( error ){
-              alert( "Couldn't get them jobs from the back end my man!");
+              $scope.client = response;
+            }, function( errors ){
+              AlertService.processErrors( errors );
             });
         } else {
-          $state.go( 'login' )
+          $state.go( 'home' )
         };
       }, function( error ){
         $state.go( 'login' )

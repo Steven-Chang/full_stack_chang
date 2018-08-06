@@ -25,6 +25,10 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.one( route, resourceId ).customGET("balance")
   };
 
+  BackEndService.getClient = function( id ){
+    return Restangular.one( 'clients', id ).get()
+  };
+
   BackEndService.getClients = function(){
     return Restangular.all('clients').getList()
   };
