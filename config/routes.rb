@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :payment_summaries
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root 'application#index'
 

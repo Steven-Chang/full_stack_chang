@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180804012820) do
+ActiveRecord::Schema.define(version: 20180806073750) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "resource_type", null: false
@@ -104,6 +104,16 @@ ActiveRecord::Schema.define(version: 20180804012820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["score_id"], name: "index_lines_on_score_id"
+  end
+
+  create_table "payment_summaries", force: :cascade do |t|
+    t.integer "gross_payment"
+    t.integer "total_tax_withheld"
+    t.integer "year_ending"
+    t.integer "total_allowances"
+    t.integer "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
