@@ -63,7 +63,7 @@ class TenancyAgreementsController < ApplicationController
   def balance
     balance = @tenancy_agreement.tranxactions.sum(:amount)
 
-      render :json => { balance: balance }, status => 200
+    render :json => { balance: balance }, status => 200
   end
 
   private

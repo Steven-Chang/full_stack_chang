@@ -4,11 +4,14 @@ app.controller('TenancyAgreementsShowController', ['$filter', '$ngConfirm', '$sc
 
   // PUBLIC
   $scope.tenancyAgreement;
+  $scope.tranxactions;
 
   $scope.init = function(){
     Auth.currentUser()
       .then(function( user ){
         if ( user.admin ){
+          $scope.getTranxactions();
+
           BackEndService.getBalance( "tenancy_agreements", $stateParams.id )
             .then(function( response ){
               $scope.balance = response.balance
@@ -28,6 +31,20 @@ app.controller('TenancyAgreementsShowController', ['$filter', '$ngConfirm', '$sc
           };
       }, function( errors ){
         $state.go("login");
+      });
+  };
+
+  $scope.getTranxactions = function(){
+    var params = {
+      resource_type: "TenancyAgreement",
+      resource_id: $stateParams.id
+    };
+
+    BackEndService.getTranxactions( params )
+      .then(function( response ){
+        $scope.tranxactions = response;
+      }, function( errors ){
+        AlertService.processErrors( errors );
       });
   };
 
