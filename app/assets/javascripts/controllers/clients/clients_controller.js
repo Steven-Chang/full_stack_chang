@@ -1,4 +1,4 @@
-app.controller('ClientsController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', '$timeout', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $rootScope, $scope, $state, $timeout, Auth, DatetimeService, DisplayService, Restangular ){
+app.controller('ClientsController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', '$timeout', 'AlertService', 'Auth', 'DatetimeService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $rootScope, $scope, $state, $timeout, AlertService, Auth, DatetimeService, DisplayService, Restangular ){
 
   //// PRIVATE
 
@@ -11,8 +11,8 @@ app.controller('ClientsController', ['$filter', '$ngConfirm', '$rootScope', '$sc
           $scope.newJob.client_id = response[0].id;
           $scope.newPayment.client_id = response[0].id;
         };
-      }, function( error ){
-        alert( "Couldn't get them clients from the back end my man!");
+      }, function( errors ){
+        AlertService.processErrors( errors );
       });
   };
 
@@ -124,6 +124,7 @@ app.controller('ClientsController', ['$filter', '$ngConfirm', '$rootScope', '$sc
               $scope.deletingClient = true;
               $scope.clients[$index].remove()
                 .then(function(){
+                  AlertService.success( "Client deleted" );
                   $scope.clients.splice( $index, 1  );
                   $scope.deletingClient = false;
                 });
