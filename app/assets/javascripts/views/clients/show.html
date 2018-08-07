@@ -3,201 +3,59 @@
   <div class="container pt-3 pb-5 pt-sm-5">
 
     <div class="row">
-      <div class="col-12">
-        <h3>{{ client.name }}</h3>
-      </div>
-
-      <div class="col-12">
-        <hr>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Client</th>
-              <th scope="col">Balance</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody ng-repeat="client in clients">
-            <tr>
-              <td>{{ client.name }}</td>
-              <td>{{ client.balance | currency }}</td>
-              <td><a ng-click="deleteClient( $index )" class="fa fa-trash-alt"></a></td>
-            </tr>
-            <tr class="sub-table-row" ng-if="client.email">
-              <td colspan="3">
-                <div ng-if="client.email">
-                  # {{ client.email }}
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="page-header">
+        <div class="d-flex align-items-center">
+            <h2 class="page-header-title">{{ client.name }}</h2>
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-12">
-        <h3>Create New Job</h3>
-        <form ng-submit="createJob()">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <input moment-picker="newJob.start_time" 
-                  locale="en" 
-                  format="MMMM Do YYYY, h:mm a" 
-                  class="form-control" 
-                  placeholder="Start" 
-                  today="true"
-                  keyboard="true"
-                  ng-model="newJob.start_time">
+      <div class="col-xl-12">
+        <!-- Sorting -->
+        <div class="widget has-shadow">
+          <div class="widget-header bordered no-actions d-flex align-items-center">
+              <h4>Tranxactions</h4>
+          </div>
+          <div class="widget-body">
+              <div class="table-responsive">
+                  <table class="table mb-0">
+                      <thead>
+                          <tr>
+                              <th>Date</th>
+                              <th>Description</th>
+                              <th>Amount</th>
+                              <th>Tax</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody ng-repeat="tranxaction in tranxactions" style="border: 0px solid white;">
+                        <tr>
+                          <td>{{ tranxaction.date | date : 'd MMM yy' }}</td>
+                          <td>{{ tranxaction.description }}</td>
+                          <td>{{ tranxaction.amount | currency }}</td>
+                          <td>{{ tranxaction.tax }}</td>
+                          <td class="td-actions">
+                            <a><i class="la la-edit edit"></i></a>
+                            <a ng-click="deleteTranxaction( $index )"><i class="la la-close delete"></i></a>
+                          </td>
+                        </tr>
+                        <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
+                          <td colspan="5">
+                            <div ng-repeat="attachment in tranxaction.attachments">
+                              <a ng-href="{{ attachment.url }}" target="_blank"><i class="la la-file-archive-o" style="font-size: 1.6rem"></i> {{ attachment.aws_key }}</a>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
               </div>
-            </div>
-
-            <div class="col-sm-6">
-              <div class="form-group">
-                <input moment-picker="newJob.end_time" 
-                  locale="en" 
-                  format="MMMM Do YYYY, h:mm a"
-                  class="form-control" 
-                  placeholder="Finish" 
-                  today="true"
-                  keyboard="true"
-                  ng-model="newJob.end_time">
-              </div>
-            </div>
           </div>
-
-          <div class="form-group">
-            <select ng-model="newJob.client_id" ng-options="x.id as x.name for x in clients" class="form-control"></select>
-          </div>
-          <div class="form-group">
-            <input type="text"
-              class="form-control"
-              ng-model="newJob.description"
-              placeholder="Description"
-              required>
-          </div>
-
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">$</div>
-              </div>
-              <input type="text"
-                class="form-control"
-                ng-model="newJob.cost"
-                placeholder="Cost">
-            </div>
-          </div>
-
-          <div class="form-check form-group">
-            <input type="checkbox" class="form-check-input" ng-model="newJob.taxable" id="new-job-taxable">
-            <label class="form-check-label" for="new-job-taxable">Taxable</label>
-          </div>
-
-          <input type="submit" value="Create" class="btn btn-primary">
-        </form>
-      </div>
-
-      <div class="col-12">
-        <hr>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Started</th>
-              <th scope="col">Client</th>
-              <th scope="col">Cost</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody ng-repeat="job in jobs">
-            <tr>
-              <td>{{ job.start_time | date : 'd MMM yyyy h:mm a' }}</td>
-              <td>{{ job.client.name }}</td>
-              <td>{{ job.cost | currency }}</td>
-              <td><a ng-click="deleteJob( $index )" class="fa fa-trash-alt"></a></td>
-            </tr>
-            <tr class="sub-table-row">
-              <td colspan="4">
-                <div ng-if="job.end_time">
-                  # Finished: {{ job.end_time | date : 'd MMM yyyy h:mm a' }}
-                </div>
-                <div ng-if="job.description">
-                  # Description: {{ job.description }}
-                </div>
-                <div>
-                  # Taxable: {{ job.taxable }}
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        </div>
+        <!-- End Sorting -->
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-12">
-        <h3>Add Client Payment</h3>
-        <form ng-submit="createPayment()">
-          <div class="row">
-            <div class="col-12">
-              <div class="form-group">
-                <input moment-picker="newPayment.date" 
-                  locale="en" 
-                  format="MMMM Do YYYY" 
-                  class="form-control" 
-                  placeholder="Date" 
-                  today="true"
-                  keyboard="true"
-                  ng-model="newPayment.date"
-                  required>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <select ng-model="newPayment.client_id" ng-options="x.id as x.name for x in clients" class="form-control"></select>
-          </div>
-
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">$</div>
-              </div>
-              <input type="text"
-                class="form-control"
-                ng-model="newPayment.amount"
-                placeholder="Amount"
-                required>
-            </div>
-          </div>
-
-          <input type="submit" value="Create" class="btn btn-primary">
-        </form>
-      </div>
-
-      <div class="col-12">
-        <hr>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Client</th>
-              <th scope="col">Amount</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody ng-repeat="payment in payments">
-            <tr>
-              <td>{{ payment.date | date : 'd MMM yyyy' }}</td>
-              <td>{{ payment.client.name }}</td>
-              <td>{{ payment.amount | currency }}</td>
-              <td><a ng-click="deletePayment( $index )" class="fa fa-trash-alt"></a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <!-- End Row -->
 
   </div>
 </div>
