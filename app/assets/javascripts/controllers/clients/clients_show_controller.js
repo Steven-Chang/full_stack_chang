@@ -31,7 +31,7 @@ app.controller('ClientsShowController', ['$filter', '$ngConfirm', '$rootScope', 
       resource_id: $stateParams.id
     };
 
-    BackEndService.getTranxactions()
+    BackEndService.getTranxactions( params )
       .then(function( response ){
         $scope.tranxactions = response;
       }, function( errors ){
