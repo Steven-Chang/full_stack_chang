@@ -31,15 +31,16 @@
           <thead>
             <tr>
               <th scope="col">Client</th>
-              <th scope="col">Balance</th>
-              <th></th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody ng-repeat="client in clients">
             <tr>
               <td>{{ client.name }}</td>
-              <td>{{ client.balance | currency }}</td>
-              <td><a ng-click="deleteClient( $index )" class="fa fa-trash-alt"></a></td>
+              <td>
+                <a ui-sref="clientsshow({ id: client.id })"><i class="la la-eye"></i></a>
+                <a ng-click="deleteClient( $index )"><i class="la la-close delete"></i></a>
+              </td>
             </tr>
             <tr class="sub-table-row" ng-if="client.email">
               <td colspan="3">

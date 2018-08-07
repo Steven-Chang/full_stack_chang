@@ -57,22 +57,6 @@ app.controller('ClientsController', ['$filter', '$ngConfirm', '$rootScope', '$sc
           $scope.newJob.user_id = user.id;
 
           setClients();
-
-          Restangular.all('jobs')
-            .getList()
-            .then(function( response ){
-              $scope.jobs = response;
-            }, function( error ){
-              alert( "Couldn't get them jobs from the back end my man!");
-            });
-
-          Restangular.all('client_payments')
-            .getList()
-            .then(function( response ){
-              $scope.payments = response;
-            }, function( error ){
-              alert( "Couldn't get them jobs from the back end my man!");
-            });
         } else {
           $state.go( 'login' )
         };
