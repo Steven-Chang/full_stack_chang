@@ -1,6 +1,7 @@
 class TranxactionsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin
+  before_action :set_tranxaction, only: [:destroy, :show, :update]
 
   def index
     if params[:resource_type] && params[:resource_id]
@@ -10,6 +11,10 @@ class TranxactionsController < ApplicationController
     end
 
     render :json => @tranxactions.order(date: :desc)
+  end
+
+  def show
+    render :json => @tranxaction
   end
 
   def create
@@ -32,8 +37,16 @@ class TranxactionsController < ApplicationController
     end
   end
 
+  def update
+    if @tranxaction.update( tranxaction_params )
+      render :json => @tranxaction, status: :ok
+    else
+      render :json => @tranxaction.errors, status: :unprocessable_entity
+    end
+  end
+
   def destroy
-    if Tranxaction.find(params[:id]).destroy
+    if @tranxaction.destroy
       render json: { message: "removed" }, status: :ok
     else
       render json: { message: "Error" }, status: :expectation_failed
@@ -41,6 +54,10 @@ class TranxactionsController < ApplicationController
   end
 
   private
+
+  def set_tranxaction
+    @tranxaction = Tranxaction.find( params[:id] )
+  end
 
   def tranxaction_params
     params.require(:tranxaction).permit(:date, :description, :amount, :tax, { attachments: [] })

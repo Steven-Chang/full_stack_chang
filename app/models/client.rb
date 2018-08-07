@@ -1,5 +1,4 @@
 class Client < ApplicationRecord
-  has_many :client_payments, :dependent => :destroy
   has_many :jobs, :dependent => :destroy
   has_many :payment_summaries, :dependent => :destroy
 

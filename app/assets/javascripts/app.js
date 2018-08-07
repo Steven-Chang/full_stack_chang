@@ -174,8 +174,13 @@ var app = angular.module('app', [
 
 		.state('tranxactions', {
 			url: '/tranxactions',
-			templateUrl: 'views/tranxactions.html',
+			templateUrl: 'views/tranxactions/tranxactions.html',
 			controller: 'TranxactionsController'
+		})
+		.state('tranxactionsedit', {
+			url: '/tranxactions/:id/edit',
+			templateUrl: 'views/tranxactions/edit.html',
+			controller: 'TranxactionsEditController'
 		})
 
 		.state('tranxactiontypes', {
