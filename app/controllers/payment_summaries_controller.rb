@@ -26,14 +26,10 @@ class PaymentSummariesController < ApplicationController
   def create
     @payment_summary = PaymentSummary.new(payment_summary_params)
 
-    respond_to do |format|
-      if @payment_summary.save
-        format.html { redirect_to @payment_summary, notice: 'Payment summary was successfully created.' }
-        format.json { render :show, status: :created, location: @payment_summary }
-      else
-        format.html { render :new }
-        format.json { render json: @payment_summary.errors, status: :unprocessable_entity }
-      end
+    if @payment_summary.save
+      render json: @payment_summary, status: :created
+    else
+      render json: @payment_summary.errors, status: :unprocessable_entity
     end
   end
 
@@ -69,6 +65,6 @@ class PaymentSummariesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_summary_params
-      params.fetch(:payment_summary, {})
+      params.require(:payment_summary).permit(:gross_payment, :total_tax_withheld, :year_ending, :total_allowances, :client_id, { attachments: [] })
     end
 end

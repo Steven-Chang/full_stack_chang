@@ -79,6 +79,12 @@ var app = angular.module('app', [
 			}
 		})
 
+		.state('paymentsummariesnew', {
+			url: '/payment-summaries/new',
+			templateUrl: 'views/payment_summaries/new.html',
+			controller: 'PaymentSummariesNewController'
+		})
+
 		.state('projects', {
 			url: '/projects',
 			templateUrl: 'views/projects/index.html',

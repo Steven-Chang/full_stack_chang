@@ -15,6 +15,53 @@
         <!-- Sorting -->
         <div class="widget has-shadow">
           <div class="widget-header bordered no-actions d-flex align-items-center">
+              <h4>Payment Summaries <a ui-sref="paymentsummariesnew">+</a></h4>
+          </div>
+          <div class="widget-body">
+              <div class="table-responsive">
+                  <table class="table mb-0">
+                      <thead>
+                        <tr>
+                          <th>Year</th>
+                          <th>Gross</th>
+                          <th>Tax Withheld</th>
+                          <th>Allowances</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody ng-repeat="paymentSummary in paymentSummaries" style="border: 0px solid white;">
+                        <tr>
+                          <td>{{ paymentSummary.year_ending }}</td>
+                          <td>{{ paymentSummary.gross_payment | currency }}</td>
+                          <td>{{ paymentSummary.total_tax_withheld | currency }}</td>
+                          <td>{{ paymentSummary.total_allowances | currency }}</td>
+                          <td class="td-actions">
+                            <a><i class="la la-edit edit" ui-sref="paymentsummariesedit({ id: paymentSummary.id })"></i></a>
+                            <a ng-click="deleteSummary( $index )"><i class="la la-close delete"></i></a>
+                          </td>
+                        </tr>
+                        <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
+                          <td colspan="5">
+                            <div ng-repeat="attachment in tranxaction.attachments">
+                              <a ng-href="{{ attachment.url }}" target="_blank"><i class="la la-file-archive-o" style="font-size: 1.6rem"></i> {{ attachment.aws_key }}</a>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+        </div>
+        <!-- End Sorting -->
+      </div>
+    </div>
+    <!-- End Row -->
+
+    <div class="row">
+      <div class="col-xl-12">
+        <!-- Sorting -->
+        <div class="widget has-shadow">
+          <div class="widget-header bordered no-actions d-flex align-items-center">
               <h4>Tranxactions</h4>
           </div>
           <div class="widget-body">
