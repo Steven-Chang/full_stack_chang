@@ -40,9 +40,9 @@
                             <a ng-click="deleteSummary( $index )"><i class="la la-close delete"></i></a>
                           </td>
                         </tr>
-                        <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
+                        <tr ng-show="paymentSummary.attachments" class="sub-table-row">
                           <td colspan="5">
-                            <div ng-repeat="attachment in tranxaction.attachments">
+                            <div ng-repeat="attachment in paymentSummary.attachments">
                               <a ng-href="{{ attachment.url }}" target="_blank"><i class="la la-file-archive-o" style="font-size: 1.6rem"></i> {{ attachment.aws_key }}</a>
                             </div>
                           </td>

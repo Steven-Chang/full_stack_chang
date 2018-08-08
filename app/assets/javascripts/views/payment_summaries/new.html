@@ -45,9 +45,11 @@
                   <label class="col-lg-3 form-control-label d-flex">Gross Payment</label>
                   <div class="col-lg-9">
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">$</div>
-                      </div>
+
+                      <span class="input-group-addon addon-primary">
+                        <i class="la la-dollar"></i>
+                      </span>
+
                       <input class="form-control" ng-model="newPaymentSummary.gross_payment" placeholder="Gross Payment" required disabled>
                       <div class="invalid-feedback">
                         Please enter the gross payment
@@ -60,9 +62,9 @@
                   <label class="col-lg-3 form-control-label d-flex">Total Tax Withheld</label>
                   <div class="col-lg-9">
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">$</div>
-                      </div>
+                      <span class="input-group-addon addon-primary">
+                        <i class="la la-dollar"></i>
+                      </span>
                       <input class="form-control" ng-model="newPaymentSummary.total_tax_withheld" placeholder="Total Tax Withheld" required>
                       <div class="invalid-feedback">
                         Please enter the total tax withheld
@@ -76,9 +78,9 @@
                   <label class="col-lg-3 form-control-label d-flex">Total Allowance</label>
                   <div class="col-lg-9">
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">$</div>
-                      </div>
+                      <span class="input-group-addon addon-primary">
+                        <i class="la la-dollar"></i>
+                      </span>
                       <input class="form-control" ng-model="newPaymentSummary.total_allowance" placeholder="Total Allowance" required>
                       <div class="invalid-feedback">
                         Please enter the total allowance
