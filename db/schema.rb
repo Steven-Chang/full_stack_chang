@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180806073750) do
+ActiveRecord::Schema.define(version: 20180808210000) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "resource_type", null: false
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20180806073750) do
     t.integer "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["client_id", "year_ending"], name: "index_payment_summaries_on_client_id_and_year_ending", unique: true
   end
 
   create_table "projects", force: :cascade do |t|
