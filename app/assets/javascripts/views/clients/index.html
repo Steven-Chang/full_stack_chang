@@ -68,13 +68,10 @@
                         <a ng-click="deleteClient( $index )"><i class="la la-close delete"></i></a>
                       </td>
                     </tr>
-                    <tr class="sub-table-row">
+                    <tr class="sub-table-row" ng-if="client.email">
                       <td colspan="2" >
-                        <div ng-if="client.email">
+                        <div>
                           # {{ client.email }}
-                        </div>
-                        <div ng-repeat="attachment in client.attachments">
-                          <a ng-href="{{ attachment.url }}" target="_blank"><i class="la la-file-archive-o" style="font-size: 1.6rem"></i> {{ attachment.aws_key }}</a>
                         </div>
                       </td>
                     </tr>
