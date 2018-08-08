@@ -3,5 +3,5 @@ class PaymentSummary < ApplicationRecord
 
   has_many :attachments, as: :resource, dependent: :destroy
 
-  validates :client_id, uniqueness: { scope: :year_ending }
+  validates_uniqueness_of :client_id, scope: :year_ending
 end
