@@ -1,9 +1,22 @@
 app.controller('ClientsShowController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', '$stateParams', '$timeout', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', function( $filter, $ngConfirm, $rootScope, $scope, $state, $stateParams, $timeout, AlertService, Auth, BackEndService, DatetimeService ){
 
   //// PRIVATE
+  var getPaymentSummaries = function(){
+    var params = {
+      client_id: $stateParams.id
+    };
+
+    BackEndService.getPaymentSummaries( params )
+      .then(function(response){
+        $scope.paymentSummaries = response;
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+  };
 
   //// PUBLIC ////
   $scope.client;
+  $scope.paymentSummaries;
   $scope.tranxactions;
 
   $scope.init = function(){
@@ -11,6 +24,7 @@ app.controller('ClientsShowController', ['$filter', '$ngConfirm', '$rootScope', 
       .then(function( user ){
         if ( user.admin ){
           $scope.getTranxactions();
+          getPaymentSummaries();
           BackEndService.getClient( $stateParams.id )
             .then(function( response ){
               $scope.client = response;

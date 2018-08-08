@@ -13,6 +13,10 @@ app.service('BackEndService', ['$http', 'Restangular',
 
   var BackEndService = {};
 
+  BackEndService.createPaymentSummary = function( newSummary ){
+    return Restangular.all('payment_summaries').post( newSummary )
+  };
+
   BackEndService.createTranxaction = function( newTranxaction ){
     return Restangular.all('tranxactions').post( newTranxaction )
   };
@@ -31,6 +35,10 @@ app.service('BackEndService', ['$http', 'Restangular',
 
   BackEndService.getClients = function(){
     return Restangular.all('clients').getList()
+  };
+
+  BackEndService.getPaymentSummaries = function( params ){
+    return Restangular.all('payment_summaries').getList( params )
   };
 
   BackEndService.getPresignedUrl = function( params ){

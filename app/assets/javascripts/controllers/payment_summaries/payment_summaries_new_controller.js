@@ -4,9 +4,14 @@ app.controller('PaymentSummariesNewController', ['$filter', '$ngConfirm', '$root
   var createPaymentSummary = function(){
     BackEndService.createPaymentSummary( $scope.newPaymentSummary )
       .then(function( response ){
-
+        FSCModalService.loading = false;
+        $state.go("clients");
       }, function( errors ){
-
+        AlertService.processErrors( errors );
+        FSCModalService.loading = false;
+      })
+      .finally(function(){
+        $scope.creatingSummary = false;
       });
   };
 
@@ -17,13 +22,15 @@ app.controller('PaymentSummariesNewController', ['$filter', '$ngConfirm', '$root
   //// PUBLIC ////
   $scope.clients;
   $scope.creatingSummary;
+  $scope.file;
 
   $scope.newPaymentSummary = {
     gross_payment: 0,
     total_tax_withheld: 0,
     year_ending: 2018,
     total_allowance: 0,
-    client_id: undefined
+    client_id: undefined,
+    attachments: []
   };
   $scope.selectedClient;
 
@@ -66,6 +73,7 @@ app.controller('PaymentSummariesNewController', ['$filter', '$ngConfirm', '$root
             var awsKey = response.aws_key;
             BackEndService.uploadFileToAWS( response.presigned_url, $scope.file, $scope.file.type )
               .then(function( response ){
+                $scope.newPaymentSummary.attachments.push( { url: publicUrl, aws_key: awsKey } );
                 createPaymentSummary();
               }, function(errors){
                 AlertService.processErrors( errors );

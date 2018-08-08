@@ -4,7 +4,13 @@ class PaymentSummariesController < ApplicationController
   # GET /payment_summaries
   # GET /payment_summaries.json
   def index
-    @payment_summaries = PaymentSummary.all
+    if params[:client_id]
+      @payment_summaries = Client.find( params[:client_id] ).payment_summaries
+    else
+      @payment_summaries = PaymentSummary.all
+    end
+
+    render json: @payment_summaries
   end
 
   # GET /payment_summaries/1
@@ -24,9 +30,16 @@ class PaymentSummariesController < ApplicationController
   # POST /payment_summaries
   # POST /payment_summaries.json
   def create
-    @payment_summary = PaymentSummary.new(payment_summary_params)
+    @payment_summary = PaymentSummary.new( payment_summary_params )
+    PaymentSummary.transaction do
+      @payment_summary.save
 
-    if @payment_summary.save
+      params[:attachments].each do |attachment|
+        Attachment.create(resource_type: "PaymentSummary", resource_id: @payment_summary.id, url: attachment[:url], aws_key: attachment[:aws_key] )
+      end if params[:attachments]
+    end
+
+    if @payment_summary.persisted?
       render json: @payment_summary, status: :created
     else
       render json: @payment_summary.errors, status: :unprocessable_entity
