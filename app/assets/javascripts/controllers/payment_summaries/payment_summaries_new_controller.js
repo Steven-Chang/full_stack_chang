@@ -5,7 +5,7 @@ app.controller('PaymentSummariesNewController', ['$filter', '$ngConfirm', '$root
     BackEndService.createPaymentSummary( $scope.newPaymentSummary )
       .then(function( response ){
 
-      }, function( errors){
+      }, function( errors ){
 
       });
   };
@@ -61,14 +61,16 @@ app.controller('PaymentSummariesNewController', ['$filter', '$ngConfirm', '$root
       if ( $scope.file ){
         BackEndService.getPresignedUrl( { filename: $scope.file.name, type: $scope.file.type } )
           .then(function( response ){
+
             var publicUrl = response.public_url;
             var awsKey = response.aws_key;
-            BackEndService.uploadFileToAWS( response.presigned_url, $scope.file, $scope.file.type } )
+            BackEndService.uploadFileToAWS( response.presigned_url, $scope.file, $scope.file.type )
               .then(function( response ){
                 createPaymentSummary();
               }, function(errors){
                 AlertService.processErrors( errors );
               });
+
           }, function( errors ){
             AlertService.processErrors( errors );
           });
