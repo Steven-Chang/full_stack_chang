@@ -28,7 +28,7 @@ app.controller('PaymentSummariesNewController', ['$filter', '$ngConfirm', '$root
     gross_payment: 0,
     total_tax_withheld: 0,
     year_ending: 2018,
-    total_allowance: 0,
+    total_allowances: 0,
     client_id: undefined,
     attachments: []
   };
