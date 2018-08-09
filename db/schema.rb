@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180808210000) do
+ActiveRecord::Schema.define(version: 20180809003456) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "resource_type", null: false
@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 20180808210000) do
   end
 
   create_table "payment_summaries", force: :cascade do |t|
-    t.integer "gross_payment"
     t.integer "total_tax_withheld"
     t.integer "year_ending"
     t.integer "total_allowances"
