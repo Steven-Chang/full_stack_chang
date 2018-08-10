@@ -48,5 +48,27 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
       });
   };
 
+  $scope.deleteSummary = function( $index ){
+    FSCModalService.confirmDelete()
+      .then(function( modal ){
+        modal.close
+          .then(function( confirmed ){
+            if ( confirmed ){
+              FSCModalService.showLoading();
+              $scope.paymentSummaries[$index].remove()
+                .then(function( response){
+                  $scope.paymentSummaries.splice( $index, 1 );
+                  AlertService.success( "Payment summary deleted.")
+                }, function( errors ){
+                  AlertService.processErrors( errors );
+                })
+                .finally(function(){
+                  FSCModalService.loading = false;
+                });
+            };
+          })
+      })
+  };
+
 }]);
 
