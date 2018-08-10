@@ -79,6 +79,6 @@ class PaymentSummariesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_summary_params
-      params.require(:payment_summary).permit(:total_tax_withheld, :year_ending, :total_allowances, :client_id, { attachments: [] })
+      params.require(:payment_summary).permit(:id, :total_tax_withheld, :year_ending, :total_allowances, :client_id, { attachments: [] })
     end
 end
