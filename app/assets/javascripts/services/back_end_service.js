@@ -37,6 +37,10 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all('clients').getList()
   };
 
+  BackEndService.getPaymentSummary = function( id ){
+    return Restangular.one('payment_summaries', id).get()
+  };
+
   BackEndService.getPaymentSummaries = function( params ){
     return Restangular.all('payment_summaries').getList( params )
   };
