@@ -152,6 +152,12 @@ var app = angular.module('app', [
 			}]
 		})
 
+		.state('taxdashboard', {
+			url: '/tax-dashboard',
+			templateUrl: 'views/tax_dashboard.html',
+			controller: 'TaxDashboardController'
+		})
+
 		.state('tenancyagreements', {
 			url: '/tenancy-agreements',
 			templateUrl: 'views/tenancy_agreements/index.html',

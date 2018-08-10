@@ -6,6 +6,8 @@ class PaymentSummariesController < ApplicationController
   def index
     if params[:client_id]
       @payment_summaries = Client.find( params[:client_id] ).payment_summaries
+    elsif params[:year_ending]
+      @payment_summaries = PaymentSummary.where(year_ending: params[:year_ending])
     else
       @payment_summaries = PaymentSummary.all
     end
@@ -69,6 +71,10 @@ class PaymentSummariesController < ApplicationController
       format.html { redirect_to payment_summaries_url, notice: 'Payment summary was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def year_endings
+    render json: PaymentSummary.pluck(:year_ending)
   end
 
   private

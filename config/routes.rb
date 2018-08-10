@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-
-  resources :payment_summaries
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root 'application#index'
 
   # Attachments
   get "attachments/presigned" => "attachments#presigned"
   resources :attachments
+
+  get "payment_summaries/year_endings" => "payment_summaries#year_endings"
+  resources :payment_summaries
 
   resources :tranxactions
   resources :tranxaction_types

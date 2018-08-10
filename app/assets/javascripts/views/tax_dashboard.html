@@ -1,0 +1,56 @@
+<nav-bar></nav-bar>
+<div ng-init="init()">
+  <div class="content-inner">
+    <div class="container-fluid">
+
+    <div class="row">
+      <div class="page-header">
+        <div class="d-flex align-items-center">
+            <h2 class="page-header-title">Tax Dashboard | <select ng-model="yearEnding" ng-options="yearEnding for yearEnding in yearEndings"></select></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12">
+        <!-- Sorting -->
+        <div class="widget has-shadow">
+          <div class="widget-header bordered no-actions d-flex align-items-center">
+              <h4>Payment Summaries <a ui-sref="paymentsummariesnew">+</a></h4>
+          </div>
+          <div class="widget-body">
+              <div class="table-responsive">
+                  <table class="table mb-0">
+                      <thead>
+                        <tr>
+                          <th>Client</th>
+                          <th>Gross</th>
+                          <th>Tax Withheld</th>
+                          <th>Allowances</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody ng-repeat="paymentSummary in paymentSummaries" style="border: 0px solid white;">
+                        <tr>
+                          <td>{{ paymentSummary.client.name }}</td>
+                          <td>{{ paymentSummary.gross_payment | currency }}</td>
+                          <td>{{ paymentSummary.total_tax_withheld | currency }}</td>
+                          <td>{{ paymentSummary.total_allowances | currency }}</td>
+                          <td class="td-actions">
+                            <a><i class="la la-edit edit" ui-sref="paymentsummariesedit({ id: paymentSummary.id })"></i></a>
+                            <a ng-click="deleteSummary( $index )"><i class="la la-close delete"></i></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+        </div>
+        <!-- End Sorting -->
+      </div>
+    </div>
+    <!-- End Row -->
+  </div>
+  </div>
+</div>
+<fsc-footer></fsc-footer>

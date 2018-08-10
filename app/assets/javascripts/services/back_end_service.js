@@ -77,6 +77,10 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all('users').getList()
   };
 
+  BackEndService.getYearEndings = function(){
+    return Restangular.all('payment_summaries').customGET("year_endings")
+  };
+
   BackEndService.uploadFileToAWS = function( presignedUrl, file, fileType ){
     return $http.put( presignedUrl, file, { headers: { 'Content-Type': fileType } } )
   };
