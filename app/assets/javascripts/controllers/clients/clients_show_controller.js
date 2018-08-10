@@ -8,6 +8,7 @@ app.controller('ClientsShowController', ['$filter', '$ngConfirm', '$rootScope', 
 
     BackEndService.getPaymentSummaries( params )
       .then(function(response){
+        console.log( response );
         $scope.paymentSummaries = response;
         console.log( response[0] );
       }, function( errors ){
