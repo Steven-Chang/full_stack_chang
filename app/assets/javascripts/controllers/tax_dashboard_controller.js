@@ -1,17 +1,20 @@
-app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', function( $filter, $ngConfirm, $rootScope, $scope, $state, AlertService, Auth, BackEndService, DatetimeService ){
+app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'FSCModalService', function( $filter, $ngConfirm, $rootScope, $scope, $state, AlertService, Auth, BackEndService, FSCModalService ){
 
   //// PRIVATE
   var getPaymentSummaries = function(){
+    FSCModalService.showLoading();
     var params = {
-      year_ending: 2018
+      year_ending: $scope.yearEnding
     };
 
     BackEndService.getPaymentSummaries( params )
       .then(function(response){
-        console.log( response );
         $scope.paymentSummaries = response;
       }, function( errors ){
         AlertService.processErrors( errors );
+      })
+      .finally(function(){
+        FSCModalService.loading = false;
       });
   };
 
@@ -21,6 +24,10 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   $scope.tranxactions;
   $scope.yearEnding;
   $scope.yearEndings;
+
+  $scope.$watch( "yearEnding", function(){
+    getPaymentSummaries();
+  });
 
   $scope.init = function(){
     Auth.currentUser()
