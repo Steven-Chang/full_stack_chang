@@ -14,6 +14,16 @@ app.controller('PaymentSummariesEditController', ['$filter', '$ngConfirm', '$roo
     $scope.paymentSummary.client_id = $scope.selectedClient.id;
   };
 
+  var updatePaymentSummary = function(){
+    $scope.paymentSummary.put()
+      .then(function( response ){
+        FSCModalService.loading = false;
+        $state.go( "clients" );
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+  };
+
   //// PUBLIC ////
   $scope.clients;
   $scope.file;
@@ -30,6 +40,7 @@ app.controller('PaymentSummariesEditController', ['$filter', '$ngConfirm', '$roo
               $scope.clients = response;
               BackEndService.getPaymentSummary( $stateParams.id )
                 .then(function( response ){
+                  console.log( response );
                   $scope.paymentSummary = response;
                   setClient();
                 }, function( errors ){
@@ -67,7 +78,7 @@ app.controller('PaymentSummariesEditController', ['$filter', '$ngConfirm', '$roo
             BackEndService.uploadFileToAWS( response.presigned_url, $scope.file, $scope.file.type )
               .then(function( response ){
                 $scope.newPaymentSummary.attachments.push( { url: publicUrl, aws_key: awsKey } );
-                createPaymentSummary();
+                updatePaymentSummary();
               }, function(errors){
                 AlertService.processErrors( errors );
               });
@@ -76,7 +87,7 @@ app.controller('PaymentSummariesEditController', ['$filter', '$ngConfirm', '$roo
             AlertService.processErrors( errors );
           });
       } else {
-        createPaymentSummary();
+        updatePaymentSummary();
       };
     };
   };

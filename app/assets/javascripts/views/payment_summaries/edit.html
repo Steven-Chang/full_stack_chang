@@ -19,7 +19,7 @@
 
             <div class="widget-body">
               <form name="updatePaymentSummaryForm" 
-                ng-submit="uploadFileThenCreatePaymentSummary( updatePaymentSummaryForm )"
+                ng-submit="uploadFileThenUpdatePaymentSummary( updatePaymentSummaryForm )"
                 class="needs-validation"
                 id="payment-summary-form" 
                 novalidate>
@@ -50,10 +50,7 @@
                         <i class="la la-dollar"></i>
                       </span>
 
-                      <input class="form-control" ng-model="paymentSummary.gross_payment" placeholder="Gross Payment" required disabled>
-                      <div class="invalid-feedback">
-                        Please enter the gross payment
-                      </div>
+                      <input class="form-control" placeholder="Gross Payment" disabled>
                     </div>
                   </div>
                 </div>
@@ -81,7 +78,7 @@
                       <span class="input-group-addon addon-primary">
                         <i class="la la-dollar"></i>
                       </span>
-                      <input class="form-control" ng-model="paymentSummary.total_allowance" placeholder="Total Allowance" required>
+                      <input class="form-control" ng-model="paymentSummary.total_allowances" placeholder="Total Allowances" required>
                       <div class="invalid-feedback">
                         Please enter the total allowance
                       </div>
