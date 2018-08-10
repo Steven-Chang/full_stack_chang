@@ -1,6 +1,15 @@
 app.controller('PaymentSummariesEditController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', '$stateParams', '$timeout', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'FSCModalService', function( $filter, $ngConfirm, $rootScope, $scope, $state, $stateParams, $timeout, AlertService, Auth, BackEndService, DatetimeService, FSCModalService ){
 
   //// PRIVATE
+  var setClient = function(){
+    for (var i = 0; i < $scope.clients.length; i++){
+      if ( $scope.clients[i].id == parseInt( $scope.paymentSummary.client_id ) ){
+        $scope.selectedClient = $scope.clients[i];
+        break
+      };
+    };
+  };
+
   var setClientId = function(){
     $scope.paymentSummary.client_id = $scope.selectedClient.id;
   };
@@ -22,6 +31,7 @@ app.controller('PaymentSummariesEditController', ['$filter', '$ngConfirm', '$roo
               BackEndService.getPaymentSummary( $stateParams.id )
                 .then(function( response ){
                   $scope.paymentSummary = response;
+                  setClient();
                 }, function( errors ){
                   AlertService.processErrors( errors );
                 });

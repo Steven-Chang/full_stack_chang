@@ -16,6 +16,7 @@ class PaymentSummariesController < ApplicationController
   # GET /payment_summaries/1
   # GET /payment_summaries/1.json
   def show
+    render json: @payment_summary
   end
 
   # GET /payment_summaries/new
