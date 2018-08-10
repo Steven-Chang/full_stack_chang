@@ -19,6 +19,7 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   $scope.client;
   $scope.paymentSummaries;
   $scope.tranxactions;
+  $scope.yearEnding;
   $scope.yearEndings;
 
   $scope.init = function(){
@@ -28,6 +29,7 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
           BackEndService.getYearEndings()
             .then(function( response ){
               $scope.yearEndings = response;
+              $scope.yearEnding = response[0];
             }, function( errors ){
               AlertService.processErrors( errors );
             });

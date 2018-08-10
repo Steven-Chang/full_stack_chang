@@ -74,7 +74,7 @@ class PaymentSummariesController < ApplicationController
   end
 
   def year_endings
-    render json: PaymentSummary.pluck(:year_ending)
+    render json: PaymentSummary.pluck(:year_ending).sort.reverse
   end
 
   private
