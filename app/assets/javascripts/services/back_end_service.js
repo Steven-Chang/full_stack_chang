@@ -25,8 +25,8 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all('tranxaction_types').post( newTranxactionType )
   };
 
-  BackEndService.getBalance = function( route, resourceId ){
-    return Restangular.one( route, resourceId ).customGET("balance")
+  BackEndService.getBalance = function( params ){
+    return Restangular.all( 'tranxactions' ).customGET( "balance", params )
   };
 
   BackEndService.getClient = function( id ){

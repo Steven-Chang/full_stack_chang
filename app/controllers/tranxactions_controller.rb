@@ -53,6 +53,15 @@ class TranxactionsController < ApplicationController
     end
   end
 
+  def balance
+    r = params[:resource_type].constantize.find( params[:resource_id] )
+    t = r.tranxactions
+    t = t.where("date >= ?", Date.new( params[:from_date] )).where("date <= ?", Date.new( params[:to_date] )) if params[:from_date] && params[:to_datea]
+    balance = t.sum(:amount)
+
+    render :json => { balance: balance }, status => 200
+  end
+
   private
 
   def set_tranxaction

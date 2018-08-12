@@ -12,7 +12,12 @@ app.controller('TenancyAgreementsShowController', ['$filter', '$ngConfirm', '$sc
         if ( user.admin ){
           $scope.getTranxactions();
 
-          BackEndService.getBalance( "tenancy_agreements", $stateParams.id )
+          var params = {
+            resource_type: "TenancyAgreement",
+            resource_id: $stateParams.id
+          };
+
+          BackEndService.getBalance( params )
             .then(function( response ){
               $scope.balance = response.balance
             }, function( errors ){

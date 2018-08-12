@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "payment_summaries/year_endings" => "payment_summaries#year_endings"
   resources :payment_summaries
 
+  get 'tranxactions/balance' => 'tranxactions#balance'
   resources :tranxactions
   resources :tranxaction_types
 
@@ -17,7 +18,6 @@ Rails.application.routes.draw do
   end
 
   # Tenancy Agreements
-  get 'tenancy_agreements/:id/balance' => 'tenancy_agreements#balance'
   resources :tenancy_agreements
   resources :creditors
   resources :client_payments

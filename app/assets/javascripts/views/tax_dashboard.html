@@ -64,20 +64,13 @@
                       <thead>
                         <tr>
                           <th>Tenant</th>
-                          <th>Address</th>
                           <th>Gross</th>
-                          <th>Actions</th>
                         </tr>
                       </thead>
-                      <tbody ng-repeat="tenancyAgreement in property.tenancyAgreements" style="border: 0px solid white;">
+                      <tbody ng-repeat="tenancyAgreement in property.tenancy_agreements" style="border: 0px solid white;">
                         <tr>
                           <td>{{ tenancyAgreement }}</td>
-                          <td>{{ tenancyAgreement }}</td>
                           <td>?????</td>
-                          <td class="td-actions">
-                            <a><i class="la la-edit edit" ui-sref="paymentsummariesedit({ id: tenancyAgreement.id })"></i></a>
-                            <a ng-click="deleteSummary( $index )"><i class="la la-close delete"></i></a>
-                          </td>
                         </tr>
                       </tbody>
                   </table>

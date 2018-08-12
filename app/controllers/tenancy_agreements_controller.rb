@@ -60,12 +60,6 @@ class TenancyAgreementsController < ApplicationController
     end
   end
 
-  def balance
-    balance = @tenancy_agreement.tranxactions.sum(:amount)
-
-    render :json => { balance: balance }, status => 200
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tenancy_agreement
