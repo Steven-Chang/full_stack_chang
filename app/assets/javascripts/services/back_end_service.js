@@ -53,6 +53,10 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.one( "projects", id ).get()
   };
 
+  BackEndService.getProperties = function(){
+    return Restangular.all("properties").getList();
+  };
+
   BackEndService.getTenancyAgreement = function( id ){
     return Restangular.one( 'tenancy_agreements', id ).get()
   };

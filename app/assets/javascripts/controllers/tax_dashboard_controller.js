@@ -18,20 +18,40 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
       });
   };
 
+  var getPropertySummaries = function(){
+    FSCModalService.showLoading();
+
+    BackEndService.getProperties()
+      .then( function( response ){
+        $scope.properties = response;
+        console.log( response );
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      })
+      .finally(function(){
+        FSCModalService.loading = false;;
+      });
+  };
+
   //// PUBLIC ////
   $scope.client;
   $scope.paymentSummaries;
-  $scope.tranxactions;
+  $scope.properties;
+  $scope.tenancyAgreements;
   $scope.yearEnding;
   $scope.yearEndings;
 
   $scope.$watch( "yearEnding", function(){
     getPaymentSummaries();
+    getPropertySummaries();
+    // We need to get the balances of each payment summary for the date
   });
 
   $scope.init = function(){
+    FSCModalService.showLoading();
     Auth.currentUser()
       .then(function( user ){
+        FSCModalService.loading = false;
         if ( user.admin ){
           BackEndService.getYearEndings()
             .then(function( response ){
@@ -44,6 +64,7 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
           $state.go( 'home' )
         };
       }, function( error ){
+        FSCModalService.loading = false;
         $state.go( 'login' )
       });
   };

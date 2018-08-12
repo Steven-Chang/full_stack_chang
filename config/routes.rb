@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :tranxactions
   resources :tranxaction_types
+
   resources :properties do
     resources :tenancy_agreements
   end

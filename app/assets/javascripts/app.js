@@ -58,11 +58,15 @@ var app = angular.module('app', [
 			templateUrl: 'views/clients/index.html',
 			controller: "ClientsController"
 		})
-
 		.state('clientsshow', {
 			url: '/clients/:id',
 			templateUrl: 'views/clients/show.html',
 			controller: "ClientsShowController"
+		})
+		.state('clientjobs', {
+			url: '/clients/:id/jobs',
+			templateUrl: 'views/clients/jobs.html',
+			controller: "ClientJobsController"
 		})
 
 		.state('home', {
