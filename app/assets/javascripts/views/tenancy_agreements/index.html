@@ -22,7 +22,7 @@
                           <tr>
                             <th>Starting Date</th>
                             <th>Tenant</th>
-                            <th>Active</th>
+                            <th>Balance</th>
                             <th>Actions</th>
                           </tr>
                         </thead>
@@ -30,7 +30,7 @@
                           <tr>
                             <td>{{ tenancyAgreement.starting_date | date : 'd MMM yy' }}</td>
                             <td>{{ tenancyAgreement.user.username }}</td>
-                            <td>{{ tenancyAgreement.active }}</td>
+                            <td>{{ tenancyAgreement.balance | currency }}</td>
                             <td class="td-actions">
                               <a ui-sref="tenancyagreementsedit({ id: tenancyAgreement.id })"><i class="la la-edit edit"></i></a>
                               <a ui-sref="tenancyagreementsshow({ id: tenancyAgreement.id })"><i class="la la-eye"></i></a>
@@ -47,6 +47,9 @@
                               </div>
                               <div>
                                 Bond: {{ tenancyAgreement.bond | currency }}
+                              </div>
+                              <div>
+                                Active: {{ tenancyAgreement.active }}
                               </div>
                             </td>
                           </tr>

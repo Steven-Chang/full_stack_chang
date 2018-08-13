@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
 
   # Tenancy Agreements
+  get "tenancy_agreements/summaries" => "tenancy_agreements#summaries"
   resources :tenancy_agreements
   resources :creditors
   resources :client_payments

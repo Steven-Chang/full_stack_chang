@@ -17,14 +17,9 @@ app.controller('TenancyAgreementsShowController', ['$filter', '$ngConfirm', '$sc
             resource_id: $stateParams.id
           };
 
-          BackEndService.getBalance( params )
-            .then(function( response ){
-              $scope.balance = response.balance
-            }, function( errors ){
-              AlertService.processErrors( errors );
-            });
           BackEndService.getTenancyAgreement( $stateParams.id )
             .then(function( response ){
+              console.log( response );
               $scope.tenancyAgreement = response;
               $scope.tenancyAgreement.starting_date = DatetimeService.formatDate( response.starting_date, "EEE d LLLL yyyy" );
                 DatetimeService.initiateDatePicker('#date-picker');

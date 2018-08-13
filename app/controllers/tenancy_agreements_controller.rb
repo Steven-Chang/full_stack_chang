@@ -60,6 +60,16 @@ class TenancyAgreementsController < ApplicationController
     end
   end
 
+  def summaries
+    tenancy_agreements = TenancyAgreement
+      .joins(:tranxactions)
+      .where(property_id: params[:property_id])
+      .where("date >= ?", params[:from_date])
+      .where("date <= ?", params[:to_date])
+
+    render json: tenancy_agreements
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tenancy_agreement

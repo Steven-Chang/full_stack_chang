@@ -4,4 +4,8 @@ class TenancyAgreement < ApplicationRecord
 
   has_many :tranxactables, as: :resource
   has_many :tranxactions, -> { order( date: :desc, created_at: :desc ) }, through: :tranxactables
+
+  def balance
+    self.tranxactions.sum(:amount)
+  end
 end
