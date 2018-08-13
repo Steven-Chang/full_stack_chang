@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :payment_summaries
 
   get 'tranxactions/balance' => 'tranxactions#balance'
+  get 'tranxactions/sum' => 'tranxactions#sum'
   resources :tranxactions
+
   resources :tranxaction_types
 
   resources :properties do

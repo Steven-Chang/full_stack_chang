@@ -2,6 +2,7 @@ class TranxactionsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin
   before_action :set_tranxaction, only: [:destroy, :show, :update]
+  before_action :set_resource, only: [:sum, :balance]
 
   def index
     if params[:resource_type] && params[:resource_id]
@@ -53,9 +54,28 @@ class TranxactionsController < ApplicationController
     end
   end
 
+  def sum
+    t = @resource
+      .tranxactions
+      .where("date >= ?", Date.new( params[:from_date] ))
+      .where("date <= ?", Date.new( params[:to_date] ))
+
+    if params[:tranxaction_type]
+      t = t.tranxactions.where("amount < 0") if params[:tranxaction_type] == "expense"
+      t = t.tranxactions.where("amount > 0") if params[:tranxaction_type] == "revenue"
+    end
+
+    if params[:tax]
+      t = t.tranxactions.where(tax: params[:tax])
+    end
+
+    sum = t.sum(:amount)
+
+    render json: { sum: sum }, status => 200
+  end
+
   def balance
-    r = params[:resource_type].constantize.find( params[:resource_id] )
-    t = r.tranxactions
+    t = @resource.tranxactions
     t = t.where("date >= ?", Date.new( params[:from_date] )).where("date <= ?", Date.new( params[:to_date] )) if params[:from_date] && params[:to_datea]
     balance = t.sum(:amount)
 
@@ -63,6 +83,10 @@ class TranxactionsController < ApplicationController
   end
 
   private
+
+  def set_resource
+    @resource = params[:resource_type].constantize.find( params[:resource_id] )
+  end
 
   def set_tranxaction
     @tranxaction = Tranxaction.find( params[:id] )
