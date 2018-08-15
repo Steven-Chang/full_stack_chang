@@ -13,6 +13,10 @@ app.service('BackEndService', ['$http', 'Restangular',
 
   var BackEndService = {};
 
+  BackEndService.createJob = function( newJob ){
+    return Restangular.all('jobs').post( newJob )
+  };
+
   BackEndService.createPaymentSummary = function( newSummary ){
     return Restangular.all('payment_summaries').post( newSummary )
   };

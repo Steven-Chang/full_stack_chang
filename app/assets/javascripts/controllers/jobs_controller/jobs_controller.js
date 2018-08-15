@@ -12,37 +12,6 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
   };
 
   var setSearchParams = function(){
-    $scope.searchParams.tranxaction_type_id = undefined;
-    $scope.searchParams.property_id = undefined;
-    $scope.searchParams.tenancy_agreement_id = undefined;
-    $scope.searchParams.client_id = undefined;
-
-    if ( $scope.searchParams.client ){
-      searchParamsToSendUp.resource_type = "Client";
-      searchParamsToSendUp.resource_id = $scope.searchParams.client.id;
-      return
-    };
-
-    if ( $scope.searchParams.tenancyAgreement ){
-      searchParamsToSendUp.resource_type = "TenancyAgreement";
-      searchParamsToSendUp.resource_id = $scope.searchParams.tenancyAgreement.id;
-      return
-    };
-
-    if ( $scope.searchParams.property && $scope.searchParams.tranxactionType.description === "property" ){
-      searchParamsToSendUp.resource_type = "Property";
-      searchParamsToSendUp.resource_id = $scope.searchParams.property.id;
-      return
-    };
-
-    // This is last bit is to cover all the randon tranxaction types that might pop up in the future... 
-    if ( $scope.searchParams.tranxactionType ){
-      searchParamsToSendUp.resource_type = "TranxactionType";
-      searchParamsToSendUp.resource_id = $scope.searchParams.tranxactionType.id;
-    } else {
-      searchParamsToSendUp.resource_type = undefined;
-      searchParamsToSendUp.resource_id = undefined;
-    };
   };
 
   //// PUBLIC ////
@@ -86,6 +55,7 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
     if ( !$scope.creatingJob ){
       FSCModalService.showLoading();
       $scope.creatingJob = true;
+      $scope.newJob.client_id = $scope.selectedClient.id;
       BackEndService.createJob( $scope.newJob )
         .then(function( response ){
           $scope.jobs.unshift( response );
@@ -141,12 +111,15 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
     };
   };
 
-  $scope.getJobs = function(  ){
+  $scope.getJobs = function(){
     if ( !$scope.gettingsJobs ){
+      console.log(123)
       $scope.gettingJobs = true;
       setSearchParams();
-      BackEndService.getJobs( searchParamsToSendUp )
+      console.log(543)
+      BackEndService.getJobs()
         .then(function( response ){
+          console.log( response );
           $scope.jobs = response;
         }, function( errors ){
           AlertService.processErrors( errors );
