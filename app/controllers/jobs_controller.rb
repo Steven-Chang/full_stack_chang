@@ -5,7 +5,13 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    render :json => Job.all.order(start_time: :desc)
+    jobs = Job.all
+
+    if params[:client_id]
+      jobs = jobs.where(client_id: params[:client_id])
+    end
+
+    render :json => jobs.order(start_time: :desc)
   end
 
   # GET /jobs/1
