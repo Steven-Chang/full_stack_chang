@@ -113,9 +113,9 @@
                 <h4>Search</h4>
             </div>
             <div class="widget-body">
-<form ng-submit="getTranxactions()">
+<form ng-submit="getJobs()">
           <div class="form-group">
-            <select ng-model="searchParams.tranxactionType" ng-options="tranxactionType.description for tranxactionType in tranxactionTypes" class="form-control">
+            <select ng-model="searchParams.client" ng-options="client.name for client in clients" class="form-control">
               <option value="">All</option>
             </select>
           </div>
@@ -161,7 +161,7 @@
                           </tr>
                           <tr class="sub-table-row">
                             <td colspan="5">
-                              <div ng-repeat="attachment in tranxaction.attachments">
+                              <div>
                                 {{ job.description }}
                               </div>
                             </td>

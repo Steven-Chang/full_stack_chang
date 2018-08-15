@@ -27,12 +27,10 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
 
-    respond_to do |format|
-      if @job.save
-        format.json { render :json => @job, status: :created }
-      else
-        format.json { render json: @job.errors, status: :unprocessable_entity }
-      end
+    if @job.save
+      render json: @job, status: :created
+    else
+      render json: @job.errors, status: :unprocessable_entity
     end
   end
 

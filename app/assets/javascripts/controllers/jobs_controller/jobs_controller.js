@@ -1,6 +1,10 @@
 app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'ElisyamService', 'FSCModalService', 'Restangular', function( $filter, $http, $scope, $state, AlertService, Auth, BackEndService, ElisyamService, FSCModalService, Restangular ){
 
   // Private
+  var searchParams = {
+    client_id: undefined
+  };
+
   var getClients = function(){
     BackEndService.getClients()
       .then(function( response ){
@@ -12,6 +16,9 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
   };
 
   var setSearchParams = function(){
+    if ( $scope.searchParams.client && $scope.searchParams.client.id ){
+      searchParams.client_id = $scope.searchParams.client.id;
+    };
   };
 
   //// PUBLIC ////
@@ -36,14 +43,7 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
 
   // This is for display and processing purposes
   $scope.searchParams = {
-    tranxactionType: undefined,
-    tranxaction_type_id: undefined,
-    property: undefined,
-    property_id: undefined,
-    tenancyAgreement: undefined,
-    tenancy_agreement_id: undefined,
-    client: undefined,
-    client_id: undefined,
+    client: undefined
   };
 
   $scope.createJob = function( form ){
@@ -113,13 +113,10 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
 
   $scope.getJobs = function(){
     if ( !$scope.gettingsJobs ){
-      console.log(123)
       $scope.gettingJobs = true;
       setSearchParams();
-      console.log(543)
-      BackEndService.getJobs()
+      BackEndService.getJobs( searchParams )
         .then(function( response ){
-          console.log( response );
           $scope.jobs = response;
         }, function( errors ){
           AlertService.processErrors( errors );
