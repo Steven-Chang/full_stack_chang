@@ -145,7 +145,7 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
     if ( !$scope.gettingsJobs ){
       $scope.gettingJobs = true;
       setSearchParams();
-      BackEndService.getTranxactions( searchParamsToSendUp )
+      BackEndService.getJobs( searchParamsToSendUp )
         .then(function( response ){
           $scope.jobs = response;
         }, function( errors ){

@@ -37,6 +37,10 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all('clients').getList()
   };
 
+  BackEndService.getJobs = function(){
+    return Restangular.all('jobs').getList()
+  };
+
   BackEndService.getJobsBalance = function( params ){
     return Restangular.all( 'jobs' ).customGET( "balance", params )
   };
