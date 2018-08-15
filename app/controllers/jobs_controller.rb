@@ -60,6 +60,14 @@ class JobsController < ApplicationController
     end
   end
 
+  def balance
+    client = Client.find( params[:client_id] )
+
+    balance = client.jobs.sum(:cost)
+
+    render :json => { balance: balance }, status => 200
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job

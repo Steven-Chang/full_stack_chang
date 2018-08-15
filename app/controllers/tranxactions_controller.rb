@@ -54,11 +54,14 @@ class TranxactionsController < ApplicationController
     end
   end
 
-  def sum
-    t = @resource
-      .tranxactions
-      .where("date >= ?", Date.new( params[:from_date] ))
-      .where("date <= ?", Date.new( params[:to_date] ))
+  def balance
+    t = @resource.tranxactions
+
+    if params[:from_date] && params[:to_date]
+      t = t
+        .where("date >= ?", Date.new( params[:from_date] ))
+        .where("date <= ?", Date.new( params[:to_date] ))
+    end
 
     if params[:tranxaction_type]
       t = t.tranxactions.where("amount < 0") if params[:tranxaction_type] == "expense"
@@ -69,14 +72,6 @@ class TranxactionsController < ApplicationController
       t = t.tranxactions.where(tax: params[:tax])
     end
 
-    sum = t.sum(:amount)
-
-    render json: { sum: sum }, status => 200
-  end
-
-  def balance
-    t = @resource.tranxactions
-    t = t.where("date >= ?", Date.new( params[:from_date] )).where("date <= ?", Date.new( params[:to_date] )) if params[:from_date] && params[:to_datea]
     balance = t.sum(:amount)
 
     render :json => { balance: balance }, status => 200

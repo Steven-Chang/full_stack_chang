@@ -19,17 +19,15 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   };
 
   var getPropertySummaries = function(){
-    FSCModalService.showLoading();
+    var params = {
+      year_ending: $scope.yearEnding
+    };
 
-    BackEndService.getProperties()
-      .then( function( response ){
+    BackEndService.getPropertyTaxSummaries( params )
+      .then(function( response ){
         $scope.properties = response;
-        console.log( response );
       }, function( errors ){
-        AlertService.processErrors( errors );
-      })
-      .finally(function(){
-        FSCModalService.loading = false;;
+
       });
   };
 

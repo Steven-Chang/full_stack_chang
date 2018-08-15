@@ -60,6 +60,14 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def tax_summaries
+    response = {}
+    # What do I want
+    # I want the properties especically the address
+    # I want all of the tax expense tranxactions
+    # I want all the tenancy agreements attached with the username attached to it and the gross payment attached it 
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_property

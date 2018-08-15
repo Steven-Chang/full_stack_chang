@@ -8,9 +8,34 @@ app.controller('ClientsShowController', ['$filter', '$ngConfirm', '$rootScope', 
 
     BackEndService.getPaymentSummaries( params )
       .then(function(response){
-        console.log( response );
         $scope.paymentSummaries = response;
-        console.log( response[0] );
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+  };
+
+  var getTranxactionsBalance = function(){
+    var params = {
+      resource_type: "Client",
+      resource_id: $stateParams.id
+    };
+
+    BackEndService.getBalance( params )
+      .then(function( response ){
+        $scope.tranxactionsBalance = response.balance;
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+  };
+
+  var getJobsBalance = function(){
+    var params = {
+      client_id: $stateParams.id
+    }
+
+    BackEndService.getJobsBalance( params )
+      .then(function( response ){
+        $scope.jobsBalance = response.balance;
       }, function( errors ){
         AlertService.processErrors( errors );
       });
@@ -18,8 +43,10 @@ app.controller('ClientsShowController', ['$filter', '$ngConfirm', '$rootScope', 
 
   //// PUBLIC ////
   $scope.client;
+  $scope.jobsBalance;
   $scope.paymentSummaries;
   $scope.tranxactions;
+  $scope.tranxactionsBalance;
 
   $scope.init = function(){
     Auth.currentUser()
@@ -30,6 +57,8 @@ app.controller('ClientsShowController', ['$filter', '$ngConfirm', '$rootScope', 
           BackEndService.getClient( $stateParams.id )
             .then(function( response ){
               $scope.client = response;
+              getTranxactionsBalance();
+              getJobsBalance();
             }, function( errors ){
               AlertService.processErrors( errors );
             });

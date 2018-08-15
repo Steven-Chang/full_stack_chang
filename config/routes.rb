@@ -10,11 +10,11 @@ Rails.application.routes.draw do
   resources :payment_summaries
 
   get 'tranxactions/balance' => 'tranxactions#balance'
-  get 'tranxactions/sum' => 'tranxactions#sum'
   resources :tranxactions
 
   resources :tranxaction_types
 
+  get 'properties/tax_summaries' => "properties#tax_summaries"
   resources :properties do
     resources :tenancy_agreements
   end
@@ -33,7 +33,10 @@ Rails.application.routes.draw do
   resources :cleaning_tasks, only: [:index, :create, :destroy]
   resources :clients
   resources :farming_transactions, except: [:show]
+
+  get 'jobs/balance' => 'jobs#balance'
   resources :jobs
+
   resources :projects
   resources :scores, only: [:index, :create]
   resources :blog_posts, only: [:index, :create, :destroy]

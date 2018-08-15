@@ -5,10 +5,43 @@
     <div class="row">
       <div class="page-header">
         <div class="d-flex align-items-center">
-            <h2 class="page-header-title">{{ client.name }}</h2>
+          <h2 class="page-header-title">{{ client.name }}</h2>
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-xl-12">
+        <!-- Sorting -->
+        <div class="widget has-shadow">
+          <div class="widget-header bordered no-actions d-flex align-items-center">
+            <h4>Summary</h4>
+          </div>
+          <div class="widget-body">
+              <div class="table-responsive">
+                  <table class="table mb-0">
+                      <tbody>
+                        <tr>
+                          <th style="background-color: rgba(52, 40, 104, 0.05); border-radius: 4px; border: 0 none; padding: 20px 12px; color: #5d5386; font-weight: 600;">Tranxactions Balance</th>
+                          <td>{{ tranxactionsBalance | currency }}</td>
+                        </tr>
+                        <tr>
+                          <th style="background-color: rgba(52, 40, 104, 0.05); border-radius: 4px; border: 0 none; padding: 20px 12px; color: #5d5386; font-weight: 600;">Jobs Balance</th>
+                          <td>{{ jobsBalance | currency }}</td>
+                        </tr>
+                        <tr>
+                          <th style="background-color: rgba(52, 40, 104, 0.05); border-radius: 4px; border: 0 none; padding: 20px 12px; color: #5d5386; font-weight: 600;">Tranxactions Balance - Jobs Balance</th>
+                          <td style="border-top: 1px solid #5d5386; border-bottom: 1px solid #5d5386; padding: 20px 12px;">{{ tranxactionsBalance - jobsBalance | currency }}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+        </div>
+        <!-- End Sorting -->
+      </div>
+    </div>
+    <!-- End Row -->
 
     <div class="row">
       <div class="col-xl-12">
@@ -43,53 +76,6 @@
                         <tr ng-show="paymentSummary.attachments" class="sub-table-row">
                           <td colspan="5">
                             <div ng-repeat="attachment in paymentSummary.attachments">
-                              <a ng-href="{{ attachment.url }}" target="_blank"><i class="la la-file-archive-o" style="font-size: 1.6rem"></i> {{ attachment.aws_key }}</a>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-        </div>
-        <!-- End Sorting -->
-      </div>
-    </div>
-    <!-- End Row -->
-
-    <div class="row">
-      <div class="col-xl-12">
-        <!-- Sorting -->
-        <div class="widget has-shadow">
-          <div class="widget-header bordered no-actions d-flex align-items-center">
-              <h4>Tranxactions</h4>
-          </div>
-          <div class="widget-body">
-              <div class="table-responsive">
-                  <table class="table mb-0">
-                      <thead>
-                          <tr>
-                              <th>Date</th>
-                              <th>Description</th>
-                              <th>Amount</th>
-                              <th>Tax</th>
-                              <th>Actions</th>
-                          </tr>
-                      </thead>
-                      <tbody ng-repeat="tranxaction in tranxactions" style="border: 0px solid white;">
-                        <tr>
-                          <td>{{ tranxaction.date | date : 'd MMM yy' }}</td>
-                          <td>{{ tranxaction.description }}</td>
-                          <td>{{ tranxaction.amount | currency }}</td>
-                          <td>{{ tranxaction.tax }}</td>
-                          <td class="td-actions">
-                            <a><i class="la la-edit edit" ui-sref="tranxactionsedit({ id: tranxaction.id })"></i></a>
-                            <a ng-click="deleteTranxaction( $index )"><i class="la la-close delete"></i></a>
-                          </td>
-                        </tr>
-                        <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
-                          <td colspan="5">
-                            <div ng-repeat="attachment in tranxaction.attachments">
                               <a ng-href="{{ attachment.url }}" target="_blank"><i class="la la-file-archive-o" style="font-size: 1.6rem"></i> {{ attachment.aws_key }}</a>
                             </div>
                           </td>

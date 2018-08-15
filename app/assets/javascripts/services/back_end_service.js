@@ -37,6 +37,10 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all('clients').getList()
   };
 
+  BackEndService.getJobsBalance = function( params ){
+    return Restangular.all( 'jobs' ).customGET( "balance", params )
+  };
+
   BackEndService.getPaymentSummary = function( id ){
     return Restangular.one('payment_summaries', id).get()
   };
@@ -57,12 +61,16 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all("properties").getList();
   };
 
+  BackEndService.getPropertyTaxSummaries = function( params ){
+    return Restangular.all("properties").customGET("tax_summaries", params)
+  };
+
   BackEndService.getTenancyAgreement = function( id ){
     return Restangular.one( 'tenancy_agreements', id ).get()
   };
 
-  BackEndService.getTenancyAgreements = function(){
-    return Restangular.all('tenancy_agreements').getList()
+  BackEndService.getTenancyAgreements = function( params ){
+    return Restangular.all('tenancy_agreements').getList( params )
   };
 
   BackEndService.getTranxaction = function( id ){
