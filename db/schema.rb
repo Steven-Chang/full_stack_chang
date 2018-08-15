@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180815093535) do
+ActiveRecord::Schema.define(version: 20180815093724) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "resource_type", null: false
@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(version: 20180815093535) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "cost", precision: 18, scale: 8, default: "0.0"
-    t.boolean "taxable", default: true
   end
 
   create_table "levels", force: :cascade do |t|
