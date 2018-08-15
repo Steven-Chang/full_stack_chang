@@ -85,7 +85,7 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
     };
   };
 
-  $scope.deleteTranxaction = function( $index ){
+  $scope.deleteJob = function( $index ){
     if ( !$scope.deletingJob ){
       FSCModalService.confirmDelete()
         .then(function( modal ){
@@ -94,10 +94,10 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
               if ( confirmed ){
                 FSCModalService.showLoading();
                 $scope.deletingJob = true;
-                $scope.tranxactions[$index].remove()
+                $scope.jobs[$index].remove()
                   .then(function( response ){
-                    $scope.tranxactions.splice( $index, 1  );
-                    AlertService.success("Tranxaction deleted");
+                    $scope.jobs.splice( $index, 1  );
+                    AlertService.success("Job deleted");
                   }, function( errors ){
                     AlertService.processErrors( errors );
                   })
