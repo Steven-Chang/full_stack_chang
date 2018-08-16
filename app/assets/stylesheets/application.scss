@@ -54,6 +54,10 @@ p {
   cursor: pointer;
 }
 
+.date-picker {
+	z-index: 10000;
+}
+
 .spinner-white {
 	border-top: solid 5px white;
 }

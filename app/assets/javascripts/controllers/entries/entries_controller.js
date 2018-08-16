@@ -33,6 +33,7 @@ app.controller('EntriesController', ['$filter', '$http', '$scope', '$state', 'Al
           // DatetimeService.initiateDatePicker('#date-picker');
           getAims();
           $scope.getEntries();
+          DatetimeService.initiateDatePicker("#date-picker")
         } else {
           $state.go( 'home' )
         };
