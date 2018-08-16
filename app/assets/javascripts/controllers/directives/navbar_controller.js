@@ -1,4 +1,5 @@
 app.controller('NavCtrl', ['$scope', 'Auth', '$rootScope', '$state', '$location', function($scope, Auth, $rootScope, $state, $location){
+  
   $scope.signedIn = Auth.isAuthenticated;
 
   // This needs to be here for rememberable to work...

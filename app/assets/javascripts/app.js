@@ -53,6 +53,13 @@ var app = angular.module('app', [
 			templateUrl: 'views/aims/aims.html',
 			controller: 'AimsController'
 		})
+		.state('aimsnew', {
+			url: '/aims/new',
+			templateUrl: 'views/aims/new.html',
+			controller: 'AimsNewController'
+		})
+
+
 
 		.state('cleaning', {
 			url: '/cleaning',
