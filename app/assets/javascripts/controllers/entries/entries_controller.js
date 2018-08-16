@@ -42,6 +42,28 @@ app.controller('EntriesController', ['$filter', '$http', '$scope', '$state', 'Al
       });
   };
 
+  $scope.deleteEntry = function( $index ){
+    FSCModalService.confirmDelete()
+      .then(function( modal ){
+        modal.close
+          .then(function( confirmed ){
+            if ( confirmed ){
+              FSCModalService.showLoading();
+              $scope.entries[$index].remove()
+                .then(function( response ){
+                  $scope.entries.splice( $index, 1  );
+                  AlertService.success("Entry deleted");
+                }, function( errors ){
+                  AlertService.processErrors( errors );
+                })
+                .finally(function(){
+                  FSCModalService.loading = false;
+                });
+            };
+          });
+      });
+  };
+
   $scope.createEntry = function( form ){
     if ( !form.$valid ) {
       $("#new-entry-form").addClass("was-validated");
