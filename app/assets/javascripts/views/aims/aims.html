@@ -1,7 +1,38 @@
 <nav-bar></nav-bar>
 
 <div ng-init="init()">
-  <h1>Aims</h1>
+
+  <div class="content-inner">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="page-header">
+          <div class="d-flex align-items-center">
+            <h2 class="page-header-title">Aims</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="widget has-shadow">
+            <div class="widget-header bordered no-actions d-flex align-items-center">
+              <h4>Gardening</h4>
+            </div>
+
+            <div class="widget-body">
+              <canvas id="line" class="chart chart-line" chart-data="data"
+              chart-labels="labels"
+              chart-options="options"
+              chart-click="onClick">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <fsc-footer></fsc-footer>

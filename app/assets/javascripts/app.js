@@ -1,5 +1,6 @@
 var app = angular.module('app', [
 	'angularModalService',
+	'chart.js',
 	'cloudinary',
 	'cp.ngConfirm',
   'infinite-scroll',

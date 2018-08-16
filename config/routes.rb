@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :entries
+  resources :aims
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root 'application#index'
 

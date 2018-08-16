@@ -1,0 +1,17 @@
+<%= form_with(model: aim, local: true) do |form| %>
+  <% if aim.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(aim.errors.count, "error") %> prohibited this aim from being saved:</h2>
+
+      <ul>
+      <% aim.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

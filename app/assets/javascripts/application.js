@@ -57,4 +57,9 @@
 // NOTY
 //= require assets/vendors/js/noty/noty.min
 
+// ANGULAR-CHART.JS
+// http://jtblin.github.io/angular-chart.js/
+//= require chart.js/dist/Chart.min
+//= require angular-chart.js/dist/angular-chart.min
+
 //= require_tree .
