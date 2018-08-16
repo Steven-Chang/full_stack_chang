@@ -13,16 +13,17 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" ng-repeat="aim in aims">
         <div class="col-12">
           <div class="widget has-shadow">
             <div class="widget-header bordered no-actions d-flex align-items-center">
-              <h4>Gardening</h4>
+              <h4>{{ aim.description }}</h4>
             </div>
 
             <div class="widget-body">
-              <canvas id="line" class="chart chart-line" chart-data="data"
-              chart-labels="labels"
+              <canvas id="line" class="chart chart-line" 
+              chart-data="aim.data"
+              chart-labels="aim.labels"
               chart-options="options"
               chart-click="onClick">
               </canvas>

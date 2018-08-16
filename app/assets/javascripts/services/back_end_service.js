@@ -13,9 +13,14 @@ app.service('BackEndService', ['$http', 'Restangular',
 
   var BackEndService = {};
 
-  BackEndService.createAim = function( newAim ){
-    return Restangular.all('aims').post( newAim )
+  BackEndService.create = function( route, params ){
+    return Restangular.all( route ).post( params )
   };
+
+  BackEndService.createEntry = function( newEntry ){
+    return Restangular.all('entries').post( newEntry )
+  };
+
   BackEndService.createJob = function( newJob ){
     return Restangular.all('jobs').post( newJob )
   };
@@ -30,6 +35,14 @@ app.service('BackEndService', ['$http', 'Restangular',
 
   BackEndService.createTranxactionType = function( newTranxactionType ){
     return Restangular.all('tranxaction_types').post( newTranxactionType )
+  };
+
+  BackEndService.get = function( route ){
+    return Restangular.all( route ).getList()
+  };
+
+  BackEndService.getAims = function(){
+    return Restangular.all("aims").getList()
   };
 
   BackEndService.getBalance = function( params ){

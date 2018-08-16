@@ -1,3 +1,5 @@
 class EntrySerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :minutes, :date
+
+  belongs_to :aim
 end

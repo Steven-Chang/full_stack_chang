@@ -5,12 +5,14 @@ class AimsController < ApplicationController
   # GET /aims.json
   def index
     @aims = Aim.all
+
+    render json: @aims
   end
 
   # GET /aims/1
   # GET /aims/1.json
   def show
-  end
+  end 
 
   # GET /aims/new
   def new

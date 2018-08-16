@@ -83,6 +83,12 @@ var app = angular.module('app', [
 			controller: "ClientJobsController"
 		})
 
+		.state('entries', {
+			url: '/entries',
+			templateUrl: 'views/entries/entries.html',
+			controller: "EntriesController"
+		})
+
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/home.html',

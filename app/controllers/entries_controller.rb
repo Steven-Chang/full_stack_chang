@@ -5,6 +5,8 @@ class EntriesController < ApplicationController
   # GET /entries.json
   def index
     @entries = Entry.all
+
+    render json: @entries
   end
 
   # GET /entries/1
@@ -26,14 +28,10 @@ class EntriesController < ApplicationController
   def create
     @entry = Entry.new(entry_params)
 
-    respond_to do |format|
-      if @entry.save
-        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
-        format.json { render :show, status: :created, location: @entry }
-      else
-        format.html { render :new }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
-      end
+    if @entry.save
+      render json: @entry, status: :created
+    else
+      render json: @entry.errors, status: :unprocessable_entity
     end
   end
 
@@ -69,6 +67,6 @@ class EntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      params.fetch(:entry, {})
+      params.require(:entry).permit(:date, :minutes, :aim_id)
     end
 end

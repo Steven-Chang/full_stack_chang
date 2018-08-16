@@ -2,13 +2,20 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
 
   // Private
 
-  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-  $scope.data = [
-    [65, 59, 80, 81, 56, 55, 40]
-  ];
-  $scope.onClick = function (points, evt) {
-    console.log(points, evt);
+  var getAims = function(){
+    BackEndService.getAims()
+      .then(function( response ){
+        console.log( response );
+        $scope.aims = response;
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
   };
+
+  //// PUBLIC ////
+
+  $scope.aims;
+
   $scope.options = {
     scales: {
       yAxes: [
@@ -22,13 +29,11 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
     }
   };
 
-  //// PUBLIC ////
-
   $scope.init = function(){
     Auth.currentUser()
       .then(function( user ){
         if ( user.admin ){
-
+          getAims();
         } else {
           $state.go("home");
         };
