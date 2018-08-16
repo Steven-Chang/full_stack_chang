@@ -26,14 +26,10 @@ class AimsController < ApplicationController
   def create
     @aim = Aim.new(aim_params)
 
-    respond_to do |format|
-      if @aim.save
-        format.html { redirect_to @aim, notice: 'Aim was successfully created.' }
-        format.json { render :show, status: :created, location: @aim }
-      else
-        format.html { render :new }
-        format.json { render json: @aim.errors, status: :unprocessable_entity }
-      end
+    if @aim.save
+      render json: @aim, status: :created
+    else
+      render json: @aim.errors, status: :unprocessable_entity
     end
   end
 
@@ -69,6 +65,6 @@ class AimsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def aim_params
-      params.fetch(:aim, {})
+      params.require(:aim).permit(:description)
     end
 end
