@@ -13,7 +13,7 @@ class Entry < ApplicationRecord
     else
       summary = WeeklySummary.create_up_to_date( self.aim_id, self.date )
     end
-    self.weekly_summary_id = summary.id
+    self.weekly_summary = summary
   end
 
   def increase_weekly_summary
