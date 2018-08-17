@@ -41,6 +41,10 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all( route ).getList()
   };
 
+  BackEndService.getOne = function( route, id ){
+    return Restangular.one( route, id ).get()
+  };
+
   BackEndService.getAims = function(){
     return Restangular.all("aims").getList()
   };

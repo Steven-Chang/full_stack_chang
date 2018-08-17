@@ -58,6 +58,11 @@ var app = angular.module('app', [
 			templateUrl: 'views/aims/new.html',
 			controller: 'AimsNewController'
 		})
+		.state('aimsedit', {
+			url: '/aims/:id/edit',
+			templateUrl: 'views/aims/edit.html',
+			controller: "AimsEditController"
+		})
 
 
 

@@ -12,6 +12,7 @@ class AimsController < ApplicationController
   # GET /aims/1
   # GET /aims/1.json
   def show
+    render json: @aim
   end 
 
   # GET /aims/new
