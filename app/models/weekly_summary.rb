@@ -8,12 +8,11 @@ class WeeklySummary < ApplicationRecord
 
     if weekly_summary_with_latest_start_date
       until date_has_weekly_summary
-        if weekly_summary_with_latest_start_date.start_date >= date && weekly_summary_with_latest_start_date.end_date <= date
+        if date >= weekly_summary_with_latest_start_date.start_date && date <= weekly_summary_with_latest_start_date.end_date
           date_has_weekly_summary = true
         else
           new_weekly_summary = WeeklySummary.new
           new_weekly_summary.aim_id = aim_id
-          puts new_weekly_summary
           new_weekly_summary.minutes = 0
           new_weekly_summary.start_date = weekly_summary_with_latest_start_date.start_date + 7.days
           new_weekly_summary.end_date = weekly_summary_with_latest_start_date.end_date + 7.days
