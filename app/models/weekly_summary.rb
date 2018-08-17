@@ -24,8 +24,8 @@ class WeeklySummary < ApplicationRecord
       new_weekly_summary = WeeklySummary.new
       new_weekly_summary.aim_id = aim_id
       new_weekly_summary.minutes = 0
-      new_weekly_summary.start_date = Self.get_date_to_day_of_week( date, "Monday" )
-      new_weekly_summary.end_date = Self.get_date_to_day_of_week( date, "Sunday" )
+      new_weekly_summary.start_date = WeeklySummary.get_date_to_day_of_week( date, "Monday" )
+      new_weekly_summary.end_date = WeeklySummary.get_date_to_day_of_week( date, "Sunday" )
       new_weekly_summary.save
     end
 
