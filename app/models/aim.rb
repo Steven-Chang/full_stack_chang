@@ -3,10 +3,10 @@ class Aim < ApplicationRecord
   has_many :weekly_summaries, dependent: :destroy
 
   def labels
-    self.entries.order(:date).pluck(:date)
+    self.weekly_summaries.order(:start_date).map { |w| "#{ w.start_date } - #{ w.end_date }" }
   end
 
   def data
-    self.entries.order(:date).pluck(:minutes)
+    self.weekly_summaries.order(:start_date).pluck(:minutes)
   end
 end
