@@ -27,7 +27,7 @@ app.controller('AimsNewController', ['$scope', '$state', 'AlertService', 'Auth',
     };
 
     FSCModalService.showLoading();
-    BackEndService.createAim( $scope.newAim )
+    BackEndService.create( "aims", $scope.newAim )
       .then(function( response ){
         FSCModalService.loading = false;
         $state.go("aims");
