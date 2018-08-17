@@ -13,6 +13,7 @@ class WeeklySummary < ApplicationRecord
         else
           new_weekly_summary = WeeklySummary.new
           new_weekly_summary.aim_id = aim_id
+          puts new_weekly_summary
           new_weekly_summary.minutes = 0
           new_weekly_summary.start_date = weekly_summary_with_latest_start_date.start_date + 7.days
           new_weekly_summary.end_date = weekly_summary_with_latest_start_date.end_date + 7.days
@@ -27,6 +28,8 @@ class WeeklySummary < ApplicationRecord
       new_weekly_summary.start_date = WeeklySummary.get_date_to_day_of_week( date, "Monday" )
       new_weekly_summary.end_date = WeeklySummary.get_date_to_day_of_week( date, "Sunday" )
       new_weekly_summary.save
+
+      weekly_summary_with_latest_start_date = new_weekly_summary
     end
 
     weekly_summary_with_latest_start_date
