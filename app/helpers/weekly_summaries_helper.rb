@@ -1,0 +1,2 @@
+module WeeklySummariesHelper
+end

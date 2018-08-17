@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :weekly_summaries
   resources :entries
   resources :aims
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
