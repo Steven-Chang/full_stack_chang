@@ -16,8 +16,11 @@
       <div class="row" ng-repeat="aim in aims">
         <div class="col-12">
           <div class="widget has-shadow">
-            <div class="widget-header bordered no-actions d-flex align-items-center">
+            <div class="widget-header no-actions d-flex align-items-center">
               <h4>{{ aim.description }} <a ui-sref="entries">+</a> <a><i class="la la-edit edit" ui-sref="aimsedit({ id: aim.id })"></i></a></h4>
+            </div>
+            <div class="widget-header bordered" style="padding-top: 0;">
+              <h5>minutes / day: {{ aim.per_day }}</h5>
             </div>
 
             <div class="widget-body">

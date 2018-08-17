@@ -1,3 +1,3 @@
 class AimSerializer < ActiveModel::Serializer
-  attributes :id, :description, :labels, :data
+  attributes :id, :description, :labels, :data, :per_day
 end
