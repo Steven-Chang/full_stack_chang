@@ -3,7 +3,7 @@ class Aim < ApplicationRecord
   has_many :weekly_summaries, dependent: :destroy
 
   def labels
-    self.weekly_summaries.order(:start_date).map { |w| "#{ w.start_date } - #{ w.end_date }" }
+    self.weekly_summaries.order(:start_date).map { |w| "#{ w.start_date.strftime('%d %b %y') } - #{ w.end_date.strftime('%d %b %y') }" }
   end
 
   def data
