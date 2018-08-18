@@ -13,8 +13,8 @@
         </div>
       </div>
 
-      <div class="row" ng-repeat="aim in aims">
-        <div class="col-12">
+      <div class="row">
+        <div class="col-lg-6" ng-repeat="aim in aims">
           <div class="widget has-shadow">
             <div class="widget-header no-actions d-flex align-items-center">
               <h4>{{ aim.description }} <a ui-sref="entries">+</a> <a><i class="la la-edit edit" ui-sref="aimsedit({ id: aim.id })"></i></a></h4>

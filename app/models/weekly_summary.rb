@@ -7,10 +7,13 @@ class WeeklySummary < ApplicationRecord
     weekly_summary_with_latest_start_date = WeeklySummary.where(aim_id: aim_id).order(:start_date).last
 
     if weekly_summary_with_latest_start_date
+      puts 123
       until date_has_weekly_summary
         if date >= weekly_summary_with_latest_start_date.start_date && date <= weekly_summary_with_latest_start_date.end_date
+          puts 987
           date_has_weekly_summary = true
         else
+          puts 5345
           new_weekly_summary = WeeklySummary.new
           new_weekly_summary.aim_id = aim_id
           new_weekly_summary.minutes = 0
