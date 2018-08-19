@@ -57,6 +57,9 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
       BackEndService.createJob( $scope.newJob )
         .then(function( response ){
           $scope.jobs.unshift( response );
+          $scope.newJob.cost = 0;
+          $scope.newJob.description = 0;
+          AlertService.success( "Job created." );
         }, function( errors ){
           AlertService.processErrors( errors );
         })
