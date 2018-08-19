@@ -28,13 +28,11 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
   $scope.tenancyAgreements;
   $scope.jobs = [];
 
-  $scope.newTranxaction = {
-    amount: 0,
-    attachments: [],
-    date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
-    description: "",
-    tax: false,
-    tranxactables: []
+  $scope.newJob = {
+    cost: 0,
+    start_time: moment(),
+    end_time: moment(),
+    description: ""
   };
 
   $scope.newTranxactionType = {

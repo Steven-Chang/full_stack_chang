@@ -30,6 +30,15 @@ var app = angular.module('app', [
       .set("secure", "true")
   }])
 
+.config(['momentPickerProvider', function (momentPickerProvider) {
+    momentPickerProvider.options({
+    	format: "ddd D MMM YYYY HH:mm A",
+    	minView: "month",
+    	maxView: "minute",
+    	today: true
+		})
+}])
+
 .config(
   ['RestangularProvider',
   function(RestangularProvider) {

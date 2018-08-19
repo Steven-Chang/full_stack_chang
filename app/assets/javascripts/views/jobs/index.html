@@ -10,6 +10,8 @@
           </div>
         </div>
       </div>
+
+      {{ test }}
       <!-- End Page Header -->
       <div class="row flex-row">
         <div class="col-12">
@@ -35,8 +37,6 @@
                         ng-model="newJob.start_time" 
                         placeholder="Start Time"
                         moment-picker="newJob.start_time"
-                        max-view="hour"
-                        format="ddd D MMM YYYY HH:mm A"
                         required>
                         <div class="invalid-feedback">
                             Please select a datetime
@@ -50,11 +50,9 @@
                       <input type="text" 
                         autocomplete="off"
                         class="form-control" 
-                        ng-model="newJob.end_time" 
+                        ng-model="newJob.end_time"
                         placeholder="End Time"
                         moment-picker="newJob.end_time"
-                        max-view="hour"
-                        format="ddd D MMM YYYY HH:mm A"
                         required>
                         <div class="invalid-feedback">
                             Please select a datetime
