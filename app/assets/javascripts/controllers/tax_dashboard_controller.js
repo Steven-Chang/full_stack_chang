@@ -2,28 +2,30 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
 
   //// PRIVATE
   var getBalances = function(){
-    var params = {
-      from_date: new Date( $scope.yearEnding - 1, 7, 1 ),
-      end_date: new Date($scope.yearEnding, 6, 30),
-      tax: true,
-      tranxaction_type: "revenue"
+    if ( $scope.yearEnding ){
+      var params = {
+        from_date: new Date( $scope.yearEnding - 1, 7, 1 ),
+        end_date: new Date($scope.yearEnding, 6, 30),
+        tax: true,
+        tranxaction_type: "revenue"
+      }
+
+      BackEndService.getBalance( params )
+        .then(function( response ){
+          $scope.revenue = response.balance;
+        }, function( errors ){
+          AlertService.processErrors( errors );
+        });
+
+      params.tranxaction_type = "expense";
+
+      BackEndService.getBalance( params )
+        .then(function( response ){
+          $scope.expenses = response.balance;
+        }, function( errors ){
+          AlertService.processErrors( errors );
+        });
     }
-
-    BackEndService.getBalance( params )
-      .then(function( response ){
-        $scope.revenue = response.balance;
-      }, function( errors ){
-        AlertService.processErrors( errors );
-      });
-
-    params.tranxaction_type = "expense";
-
-    BackEndService.getBalance( params )
-      .then(function( response ){
-        $scope.expenses = response.balance;
-      }, function( errors ){
-        AlertService.processErrors( errors );
-      });
   };
 
   var getPaymentSummaries = function(){
