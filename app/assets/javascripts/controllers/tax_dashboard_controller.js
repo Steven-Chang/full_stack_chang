@@ -5,7 +5,7 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
     if ( $scope.yearEnding ){
       var params = {
         from_date: new Date( $scope.yearEnding - 1, 7, 1 ),
-        end_date: new Date($scope.yearEnding, 6, 30),
+        to_date: new Date($scope.yearEnding, 6, 30),
         tax: true,
         tranxaction_type: "revenue"
       }
