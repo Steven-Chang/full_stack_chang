@@ -58,7 +58,7 @@ app.controller('JobsController', ['$filter', '$http', '$scope', '$state', 'Alert
         .then(function( response ){
           $scope.jobs.unshift( response );
           $scope.newJob.cost = 0;
-          $scope.newJob.description = 0;
+          $scope.newJob.description = "";
           AlertService.success( "Job created." );
         }, function( errors ){
           AlertService.processErrors( errors );

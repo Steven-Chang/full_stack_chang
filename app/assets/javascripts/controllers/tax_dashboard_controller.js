@@ -1,6 +1,31 @@
 app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'FSCModalService', function( $filter, $ngConfirm, $rootScope, $scope, $state, AlertService, Auth, BackEndService, FSCModalService ){
 
   //// PRIVATE
+  var getBalances = function(){
+    var params = {
+      from_date: new Date( $scope.yearEnding - 1, 7, 1 ),
+      end_date: new Date($scope.yearEnding, 6, 30),
+      tax: true,
+      tranxaction_type: "revenue"
+    }
+
+    BackEndService.getBalance( params )
+      .then(function( response ){
+        $scope.revenue = response.balance;
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+
+    params.tranxaction_type = "expense";
+
+    BackEndService.getBalance( params )
+      .then(function( response ){
+        $scope.expenses = response.balance;
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+  };
+
   var getPaymentSummaries = function(){
     FSCModalService.showLoading();
     var params = {
@@ -33,8 +58,10 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
 
   //// PUBLIC ////
   $scope.client;
+  $scope.expenses;
   $scope.paymentSummaries;
   $scope.properties;
+  $scope.revenue;
   $scope.tenancyAgreements;
   $scope.yearEnding;
   $scope.yearEndings;
@@ -42,6 +69,7 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   $scope.$watch( "yearEnding", function(){
     getPaymentSummaries();
     getPropertySummaries();
+    getBalances();
     // We need to get the balances of each payment summary for the date
   });
 
@@ -49,6 +77,7 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
     FSCModalService.showLoading();
     Auth.currentUser()
       .then(function( user ){
+        $scope.user = user;
         FSCModalService.loading = false;
         if ( user.admin ){
           BackEndService.getYearEndings()

@@ -16,6 +16,39 @@
         <!-- Sorting -->
         <div class="widget has-shadow">
           <div class="widget-header bordered no-actions d-flex align-items-center">
+            <h4>Summary</h4>
+          </div>
+          <div class="widget-body">
+              <div class="table-responsive">
+                  <table class="table mb-0">
+                      <tbody>
+                        <tr>
+                          <th style="background-color: rgba(52, 40, 104, 0.05); border-radius: 4px; border: 0 none; padding: 20px 12px; color: #5d5386; font-weight: 600;">Revenue</th>
+                          <td>{{ revenue | currency }}</td>
+                        </tr>
+                        <tr>
+                          <th style="background-color: rgba(52, 40, 104, 0.05); border-radius: 4px; border: 0 none; padding: 20px 12px; color: #5d5386; font-weight: 600;">Expenses</th>
+                          <td>{{ expenses | currency }}</td>
+                        </tr>
+                        <tr>
+                          <th style="background-color: rgba(52, 40, 104, 0.05); border-radius: 4px; border: 0 none; padding: 20px 12px; color: #5d5386; font-weight: 600;">Revenue - Expenses</th>
+                          <td style="border-top: 1px solid #5d5386; border-bottom: 1px solid #5d5386; padding: 20px 12px;">{{ revenue - expenses | currency }}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+        </div>
+        <!-- End Sorting -->
+      </div>
+    </div>
+    <!-- End Row -->
+
+    <div class="row">
+      <div class="col-xl-12">
+        <!-- Sorting -->
+        <div class="widget has-shadow">
+          <div class="widget-header bordered no-actions d-flex align-items-center">
               <h4>Payment Summaries <a ui-sref="paymentsummariesnew">+</a></h4>
           </div>
           <div class="widget-body">
