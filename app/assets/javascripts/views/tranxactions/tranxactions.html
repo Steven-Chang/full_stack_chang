@@ -204,7 +204,7 @@
                             <td>{{ tranxaction.amount | currency }}</td>
                             <td>{{ tranxaction.tax }}</td>
                             <td class="td-actions">
-                              <a><i class="la la-edit edit" ui-sref="tranxactionsedit({ id: tranxaction.id })"></i></a>
+                              <a ui-sref="tranxactionsedit({ id: tranxaction.id })" target="_blank"><i class="la la-edit edit"></i></a>
                               <a ng-click="deleteTranxaction( $index )"><i class="la la-close delete"></i></a>
                             </td>
                           </tr>
