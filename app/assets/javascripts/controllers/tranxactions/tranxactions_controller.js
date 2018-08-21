@@ -8,7 +8,8 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
   // This is to send to the back end
   var searchParamsToSendUp = {
     resource_type: undefined,
-    resource_id: undefined
+    resource_id: undefined,
+    tax: undefined
   };
 
   var createTranxaction = function(){
@@ -90,6 +91,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
     $scope.searchParams.property_id = undefined;
     $scope.searchParams.tenancy_agreement_id = undefined;
     $scope.searchParams.client_id = undefined;
+    searchParamsToSendUp.tax = $scope.searchParams.tax;
 
     if ( $scope.searchParams.client ){
       searchParamsToSendUp.resource_type = "Client";
@@ -148,6 +150,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
   $scope.selectedProperty;
   $scope.selectedTenancyAgreement;
   $scope.selectedTranxactionType;
+  $scope.taxOptions = [{ value: "", label: "All" }, { value: "true", label: "True" }, { value: "false", label: "False" }];
   $scope.tranxactions = [];
   $scope.tranxactionTypes = [];
 
@@ -174,6 +177,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
     tenancy_agreement_id: undefined,
     client: undefined,
     client_id: undefined,
+    tax: "true"
   };
 
   $scope.$watch("selectedProperty", function( newValue, oldValue ){
@@ -273,6 +277,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
     if ( !$scope.gettingTranxactions ){
       $scope.gettingTranxactions = true;
       setSearchParams();
+      console.log( searchParamsToSendUp );
       BackEndService.getTranxactions( searchParamsToSendUp )
         .then(function( response ){
           $scope.tranxactions = response;

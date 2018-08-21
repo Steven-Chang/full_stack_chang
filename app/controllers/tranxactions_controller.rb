@@ -10,6 +10,10 @@ class TranxactionsController < ApplicationController
       @tranxactions = Tranxaction.all
     end
 
+    if params[:tax] && params[:tax].length > 0
+      @tranxactions = @tranxactions.where( tax: params[:tax] == 'true' )
+    end
+
     render :json => @tranxactions.order(date: :desc)
   end
 

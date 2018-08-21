@@ -169,6 +169,21 @@
             </select>
           </div>
 
+          {{ searchParams.tax }}
+
+          <div class="form-group row d-flex align-items-center">
+            <div class="col-lg-3 form-group">
+              <label class="form-control-label d-flex">Tax</label>
+            </div>
+            <div class="col-lg-9">
+<select
+    class="form-control"
+    ng-model="searchParams.tax"
+    ng-options="item.value as item.label for item in taxOptions">
+</select>
+            </div>
+          </div>
+
           <div class="text-right">
               <button class="btn btn-gradient-01" type="submit">Search</button>
           </div>
