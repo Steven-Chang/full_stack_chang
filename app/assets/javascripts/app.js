@@ -175,6 +175,12 @@ var app = angular.module('app', [
 			}]
 		})
 
+		.state('taxcategories', {
+			url: '/tax_categories',
+			templateUrl: 'views/tax_categories/index.html',
+			controller: 'TaxCategoriesController'
+		})
+
 		.state('register', {
 			url: '/register',
 			templateUrl: 'views/register.html',

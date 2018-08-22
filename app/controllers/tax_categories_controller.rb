@@ -1,24 +1,19 @@
 class TaxCategoriesController < ApplicationController
-  before_action :set_tax_category, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_tax_category, only: [:show, :destroy]
 
   # GET /tax_categories
   # GET /tax_categories.json
   def index
     @tax_categories = TaxCategory.all
+
+    render json: @tax_categories
   end
 
   # GET /tax_categories/1
   # GET /tax_categories/1.json
   def show
-  end
-
-  # GET /tax_categories/new
-  def new
-    @tax_category = TaxCategory.new
-  end
-
-  # GET /tax_categories/1/edit
-  def edit
+    render json: @tax_category
   end
 
   # POST /tax_categories
@@ -26,14 +21,10 @@ class TaxCategoriesController < ApplicationController
   def create
     @tax_category = TaxCategory.new(tax_category_params)
 
-    respond_to do |format|
-      if @tax_category.save
-        format.html { redirect_to @tax_category, notice: 'Tax category was successfully created.' }
-        format.json { render :show, status: :created, location: @tax_category }
-      else
-        format.html { render :new }
-        format.json { render json: @tax_category.errors, status: :unprocessable_entity }
-      end
+    if @tax_category.save
+      render json: @tax_category, status: :created
+    else
+      render json: @tax_category.errors, status: :unprocessable_entity
     end
   end
 
@@ -56,7 +47,6 @@ class TaxCategoriesController < ApplicationController
   def destroy
     @tax_category.destroy
     respond_to do |format|
-      format.html { redirect_to tax_categories_url, notice: 'Tax category was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +59,6 @@ class TaxCategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tax_category_params
-      params.fetch(:tax_category, {})
+      params.require(:tax_category).permit(:description)
     end
 end
