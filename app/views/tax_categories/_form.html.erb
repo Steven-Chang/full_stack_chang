@@ -1,0 +1,17 @@
+<%= form_with(model: tax_category, local: true) do |form| %>
+  <% if tax_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tax_category.errors.count, "error") %> prohibited this tax_category from being saved:</h2>
+
+      <ul>
+      <% tax_category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
