@@ -13,6 +13,7 @@
       <!-- End Page Header -->
       <div class="row flex-row">
         <div class="col-12">
+
           <div class="widget has-shadow">
             <div class="widget-body">
               <form name="editTranxactionForm" ng-submit="uploadFileThenUpdateTranxaction( editTranxactionForm )" class="needs-validation" id="edit-tranxaction-form" novalidate>
@@ -77,6 +78,14 @@
                     <div class="form-check">
                       <input type="checkbox" class="form-check-input" ng-model="tranxaction.tax" id="tax">
                       <label class="form-check-label" for="tax">Tax</label>
+                    </div>
+                    <div>
+<select
+    class="form-control"
+    ng-model="tranxaction.tax_category_id"
+    ng-options="item.id as item.description for item in taxCategories">
+    <option value="">No Tax Category</option>
+</select>
                     </div>
                   </div>
                 </div>

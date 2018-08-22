@@ -5,6 +5,15 @@ app.controller('TranxactionsEditController', ['$stateParams', '$scope', '$state'
 	// --------------------
   var updatingTranxaction = false;
 
+  var getTaxCategories = function(){
+    BackEndService.get("tax_categories")
+      .then(function( response ){
+        $scope.taxCategories = response;
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+  };
+
   var updateTranxaction = function(){
     $scope.tranxaction.put()
       .then(function( response ){
@@ -27,6 +36,7 @@ app.controller('TranxactionsEditController', ['$stateParams', '$scope', '$state'
 	// --------------------
 
 	// This is a function.
+  $scope.taxCategories;
   $scope.tranxaction;
   $scope.signedIn = Auth.isAuthenticated;
 
@@ -34,6 +44,7 @@ app.controller('TranxactionsEditController', ['$stateParams', '$scope', '$state'
     Auth.currentUser()
       .then(function( user ){
         DatetimeService.initiateDatePicker('#date-picker');
+        getTaxCategories();
         BackEndService.getTranxaction( $stateParams.id )
           .then(function( response ){
             $scope.tranxaction = response;
