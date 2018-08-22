@@ -1,6 +1,7 @@
 class Tranxaction < ApplicationRecord
   has_many :tranxactables, dependent: :destroy
   has_many :attachments, as: :resource, dependent: :destroy
+  belongs_to :tax_category
 
   after_create do |tranxaction|
     tranxaction.tranxactables.each do |tranxactable|
