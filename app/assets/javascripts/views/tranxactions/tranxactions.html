@@ -221,7 +221,7 @@
                               <a ng-click="deleteTranxaction( $index )"><i class="la la-close delete"></i></a>
                             </td>
                           </tr>
-                          <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
+                          <tr ng-show="tranxaction.attachments.length || tranxaction.tax_category" class="sub-table-row">
                             <td colspan="5">
                               <div ng-if="tranxaction.tax_category">
                                 Tax Category: {{ tranxaction.tax_category.description }}
