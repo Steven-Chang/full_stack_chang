@@ -223,6 +223,9 @@
                           </tr>
                           <tr ng-show="tranxaction.attachments.length" class="sub-table-row">
                             <td colspan="5">
+                              <div ng-if="tranxaction.tax_category">
+                                Tax Category: {{ tranxaction.tax_category.description }}
+                              </div>
                               <div ng-repeat="attachment in tranxaction.attachments">
                                 <a ng-href="{{ attachment.url }}" target="_blank"><i class="la la-file-archive-o" style="font-size: 1.6rem"></i> {{ attachment.aws_key }}</a>
                               </div>
