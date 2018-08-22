@@ -1,4 +1,4 @@
-app.controller('TaxCategoriesController', ['$scope', '$state', 'Auth', 'BackEndService', 'FSCModalService', function( $scope, $state, Auth, BackEndService, FSCModalService){
+app.controller('TaxCategoriesController', ['$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'FSCModalService', function( $scope, $state, AlertService, Auth, BackEndService, FSCModalService){
 
 	// --------------------
 	// Private
