@@ -18,7 +18,6 @@ Rails.application.routes.draw do
 
   resources :tranxaction_types
 
-  get 'properties/tax_summaries' => "properties#tax_summaries"
   resources :properties do
     resources :tenancy_agreements
   end

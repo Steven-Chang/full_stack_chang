@@ -89,7 +89,7 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all("properties").getList();
   };
 
-  BackEndService.getPropertyTaxSummaries = function( params ){
+  BackEndService.getTaxSummaryForProperties = function( params ){
     return Restangular.all("properties").customGET("tax_summaries", params)
   };
 

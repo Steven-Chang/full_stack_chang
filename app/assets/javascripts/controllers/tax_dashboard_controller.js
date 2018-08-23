@@ -28,6 +28,23 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
     }
   };
 
+  var getBalance = function( resource, resourceType ){
+    var params = {
+      resource_type: resourceType,
+      resource_id: resource.id,
+      from_date: new Date( $scope.yearEnding - 1, 7, 1 ),
+      to_date: new Date($scope.yearEnding, 6, 30),
+      tax: true
+    };
+
+    BackEndService.getBalance( params )
+      .then(function( response ){
+        resource.balance = response.balance;
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+  };
+
   var getPaymentSummaries = function(){
     FSCModalService.showLoading();
     var params = {
@@ -50,11 +67,31 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
       year_ending: $scope.yearEnding
     };
 
-    BackEndService.getPropertyTaxSummaries( params )
+    BackEndService.get( "properties" )
       .then(function( response ){
         $scope.properties = response;
-      }, function( errors ){
 
+        for (var i = 0; i < $scope.properties.length; i++){
+          getTenancyAgreementsForProperty( $scope.properties[i] );
+        };
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
+  };
+
+  var getTenancyAgreementsForProperty = function( property ){
+    var params = {
+      property_id: property.id
+    };
+
+    BackEndService.get("tenancy_agreements", params)
+      .then(function( response ){
+        property.tenancy_agreements = response;
+        for( var i = 0; i < response.length; i++ ){
+          getBalance( response[i], "TenancyAgreement" )
+        };
+      }, function( errors ){
+        AlertService.processErrors( errors );
       });
   };
 

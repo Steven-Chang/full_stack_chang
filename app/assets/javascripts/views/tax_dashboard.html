@@ -102,8 +102,8 @@
                       </thead>
                       <tbody ng-repeat="tenancyAgreement in property.tenancy_agreements" style="border: 0px solid white;">
                         <tr>
-                          <td>{{ tenancyAgreement }}</td>
-                          <td>?????</td>
+                          <td>{{ tenancyAgreement.user.username }}</td>
+                          <td>{{ tenancyAgreement.balance }}</td>
                         </tr>
                       </tbody>
                   </table>
