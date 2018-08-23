@@ -97,19 +97,42 @@
                       <thead>
                         <tr>
                           <th>Tenant</th>
-                          <th>Gross</th>
+                          <th>Rent</th>
                         </tr>
                       </thead>
                       <tbody ng-repeat="tenancyAgreement in property.tenancy_agreements" style="border: 0px solid white;" ng-show="tenancyAgreement.balance > 0 || tenancyAgreement.balance < 0">
                         <tr>
                           <td>{{ tenancyAgreement.user.username }}</td>
-                          <td>{{ tenancyAgreement.balance }}</td>
+                          <td>{{ tenancyAgreement.balance | currency }}</td>
                         </tr>
                       </tbody>
                       <tbody>
                         <tr>
                           <td>Total Rental Income</td>
-                          <td>{{ calculateTotalRentalIncomeForProperty( property ) }}</td>
+                          <td>{{ calculateTotalRentalIncomeForProperty( property ) | currency }}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="table-responsive">
+                  <table class="table mb-0">
+                      <thead>
+                        <tr>
+                          <th>Expense</th>
+                          <th>$</th>
+                        </tr>
+                      </thead>
+                      <tbody ng-repeat="taxCategory in property.taxCategories" style="border: 0px solid white;" ng-show="tenancyAgreement.balance > 0 || tenancyAgreement.balance < 0">
+                        <tr>
+                          <td>{{ taxCategory.description }}</td>
+                          <td>{{ taxCategory.balance | currency }}</td>
+                        </tr>
+                      </tbody>
+                      <tbody>
+                        <tr>
+                          <td>Total Rental Expenses</td>
+                          <td>{{ calculateTotalExpensesForProperty( property ) | currency }}</td>
                         </tr>
                       </tbody>
                   </table>

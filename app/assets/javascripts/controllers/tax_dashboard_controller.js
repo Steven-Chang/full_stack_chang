@@ -28,14 +28,15 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
     }
   };
 
-  var getBalance = function( resource, resourceType ){
+  var getBalance = function( resource, resourceType, resourceId, taxCategory ){
     if ( $scope.yearEnding ){
       var params = {
         resource_type: resourceType,
-        resource_id: resource.id,
+        resource_id: resourceId,
         from_date: ($scope.yearEnding - 1).toString() + "-7-1",
         to_date: $scope.yearEnding + "-6-30",
-        tax: true
+        tax: true,
+        tax_category: taxCategory
       };
 
       BackEndService.getBalance( params )
@@ -46,6 +47,23 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
           AlertService.processErrors( errors );
         });
     }
+  };
+
+  var getCategoriesAndBalancesForProperty = function( property ){
+    var another = {
+      resource_type: "Property",
+      resource_id: property.id
+    };
+
+    BackEndService.get("tax_categories", another)
+      .then(function( response ){
+        property.taxCategories = response;
+        for( var i = 0; i < response.length; i++ ){
+          getBalance( response[i], "Property", property.id, response[i].description );
+        };
+      }, function( errors ){
+        AlertService.processErrors( errors );
+      });
   };
 
   var getPaymentSummaries = function(){
@@ -73,9 +91,11 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
     BackEndService.get( "properties" )
       .then(function( response ){
         $scope.properties = response;
+        $scope.properties.expenses = [];
 
         for (var i = 0; i < $scope.properties.length; i++){
           getTenancyAgreementsAndBalancesForProperty( $scope.properties[i] );
+          getCategoriesAndBalancesForProperty( $scope.properties[i] );
         };
       }, function( errors ){
         AlertService.processErrors( errors );
@@ -87,12 +107,11 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
       property_id: property.id
     };
 
-    property.totalRentalIncome = 0;
     BackEndService.get("tenancy_agreements", params)
       .then(function( response ){
         property.tenancy_agreements = response;
         for( var i = 0; i < response.length; i++ ){
-          getBalance( response[i], "TenancyAgreement" );
+          getBalance( response[i], "TenancyAgreement", response[i].id );
         };
       }, function( errors ){
         AlertService.processErrors( errors );
@@ -162,10 +181,20 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   };
 
   $scope.calculateTotalRentalIncomeForProperty = function( property ){
-    total = 0;
+    var total = 0;
 
     for (var i = 0; i < property.tenancy_agreements.length; i++){
       total += parseFloat( property.tenancy_agreements[i].balance );
+    };
+
+    return total;
+  };
+
+  $scope.calculateTotalExpensesForProperty = function( property ){
+    var total = 0;
+
+    for (var i = 0; i < property.expenses; i++){
+      total += parseFloat( property.expenses[i].balance );
     };
 
     return total;

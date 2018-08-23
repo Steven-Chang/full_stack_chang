@@ -80,6 +80,11 @@ class TranxactionsController < ApplicationController
       t = t.where(tax: params[:tax])
     end
 
+    if params[:tax_category]
+      tax_category = TaxCategory.find_by(description: params[:tax_category])
+      t = t.where(tax_category_id: tax_category.id)
+    end
+
     balance = t.sum(:amount)
 
     render :json => { balance: balance }, status => 200

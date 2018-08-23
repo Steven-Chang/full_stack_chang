@@ -5,7 +5,11 @@ class TaxCategoriesController < ApplicationController
   # GET /tax_categories
   # GET /tax_categories.json
   def index
-    @tax_categories = TaxCategory.all
+    if params[:resource_type] && params[:resource_id]
+      @tax_categories = params[:resource_type].constantize.find(params[:resource_id]).tax_categories
+    else
+      @tax_categories = TaxCategory.all
+    end
 
     render json: @tax_categories
   end
