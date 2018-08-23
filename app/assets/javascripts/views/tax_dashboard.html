@@ -106,6 +106,12 @@
                           <td>{{ tenancyAgreement.balance }}</td>
                         </tr>
                       </tbody>
+                      <tbody>
+                        <tr>
+                          <td>Total Rental Income</td>
+                          <td>{{ calculateTotalRentalIncomeForProperty( property ) }}</td>
+                        </tr>
+                      </tbody>
                   </table>
               </div>
           </div>
