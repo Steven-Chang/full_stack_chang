@@ -4,8 +4,8 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   var getBalances = function(){
     if ( $scope.yearEnding ){
       var params = {
-        from_date: new Date( $scope.yearEnding - 1, 6, 1 ),
-        to_date: new Date($scope.yearEnding, 5, 30),
+        from_date: ($scope.yearEnding - 1).toString() + "-7-1",
+        to_date: $scope.yearEnding + "-6-30",
         tax: true,
         tranxaction_type: "revenue"
       }
@@ -33,8 +33,8 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
       var params = {
         resource_type: resourceType,
         resource_id: resource.id,
-        from_date: new Date( $scope.yearEnding - 1, 6, 1 ),
-        to_date: new Date($scope.yearEnding, 5, 30),
+        from_date: ($scope.yearEnding - 1).toString() + "-7-1",
+        to_date: $scope.yearEnding + "-6-30",
         tax: true
       };
 
