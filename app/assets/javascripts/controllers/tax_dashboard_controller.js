@@ -32,7 +32,7 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
     var params = {
       resource_type: resourceType,
       resource_id: resource.id,
-      from_date: new Date( $scope.yearEnding - 1, 7, 1 ),
+      from_date: new Date( $scope.yearEnding - 1, 5, 1 ),
       to_date: new Date($scope.yearEnding, 6, 30),
       tax: true
     };
