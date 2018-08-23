@@ -192,8 +192,10 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   $scope.calculateTotalExpensesForProperty = function( property ){
     var total = 0;
 
-    for (var i = 0; i < property.expenses.length; i++){
-      total += parseFloat( property.expenses[i].balance );
+    if ( property.expenses ){
+      for (var i = 0; i < property.expenses.length; i++){
+        total += parseFloat( property.expenses[i].balance );
+      };
     };
 
     return total;

@@ -60,6 +60,7 @@
                           <th>Gross</th>
                           <th>Tax Withheld</th>
                           <th>Allowances</th>
+                          <th>Expenses</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -69,6 +70,7 @@
                           <td>{{ paymentSummary.gross_payment | currency }}</td>
                           <td>{{ paymentSummary.total_tax_withheld | currency }}</td>
                           <td>{{ paymentSummary.total_allowances | currency }}</td>
+                          <td>{{ paymentSummary.total_expenses | currency }}</td>
                           <td class="td-actions">
                             <a><i class="la la-edit edit" ui-sref="paymentsummariesedit({ id: paymentSummary.id })"></i></a>
                             <a ng-click="deleteSummary( $index )"><i class="la la-close delete"></i></a>
@@ -92,7 +94,7 @@
               <h4>{{ property.address }}</h4>
           </div>
           <div class="widget-body">
-              <div class="table-responsive">
+              <div class="table-responsive mb-5">
                   <table class="table mb-0">
                       <thead>
                         <tr>

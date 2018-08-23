@@ -9,4 +9,8 @@ class PaymentSummary < ApplicationRecord
     Client.find( self.client_id ).tranxactions.where(tax: true).where("amount > ?", 0).where("date >= ?", Date.new( self.year_ending - 1, 7, 1) ).where("date < ?", Date.new( self.year_ending, 7, 1 )).sum(:amount)
   end
 
+  def total_expenses
+    Client.find( self.client_id ).tranxactions.where(tax: true).where("amount < ?", 0).where("date >= ?", Date.new( self.year_ending - 1, 7, 1) ).where("date < ?", Date.new( self.year_ending, 7, 1 )).sum(:amount)
+  end
+
 end
