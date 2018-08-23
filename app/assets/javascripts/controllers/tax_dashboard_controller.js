@@ -50,14 +50,15 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   };
 
   var getCategoriesAndBalancesForProperty = function( property ){
-    var another = {
+    var params = {
       resource_type: "Property",
       resource_id: property.id
     };
 
-    BackEndService.get("tax_categories", another)
+    BackEndService.get("tax_categories", params)
       .then(function( response ){
-        property.taxCategories = response;
+        property.expenses = response;
+        console.log( property );
         for( var i = 0; i < response.length; i++ ){
           getBalance( response[i], "Property", property.id, response[i].description );
         };

@@ -123,7 +123,7 @@
                           <th>$</th>
                         </tr>
                       </thead>
-                      <tbody ng-repeat="taxCategory in property.taxCategories" style="border: 0px solid white;" ng-show="tenancyAgreement.balance > 0 || tenancyAgreement.balance < 0">
+                      <tbody ng-repeat="taxCategory in property.expenses" style="border: 0px solid white;" ng-show="taxCategory.balance > 0 || taxCategory.balance < 0">
                         <tr>
                           <td>{{ taxCategory.description }}</td>
                           <td>{{ taxCategory.balance | currency }}</td>
