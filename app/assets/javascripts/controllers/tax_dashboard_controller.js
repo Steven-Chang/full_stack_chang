@@ -29,21 +29,23 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   };
 
   var getBalance = function( resource, resourceType ){
-    var params = {
-      resource_type: resourceType,
-      resource_id: resource.id,
-      from_date: new Date( $scope.yearEnding - 1, 6, 1 ),
-      to_date: new Date($scope.yearEnding, 5, 30),
-      tax: true
-    };
+    if ( $scope.yearEnding ){
+      var params = {
+        resource_type: resourceType,
+        resource_id: resource.id,
+        from_date: new Date( $scope.yearEnding - 1, 6, 1 ),
+        to_date: new Date($scope.yearEnding, 5, 30),
+        tax: true
+      };
 
-    BackEndService.getBalance( params )
-      .then(function( response ){
-        resource.balance = response.balance;
-        return response.balance;
-      }, function( errors ){
-        AlertService.processErrors( errors );
-      });
+      BackEndService.getBalance( params )
+        .then(function( response ){
+          resource.balance = response.balance;
+          return response.balance;
+        }, function( errors ){
+          AlertService.processErrors( errors );
+        });
+    }
   };
 
   var getPaymentSummaries = function(){
