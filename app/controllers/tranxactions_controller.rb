@@ -67,8 +67,8 @@ class TranxactionsController < ApplicationController
 
     if params[:from_date] && params[:to_date]
       t = t
-        .where("date >= ?", params[:from_date].to_time )
-        .where("date <= ?", params[:to_date].to_time )
+        .where("date >= ?", params[:from_date].to_date )
+        .where("date <= ?", params[:to_date].to_date )
     end
 
     if params[:tranxaction_type]
