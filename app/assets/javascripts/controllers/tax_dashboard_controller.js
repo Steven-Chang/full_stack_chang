@@ -58,7 +58,6 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
     BackEndService.get("tax_categories", params)
       .then(function( response ){
         property.expenses = response;
-        console.log( property );
         for( var i = 0; i < response.length; i++ ){
           getBalance( response[i], "Property", property.id, response[i].description );
         };
@@ -92,7 +91,6 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
     BackEndService.get( "properties" )
       .then(function( response ){
         $scope.properties = response;
-        $scope.properties.expenses = [];
 
         for (var i = 0; i < $scope.properties.length; i++){
           getTenancyAgreementsAndBalancesForProperty( $scope.properties[i] );
@@ -194,7 +192,7 @@ app.controller('TaxDashboardController', ['$filter', '$ngConfirm', '$rootScope',
   $scope.calculateTotalExpensesForProperty = function( property ){
     var total = 0;
 
-    for (var i = 0; i < property.expenses; i++){
+    for (var i = 0; i < property.expenses.length; i++){
       total += parseFloat( property.expenses[i].balance );
     };
 
