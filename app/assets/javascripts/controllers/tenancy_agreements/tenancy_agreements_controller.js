@@ -1,18 +1,33 @@
 app.controller('TenancyAgreementsController', ['$filter', '$ngConfirm', '$scope', '$state', 'Auth', 'BackEndService', 'DisplayService', 'Restangular', function( $filter, $ngConfirm, $scope, $state, Auth, BackEndService, DisplayService, Restangular ){
 
   // PRIVATE
+  var getTenancyAgreements = function(activeStatus){
+    var active;
 
-  // PUBLIC
+    if(activeStatus == "Active"){
+      active = true;
+    }else if(activeStatus == "Inactive"){
+      active = false;
+    };
 
-  $scope.tenancyAgreements;
+    var params = {
+      active: active
+    };
 
-  $scope.init = function(){
-    BackEndService.getTenancyAgreements()
-      .then(function( response ){
+    BackEndService.getTenancyAgreements(params)
+      .then(function(response){
         $scope.tenancyAgreements = response;
-      }, function( errors ){
-        AlertService.processErrors( errors );
+      }, function(errors){
+        AlertService.processErrors(errors);
       });
   };
 
+  // PUBLIC
+  $scope.activeStatus = "Active";
+  $scope.activeStatuses =["Active", "Inactive", "All"];
+  $scope.tenancyAgreements;
+
+  $scope.$watch("activeStatus", function(){
+    getTenancyAgreements($scope.activeStatus);
+  });
 }]);

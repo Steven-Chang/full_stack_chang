@@ -10,6 +10,10 @@ class TenancyAgreementsController < ApplicationController
       @tenancy_agreements = TenancyAgreement.all
     end
 
+    if params[:active]
+      @tenancy_agreements = @tenancy_agreements.where(active: params[:active] == "true") 
+    end
+
     render :json => @tenancy_agreements
   end
 

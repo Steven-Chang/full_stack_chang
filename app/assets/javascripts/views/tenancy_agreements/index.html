@@ -1,12 +1,12 @@
 <nav-bar></nav-bar>
-<div class="page-content d-flex align-items-stretch" id="tranxactions" ng-init="init()">
+<div class="page-content d-flex align-items-stretch" id="tranxactions">
   <div class="content-inner">
     <div class="container-fluid">
       <!-- Begin Page Header-->
       <div class="row">
         <div class="page-header">
           <div class="d-flex align-items-center">
-              <h2 class="page-header-title">Tenancy Agreements</h2>
+              <h2 class="page-header-title">Tenancy Agreements | <select ng-model="activeStatus" ng-options="activeStatus for activeStatus in activeStatuses"></select></h2>
           </div>
         </div>
       </div>
