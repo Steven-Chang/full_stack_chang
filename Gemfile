@@ -3,6 +3,10 @@ ruby "2.5.1"
 
 gem 'aws-sdk', '~> 2'
 
+# Monitoring the app
+# https://rpm.newrelic.com/accounts/2222353/applications/setup#ruby
+gem 'newrelic_rpm'
+
 gem 'rspotify'
 
 # https://github.com/laserlemon/figaro
