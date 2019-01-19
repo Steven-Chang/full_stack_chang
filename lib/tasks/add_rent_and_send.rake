@@ -13,7 +13,7 @@ namespace :fsc do
         new_tranxaction.date = Date.today
         new_tranxaction.description = tenancy_agreement.user.username + " " + description
         new_tranxaction.amount = tenancy_agreement.amount
-        new_tranxaction.tax = true
+        new_tranxaction.tax = tenancy_agreement.tax
         new_tranxaction.save
 
         new_tranxactable = Tranxactable.new
