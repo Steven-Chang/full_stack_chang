@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180822061459) do
+ActiveRecord::Schema.define(version: 20190119020940) do
 
   create_table "aims", force: :cascade do |t|
     t.string "description", null: false
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(version: 20180822061459) do
     t.integer "property_id"
     t.decimal "bond", precision: 18, scale: 8, default: "0.0"
     t.boolean "active", default: true
+    t.boolean "tax", default: true
   end
 
   create_table "tranxactables", force: :cascade do |t|
