@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190127113546) do
+ActiveRecord::Schema.define(version: 20190127115326) do
 
   create_table "aims", force: :cascade do |t|
     t.string "description", null: false
@@ -73,31 +73,11 @@ ActiveRecord::Schema.define(version: 20190127113546) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "date_entries", force: :cascade do |t|
-    t.date "date", null: false
-    t.integer "entry_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "entries", force: :cascade do |t|
     t.integer "aim_id", null: false
-    t.integer "minutes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
-    t.integer "weekly_summary_id"
-  end
-
-  create_table "farming_transactions", force: :cascade do |t|
-    t.string "description", null: false
-    t.decimal "amount", precision: 18, scale: 8, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.date "date"
-    t.decimal "odds", precision: 18, scale: 8
-    t.boolean "farming"
   end
 
   create_table "jobs", force: :cascade do |t|

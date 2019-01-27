@@ -1,2 +1,0 @@
-class DateEntry < ApplicationRecord
-end
