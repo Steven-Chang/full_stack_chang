@@ -14,23 +14,22 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-6" ng-repeat="aim in aims">
+        <div class="col-12">
           <div class="widget has-shadow">
-            <div class="widget-header no-actions d-flex align-items-center">
-              <h4>{{ aim.description }} <a ui-sref="entries">+</a> <a><i class="la la-edit edit" ui-sref="aimsedit({ id: aim.id })"></i></a></h4>
-            </div>
-            <div class="widget-header bordered" style="padding-top: 0;">
-              <h5>minutes / day: {{ aim.per_day }}</h5>
-            </div>
-
-            <div class="widget-body">
-              <canvas id="line" class="chart chart-line" 
-              chart-data="aim.data"
-              chart-labels="aim.labels"
-              chart-options="options"
-              chart-click="onClick">
-              </canvas>
-            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col" ng-repeat='aim in aims' style="text-transform: capitalize;">{{ aim.description }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="dateEntry in dateEntries">
+                  <td scope="row">{{ dateEntry.date }}</th>
+                  <td ng-repeat="entry in dateEntry.entries">{{ entry.achieved }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

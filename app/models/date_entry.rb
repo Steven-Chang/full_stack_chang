@@ -1,0 +1,2 @@
+class DateEntry < ApplicationRecord
+end

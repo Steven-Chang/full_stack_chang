@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class WeeklySummaryTest < ActiveSupport::TestCase
+class DateEntryTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

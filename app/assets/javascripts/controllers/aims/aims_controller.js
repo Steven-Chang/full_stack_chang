@@ -5,6 +5,7 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
   var getAims = function(){
     BackEndService.getAims()
       .then(function( response ){
+        console.log(response);
         $scope.aims = response;
       }, function( errors ){
         AlertService.processErrors( errors );
