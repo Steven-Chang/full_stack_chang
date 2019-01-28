@@ -20,13 +20,13 @@
               <thead>
                 <tr>
                   <th scope="col">Date</th>
-                  <th scope="col" ng-repeat='aim in aims' style="text-transform: capitalize;">{{ aim.description }}</th>
+                  <th scope="col" ng-repeat="aim in aims | orderBy: 'id'" style="text-transform: capitalize;">{{ aim.id }}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="dateEntry in dateEntries">
-                  <td scope="row">{{ dateEntry.date }}</th>
-                  <td ng-repeat="entry in dateEntry.entries">{{ entry.achieved }}</td>
+                <tr ng-repeat="date in dates">
+                  <td scope="row">{{ date }}</th>
+                  <td ng-repeat="entry in entriesGroupedByDate[date] | orderBy: 'aim_id'">{{ entry.aim_id }}</td>
                 </tr>
               </tbody>
             </table>

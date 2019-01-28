@@ -5,7 +5,6 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
   var getAims = function(){
     BackEndService.getAims()
       .then(function( response ){
-        console.log(response);
         $scope.aims = response;
       }, function( errors ){
         AlertService.processErrors( errors );
@@ -13,8 +12,10 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
   };
 
   //// PUBLIC ////
-
   $scope.aims;
+  $scope.dates;
+  $scope.entriesGroupedByDate;
+  $scope.gettingEntries = false;
 
   $scope.options = {
     scales: {
@@ -34,12 +35,29 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
       .then(function( user ){
         if ( user.admin ){
           getAims();
+          $scope.getEntries();
         } else {
           $state.go("home");
         };
       }, function( errors ){
         AlertService.processErrors( errors );
       });
+  };
+
+  $scope.getEntries = function(){
+    if(!$scope.gettingEntries){
+      $scope.gettingEntries = true;
+      BackEndService.getEntries()
+        .then(function(response){
+          $scope.entriesGroupedByDate = response.data;
+          $scope.dates = Object.keys(response.data);
+        }, function(errors){
+          AlertService.processErrors(errors);
+        })
+        .finally(function(){
+          $scope.gettingEntries = false;
+        });
+    };
   };
 
 }]);

@@ -4,10 +4,16 @@ class EntriesController < ApplicationController
   # GET /entries
   # GET /entries.json
   def index
-    @entries = Entry.all.paginate(:page => params[:page], :per_page => 30)
+    render json: Entry.all
+  end
 
+  def by_date
+    data = Entry.all
+      .select(:id, :date, :aim_id, :achieved)
+      .order("date DESC")
+      .group_by{|p| p['date'] }
 
-    render json: @entries
+    respond_with ({ data: data }).to_json
   end
 
   # GET /entries/1

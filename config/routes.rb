@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :tax_categories
+  get 'entries/by_date' => 'entries#by_date'
   resources :entries
   resources :aims
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)

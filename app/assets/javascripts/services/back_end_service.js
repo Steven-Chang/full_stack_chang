@@ -58,7 +58,11 @@ app.service('BackEndService', ['$http', 'Restangular',
   };
 
   BackEndService.getClients = function(){
-    return Restangular.all('clients').getList()
+    return Restangular.all('clients').get()
+  };
+
+  BackEndService.getEntries = function(){
+    return Restangular.all('entries').customGET('by_date')
   };
 
   BackEndService.getJobs = function(){

@@ -1,5 +1,5 @@
 class EntrySerializer < ActiveModel::Serializer
-  attributes :id, :minutes, :date
+  attributes :id, :date, :achieved
 
   belongs_to :aim
 end
