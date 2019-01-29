@@ -8,6 +8,8 @@ class EntriesController < ApplicationController
   end
 
   def by_date
+    Aim.ids
+
     data = Entry.all
       .select(:id, :date, :aim_id, :achieved)
       .order("date DESC")
