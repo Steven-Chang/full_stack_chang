@@ -12,7 +12,7 @@ class EntriesController < ApplicationController
     # what i want is to check if we entries for that date and
     end_date = params["date"].to_date
     start_date = end_date - 10.days
-    while(start_date < end_date) do
+    while(start_date <= end_date) do
       unless Entry.where(date: start_date).count > 0
         Aim.all.each do |aim|
           aim.entries.create(date: start_date)

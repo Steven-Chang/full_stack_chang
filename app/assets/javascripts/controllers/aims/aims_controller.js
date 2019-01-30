@@ -52,7 +52,9 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
         params.date.setDate(params.date.getDate() - 1);
       } else {
         params.date = new Date();
+        params.date.setDate(params.date.getDate() + 1);
       };
+      console.log(params);
 
       $scope.gettingEntries = true;
       BackEndService.getEntries(params)
