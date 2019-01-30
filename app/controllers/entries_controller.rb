@@ -10,8 +10,17 @@ class EntriesController < ApplicationController
   def by_date
     # now that we have a date
     # what i want is to check if we entries for that date and
-    end_date = params["date"].to_date
-    start_date = end_date - 10.days
+    number_of_days_back = params["number_of_days_back"].to_i
+    if params["date"]
+      end_date = params["date"].to_date
+    else
+      if Entry.all.first
+        end_date = Entry.all.order("date DESC").first.date
+      else
+        end_date = Date.today
+      end
+    end
+    start_date = end_date - number_of_days_back.days
     while(start_date <= end_date) do
       unless Entry.where(date: start_date).count > 0
         Aim.all.each do |aim|
@@ -22,7 +31,7 @@ class EntriesController < ApplicationController
     end
 
     data = Entry.all
-      .where("date >= ? and date <= ?", end_date - 10.days, end_date)
+      .where("date >= ? and date <= ?", end_date - number_of_days_back.days, end_date)
       .select(:id, :date, :aim_id, :achieved)
       .order("date DESC")
       .group_by{|p| p['date'] }

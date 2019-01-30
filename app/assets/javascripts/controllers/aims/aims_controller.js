@@ -1,7 +1,6 @@
 app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'ElisyamService', 'FSCModalService', function( $filter, $http, $scope, $state, AlertService, Auth, BackEndService, ElisyamService, FSCModalService ){
 
   // Private
-
   var getAims = function(){
     BackEndService.getAims()
       .then(function( response ){
@@ -12,6 +11,7 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
   };
 
   //// PUBLIC ////
+  $scope.addingDays = false;
   $scope.aims;
   $scope.dates = [];
   $scope.entriesGroupedByDate = {};
@@ -30,6 +30,28 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
     }
   };
 
+  $scope.addDay = function(){
+    if(!$scope.addingDays){
+      $scope.addingDays = true;
+      params = {
+        date: new Date(Date.parse($scope.dates[0])),
+        number_of_days_back: 0
+      }
+      params.date.setDate(params.date.getDate() + 1);
+    };
+
+    BackEndService.getEntries(params)
+      .then(function(response){
+        Object.assign($scope.entriesGroupedByDate, response.data);
+        $scope.dates = Object.keys(response.data).concat($scope.dates);
+      }, function(errors){
+        AlertService.processErrors(errors);
+      })
+      .finally(function(){
+        $scope.addingDays = false;
+      });
+  };
+
   $scope.init = function(){
     Auth.currentUser()
       .then(function( user ){
@@ -46,15 +68,13 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
 
   $scope.getEntries = function(){
     if(!$scope.gettingEntries){
-      var params = {};
+      var params = {
+        number_of_days_back: 10
+      };
       if($scope.dates.length){
         params.date = new Date(Date.parse($scope.dates[$scope.dates.length - 1]));
         params.date.setDate(params.date.getDate() - 1);
-      } else {
-        params.date = new Date();
-        params.date.setDate(params.date.getDate() + 1);
       };
-      console.log(params);
 
       $scope.gettingEntries = true;
       BackEndService.getEntries(params)
