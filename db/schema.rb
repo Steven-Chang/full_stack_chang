@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190127125802) do
+ActiveRecord::Schema.define(version: 20190130205821) do
 
   create_table "aims", force: :cascade do |t|
     t.string "description", null: false
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20190127125802) do
     t.datetime "updated_at", null: false
     t.date "date"
     t.boolean "achieved", default: false
+    t.string "description"
   end
 
   create_table "jobs", force: :cascade do |t|
