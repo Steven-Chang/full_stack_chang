@@ -25,7 +25,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="date in dates">
-                  <td scope="row">{{ date }}</th>
+                  <td scope="row">{{ date }} | {{ date | date :'EEEE' }}</th>
                   <td ng-repeat="entry in entriesGroupedByDate[date] | orderBy: 'aim_id'" 
                     ng-class="entry.achieved ? 'green': 'red'"
                     ng-click='changeAchieveedStatusOfEntry(entry)'></td>
