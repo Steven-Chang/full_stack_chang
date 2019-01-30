@@ -8,9 +8,21 @@ class EntriesController < ApplicationController
   end
 
   def by_date
-    Aim.ids
+    # now that we have a date
+    # what i want is to check if we entries for that date and
+    end_date = params["date"].to_date
+    start_date = end_date - 10.days
+    while(start_date < end_date) do
+      unless Entry.where(date: start_date).count > 0
+        Aim.all.each do |aim|
+          aim.entries.create(date: start_date)
+        end
+      end
+      start_date += 1.day
+    end
 
     data = Entry.all
+      .where("date >= ? and date <= ?", end_date - 10.days, end_date)
       .select(:id, :date, :aim_id, :achieved)
       .order("date DESC")
       .group_by{|p| p['date'] }
@@ -49,10 +61,8 @@ class EntriesController < ApplicationController
   def update
     respond_to do |format|
       if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
-        format.json { render :show, status: :ok, location: @entry }
+        format.json { render json: @entry, status: :ok }
       else
-        format.html { render :edit }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
@@ -76,6 +86,6 @@ class EntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      params.require(:entry).permit(:date, :minutes, :aim_id)
+      params.require(:entry).permit(:date, :achieved, :aim_id)
     end
 end

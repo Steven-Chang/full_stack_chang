@@ -26,7 +26,9 @@
               <tbody>
                 <tr ng-repeat="date in dates">
                   <td scope="row">{{ date }}</th>
-                  <td ng-repeat="entry in entriesGroupedByDate[date] | orderBy: 'aim_id'" ng-class="entry.achieved ? 'green': 'red'"></td>
+                  <td ng-repeat="entry in entriesGroupedByDate[date] | orderBy: 'aim_id'" 
+                    ng-class="entry.achieved ? 'green': 'red'"
+                    ng-click='changeAchieveedStatusOfEntry(entry)'></td>
                 </tr>
               </tbody>
             </table>
@@ -36,6 +38,7 @@
 
     </div>
   </div>
+  <div infinite-scroll="getEntries()"></div>
 </div>
 
 <fsc-footer></fsc-footer>

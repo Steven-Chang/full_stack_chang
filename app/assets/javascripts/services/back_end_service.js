@@ -61,8 +61,8 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all('clients').get()
   };
 
-  BackEndService.getEntries = function(){
-    return Restangular.all('entries').customGET('by_date')
+  BackEndService.getEntries = function(params){
+    return Restangular.all('entries').customGET('by_date', params)
   };
 
   BackEndService.getJobs = function(){
@@ -123,6 +123,19 @@ app.service('BackEndService', ['$http', 'Restangular',
 
   BackEndService.getYearEndings = function(){
     return Restangular.all('payment_summaries').customGET("year_endings")
+  };
+
+  BackEndService.restangularizeObject = function(object, route){
+    if(!object.route && route){
+      object.route = route;
+    };
+
+    // All restangular objects will have the remove function
+    if(!object.remove){
+      object = Restangular.copy(object);
+    };
+
+    return object;
   };
 
   BackEndService.uploadFileToAWS = function( presignedUrl, file, fileType ){

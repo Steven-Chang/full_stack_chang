@@ -13,8 +13,8 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
 
   //// PUBLIC ////
   $scope.aims;
-  $scope.dates;
-  $scope.entriesGroupedByDate;
+  $scope.dates = [];
+  $scope.entriesGroupedByDate = {};
   $scope.gettingEntries = false;
 
   $scope.options = {
@@ -46,11 +46,19 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
 
   $scope.getEntries = function(){
     if(!$scope.gettingEntries){
+      var params = {};
+      if($scope.dates.length){
+        params.date = new Date(Date.parse($scope.dates[$scope.dates.length - 1]));
+        params.date.setDate(params.date.getDate() - 1);
+      } else {
+        params.date = new Date();
+      };
+
       $scope.gettingEntries = true;
-      BackEndService.getEntries()
+      BackEndService.getEntries(params)
         .then(function(response){
-          $scope.entriesGroupedByDate = response.data;
-          $scope.dates = Object.keys(response.data);
+          Object.assign($scope.entriesGroupedByDate, response.data);
+          $scope.dates = $scope.dates.concat(Object.keys(response.data));
         }, function(errors){
           AlertService.processErrors(errors);
         })
@@ -58,6 +66,17 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
           $scope.gettingEntries = false;
         });
     };
+  };
+
+  $scope.changeAchieveedStatusOfEntry = function(entry){
+    var copiedEntry = BackEndService.restangularizeObject(entry, 'entries');
+    copiedEntry.achieved = !copiedEntry.achieved;
+    copiedEntry.put()
+      .then(function(response){
+        entry.achieved = response.achieved;
+      }, function(errors){
+        AlertService.processErrors(errors);
+      });
   };
 
 }]);
