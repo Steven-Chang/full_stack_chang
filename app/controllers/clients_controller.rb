@@ -6,6 +6,8 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
+    puts 656546654654645645
+    puts 6564565446546546
     @clients = Client.all
 
     render :json => @clients
