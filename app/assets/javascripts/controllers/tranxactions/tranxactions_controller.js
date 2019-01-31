@@ -291,11 +291,15 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
   };
 
   $scope.init = function(){
+    console.log(123)
     Auth.currentUser()
       .then(function( user ){
         if ( user.admin ){
+          console.log(456)
           DatetimeService.initiateDatePicker('#date-picker');
+          console.log(789)
           getClients();
+          console.log(10)
           $scope.getTranxactions();
           getTranxactionTypes();
           getProperties();
