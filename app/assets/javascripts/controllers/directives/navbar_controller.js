@@ -1,4 +1,4 @@
-app.controller('NavCtrl', ['$scope', 'Auth', '$rootScope', '$state', '$location', function($scope, Auth, $rootScope, $state, $location){
+app.controller('NavCtrl', ['$route', '$scope', 'Auth', '$rootScope', '$state', '$location', function($route, $scope, Auth, $rootScope, $state, $location){
   
   $scope.signedIn = Auth.isAuthenticated;
 
@@ -14,6 +14,7 @@ app.controller('NavCtrl', ['$scope', 'Auth', '$rootScope', '$state', '$location'
     Auth.logout().then(function(oldUser){
       $state.go( $location.$$url.split("/")[1] );
       $rootScope.user = undefined
+      $route.reload();
     }, function(error){
     });
   };
