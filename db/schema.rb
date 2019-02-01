@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190130205821) do
+ActiveRecord::Schema.define(version: 20190201115609) do
 
   create_table "aims", force: :cascade do |t|
     t.string "description", null: false
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20190130205821) do
     t.datetime "date_added"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "private", default: true
   end
 
   create_table "blog_posts_tags", id: false, force: :cascade do |t|
