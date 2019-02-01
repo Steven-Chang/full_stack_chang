@@ -55,6 +55,7 @@ app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', 'A
     attachments: [],
   	description: "",
   	imageUrl: "",
+    private: true,
     tag: "",
     tags: [],
   	title: "",

@@ -10,6 +10,10 @@ class BlogPostsController < ApplicationController
       blog_posts = BlogPost.all
     end
 
+    unless current_user&.email == 'prime_pork@hotmail.com'
+      blog_posts = blog_posts.where(private: false)
+    end
+
     if params["ids_to_exclude"]
       blog_posts
       .where.not("blog_post.id": params["ids_to_exclude"])
@@ -57,7 +61,7 @@ class BlogPostsController < ApplicationController
   private
 
   def post_params
-    params.require(:blog_post).permit(:description, :guarantee, :image_url, :title, :youtube_url, :date_added)
+    params.require(:blog_post).permit(:description, :guarantee, :image_url, :private, :title, :youtube_url, :date_added)
   end
 
 end
