@@ -63,6 +63,12 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
+  # Fixtures replacement
+  gem 'factory_bot_rails'
+
+  # Test suite
+  gem 'rspec-rails', '~> 3.5'
+
   gem 'sqlite3'
   gem 'jasmine-rails'
   # https://github.com/travisjeffery/sinon-rails
@@ -77,6 +83,50 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # Security audit and conding practices - will break the build
+  # require: false explanation - https://stackoverflow.com/questions/4800721/what-does-require-false-in-gemfile-mean
+  # https://github.com/presidentbeef/brakeman
+  gem 'brakeman', require: false
+  # https://github.com/rubysec/bundler-audit
+  gem 'bundler-audit', require: false
+  # https://github.com/rubocop-hq/rubocop
+  # RuboCop is a Ruby static code analyzer and code formatter. Out of the box it will enforce many of the guidelines outlined in the community Ruby Style Guide.
+  gem 'rubocop', '~> 0.63.0', require: false
+  # https://github.com/rubocop-hq/rubocop-rspec
+  gem 'rubocop-rspec', require: false
+
+  # Suggested for better coding practices - won't break the build
+  # 'Rubocop for fast-ruby'
+  # https://github.com/DamirSvrtan/fasterer
+  gem 'fasterer'
+  # Look for missing indexes
+  # https://github.com/plentz/lol_dba
+  gem 'lol_dba'
+
+  # https://github.com/guard/guard-rspec
+  gem 'guard-rspec', require: false
+end
+
+group :test do
+  # Additional matchers
+  gem 'shoulda-matchers', require: false
+
+  # Calculates the tests coverage
+  gem 'simplecov', require: false
+
+  # Freezes time in specs
+  gem 'timecop'
+
+  # Cleans the test database before each test
+  gem 'database_cleaner'
+
+  # Stub environment variables
+  gem 'climate_control'
+
+  # Used for resources specs
+  # Use base repo after https://github.com/G5/jsonapi-resources-matchers/pull/15 is merged
+  gem 'jsonapi-resources-matchers', git: 'https://github.com/cesar-tonnoir/jsonapi-resources-matchers.git', branch: 'master'
 end
 
 group :production do
