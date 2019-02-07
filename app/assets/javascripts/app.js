@@ -19,6 +19,12 @@ var app = angular.module('app', [
   // Getting rid of that pre loader
   $(".loader").fadeOut();
   $("#preloader").delay(350).fadeOut("slow");
+
+  // This is to access the previous state after log in
+  // Using $window.history.back() can take you to a page outside of the site
+	$rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+	  $rootScope.previousState = from.name;
+	});
 }])
 
 .config(

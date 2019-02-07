@@ -1,4 +1,4 @@
-app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', '$window', 'AlertService', 'FSCModalService', function($scope, $rootScope, Auth, $state, $window, AlertService, FSCModalService){
+app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', 'AlertService', 'FSCModalService', function($scope, $rootScope, Auth, $state, AlertService, FSCModalService){
     var config = {headers: {'X-HTTP-Method-Override': 'POST'}}
 
     $scope.formSubmitted = false;
@@ -10,12 +10,17 @@ app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', '$wi
     }
 
     $scope.register = function(){
-      Auth.register($scope.user, config).then(function(user){
-        $rootScope.user = user
-        $window.history.back();
-      }, function(response){
-        console.log("Error");
-      });
+      Auth.register($scope.user, config)
+        .then(function(user){
+          $rootScope.user = user;
+          if($rootScope.previousState && $rootScope.previousState.length){
+            $state.go($rootScope.previousState);
+          } else {
+            $state.go('home');
+          };
+        }, function(response){
+          console.log("Error");
+        });
     };
 
     $scope.login = function( form ){
@@ -28,7 +33,11 @@ app.controller('AuthController', ['$scope', '$rootScope', 'Auth', '$state', '$wi
       Auth.login($scope.user, config).then(function(user){
         $rootScope.user = user;
         FSCModalService.loading = false;
-        $window.history.back();
+        if($rootScope.previousState && $rootScope.previousState.length){
+          $state.go($rootScope.previousState);
+        } else {
+          $state.go('home');
+        };
       }, function(response){
         FSCModalService.loading = false;
         AlertService.processErrors( response );
