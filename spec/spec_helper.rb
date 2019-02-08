@@ -112,5 +112,5 @@ RSpec.configure do |config|
   end
 
   # Flush Redis cache before each spec
-  config.before(:each) { Redis.new.flushdb }
+  # config.before(:each) { Redis.new.flushdb }
 end

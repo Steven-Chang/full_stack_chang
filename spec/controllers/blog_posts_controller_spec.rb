@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe BlogPostsController, type: :controller do
-
-  let(:number_of_public_posts){ 1 }
-  let(:number_of_private_posts){ 1 }
+  let(:per_page){ 12 }
+  let(:number_of_public_posts){ per_page / 2 }
+  let(:number_of_private_posts){ per_page / 2 }
   let(:prime_pork_user){ create(:user, email: 'prime_pork@hotmail.com') }
   let(:user){ create(:user) }
   before do
@@ -20,11 +20,24 @@ RSpec.describe BlogPostsController, type: :controller do
         before do 
           allow(controller).to receive(:current_user) { prime_pork_user } 
         end
+
+        it 'only return public blog posts' do
+          get :index, params: params
+          expect(JSON.parse(response.parsed_body).length).to eq(number_of_public_posts +  number_of_private_posts)
+        end
       end
 
       context 'when a user that is not prime_pork@hotmail.com is signed in' do
         before do
           allow(controller).to receive(:current_user) { user } 
+        end
+
+        it 'only return public blog posts' do
+          get :index, params: params
+          expect(JSON.parse(response.parsed_body).length).to eq(number_of_public_posts)
+          JSON.parse(response.parsed_body).each do |blog_post|
+            expect(blog_post['private']).to eq(false)
+          end
         end
       end
 
@@ -35,7 +48,10 @@ RSpec.describe BlogPostsController, type: :controller do
 
         it 'only return public blog posts' do
           get :index, params: params
-          puts response
+          expect(JSON.parse(response.parsed_body).length).to eq(number_of_public_posts)
+          JSON.parse(response.parsed_body).each do |blog_post|
+            expect(blog_post['private']).to eq(false)
+          end
         end
       end
 

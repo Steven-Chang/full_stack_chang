@@ -12,28 +12,28 @@
         1,
         null,
         1,
-        0,
-        0,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        0,
-        null,
-        null,
+        3,
         0,
         null,
         null,
         null,
+        3,
+        null,
+        null,
+        3,
+        2,
+        null,
+        null,
+        3,
+        null,
         0,
+        null,
+        null,
+        3,
+        null,
+        null,
+        null,
+        3,
         null,
         null,
         1,
@@ -73,6 +73,42 @@
         1,
         0,
         null,
+        null,
+        null
+      ],
+      "/Users/stevenchang/Desktop/full_stack_chang/app/serializers/blog_post_serializer.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null
+      ],
+      "/Users/stevenchang/Desktop/full_stack_chang/app/models/tag.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/stevenchang/Desktop/full_stack_chang/app/models/attachment.rb": [
+        1,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
         null,
         null
       ],
@@ -155,11 +191,6 @@
         0,
         0
       ],
-      "/Users/stevenchang/Desktop/full_stack_chang/app/models/tag.rb": [
-        0,
-        0,
-        0
-      ],
       "/Users/stevenchang/Desktop/full_stack_chang/app/models/payment_summary.rb": [
         0,
         0,
@@ -212,29 +243,6 @@
         0
       ],
       "/Users/stevenchang/Desktop/full_stack_chang/app/models/cleaning_record.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/Users/stevenchang/Desktop/full_stack_chang/app/models/attachment.rb": [
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        0,
         0,
         0,
         0,
@@ -381,14 +389,6 @@
         0
       ],
       "/Users/stevenchang/Desktop/full_stack_chang/app/serializers/tax_category_serializer.rb": [
-        0,
-        0,
-        0
-      ],
-      "/Users/stevenchang/Desktop/full_stack_chang/app/serializers/blog_post_serializer.rb": [
-        0,
-        0,
-        null,
         0,
         0,
         0
@@ -2148,6 +2148,6 @@
         0
       ]
     },
-    "timestamp": 1549627153
+    "timestamp": 1549628410
   }
 }
