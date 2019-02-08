@@ -4,10 +4,8 @@ require 'rails_helper'
 
 RSpec.describe BlogPostsController, type: :controller do
 
-  before(:all) do
-    @number_of_posts = 10
-    @user = create(:user)
-  end
+  let(:number_of_posts){ 10 }
+  let(:user){ create(:userx) }
 
   describe '#index' do
     context 'JSON' do
