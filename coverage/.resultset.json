@@ -1,6 +1,12 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/stevenchang/Desktop/full_stack_chang/app/models/blog_post.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
       "/Users/stevenchang/Desktop/full_stack_chang/app/controllers/blog_posts_controller.rb": [
         1,
         1,
@@ -202,12 +208,6 @@
         0
       ],
       "/Users/stevenchang/Desktop/full_stack_chang/app/models/cleaning_task.rb": [
-        0,
-        0
-      ],
-      "/Users/stevenchang/Desktop/full_stack_chang/app/models/blog_post.rb": [
-        0,
-        0,
         0,
         0
       ],
@@ -2148,6 +2148,6 @@
         0
       ]
     },
-    "timestamp": 1549597920
+    "timestamp": 1549627153
   }
 }

@@ -4,14 +4,40 @@ require 'rails_helper'
 
 RSpec.describe BlogPostsController, type: :controller do
 
-  let(:number_of_posts){ 10 }
-  let(:user){ create(:userx) }
+  let(:number_of_public_posts){ 1 }
+  let(:number_of_private_posts){ 1 }
+  let(:prime_pork_user){ create(:user, email: 'prime_pork@hotmail.com') }
+  let(:user){ create(:user) }
+  before do
+    create_list(:blog_post, number_of_public_posts, private: false)
+    create_list(:blog_post, number_of_private_posts, private: true)
+  end
 
   describe '#index' do
     context 'JSON' do
-      let(:params){
-        { :format => 'json' }
-      }
+      let(:params){{ :format => 'json' }}
+      context 'when prime_pork@hotmail.com user is signed in' do
+        before do 
+          allow(controller).to receive(:current_user) { prime_pork_user } 
+        end
+      end
+
+      context 'when a user that is not prime_pork@hotmail.com is signed in' do
+        before do
+          allow(controller).to receive(:current_user) { user } 
+        end
+      end
+
+      context 'when a user is not signed in' do
+        before do
+          allow(controller).to receive(:current_user) { nil }
+        end
+
+        it 'only return public blog posts' do
+          get :index, params: params
+          puts response
+        end
+      end
 
       # context 'baddie_user_id has not been sent up' do
       #   it 'returns a response not found' do

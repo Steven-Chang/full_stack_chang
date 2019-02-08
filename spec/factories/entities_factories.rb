@@ -4,6 +4,10 @@ FactoryBot.define do
     password { 'spamandedggs' }
   end
 
+  factory :blog_post do
+    title { 'Blog post title' }
+  end
+
   # factory :baddie_status do
   #   description { 'pending' }
 

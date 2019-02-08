@@ -7,6 +7,9 @@ gem 'aws-sdk', '~> 2'
 # https://rpm.newrelic.com/accounts/2222353/applications/setup#ruby
 gem 'newrelic_rpm'
 
+# Use Redis adapter to run Action Cable in production
+gem 'redis', '~> 3.0'
+
 gem 'rspotify'
 
 # https://github.com/laserlemon/figaro
