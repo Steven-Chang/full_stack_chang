@@ -1,9 +1,17 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_project, only: [:destroy, :show, :update]
 
   def index
-    projects = Project.where(end_date: nil).order("start_date DESC") + Project.where.not( end_date: nil ).order("end_date DESC")
+    if current_user&.email == 'prime_pork@hotmail.com'
+      projects = Project.all
+    else
+      projects = Project.where(private: false)
+    end
+
+    current_projects = projects.where(end_date: nil).order('start_date DESC')
+    past_projects = projects.where.not(end_date: nil).order('end_date DESC')
+    projects = current_projects + past_projects
 
     render :json => projects
   end
