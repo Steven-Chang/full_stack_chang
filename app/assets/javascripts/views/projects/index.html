@@ -145,7 +145,7 @@
                               <!-- End Widget Body -->
                           </div>
                           <!-- End Widget -->
-                          <div class="{{ ( $index % 2 === 1 ) ? 'time-left' : 'time-right' }}">{{ project.start_date | date:'mediumDate' }} - {{ project.end_date ? ( project.end_date | date:'mediumDate' ) : "Now" }}</div>
+                          <div class="{{ ( $index % 2 === 1 ) ? 'time-left' : 'time-right' }}" ng-if='project.start_date'>{{ project.start_date | date:'mediumDate' }} - {{ project.end_date ? ( project.end_date | date:'mediumDate' ) : "Now" }}</div>
                       </div>
                       <!-- End Timeline Event -->
                   </div>

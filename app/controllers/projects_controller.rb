@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
     past_projects = projects.where.not(end_date: nil).order('end_date DESC')
     projects = current_projects + past_projects
 
-    render :json => projects
+    render :json => projects, current_user: current_user, status: :ok
   end
 
   def show
@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:description, :title, :url, :start_date, :end_date)
+    params.require(:project).permit(:description, :private, :title, :url, :start_date, :end_date)
   end
 
 end

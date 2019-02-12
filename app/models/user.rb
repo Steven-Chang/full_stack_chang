@@ -18,14 +18,7 @@ class User < ApplicationRecord
     summary
   end
 
-  def password
-    passwords = {
-      "Cheyenne Harmatz" => "cats",
-      "Dan Nitarski" => "baker",
-      "Isabel Lozano" => "ELVIS",
-      "Sid Sahi" => "ronaldo"
-    }
-    passwords[self.username]
+  def the_boss_man?
+    email == 'prime_pork@hotmail.com'
   end
-
 end
