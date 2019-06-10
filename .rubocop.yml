@@ -1,0 +1,99 @@
+# require: rubocop-rspec
+# inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'bin/**'
+    - 'lib/tasks/*'
+
+Documentation:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+# Warnings at application launch (Rails.logger not defined yet)
+Rails/Output:
+  Exclude:
+    - 'config/application.rb'
+    - 'config/initializers/*.rb'
+    - 'db/seeds.rb'
+
+Layout/AlignParameters:
+  Enabled: false
+
+Layout/CommentIndentation:
+  Enabled: false
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Layout/IndentationConsistency:
+  Enabled: false
+
+Layout/IndentationWidth:
+  Enabled: false
+
+Layout/Tab:
+  Enabled: false
+
+Lint/RescueException:
+  Exclude:
+    - 'config/application.rb'
+
+Metrics/LineLength:
+  Max: 160
+  Exclude:
+    - 'Gemfile'
+
+Metrics/MethodLength:
+  Max: 40
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'app/**/concerns/*.rb'
+    - 'config/routes.rb'
+
+Metrics/AbcSize:
+  Max: 50
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Metrics/ParameterLists:
+  Max: 5
+
+Rails/ApplicationJob:
+  Enabled: false
+
+Rails/ApplicationRecord:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+  Exclude:
+    - config/application.rb
+
+Style/Documentation:
+  Exclude:
+    - 'config/application.rb'
+
+Style/MixinUsage:
+  Exclude:
+    - 'db/seeds.rb'
+
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+  AllowInnerSlashes: true
