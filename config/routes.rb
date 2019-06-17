@@ -43,5 +43,5 @@ Rails.application.routes.draw do
   root 'application#index'
 
  # Need this for prettifying url
-  get '/', to => redirect('/#!/')
+  get '/', to: redirect('/#!/')
 end

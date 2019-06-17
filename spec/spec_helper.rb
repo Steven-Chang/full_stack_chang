@@ -21,7 +21,6 @@
 require 'shoulda/matchers'
 require 'simplecov'
 require 'warden/test/helpers'
-require 'jsonapi/resources/matchers'
 
 SimpleCov.minimum_coverage 100
 SimpleCov.start 'rails' do
