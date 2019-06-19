@@ -10,13 +10,11 @@ Rails.application.routes.draw do
   get 'attachments/presigned' => 'attachments#presigned'
   resources :attachments
   resources :blog_posts, only: %i[index create destroy]
-  resources :creditors
   resources :client_payments
   resources :clients
   get 'entries/by_date' => 'entries#by_date'
   resources :entries
   get 'jobs/balance' => 'jobs#balance'
-  resources :jobs
   get 'payment_summaries/year_endings' => 'payment_summaries#year_endings'
   resources :payment_summaries
   resources :projects

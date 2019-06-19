@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190209230945) do
+ActiveRecord::Schema.define(version: 20190619212956) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "aims", force: :cascade do |t|
     t.string "description", null: false
@@ -45,28 +48,6 @@ ActiveRecord::Schema.define(version: 20190209230945) do
     t.index ["tag_id"], name: "index_blog_posts_tags_on_tag_id"
   end
 
-  create_table "cleaning_records", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "cleaning_task_id"
-    t.date "date"
-  end
-
-  create_table "cleaning_tasks", force: :cascade do |t|
-    t.string "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "client_payments", force: :cascade do |t|
-    t.integer "client_id", null: false
-    t.decimal "amount", precision: 18, scale: 8, default: "0.0"
-    t.date "date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "clients", force: :cascade do |t|
     t.string "name", null: false
     t.string "email"
@@ -81,16 +62,6 @@ ActiveRecord::Schema.define(version: 20190209230945) do
     t.date "date"
     t.boolean "achieved", default: false
     t.string "description"
-  end
-
-  create_table "jobs", force: :cascade do |t|
-    t.integer "client_id", null: false
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.text "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.decimal "cost", precision: 18, scale: 8, default: "0.0"
   end
 
   create_table "levels", force: :cascade do |t|
@@ -132,15 +103,6 @@ ActiveRecord::Schema.define(version: 20190209230945) do
 
   create_table "properties", force: :cascade do |t|
     t.string "address", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "rent_transactions", force: :cascade do |t|
-    t.date "date", null: false
-    t.string "description", null: false
-    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
-    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
