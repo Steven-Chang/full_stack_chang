@@ -13,43 +13,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def tenants
-    tenants = User.where(:tenant => true)
-    if params[:page] == "rent"
-      attached_methods = [:password]
-    elsif params[:page] == "cleaning"
-      attached_methods = [:cleaning_summary]
-    end
-
-    respond_to do |format|
-      format.json { render :json => tenants.to_json({:methods => attached_methods}), status => 200 }
-    end
-  end
-
-  def bond
-    user_id = params[:user_id]
-    bond = RentTransaction.get_bond_for_user( user_id )
-
-    respond_to do |format|
-      format.json {
-        render :json => { bond: bond },
-        status => 200
-      }
-    end
-  end
-
-  def balance
-    user_id = params[:user_id]
-    balance = RentTransaction.get_balance_for_user( user_id )
-
-    respond_to do |format|
-      format.json {
-        render :json => { balance: balance },
-        status => 200
-      }
-    end
-  end
-
   def update_other_params
     user_id = params[:user_id]
     user = User.find(user_id)
