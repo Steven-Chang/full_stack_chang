@@ -78,15 +78,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/aims/edit.html',
 			controller: "AimsEditController"
 		})
-
-
-
-		.state('cleaning', {
-			url: '/cleaning',
-			templateUrl: 'views/cleaning.html',
-			controller: 'CleaningController'
-		})
-
 		.state('clients', {
 			url: '/clients',
 			templateUrl: 'views/clients/index.html',
@@ -102,13 +93,11 @@ var app = angular.module('app', [
 			templateUrl: 'views/clients/jobs.html',
 			controller: "ClientJobsController"
 		})
-
 		.state('entries', {
 			url: '/entries',
 			templateUrl: 'views/entries/entries.html',
 			controller: "EntriesController"
 		})
-
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/home.html',
@@ -122,13 +111,11 @@ var app = angular.module('app', [
 				}]
 			}
 		})
-
 		.state('jobs', {
 			url: '/jobs',
 			templateUrl: 'views/jobs/index.html',
 			controller: 'JobsController'
 		})
-
 		.state('paymentsummariesedit', {
 			url: '/payment-summaries/:id/edit',
 			templateUrl: 'views/payment_summaries/edit.html',
@@ -139,7 +126,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/payment_summaries/new.html',
 			controller: 'PaymentSummariesNewController'
 		})
-
 		.state('projects', {
 			url: '/projects',
 			templateUrl: 'views/projects/index.html',
@@ -180,13 +166,11 @@ var app = angular.module('app', [
 				};
 			}]
 		})
-
 		.state('taxcategories', {
 			url: '/tax_categories',
 			templateUrl: 'views/tax_categories/index.html',
 			controller: 'TaxCategoriesController'
 		})
-
 		.state('register', {
 			url: '/register',
 			templateUrl: 'views/register.html',
@@ -207,7 +191,6 @@ var app = angular.module('app', [
 				};
 			}]
 		})
-
 		.state('taxdashboard', {
 			url: '/tax-dashboard',
 			templateUrl: 'views/tax_dashboard.html',
@@ -229,7 +212,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/tenancy_agreements/show.html',
 			controller: "TenancyAgreementsShowController"
 		})
-
 		.state('tetris', {
 			url: '/tetris',
 			templateUrl: 'views/tetris.html',
@@ -244,7 +226,6 @@ var app = angular.module('app', [
 				}]
 			}
 		})
-
 		.state('tranxactions', {
 			url: '/tranxactions',
 			templateUrl: 'views/tranxactions/tranxactions.html',
@@ -255,13 +236,11 @@ var app = angular.module('app', [
 			templateUrl: 'views/tranxactions/edit.html',
 			controller: 'TranxactionsEditController'
 		})
-
 		.state('tranxactiontypes', {
 			url: '/tranxaction-types',
 			templateUrl: 'views/tranxaction_types/tranxaction_types.html',
 			controller: 'TranxactionTypesController'
 		})
-
 		.state('users', {
 			url: "/users",
 			templateUrl: "views/users/users.html",
@@ -272,11 +251,9 @@ var app = angular.module('app', [
 			templateUrl: "views/users/edit.html",
 			controller: ""
 		})
-
 		.state('whyhirechang', {
 			url: '/whyhirechang',
 			templateUrl: 'views/whyhirechang.html',
 			controller: 'WhyHireChangController'
 		})
-
 }])
