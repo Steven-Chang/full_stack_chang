@@ -88,11 +88,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/clients/show.html',
 			controller: "ClientsShowController"
 		})
-		.state('clientjobs', {
-			url: '/clients/:id/jobs',
-			templateUrl: 'views/clients/jobs.html',
-			controller: "ClientJobsController"
-		})
 		.state('entries', {
 			url: '/entries',
 			templateUrl: 'views/entries/entries.html',
@@ -110,11 +105,6 @@ var app = angular.module('app', [
       			});
 				}]
 			}
-		})
-		.state('jobs', {
-			url: '/jobs',
-			templateUrl: 'views/jobs/index.html',
-			controller: 'JobsController'
 		})
 		.state('paymentsummariesedit', {
 			url: '/payment-summaries/:id/edit',
