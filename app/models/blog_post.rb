@@ -1,4 +1,5 @@
+# frozen_string_literal: true
+
 class BlogPost < ApplicationRecord
-  has_and_belongs_to_many :tags
-  has_many :attachments, as: :resource, dependent: :destroy
+  has_many :attachments, as: :resource, dependent: :destroy, inverse_of: :blog_post
 end
