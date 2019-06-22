@@ -13,28 +13,31 @@ gem 'angular_rails_csrf'
 # allows us to place our html views in the assets/javascript directory
 gem 'angular-rails-templates'
 gem 'aws-sdk', '~> 2'
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.1.1'
 # https://github.com/Nerian/bootstrap-datepicker-rails
 gem 'bootstrap-datepicker-rails'
 # Recommendations from https://www.sitepoint.com/setting-up-an-angular-spa-on-rails-with-devise-and-bootstrap/
 gem 'bower-rails'
 gem 'devise'
-# https://github.com/laserlemon/figaro
-gem 'figaro'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# Build JSON APIs with ease. Read more: httgem 'puma', '~> 3.11's://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'lodash-rails'
+# Use ActiveStorage variant
+# gem 'mini_magick', '~> 4.8'
 # Monitoring the app
 # https://rpm.newrelic.com/accounts/2222353/applications/setup#ruby
 gem 'newrelic_rpm'
 gem 'pg'
+gem 'puma', '~> 3.11'
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 3.0'
+gem 'redis', '~> 4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.2.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'sendgrid-ruby'
@@ -87,15 +90,20 @@ group :development do
   # Spring speeds up development by keeping your application running in the background.
   # Read more: https://github.com/rails/spring
   gem 'spring'
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :test do
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 2.15', '< 4.0'
+  # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'chromedriver-helper'
   # Stub environment variables
   gem 'climate_control'
   # Cleans the test database before each test
   gem 'database_cleaner'
+  gem 'selenium-webdriver'
   # Additional matchers
   gem 'shoulda-matchers', require: false
   # Calculates the tests coverage

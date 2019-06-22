@@ -16,6 +16,15 @@
 !/log/.keep
 /tmp
 
+# Ignore uploaded files in development
+/storage/*
+
 # Ignore application configuration
 /config/application.yml
 coverage
+
+/public/assets
+.byebug_history
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

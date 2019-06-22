@@ -55,11 +55,12 @@
 //= require angular-modal-service/dst/angular-modal-service.min
 
 // NOTY
-//= require assets/vendors/js/noty/noty.min
+//= require elisyam/vendors/js/noty/noty.min
 
 // ANGULAR-CHART.JS
 // http://jtblin.github.io/angular-chart.js/
 //= require chart.js/dist/Chart.min
 //= require angular-chart.js/dist/angular-chart.min
 
+//= require activestorage
 //= require_tree .
