@@ -20,6 +20,8 @@ gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap-datepicker-rails'
 # Recommendations from https://www.sitepoint.com/setting-up-an-angular-spa-on-rails-with-devise-and-bootstrap/
 gem 'bower-rails'
+# ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management System) Engine
+gem 'comfortable_mexican_sofa', '~> 2.0.0'
 gem 'devise'
 # Build JSON APIs with ease. Read more: httgem 'puma', '~> 3.11's://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

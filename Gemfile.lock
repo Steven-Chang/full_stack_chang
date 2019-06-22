@@ -24,6 +24,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_link_to (1.0.5)
+      actionpack
+      addressable
     active_model_serializers (0.10.7)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
@@ -106,6 +109,19 @@ GEM
     climate_control (0.2.0)
     coderay (1.1.2)
     colorize (0.8.1)
+    comfortable_mexican_sofa (2.0.18)
+      active_link_to (>= 1.0.0)
+      comfy_bootstrap_form (>= 4.0.0)
+      haml-rails (>= 1.0.0)
+      jquery-rails (>= 4.3.1)
+      kramdown (>= 1.0.0)
+      mimemagic (>= 0.3.2)
+      mini_magick (>= 4.8.0)
+      rails (>= 5.2.0)
+      rails-i18n (>= 5.0.0)
+      sassc-rails (>= 2.0.0)
+    comfy_bootstrap_form (4.0.6)
+      rails (>= 5.0.0)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     database_cleaner (1.7.0)
@@ -118,6 +134,7 @@ GEM
     diff-lcs (1.3)
     docile (1.3.1)
     erubi (1.8.0)
+    erubis (2.7.0)
     execjs (2.7.0)
     factory_bot (5.0.0)
       activesupport (>= 4.2.0)
@@ -153,6 +170,20 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    haml (5.1.1)
+      temple (>= 0.8.0)
+      tilt
+    haml-rails (2.0.1)
+      actionpack (>= 5.1)
+      activesupport (>= 5.1)
+      haml (>= 4.0.6, < 6.0)
+      html2haml (>= 1.0.1)
+      railties (>= 5.1)
+    html2haml (2.2.0)
+      erubis (~> 2.7.0)
+      haml (>= 4.0, < 6)
+      nokogiri (>= 1.6.0)
+      ruby_parser (~> 3.5)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
@@ -180,6 +211,7 @@ GEM
       railties (>= 3.2.16)
     json (1.8.6)
     jsonapi-renderer (0.2.0)
+    kramdown (2.1.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -200,6 +232,7 @@ GEM
       mimemagic (~> 0.3.2)
     method_source (0.9.2)
     mimemagic (0.3.3)
+    mini_magick (4.9.3)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
@@ -250,6 +283,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails-i18n (5.1.3)
+      i18n (>= 0.7, < 2)
+      railties (>= 5.0, < 6)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -320,6 +356,15 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (2.0.1)
+      ffi (~> 1.9)
+      rake
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -354,6 +399,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    temple (0.8.1)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -402,6 +448,7 @@ DEPENDENCIES
   capybara (>= 2.15, < 4.0)
   chromedriver-helper
   climate_control
+  comfortable_mexican_sofa (~> 2.0.0)
   database_cleaner
   devise
   factory_bot_rails

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  comfy_route :cms_admin, path: '/admin'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
@@ -32,8 +33,6 @@ Rails.application.routes.draw do
   get 'number_of_users' => 'users#return_number_of_users'
   resources :users, only: [:index]
 
-  root 'application#index'
-
- # Need this for prettifying url
-  get '/', to: redirect('/#!/')
+  # Ensure that this route is defined last
+  comfy_route :cms, path: '/'
 end
