@@ -1,25 +1,20 @@
+# frozen_string_literal: true
+
 class AttachmentsController < ApplicationController
-  before_action :set_attachment, only: [:edit, :update, :destroy]
+  before_action :set_attachment, only: %i[edit update destroy]
   before_action :authenticate_user!
   before_action :authenticate_admin
 
-  # GET /attachments
-  # GET /attachments.json
   def index
     @attachments = Attachment.all
   end
 
-  # GET /attachments/new
   def new
     @attachment = Attachment.new
   end
 
-  # GET /attachments/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /attachments
-  # POST /attachments.json
   def create
     @attachment = Attachment.new(attachment_params)
 
@@ -34,8 +29,6 @@ class AttachmentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /attachments/1
-  # PATCH/PUT /attachments/1.json
   def update
     respond_to do |format|
       if @attachment.update(attachment_params)
@@ -48,8 +41,6 @@ class AttachmentsController < ApplicationController
     end
   end
 
-  # DELETE /attachments/1
-  # DELETE /attachments/1.json
   def destroy
     @attachment.destroy
     respond_to do |format|
@@ -60,32 +51,31 @@ class AttachmentsController < ApplicationController
 
   def presigned
     if params[:filename]
-      extname = File.extname( params[:filename] )
+      extname = File.extname(params[:filename])
       filename = "#{SecureRandom.uuid}#{extname}"
-      upload_key = Pathname.new( "uploads/" ).join( filename ).to_s
-      obj = Attachment.aws_resource.bucket( ENV['BUCKET_NAME'] ).object( upload_key )
+      upload_key = Pathname.new('uploads/').join(filename).to_s
+      obj = Attachment.aws_resource.bucket(ENV['BUCKET_NAME']).object(upload_key)
 
       params = { acl: 'public-read' }
       params[:content_length] = limit if params[:limit]
 
-      render :json => {
+      render json: {
         aws_key: upload_key,
-        presigned_url: obj.presigned_url( :put, params ),
+        presigned_url: obj.presigned_url(:put, params),
         public_url: obj.public_url
       }
     else
-      render :json => { :error => 'Invalid Params' }
+      render json: { error: 'Invalid Params' }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_attachment
-      @attachment = Attachment.find( params[:id] )
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def attachment_params
-      params.fetch( :attachment, {} )
-    end
+  def set_attachment
+    @attachment = Attachment.find(params[:id])
+  end
+
+  def attachment_params
+    params.fetch(:attachment, {})
+  end
 end
