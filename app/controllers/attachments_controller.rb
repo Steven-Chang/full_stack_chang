@@ -51,14 +51,13 @@ class AttachmentsController < ApplicationController
 
   def presigned
     if params[:filename]
+      bucket_name = Rails.application.credentials.aws[:bucket_name]
       extname = File.extname(params[:filename])
       filename = "#{SecureRandom.uuid}#{extname}"
       upload_key = Pathname.new('uploads/').join(filename).to_s
-      obj = Attachment.aws_resource.bucket(ENV['BUCKET_NAME']).object(upload_key)
-
+      obj = Attachment.aws_resource.bucket(bucket_name).object(upload_key)
       params = { acl: 'public-read' }
       params[:content_length] = limit if params[:limit]
-
       render json: {
         aws_key: upload_key,
         presigned_url: obj.presigned_url(:put, params),
