@@ -19,5 +19,16 @@ module FullStackChang
     config.to_prepare do
       DeviseController.respond_to :html, :json
     end
+
+    # Don't create assets during scaffold creation
+    # Just create as needed otherwise you'll end up with a bunch of unused files
+    config.generators do |g|
+      # Assets == js & Stylesheets
+      g.assets false
+      g.helper false
+      g.jbuilder false
+      g.serializer false
+      g.stylesheets false
+    end
   end
 end
