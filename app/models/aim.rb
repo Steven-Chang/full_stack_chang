@@ -1,14 +1,20 @@
+# frozen_string_literal: true
+
 class Aim < ApplicationRecord
+  # === ASSOCIATIONS ===
   has_many :entries, dependent: :destroy
 
+  # === CALLBACKS ===
   after_create :create_initial_entries
 
+  # === INSTANCE METHODS ===
   def create_initial_entries
-    earliest_date = Entry.order("date ASC").limit(1).first.date
-    latest_date = Entry.order("date DESC").limit(1).first.date
+  	 entries_by_date_in_ascending_order = Entry.order(:date)
+    earliest_date = entries_by_date_in_ascending_order.present? ? entries_by_date_in_ascending_order.first.date : Date.current
+    latest_date = entries_by_date_in_ascending_order.present? ? entries_by_date_in_ascending_order.last.date : Date.current
 
     (earliest_date..latest_date).each do |date|
-      self.entries.create(date: date)
+      entries.create(date: date)
     end
   end
 end
