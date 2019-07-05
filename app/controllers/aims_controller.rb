@@ -1,31 +1,24 @@
-class AimsController < ApplicationController
-  before_action :set_aim, only: [:show, :edit, :update, :destroy]
+# frozen_string_literal: true
 
-  # GET /aims
-  # GET /aims.json
+class AimsController < ApplicationController
+  before_action :set_aim, only: %i[show edit update destroy]
+
   def index
     @aims = Aim.all
 
     render json: @aims
   end
 
-  # GET /aims/1
-  # GET /aims/1.json
   def show
     render json: @aim
-  end 
+  end
 
-  # GET /aims/new
   def new
     @aim = Aim.new
   end
 
-  # GET /aims/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /aims
-  # POST /aims.json
   def create
     @aim = Aim.new(aim_params)
 
@@ -36,8 +29,6 @@ class AimsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /aims/1
-  # PATCH/PUT /aims/1.json
   def update
     respond_to do |format|
       if @aim.update(aim_params)
@@ -50,8 +41,6 @@ class AimsController < ApplicationController
     end
   end
 
-  # DELETE /aims/1
-  # DELETE /aims/1.json
   def destroy
     @aim.destroy
     respond_to do |format|
@@ -61,13 +50,12 @@ class AimsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_aim
-      @aim = Aim.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def aim_params
-      params.require(:aim).permit(:description)
-    end
+  def set_aim
+    @aim = Aim.find(params[:id])
+  end
+
+  def aim_params
+    params.require(:aim).permit(:description)
+  end
 end
