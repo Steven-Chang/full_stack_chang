@@ -23,6 +23,10 @@ FactoryBot.define do
     title { 'Project title' }
   end
 
+  factory :tax_category do
+    sequence(:description) { |n| "tax category #{n}" }
+  end
+
   factory :tranxaction do
     date { Date.current }
     sequence(:description) { |n| "Tranxaction description #{n}" }
