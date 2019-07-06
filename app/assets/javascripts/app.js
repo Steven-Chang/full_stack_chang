@@ -209,8 +209,8 @@ var app = angular.module('app', [
 			resolve: {
 				highScoresAndAssociations: ['Restangular', function( Restangular ){
 					return Restangular.all('scores').getList({
-						title: "Tetris"})
-						.then(function( scores ){
+						title: "tetris"})
+						.then(function(scores){
 							return scores;
       			});
 				}]

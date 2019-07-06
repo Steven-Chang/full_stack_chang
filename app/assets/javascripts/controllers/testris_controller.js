@@ -727,14 +727,16 @@ app.controller('TetrisController', ['$scope', '$interval', '$timeout', 'highScor
 	$scope.submitHighScore = function(){
 		$scope.newHighScoreAchieved = false;
 		highScoresAndAssociations.post({
-			associations: { level: $scope.level, 
-											lines: $scope.lines }, 
-			title: "Tetris", 
-			score: $scope.score,
-			name: $scope.newHighScoreName
+			title: "tetris",
+			score: {
+				level: $scope.level,
+				lines: $scope.lines,
+				score: $scope.score,
+				name: $scope.newHighScoreName
+			}
 		})
-		.then(function( result ){
-			$scope.highScoresAndAssociations = result;
+		.then(function(result){
+			$scope.highScoresAndAssociations.push(result);
 		});
 	};
 
