@@ -3,6 +3,8 @@ class CreateScores < ActiveRecord::Migration
     create_table :scores do |t|
       t.integer :project_id, null: false
       t.integer :score, null: false
+      t.integer :level
+      t.integer :lines
 
       t.timestamps null: false
     end
