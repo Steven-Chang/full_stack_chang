@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TenancyAgreementSerializer < ActiveModel::Serializer
   attributes :id, :active, :amount, :bond, :starting_date, :balance
 
