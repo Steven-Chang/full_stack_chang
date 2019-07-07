@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectSerializer < ActiveModel::Serializer
   attributes :id,
              :description,
@@ -10,10 +12,10 @@ class ProjectSerializer < ActiveModel::Serializer
   has_many :attachments
 
   def start_date
-    @instance_options[:current_user]&.the_boss_man? ? object.start_date : nil
+    @instance_options[:current_user]&.email == 'prime_pork@hotmail.com' ? object.start_date : nil
   end
 
   def end_date
-    @instance_options[:current_user]&.the_boss_man? ? object.end_date : nil
+    @instance_options[:current_user]&.email == 'prime_pork@hotmail.com' ? object.end_date : nil
   end
 end
