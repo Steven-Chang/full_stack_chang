@@ -1,29 +1,19 @@
+# frozen_string_literal: true
+
 class BlogPostsController < ApplicationController
   before_action :authenticate_admin_user!, except: [:index]
 
   def index
-    if params["tag"]
-      blog_posts = BlogPost.joins(:tags)
-      .where('lower(tag) = ?', params["tag"].downcase)
-      .uniq
+    blog_posts = if params['tag']
+      BlogPost.joins(:tags)
+              .where('lower(tag) = ?', params['tag'].downcase)
+              .uniq
     else
-      blog_posts = BlogPost.all
+      BlogPost.all
     end
-
-    unless current_user&.email == 'prime_pork@hotmail.com'
-      blog_posts = blog_posts.where(private: false)
-    end
-
-    if params["ids_to_exclude"]
-      blog_posts
-      .where.not("blog_post.id": params["ids_to_exclude"])
-    end
-
-    blog_posts = blog_posts
-      .order( "date_added DESC" )
-      .paginate(:page => params[:page], :per_page => 12)
-
-    render :json => blog_posts
+    blog_posts = blog_posts.where(private: false) unless current_user&.email == 'prime_pork@hotmail.com'
+    blog_posts = blog_posts.where.not('blog_post.id': params['ids_to_exclude']) if params['ids_to_exclude']
+    render json: blog_posts.order('date_added DESC').paginate(page: params[:page], per_page: 12)
   end
 
   def create
@@ -31,21 +21,21 @@ class BlogPostsController < ApplicationController
     BlogPost.transaction do
       blog_post.save
 
-      params[:tags].each do |tag|
-        Tag.where(:tag => tag).first_or_create do |t|
+      params[:tags]&.each do |tag|
+        Tag.where(tag: tag).first_or_create do |t|
         end
-        blog_post.tags << Tag.where(:tag => tag).first
-      end if params[:tags]
+        blog_post.tags << Tag.where(tag: tag).first
+      end
 
-      params[:attachments].each do |attachment|
-        Attachment.create(resource_type: "BlogPost", resource_id: blog_post.id, url: attachment[:url], aws_key: attachment[:aws_key] )
-      end if params[:attachments]
+      params[:attachments]&.each do |attachment|
+        Attachment.create(resource_type: 'BlogPost', resource_id: blog_post.id, url: attachment[:url], aws_key: attachment[:aws_key])
+      end
     end
 
     if blog_post.persisted?
-      render :json => blog_post
+      render json: blog_post
     else
-      render :json => blog_post.errors
+      render json: blog_post.errors
     end
   end
 
@@ -55,7 +45,7 @@ class BlogPostsController < ApplicationController
   def destroy
     BlogPost.find(params[:id]).destroy
 
-    render json: { message: "removed" }, status: :ok
+    render json: { message: 'removed' }, status: :ok
   end
 
   private
@@ -63,5 +53,4 @@ class BlogPostsController < ApplicationController
   def post_params
     params.require(:blog_post).permit(:description, :guarantee, :image_url, :private, :title, :youtube_url, :date_added)
   end
-
 end
