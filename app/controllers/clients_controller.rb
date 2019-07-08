@@ -1,46 +1,37 @@
+# frozen_string_literal: true
+
 class ClientsController < ApplicationController
   before_action :authenticate_admin_user!
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: %i[show edit update destroy]
 
-  # GET /clients
-  # GET /clients.json
   def index
     @clients = Client.all
 
-    render :json => @clients
+    render json: @clients
   end
 
-  # GET /clients/1
-  # GET /clients/1.json
   def show
-    render :json => @client
+    render json: @client
   end
 
-  # GET /clients/new
   def new
     @client = Client.new
   end
 
-  # GET /clients/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /clients
-  # POST /clients.json
   def create
     @client = Client.new(client_params)
 
     respond_to do |format|
       if @client.save
-        format.json { render :json => @client, status: :created }
+        format.json { render json: @client, status: :created }
       else
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /clients/1
-  # PATCH/PUT /clients/1.json
   def update
     respond_to do |format|
       if @client.update(client_params)
@@ -53,21 +44,16 @@ class ClientsController < ApplicationController
 
   def destroy
     @client.destroy
-    render json: { message: "removed" }, status: :ok
+    render json: { message: 'removed' }, status: :ok
   end
 
   private
-    def authenticate_admin
-      redirect_to root_path unless current_user && current_user.admin
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_client
-      @client = Client.find(params[:id])
-    end
+  def set_client
+    @client = Client.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def client_params
-      params.require( :client ).permit( :email, :name )
-    end
+  def client_params
+    params.require(:client).permit(:email, :name)
+  end
 end
