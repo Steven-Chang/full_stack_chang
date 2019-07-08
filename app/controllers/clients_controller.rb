@@ -1,13 +1,10 @@
 class ClientsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_admin
+  before_action :authenticate_admin_user!
   before_action :set_client, only: [:show, :edit, :update, :destroy]
 
   # GET /clients
   # GET /clients.json
   def index
-    puts 656546654654645645
-    puts 6564565446546546
     @clients = Client.all
 
     render :json => @clients

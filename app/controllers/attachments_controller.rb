@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class AttachmentsController < ApplicationController
+  before_action :authenticate_admin_user!
   before_action :set_attachment, only: %i[edit update destroy]
-  before_action :authenticate_user!
-  before_action :authenticate_admin
 
   def index
     @attachments = Attachment.all

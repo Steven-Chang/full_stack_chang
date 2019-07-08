@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_admin_user!
 
   def index
     render :json => User.all

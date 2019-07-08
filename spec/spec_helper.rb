@@ -18,6 +18,7 @@
 # users commonly want.
 #
 
+require 'pundit/rspec'
 require 'shoulda/matchers'
 require 'simplecov'
 require 'warden/test/helpers'

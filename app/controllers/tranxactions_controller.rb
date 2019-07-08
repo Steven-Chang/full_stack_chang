@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class TranxactionsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_admin
+  before_action :authenticate_admin_user!
   before_action :set_tranxaction, only: %i[destroy show update]
 
   def index
