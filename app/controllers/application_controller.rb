@@ -26,7 +26,15 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
 
-  def authenticate_admin
-    redirect_to root_path unless current_user && current_user&.admin
+  # use predefined method name
+  def authenticate_admin_user!
+    return user_not_authorized if user_signed_in? && current_user.email != 'prime_pork@hotmail.com'
+
+    authenticate_user!
+  end
+
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to(request.referer || root_path)
   end
 end

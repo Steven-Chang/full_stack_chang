@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_admin_user!, except: %i[index show]
   before_action :set_project, only: %i[destroy show update]
 
   def index

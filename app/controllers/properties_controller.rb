@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PropertiesController < ApplicationController
+  before_action :authenticate_admin_user!
   before_action :set_property, only: %i[show edit update destroy]
 
   def index

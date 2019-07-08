@@ -1,4 +1,5 @@
 class EntriesController < ApplicationController
+  before_action :authenticate_admin_user!
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
 
   # GET /entries

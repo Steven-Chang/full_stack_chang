@@ -1,4 +1,5 @@
 class TenancyAgreementsController < ApplicationController
+  before_action :authenticate_admin_user!
   before_action :set_tenancy_agreement, only: [:show, :edit, :update, :destroy, :balance]
 
   # GET /tenancy_agreements

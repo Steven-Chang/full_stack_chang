@@ -1,5 +1,5 @@
 class TaxCategoriesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_admin_user!
   before_action :set_tax_category, only: [:show, :destroy]
 
   # GET /tax_categories

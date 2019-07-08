@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AimsController < ApplicationController
+  before_action :authenticate_admin_user!
   before_action :set_aim, only: %i[show edit update destroy]
 
   def index
