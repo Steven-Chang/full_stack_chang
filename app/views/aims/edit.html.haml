@@ -1,0 +1,11 @@
+.container-fluid.my-5
+	.row
+		.page-header
+			.d-flex.align-items-center
+				%h2.page-header-title
+					Edit Aim
+	.row
+		.col-12
+			.widget.has-shadow
+				.widget-body
+					= render 'form', aim: @aim

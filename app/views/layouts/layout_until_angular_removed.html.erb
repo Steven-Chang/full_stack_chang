@@ -4,7 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="The personal website/portfolio of full stack web developer, Steven Chang.">
 	  <title>Full Stack Chang</title>
-	  <%= favicon_link_tag 'https://res.cloudinary.com/hpxlnqput/image/upload/f_auto,q_auto/v1562842768/fsc_wbix1v.png' %>
+	  <%= favicon_link_tag '/images/fsc.png' %>
 	  <%= stylesheet_link_tag    'application', media: 'all' %>
 	  <%= javascript_include_tag 'application' %>
 	  <%= csrf_meta_tags %>
@@ -35,14 +35,8 @@
 	  <script src="https://www.youtube.com/iframe_api"></script>
 
 	</head>
-	<body ng-app="app">
-    <div id="preloader">
-      <div class="canvas">
-        <img src="https://res.cloudinary.com/hpxlnqput/image/upload/f_auto,q_auto/v1562842767/tape_q9thgj.gif" alt="logo" class="loader-logo">
-        <div class="spinner"></div>
-      </div>
-    </div>
-		<ui-view></ui-view>
-
+	<body>
+    <%= render 'navbar' %>
+    <%= yield %>
 	</body>
 </html>
