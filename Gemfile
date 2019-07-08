@@ -34,6 +34,7 @@ gem 'lodash-rails'
 gem 'newrelic_rpm'
 gem 'pg'
 gem 'puma', '~> 3.11'
+gem 'pundit'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
