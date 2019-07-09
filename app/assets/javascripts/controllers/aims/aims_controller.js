@@ -55,14 +55,15 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
   $scope.init = function(){
     Auth.currentUser()
       .then(function( user ){
-        if ( user.admin ){
+        if (user.admin){
           getAims();
           $scope.getEntries();
         } else {
-          $state.go("home");
+          $state.go('home');
         };
-      }, function( errors ){
-        AlertService.processErrors( errors );
+      }, function(errors){
+        AlertService.processErrors(errors);
+        $state.go('home');
       });
   };
 
