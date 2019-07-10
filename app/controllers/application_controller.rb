@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   # use predefined method name
   def authenticate_admin_user!
-    return user_not_authorized if user_signed_in? && current_user.email != 'prime_pork@hotmail.com'
+    return user_not_authorized if user_signed_in? && !current_user.admin?
 
     authenticate_user!
   end
