@@ -21,6 +21,7 @@ gem 'bootstrap-datepicker-rails'
 # Recommendations from https://www.sitepoint.com/setting-up-an-angular-spa-on-rails-with-devise-and-bootstrap/
 gem 'bower-rails'
 gem 'devise'
+gem 'haml-rails', '~> 2.0'
 # Build JSON APIs with ease. Read more: httgem 'puma', '~> 3.11's://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Use jquery as the JavaScript library
