@@ -50,10 +50,6 @@ class EntriesController < ApplicationController
     @entry = Entry.new
   end
 
-  # GET /entries/1/edit
-  def edit
-  end
-
   # POST /entries
   # POST /entries.json
   def create

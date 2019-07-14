@@ -88,11 +88,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/clients/show.html',
 			controller: "ClientsShowController"
 		})
-		.state('entries', {
-			url: '/entries',
-			templateUrl: 'views/entries/entries.html',
-			controller: "EntriesController"
-		})
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/home.html',
