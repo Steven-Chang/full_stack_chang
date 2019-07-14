@@ -17,10 +17,6 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.all( route ).post( params )
   };
 
-  BackEndService.createEntry = function( newEntry ){
-    return Restangular.all('entries').post( newEntry )
-  };
-
   BackEndService.createJob = function( newJob ){
     return Restangular.all('jobs').post( newJob )
   };
