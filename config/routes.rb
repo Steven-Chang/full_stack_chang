@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :blog_posts, only: %i[index create destroy]
   resources :clients
   get 'entries/by_date' => 'entries#by_date'
-  resources :entries
+  resources :entries, only: %i[update destroy]
   get 'payment_summaries/year_endings' => 'payment_summaries#year_endings'
   resources :payment_summaries
   resources :projects
