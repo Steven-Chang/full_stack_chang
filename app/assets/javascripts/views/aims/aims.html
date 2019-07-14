@@ -20,7 +20,7 @@
               <thead>
                 <tr>
                   <th scope="col">Date <span ng-click="addDay()">+</span></th>
-                  <th scope="col" ng-repeat="aim in aims | orderBy: 'id'" style="text-transform: capitalize;">{{ aim.description }}</th>
+                  <th scope="col" ng-repeat="aim in aims | orderBy: 'id'" style="text-transform: capitalize;">{{ aim.description }} <a ng-href="aims/{{ aim.id }}/edit"><i class="la la-edit edit"></i></a></th>
                 </tr>
               </thead>
               <tbody>

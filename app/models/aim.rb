@@ -4,6 +4,9 @@ class Aim < ApplicationRecord
   # === ASSOCIATIONS ===
   has_many :entries, dependent: :destroy
 
+  # === VALIDATIONS ===
+  validates :description, presence: true
+
   # === CALLBACKS ===
   after_create :create_initial_entries
 

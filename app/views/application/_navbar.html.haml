@@ -1,0 +1,52 @@
+%body
+  %header.header
+    %nav.navbar.fixed-top{:style => "min-height: 70px;"}
+      / Begin Topbar
+      .navbar-holder.d-flex.align-items-center.align-middle.justify-content-between
+        / Begin Logo
+        .navbar-header
+          %a.navbar-brand{:href => "/#!/home"}
+            .brand-image
+              %h2{:style => "margin-top: 0.5rem"} Full Stack Chang
+        / End Logo
+        / Begin Navbar Menu
+        %ul.nav-menu.list-unstyled.d-flex.flex-md-row.align-items-center.pull-right
+          %li
+            %a{:href => "/#!/projects", :style => "margin-right: 30px;"} Projects
+          - unless current_user&.admin?
+            %li
+              %a{:href => "/#!/login"} Admin
+          / User
+          - if current_user&.admin?
+            %li.nav-item.dropdown
+              %a#user.nav-link{"aria-expanded" => "false", "aria-haspopup" => "true", "data-target" => "#", "data-toggle" => "dropdown", :rel => "nofollow"}
+                %img.avatar.rounded-circle{:alt => "...", :src => "https://res.cloudinary.com/hpxlnqput/image/upload/f_auto,q_auto/v1562842767/tape_q9thgj.gif"}/
+              %ul.user-size.dropdown-menu{"aria-labelledby" => "user", :style => "padding: 0.9rem 0;"}
+                %li
+                  %a.dropdown-item{:href => "/aims"} Aims
+                %li
+                  %a.dropdown-item{:href => "/#!/clients"} Clients
+                %li
+                  %a.dropdown-item{:href => "/#!/entries"} Entries
+                %li
+                  %a.dropdown-item{:href => "/#!/jobs"} Jobs
+                %li
+                  %a.dropdown-item{:href => "/#!/projects"} Projects
+                %li
+                  %a.dropdown-item{:href => "/#!/taxcategories"} Tax Categories
+                %li
+                  %a.dropdown-item{:href => "/#!/taxdashboard"} Tax Dashboard
+                %li
+                  %a.dropdown-item{:href => "/#!/tenancyagreements"} Tenancy Agreements
+                %li
+                  %a.dropdown-item{:href => "/#!/tranxactions"} Tranxactions
+                %li
+                  %a.dropdown-item.no-padding-top{:href => "/#!/users"}
+                    Users
+                %li.separator
+                %li
+                  = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'dropdown-item'
+            / End User
+        / End Navbar Menu
+      / End Topbar
+  / End Header

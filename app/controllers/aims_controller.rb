@@ -3,6 +3,7 @@
 class AimsController < ApplicationController
   before_action :authenticate_admin_user!
   before_action :set_aim, only: %i[show edit update destroy]
+  layout 'layout_until_angular_removed', only: %i[edit update]
 
   def index
     @aims = Aim.all
@@ -33,11 +34,9 @@ class AimsController < ApplicationController
   def update
     respond_to do |format|
       if @aim.update(aim_params)
-        format.html { redirect_to @aim, notice: 'Aim was successfully updated.' }
-        format.json { render :show, status: :ok, location: @aim }
+        format.html { redirect_to '/#!/aims', notice: 'Aim was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @aim.errors, status: :unprocessable_entity }
       end
     end
   end

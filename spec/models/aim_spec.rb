@@ -9,6 +9,10 @@ RSpec.describe Aim, type: :model do
     it { should have_many(:entries).dependent(:destroy) }
   end
 
+  describe 'VALIDATIONS' do
+    it { should validate_presence_of(:description) }
+  end
+
   describe 'CALLBACKS' do
     describe 'after_create' do
       it 'calls #create_initial_entries' do
