@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   # Attachments
   get 'attachments/presigned' => 'attachments#presigned'
   resources :attachments
-  resources :blog_posts, only: %i[index create destroy]
   resources :clients
   get 'entries/by_date' => 'entries#by_date'
   resources :entries, only: %i[update destroy]
