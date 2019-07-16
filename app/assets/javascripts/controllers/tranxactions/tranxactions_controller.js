@@ -1,8 +1,8 @@
-app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'ElisyamService', 'FSCModalService', 'Restangular', function( $filter, $http, $scope, $state, AlertService, Auth, BackEndService, DatetimeService, ElisyamService, FSCModalService, Restangular ){
+app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'ElisyamService', 'FSCModalService', 'Restangular', function( $filter, $http, $scope, $state, AlertService, Auth, BackEndService, DatetimeService, ElisyamService, FSCModalService, Restangular ) {
 
   // Private
-  var resetFileInput = function(){
-    $("#attachments-upload").val("");
+  var resetFileInput = function() {
+    $('#attachments-upload').val('');
   };
 
   // This is to send to the back end
@@ -12,16 +12,20 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
     tax: undefined
   };
 
-  var createTranxaction = function(){
-    BackEndService.createTranxaction( $scope.newTranxaction )
-      .then(function( response ){
-        $scope.tranxactions.unshift( response );
+  var createTranxaction = function() {
+    if(!$scope.newTranxaction.tax) {
+      $scope.newTranxaction.tax_category_id = undefined;
+    }
+
+    BackEndService.createTranxaction($scope.newTranxaction)
+      .then(function(response){
+        $scope.tranxactions.unshift(response);
         $scope.newTranxaction.amount = 0;
         $scope.newTranxaction.description = undefined;
         $scope.newTranxaction.attachments = [];
         resetFileInput();
-        $("#new-tranxaction-form").removeClass("was-validated");
-        AlertService.success( "Tranxaction created" );
+        $('#new-tranxaction-form').removeClass('was-validated');
+        AlertService.success( 'Tranxaction created' );
       }, function( errors ){
         AlertService.processErrors( errors );
       })
@@ -42,7 +46,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
   };
 
   var getProperties = function(){
-    Restangular.all("properties")
+    Restangular.all('properties')
       .getList()
       .then(function( response ){
         $scope.properties = response;
@@ -52,9 +56,20 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
       });
   };
 
-  var getTenancyAgreements = function( propertyId ){
-    Restangular.one("properties", propertyId)
-      .getList( "tenancy_agreements" )
+  var getTaxCategories = function(){
+    Restangular.all('tax_categories')
+      .getList()
+      .then(function(response){
+        $scope.taxCategories = response;
+        $scope.newTranxaction.tax_category_id = response[0].id;
+      }, function(errors){
+        AlertService.processErrors(errors);
+      });    
+  };
+
+  var getTenancyAgreements = function(propertyId){
+    Restangular.one('properties', propertyId)
+      .getList( 'tenancy_agreements' )
       .then(function( response ){
         $scope.tenancyAgreements = response;
         $scope.selectedTenancyAgreement = response[0];
@@ -64,7 +79,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
   };
 
   var getTranxactionTypes = function(){
-    Restangular.all("tranxaction_types")
+    Restangular.all('tranxaction_types')
       .getList()
       .then(function( response ){
         $scope.tranxactionTypes = response;
@@ -94,26 +109,26 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
     searchParamsToSendUp.tax = $scope.searchParams.tax;
 
     if ( $scope.searchParams.client ){
-      searchParamsToSendUp.resource_type = "Client";
+      searchParamsToSendUp.resource_type = 'Client';
       searchParamsToSendUp.resource_id = $scope.searchParams.client.id;
       return
     };
 
     if ( $scope.searchParams.tenancyAgreement ){
-      searchParamsToSendUp.resource_type = "TenancyAgreement";
+      searchParamsToSendUp.resource_type = 'TenancyAgreement';
       searchParamsToSendUp.resource_id = $scope.searchParams.tenancyAgreement.id;
       return
     };
 
-    if ( $scope.searchParams.property && $scope.searchParams.tranxactionType.description === "property" ){
-      searchParamsToSendUp.resource_type = "Property";
+    if ( $scope.searchParams.property && $scope.searchParams.tranxactionType.description === 'property' ){
+      searchParamsToSendUp.resource_type = 'Property';
       searchParamsToSendUp.resource_id = $scope.searchParams.property.id;
       return
     };
 
     // This is last bit is to cover all the randon tranxaction types that might pop up in the future... 
     if ( $scope.searchParams.tranxactionType ){
-      searchParamsToSendUp.resource_type = "TranxactionType";
+      searchParamsToSendUp.resource_type = 'TranxactionType';
       searchParamsToSendUp.resource_id = $scope.searchParams.tranxactionType.id;
     } else {
       searchParamsToSendUp.resource_type = undefined;
@@ -123,15 +138,15 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
 
   var setTranxactables = function(){
     $scope.newTranxaction.tranxactables = [];
-    $scope.newTranxaction.tranxactables.push({ resource_type: "TranxactionType", resource_id: $scope.selectedTranxactionType.id });
+    $scope.newTranxaction.tranxactables.push({ resource_type: 'TranxactionType', resource_id: $scope.selectedTranxactionType.id });
     if ( $scope.selectedTranxactionType.description === 'property' ){
-      $scope.newTranxaction.tranxactables.push( { resource_type: "Property", resource_id: $scope.selectedProperty.id } );
+      $scope.newTranxaction.tranxactables.push( { resource_type: 'Property', resource_id: $scope.selectedProperty.id } );
     } else if ( $scope.selectedTranxactionType.description === 'rent' ) {
-      $scope.newTranxaction.tranxactables.push( { resource_type: "Property", resource_id: $scope.selectedProperty.id } );
-      $scope.newTranxaction.tranxactables.push( { resource_type: "TenancyAgreement", resource_id: $scope.selectedTenancyAgreement.id } );
-      $scope.newTranxaction.tranxactables.push( { resource_type: "User", resource_id: $scope.selectedTenancyAgreement.id } );
+      $scope.newTranxaction.tranxactables.push( { resource_type: 'Property', resource_id: $scope.selectedProperty.id } );
+      $scope.newTranxaction.tranxactables.push( { resource_type: 'TenancyAgreement', resource_id: $scope.selectedTenancyAgreement.id } );
+      $scope.newTranxaction.tranxactables.push( { resource_type: 'User', resource_id: $scope.selectedTenancyAgreement.id } );
     } else if ( $scope.selectedTranxactionType.description === 'work' ){
-      $scope.newTranxaction.tranxactables.push( { resource_type: "Client", resource_id: $scope.selectedClient.id } );
+      $scope.newTranxaction.tranxactables.push( { resource_type: 'Client', resource_id: $scope.selectedClient.id } );
     };
   };
 
@@ -160,6 +175,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
     date: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
     description: "",
     tax: false,
+    tax_category_id: undefined,
     tranxactables: []
   };
 
@@ -294,6 +310,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
       .then(function( user ){
         if ( user.admin ){
           DatetimeService.initiateDatePicker('#date-picker');
+          getTaxCategories();
           $scope.getTranxactions();
           getTranxactionTypes();
           getProperties();

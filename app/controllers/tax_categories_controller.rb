@@ -1,27 +1,23 @@
+# frozen_string_literal: true
+
 class TaxCategoriesController < ApplicationController
   before_action :authenticate_admin_user!
-  before_action :set_tax_category, only: [:show, :destroy]
+  before_action :set_tax_category, only: %i[show destroy]
 
-  # GET /tax_categories
-  # GET /tax_categories.json
   def index
-    if params[:resource_type] && params[:resource_id]
-      @tax_categories = params[:resource_type].constantize.find(params[:resource_id]).tax_categories
+    @tax_categories = if params[:resource_type] && params[:resource_id]
+      params[:resource_type].constantize.find(params[:resource_id]).tax_categories
     else
-      @tax_categories = TaxCategory.all
+      TaxCategory.all
     end
 
     render json: @tax_categories
   end
 
-  # GET /tax_categories/1
-  # GET /tax_categories/1.json
   def show
     render json: @tax_category
   end
 
-  # POST /tax_categories
-  # POST /tax_categories.json
   def create
     @tax_category = TaxCategory.new(tax_category_params)
 
@@ -32,8 +28,6 @@ class TaxCategoriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tax_categories/1
-  # PATCH/PUT /tax_categories/1.json
   def update
     respond_to do |format|
       if @tax_category.update(tax_category_params)
@@ -46,8 +40,6 @@ class TaxCategoriesController < ApplicationController
     end
   end
 
-  # DELETE /tax_categories/1
-  # DELETE /tax_categories/1.json
   def destroy
     @tax_category.destroy
     respond_to do |format|
@@ -56,13 +48,12 @@ class TaxCategoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tax_category
-      @tax_category = TaxCategory.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tax_category_params
-      params.require(:tax_category).permit(:description)
-    end
+  def set_tax_category
+    @tax_category = TaxCategory.find(params[:id])
+  end
+
+  def tax_category_params
+    params.require(:tax_category).permit(:description)
+  end
 end
