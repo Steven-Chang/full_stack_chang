@@ -1,4 +1,5 @@
 require_relative '../task_helpers/email_helper'
+
 namespace :fsc do
   desc "Adding rent to tenants and sending"
   task :add_rent_and_send => :environment do
@@ -326,11 +327,11 @@ email_content = email_content + "</tbody>
 </body>
 </html>"
 
-        EmailHelper.send_email( "prime_pork@hotmail.com",
-                                "Steven Chang",
-                                tenancy_agreement.user.email,
-                                "Rent Spread Sheet",
-                                email_content )
+        EmailHelper.send_email("stevenchang5000@gmail.com",
+                               "Steven Chang",
+                               tenancy_agreement.user.email,
+                               "Rent Spread Sheet",
+                               email_content)
       end
     end
   end
