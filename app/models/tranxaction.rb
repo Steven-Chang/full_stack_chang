@@ -21,4 +21,8 @@ class Tranxaction < ApplicationRecord
       raise 'error'
     end
   end
+
+  before_save do |tranxaction|
+    tranxaction.tax_category_id = nil unless tranxaction.tax
+  end
 end
