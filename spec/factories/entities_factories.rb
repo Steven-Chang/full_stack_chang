@@ -6,6 +6,8 @@ FactoryBot.define do
   end
 
   factory :blog_post do
+    date_added { Date.current }
+    description { 'Blog post description' }
     title { 'Blog post title' }
   end
 
