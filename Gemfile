@@ -7,8 +7,6 @@ ruby '2.5.1'
 
 # This will allow our API to expose only those fields that are necessary to Angular frontend.
 gem 'active_model_serializers'
-# A tagging plugin for Rails applications that allows for custom tagging along dynamic contexts.
-gem 'acts-as-taggable-on', '~> 6.0'
 gem 'angular_rails_csrf'
 # allows us to place our html views in the assets/javascript directory
 gem 'angular-rails-templates'
