@@ -14,14 +14,11 @@ app.controller('TranxactionsEditController', ['$stateParams', '$scope', '$state'
       });
   };
 
-  var updateTranxaction = function(){
+  var updateTranxaction = function() {
     $scope.tranxaction.put()
-      .then(function( response ){
-        // Currently we're gonna go back to the projects page on update
-        // But later on it should goto the show page, if the show page is going to exist at all... 
-        // I can see a lot of reasons for it to exist.
+      .then(function(response){
         FSCModalService.loading = false;
-        $state.go( "tranxactions" );
+        $state.go("tranxactions");
       }, function( errors ){
         FSCModalService.loading = false;
         AlertService.processErrors( errors );
@@ -73,8 +70,8 @@ app.controller('TranxactionsEditController', ['$stateParams', '$scope', '$state'
             var publicUrl = response.public_url;
             var awsKey = response.aws_key;
             BackEndService.uploadFileToAWS( response.presigned_url, $scope.file, $scope.file.type )
-              .then(function( response ){
-                $scope.project.attachments.push( response );
+              .then(function(response){
+                $scope.tranxaction.attachments_attributes = [response];
                 updateTranxaction();
               }, function(errors){
                 AlertService.processErrors( errors );

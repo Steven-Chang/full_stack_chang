@@ -96,6 +96,11 @@ class TranxactionsController < ApplicationController
 
   def tranxaction_params
     params.require(:tranxaction)
-          .permit(:date, :description, :amount, :tax, :tax_category_id, attachments: [])
+          .permit(:date,
+                  :description,
+                  :amount,
+                  :tax,
+                  :tax_category_id,
+                  attachments_attributes: %i[url aws_key])
   end
 end
