@@ -103,6 +103,8 @@ group :test do
   gem 'climate_control'
   # Cleans the test database before each test
   gem 'database_cleaner'
+  # RackSessionAccess provides rack middleware for 'rack.session' environment management.
+  gem 'rack_session_access'
   gem 'selenium-webdriver'
   # Additional matchers
   gem 'shoulda-matchers', require: false
