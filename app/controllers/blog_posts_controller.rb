@@ -4,10 +4,9 @@ class BlogPostsController < ApplicationController
   before_action :authenticate_admin_user!, except: [:index]
 
   def index
-    blog_posts = BlogPost.all
-    blog_posts = blog_posts.where(private: false) unless current_user&.email == 'prime_pork@hotmail.com'
+    blog_posts = policy_scope(BlogPost).order('date_added DESC')
     blog_posts = blog_posts.where.not('blog_post.id': params['ids_to_exclude']) if params['ids_to_exclude']
-    render json: blog_posts.order('date_added DESC').paginate(page: params[:page], per_page: 12)
+    render json: blog_posts.paginate(page: params[:page], per_page: 12)
   end
 
   def create
@@ -36,6 +35,7 @@ class BlogPostsController < ApplicationController
   private
 
   def post_params
-    params.require(:blog_post).permit(:description, :image_url, :private, :title, :youtube_url, :date_added)
+    params.require(:blog_post)
+          .permit(:description, :image_url, :private, :title, :youtube_url, :date_added)
   end
 end
