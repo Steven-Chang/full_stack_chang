@@ -69,26 +69,6 @@
                     </div>
                 </div>
 
-                <div class="form-group row d-flex align-items-center">
-                  <label class="col-lg-3 form-control-label d-flex">Tags</label>
-                  <div class="col-lg-9">
-
-                    <div class="input-group form-group">
-                      <input class="form-control" 
-                        placeholder="Tag" 
-                        ng-model="newBlogPostHub.tag" 
-                        ng-keypress="newBlogPostHub.addTagOnKeyPress($event);">
-                        <span class="input-group-addon addon-orange" ng-click="newBlogPostHub.addTagAndReset()"><span class="la la-plus" id="plus-sign"></span></span>
-                    </div>
-
-                    <div ng-show="newBlogPostHub.tags.length">
-                      <div id="form-tag-container">
-                        <span class="tag-container" ng-repeat="tag in newBlogPostHub.tags" style="margin-right: 10px; margin-bottom: 10px;">#{{ tag }} <span class="la la-remove" ng-click="newBlogPostHub.removeTag($index)"></span></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 <div class="form-group row align-items-center">
                     <label class="col-lg-3 form-control-label d-flex"></label>
                     <div class="col-lg-9">
@@ -186,15 +166,6 @@
                                   </p>
                               </div>
                               <!-- End Widget Body -->
-                              <!-- Begin Widget Footer -->
-                              <div class="widget-footer d-flex align-items-center">
-                                <div class="col-12 no-padding d-flex">
-                                  <div class="meta">
-                                    <a ng ng-repeat="tag in post.tags" ng-click="setTagAndGetBlogPosts(tag.tag); $event.preventDefault();" style="margin-right: 10px;">#{{ tag.tag }}</a>
-                                  </div>
-                                </div>
-                              </div>
-                              <!-- End Widget Footer -->
                           </div>
                           <!-- End Widget -->
                           <div class="{{ ( $index % 2 === 1 ) ? 'time-left' : 'time-right' }}">{{ post.date_added | date:'mediumDate' }}</div>
