@@ -6,6 +6,9 @@ class Tranxaction < ApplicationRecord
   has_many :attachments, as: :resource, dependent: :destroy
   belongs_to :tax_category
 
+  # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===
+  accepts_nested_attributes_for :attachments
+
   # === CALLBACKS ===
   after_create do |tranxaction|
     tranxaction.tranxactables.each do |tranxactable|

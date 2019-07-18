@@ -7,6 +7,10 @@ RSpec.describe Tranxaction, type: :model do
   let(:tax_category) { create(:tax_category) }
   let(:tranxaction) { build(:tranxaction) }
 
+  describe 'ACCEPTS NESTED ATTRIBUTES FOR' do
+    it { should accept_nested_attributes_for(:attachments) }
+  end
+
   describe 'ASSOCIATIONS' do
   	it { should have_many(:tranxactables).dependent(:destroy) }
   	it { should have_many(:attachments).dependent(:destroy) }
