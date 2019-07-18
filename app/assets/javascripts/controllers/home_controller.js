@@ -6,7 +6,6 @@ app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', 'A
   var page = 2;
   var recentlyCreatedBlogPostIds = [];
   var searching = false;
-  var selectedTag;
 
   var createPost = function(){
     blogPosts.post( { aws_key: $scope.newBlogPostHub.awsKey,
@@ -15,7 +14,6 @@ app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', 'A
                       title: $scope.newBlogPostHub.title, 
                       youtube_url: $scope.newBlogPostHub.youtubeUrl, 
                       date_added: $scope.newBlogPostHub.dateAdded, 
-                      tags: $scope.newBlogPostHub.tags,
                       attachments: $scope.newBlogPostHub.attachments } )
     .then(function( result ){
       $scope.blogPosts.unshift(result);
@@ -26,8 +24,6 @@ app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', 'A
       $scope.newBlogPostHub.title = "";
       $scope.newBlogPostHub.youtubeUrl = "";
       $scope.newBlogPostHub.dateAdded = "";
-      $scope.newBlogPostHub.tags = [];
-      $scope.newBlogPostHub.tag = "";
       recentlyCreatedBlogPostIds = recentlyCreatedBlogPostIds.push( result.id );
     })
     .finally(function(){
@@ -56,38 +52,10 @@ app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', 'A
   	description: "",
   	imageUrl: "",
     private: true,
-    tag: "",
-    tags: [],
   	title: "",
   	youtubeUrl: "",
   	dateAdded: $filter('date')(new Date(), 'EEE dd MMMM yyyy'),
-    postingNewBlogPost: false,
-    addTagAndReset: function(){
-      this.removeWhiteSpacesFromTag();
-      if (this.tag.length && this.tagIsUnique()){
-        this.tags.push(this.tag);
-      };
-      this.tag = "";
-    },
-    // keyCode 13 === Enter
-    addTagOnKeyPress: function($event){
-      if ($event.keyCode === 13){
-        $event.preventDefault();
-        this.addTagAndReset();
-      };
-    },
-    returnMatchingTag: function(word){
-      return word.toLowerCase() === $scope.newBlogPostHub.tag.toLowerCase();
-    },
-    removeTag: function( index ){
-      this.tags.splice(index, 1);
-    },
-    removeWhiteSpacesFromTag: function(){
-      $scope.newBlogPostHub.tag = $scope.newBlogPostHub.tag.replace(/ /g,'');
-    },
-    tagIsUnique: function(){
-      return !this.tags.find(this.returnMatchingTag)
-    }
+    postingNewBlogPost: false
   };
 
   DatetimeService.initiateDatePicker("#date-picker");
@@ -121,7 +89,6 @@ app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', 'A
       searching = true;
       var params = {
         "page": page,
-        "tag": selectedTag,
         "ids_to_exclude[]": recentlyCreatedBlogPostIds
       };
       Restangular.all( 'blog_posts' ).getList( params )
@@ -144,19 +111,6 @@ app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', 'A
     $("#youtube-container-" + index).css("height", "98%");
     $("#blog-post-image-"+ index).css("height", "0px");
     $("#project-image-frame-" + index).css("min-height", "275px");
-  };
-
-  $scope.setTagAndGetBlogPosts = function( tag ){
-    recentlyCreatedBlogPostIds = [];
-    selectedTag = tag;
-    page = 1;
-    $scope.blogPosts = [];
-    searching = false;
-    $scope.getBlogPosts();
-  };
-
-  $scope.slideToggleAddBlogPostForm = function(){
-    $( "#add-blog-post-form" ).slideToggle( "slow" );
   };
 
   $scope.uploadFileThenCreatePost = function( form ){
