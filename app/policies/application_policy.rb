@@ -8,34 +8,6 @@ class ApplicationPolicy
     @record = record
   end
 
-  def index?
-    false
-  end
-
-  def show?
-    false
-  end
-
-  def create?
-    false
-  end
-
-  def new?
-    create?
-  end
-
-  def update?
-    false
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    false
-  end
-
   class Scope
     attr_reader :user, :scope
 
@@ -47,5 +19,37 @@ class ApplicationPolicy
     def resolve
       scope.all
     end
+  end
+
+  def admin?
+    user&.admin?
+  end
+
+  def index?
+    admin?
+  end
+
+  def show?
+    admin?
+  end
+
+  def create?
+    admin?
+  end
+
+  def new?
+    create?
+  end
+
+  def update?
+    admin?
+  end
+
+  def edit?
+    update?
+  end
+
+  def destroy?
+    admin?
   end
 end
