@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
 
+gem 'activeadmin'
 # This will allow our API to expose only those fields that are necessary to Angular frontend.
 gem 'active_model_serializers'
 gem 'angular_rails_csrf'
