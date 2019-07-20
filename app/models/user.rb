@@ -2,8 +2,7 @@
 
 class User < ApplicationRecord
   # === DEVISE ===
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable
 
   # === ASSOCIATIONS ===
   has_many :tenancy_agreements, dependent: :restrict_with_error
