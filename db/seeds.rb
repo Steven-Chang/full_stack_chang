@@ -15,19 +15,9 @@ puts 'Creating scores for Tetris'
 NUMBER_OF_SCORES = 5
 NUMBER_OF_SCORES.times do |n|
   score = Project.find_by(title: 'tetris').scores.create(
+    level: n,
+    line: n,
     score: n,
     name: 'Chubb'
-  )
-  level = Level.create(
-    level: n,
-    score: score
-  )
-  line = Line.create(
-    lines: n,
-    score: score
-  )
-  score.update!(
-    level: level,
-    line: line
   )
 end
