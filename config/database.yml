@@ -3,7 +3,6 @@ default: &default
   encoding: unicode
   pool: 5
   checkout_timeout: <%= ENV['DB_TIMEOUT'] || 5 %>
-  password: clamocop
 
 development:
   <<: *default

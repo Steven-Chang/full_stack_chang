@@ -1,2 +1,2 @@
-app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', 'Auth', 'BackEndService', 'blogPosts', 'cloudinary', 'DatetimeService', 'FSCModalService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, Auth, BackEndService, blogPosts, cloudinary, DatetimeService, FSCModalService, Restangular){
+app.controller('HomeController', ['$filter', '$http', '$ngConfirm', '$scope', 'Auth', 'BackEndService', 'cloudinary', 'DatetimeService', 'FSCModalService', 'Restangular', function( $filter, $http, $ngConfirm, $scope, Auth, BackEndService, cloudinary, DatetimeService, FSCModalService, Restangular){
 }])
