@@ -91,15 +91,7 @@ var app = angular.module('app', [
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/home.html',
-			controller: 'HomeController',
-			resolve: {
-				blogPosts: ['Restangular', function(Restangular){
-					return Restangular.all('blog_posts').getList({ "page": 1 })
-						.then(function(blogPosts){
-							return blogPosts;
-      			});
-				}]
-			}
+			controller: 'HomeController'
 		})
 		.state('paymentsummariesedit', {
 			url: '/payment-summaries/:id/edit',
