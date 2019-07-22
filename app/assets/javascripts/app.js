@@ -140,41 +140,10 @@ var app = angular.module('app', [
 			templateUrl: 'views/properties/show.html',
 			controller: 'PropertiesShowController'
 		})
-
-		.state('login', {
-			url: '/login',
-			templateUrl: 'views/login.html',
-			controller: 'AuthController',
-			onEnter: ['Auth', '$state', function(Auth, $state){
-				if ( Auth.isAuthenticated() ){
-					$state.go('home');
-				};
-			}]
-		})
 		.state('taxcategories', {
 			url: '/tax_categories',
 			templateUrl: 'views/tax_categories/index.html',
 			controller: 'TaxCategoriesController'
-		})
-		.state('register', {
-			url: '/register',
-			templateUrl: 'views/register.html',
-			controller: 'AuthController',
-			resolve: {
-				numberOfUsers: ['Restangular', function(Restangular){
-					return Restangular.oneUrl('number_of_users').get()
-						.then(function(response){
-							return response.number_of_users;
-      			});
-      	}]
-			},
-			onEnter: ['Auth', '$state', 'numberOfUsers', function(Auth, $state, numberOfUsers){
-				if ( Auth.isAuthenticated() ){
-					$state.go('dashboard');
-				} else if ( numberOfUsers >= 2 ){
-					$state.go('home');
-				};
-			}]
 		})
 		.state('taxdashboard', {
 			url: '/tax-dashboard',
