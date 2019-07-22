@@ -3,11 +3,11 @@ devise.provider('Auth', function AuthProvider() {
      * The default paths.
      */
     var paths = {
-        login: '/users/sign_in.json',
-        logout: '/users/sign_out.json',
-        register: '/users.json',
-        sendResetPasswordInstructions: '/users/password.json',
-        resetPassword: '/users/password.json'
+        login: '/admin/sign_in.json',
+        logout: '/admin/sign_out.json',
+        register: '/admin.json',
+        sendResetPasswordInstructions: '/admin/password.json',
+        resetPassword: '/admin/password.json'
     };
 
     /**
@@ -177,7 +177,7 @@ devise.provider('Auth', function AuthProvider() {
              * A login function to authenticate with the server.
              * Keep in mind, credentials are sent in plaintext;
              * use a SSL connection to secure them. By default,
-             * `login` will POST to '/users/sign_in.json'.
+             * `login` will POST to '/admin/sign_in.json'.
              *
              * The path and HTTP method used to login are configurable
              * using
@@ -214,7 +214,7 @@ devise.provider('Auth', function AuthProvider() {
 
             /**
              * A logout function to de-authenticate from the server.
-             * By default, `logout` will DELETE to '/users/sign_out.json'.
+             * By default, `logout` will DELETE to '/admin/sign_out.json'.
              *
              * The path and HTTP method used to logout are configurable
              * using
@@ -242,7 +242,7 @@ devise.provider('Auth', function AuthProvider() {
              * A register function to register and authenticate
              * with the server. Keep in mind, credentials are sent
              * in plaintext; use a SSL connection to secure them.
-             * By default, `register` will POST to '/users.json'.
+             * By default, `register` will POST to '/admin.json'.
              *
              * The path and HTTP method used to login are configurable
              * using
@@ -271,7 +271,7 @@ devise.provider('Auth', function AuthProvider() {
             /**
              * A function to send the reset password instructions to the
              * user email.
-             * By default, `sendResetPasswordInstructions` will POST to '/users/password.json'.
+             * By default, `sendResetPasswordInstructions` will POST to '/admin/password.json'.
              *
              * The path and HTTP method used to send instructions are configurable
              * using
@@ -295,7 +295,7 @@ devise.provider('Auth', function AuthProvider() {
 
             /**
              * A reset function to reset user password.
-             * By default, `resetPassword` will PUT to '/users/password.json'.
+             * By default, `resetPassword` will PUT to '/admin/password.json'.
              *
              * The path and HTTP method used to reset password are configurable
              * using
