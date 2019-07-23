@@ -167,16 +167,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/tranxaction_types/tranxaction_types.html',
 			controller: 'TranxactionTypesController'
 		})
-		.state('users', {
-			url: "/users",
-			templateUrl: "views/users/users.html",
-			controller: "UsersController"
-		})
-		.state('usersedit', {
-			url: '/users/:id/edit',
-			templateUrl: "views/users/edit.html",
-			controller: ""
-		})
 		.state('whyhirechang', {
 			url: '/whyhirechang',
 			templateUrl: 'views/whyhirechang.html',
