@@ -41,10 +41,6 @@ app.service('BackEndService', ['$http', 'Restangular',
     return Restangular.one( route, id ).get()
   };
 
-  BackEndService.getAims = function(){
-    return Restangular.all("aims").getList()
-  };
-
   BackEndService.getBalance = function( params ){
     return Restangular.all( 'tranxactions' ).customGET( "balance", params )
   };

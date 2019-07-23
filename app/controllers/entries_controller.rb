@@ -26,7 +26,8 @@ class EntriesController < ApplicationController
     end
 
     data = Entry.where('date >= ? and date <= ?', end_date - number_of_days_back.days, end_date)
-                .select(:id, :date, :aim_id, :achieved)
+                .joins(:aim)
+                .select('entries.id, date, aim_id ,achieved, aims.description as aim_description')
                 .order('date DESC')
                 .group_by { |p| p['date'] }
 

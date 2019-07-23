@@ -1,18 +1,8 @@
 app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'ElisyamService', 'FSCModalService', function( $filter, $http, $scope, $state, AlertService, Auth, BackEndService, ElisyamService, FSCModalService ){
 
-  // Private
-  var getAims = function(){
-    BackEndService.getAims()
-      .then(function( response ){
-        $scope.aims = response;
-      }, function( errors ){
-        AlertService.processErrors( errors );
-      });
-  };
-
   //// PUBLIC ////
+  $scope.firstGroupOfEntries = [];
   $scope.addingDays = false;
-  $scope.aims;
   $scope.dates = [];
   $scope.entriesGroupedByDate = {};
   $scope.gettingEntries = false;
@@ -56,7 +46,6 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
     Auth.currentUser()
       .then(function( user ){
         if (user.admin){
-          getAims();
           $scope.getEntries();
         } else {
           $state.go('home');
@@ -80,6 +69,12 @@ app.controller('AimsController', ['$filter', '$http', '$scope', '$state', 'Alert
       $scope.gettingEntries = true;
       BackEndService.getEntries(params)
         .then(function(response){
+          if($scope.firstGroupOfEntries.length == 0) {
+            var date = Object.keys(response.data)[0];
+            for(var i = 0; i < response.data[date].length; i++) {
+              $scope.firstGroupOfEntries.push(response.data[date][i]);
+            };
+          };
           Object.assign($scope.entriesGroupedByDate, response.data);
           $scope.dates = $scope.dates.concat(Object.keys(response.data));
         }, function(errors){
