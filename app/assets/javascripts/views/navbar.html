@@ -24,13 +24,10 @@
                 <li class="nav-item dropdown" ng-show="signedIn()"><a id="user" rel="nofollow" data-target="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img src="https://res.cloudinary.com/hpxlnqput/image/upload/f_auto,q_auto/v1562842767/tape_q9thgj.gif" class="avatar rounded-circle"></a>
                     <ul aria-labelledby="user" class="user-size dropdown-menu" style="padding: 0.9rem 0;">
                         <li>
+                          <a class="dropdown-item" ng-href="/admin">Admin</a>
+                        </li>
+                        <li>
                           <a class="dropdown-item" ui-sref="aims">Aims</a>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" ui-sref="clients">Clients</a>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" ui-sref="jobs">Jobs</a>
                         </li>
                         <li>
                           <a class="dropdown-item" ui-sref="projects">Projects</a>
@@ -46,11 +43,6 @@
                         </li>
                         <li>
                           <a class="dropdown-item" ui-sref="tranxactions">Tranxactions</a>
-                        </li>
-                        <li>
-                            <a ui-sref="users" class="dropdown-item no-padding-top"> 
-                                Users
-                            </a>
                         </li>
                         <li class="separator"></li>
                         <li>
