@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EntrySerializer < ActiveModel::Serializer
   attributes :id, :date, :achieved
 

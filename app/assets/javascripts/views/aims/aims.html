@@ -8,7 +8,7 @@
       <div class="row">
         <div class="page-header">
           <div class="d-flex align-items-center">
-            <h2 class="page-header-title">Aims <a ui-sref="aimsnew">+</a></h2>
+            <h2 class="page-header-title">Aims <a ng-href="admin/aims/new">+</a></h2>
           </div>
         </div>
       </div>
@@ -20,7 +20,7 @@
               <thead>
                 <tr>
                   <th scope="col">Date <span ng-click="addDay()">+</span></th>
-                  <th scope="col" ng-repeat="aim in aims | orderBy: 'id'" style="text-transform: capitalize;">{{ aim.description }} <a ng-href="aims/{{ aim.id }}/edit"><i class="la la-edit edit"></i></a></th>
+                  <th scope="col" ng-repeat="entry in firstGroupOfEntries | orderBy: 'aim_id'" style="text-transform: capitalize;">{{ entry.aim_description }} <a ng-href="admin/aims/{{ entry.aim_id }}/edit"><i class="la la-edit edit"></i></a></th>
                 </tr>
               </thead>
               <tbody>
