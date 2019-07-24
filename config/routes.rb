@@ -12,14 +12,11 @@ Rails.application.routes.draw do
   get 'payment_summaries/year_endings' => 'payment_summaries#year_endings'
   resources :payment_summaries
   resources :projects
-  resources :properties do
-    resources :tenancy_agreements
-  end
+  resources :properties, only: :index
   resources :scores, only: %i[index create]
   resources :tax_categories
   # Tenancy Agreements
-  get 'tenancy_agreements/summaries' => 'tenancy_agreements#summaries'
-  resources :tenancy_agreements
+  resources :tenancy_agreements, only: :index
   get 'tranxactions/balance' => 'tranxactions#balance'
   resources :tranxactions
   resources :tranxaction_types
