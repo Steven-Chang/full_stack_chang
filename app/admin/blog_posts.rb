@@ -18,13 +18,14 @@ ActiveAdmin.register BlogPost do
   filter :private
 
   form do |f|
+    f.object.date_added ||= DateTime.current
     f.inputs do
+      f.input :title
       f.input :date_added
       f.input :description
       f.input :image_url
-      f.input :private
-      f.input :title
       f.input :youtube_url
+      f.input :private
     end
     f.actions
   end
