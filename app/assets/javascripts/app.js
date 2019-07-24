@@ -112,11 +112,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/properties/show.html',
 			controller: 'PropertiesShowController'
 		})
-		.state('taxcategories', {
-			url: '/tax_categories',
-			templateUrl: 'views/tax_categories/index.html',
-			controller: 'TaxCategoriesController'
-		})
 		.state('taxdashboard', {
 			url: '/tax-dashboard',
 			templateUrl: 'views/tax_dashboard.html',

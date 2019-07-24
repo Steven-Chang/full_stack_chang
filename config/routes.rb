@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :projects
   resources :properties, only: :index
   resources :scores, only: %i[index create]
-  resources :tax_categories
+  resources :tax_categories, only: :index
   # Tenancy Agreements
   resources :tenancy_agreements, only: :index
   get 'tranxactions/balance' => 'tranxactions#balance'
