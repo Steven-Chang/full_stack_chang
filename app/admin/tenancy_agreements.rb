@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register TenancyAgreement do
-  permit_params :amount,
-                :starting_date,
-                :user_id,
-                :property_id,
-                :bond,
-                :active,
-                :tax
+  # params['commit'] exists when filters are selected
+  before_action only: :index do
+    params['q'] = { active_eq: true } if params['commit'].blank?
+  end
 
+  # === INDEX ===
   index do
     column :balance do |tenancy_agreement|
       number_to_currency(tenancy_agreement.balance)
@@ -31,9 +29,10 @@ ActiveAdmin.register TenancyAgreement do
     actions
   end
 
-  filter :active
-  filter :property_id
+  filter :active, default: true
+  filter :property
 
+  # === SHOW ===
   show do
     attributes_table do
       row :id
@@ -51,6 +50,7 @@ ActiveAdmin.register TenancyAgreement do
     end
   end
 
+  # === FORM ===
   form do |f|
     f.object.starting_date ||= Date.current
     f.inputs do
@@ -68,4 +68,13 @@ ActiveAdmin.register TenancyAgreement do
     end
     f.actions
   end
+
+  # === PERMIT PARAMS ===
+  permit_params :amount,
+                :starting_date,
+                :user_id,
+                :property_id,
+                :bond,
+                :active,
+                :tax
 end
