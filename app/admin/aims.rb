@@ -4,8 +4,6 @@ ActiveAdmin.register Aim do
   permit_params :description
 
   index do
-    selectable_column
-    id_column
     column :description
     actions
   end
