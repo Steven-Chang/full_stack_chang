@@ -17,6 +17,18 @@ ActiveAdmin.register BlogPost do
   filter :date_added
   filter :private
 
+  show do
+    attributes_table do
+      row :id
+      row :title
+      row :date_added
+      row :description
+      row :image_url
+      row :youtube_url
+      row :private
+    end
+  end
+
   form do |f|
     f.object.date_added ||= DateTime.current
     f.inputs do
