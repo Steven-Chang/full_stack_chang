@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :authenticate_admin_user!
 
   def index
-    render :json => User.all
+    render json: User.all
   end
 
   def return_number_of_users
@@ -13,20 +15,4 @@ class UsersController < ApplicationController
       format.json { render :json => object_to_send_back, status => 200 }
     end
   end
-
-  def update_other_params
-    user_id = params[:user_id]
-    user = User.find(user_id)
-    user.tenant = params[:tenant]
-    user.admin = params[:admin]
-    user.save
-
-    respond_to do |format|
-      format.json {
-        render :json => user,
-        status => 200
-      }
-    end
-  end
-
 end

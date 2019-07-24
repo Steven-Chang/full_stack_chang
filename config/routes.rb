@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   resources :tranxactions
   resources :tranxaction_types
   # Users
-  put 'users/:user_id' => 'users#update_other_params'
   get 'number_of_users' => 'users#return_number_of_users'
   resources :users, only: [:index]
 
