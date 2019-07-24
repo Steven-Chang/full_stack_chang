@@ -62,7 +62,6 @@ var app = angular.module('app', [
 	$urlRouterProvider.otherwise('/')
 
 	$stateProvider
-
 		.state('aims', {
 			url: '/aims',
 			templateUrl: 'views/aims/aims.html',
@@ -100,17 +99,6 @@ var app = angular.module('app', [
 			url: '/projects/:id/edit',
 			templateUrl: 'views/projects/edit.html',
 			controller: 'ProjectsEditController'
-		})
-
-		.state('properties', {
-			url: '/properties',
-			templateUrl: 'views/properties.html',
-			controller: 'PropertiesController'
-		})
-		.state('propertiesshow', {
-			url: '/properties/:id',
-			templateUrl: 'views/properties/show.html',
-			controller: 'PropertiesShowController'
 		})
 		.state('taxdashboard', {
 			url: '/tax-dashboard',
