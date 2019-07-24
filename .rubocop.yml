@@ -62,6 +62,7 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - 'app/**/concerns/*.rb'
     - 'config/routes.rb'
+    - 'app/admin/*'
 
 Metrics/AbcSize:
   Max: 50
