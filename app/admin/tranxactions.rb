@@ -12,7 +12,9 @@ ActiveAdmin.register Tranxaction do
       number_to_currency(tranxaction.amount)
     end
     column :tax
-    column :tax_category
+    column :tax_category do |tranxaction|
+      tranxaction&.tax_category&.description
+    end
     column :attachments
     actions
   end
@@ -21,7 +23,10 @@ ActiveAdmin.register Tranxaction do
   filter :date
   filter :description
   filter :tax
-  filter :tax_category
+  filter :tax_category, collection: lambda {
+    TaxCategory.all.map { |tax_category| [tax_category.description, tax_category.id] }
+  }
+  filter :tax_category_id_present, as: :boolean
 
   # === SHOW ===
   show do
