@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+# params['commit'] exists when filters are selected
 ActiveAdmin.register Tranxaction do
-  # params['commit'] exists when filters are selected
-
   # === INDEX ===
+  config.sort_order = 'date_desc'
+
   index do
     column :date
     column :description

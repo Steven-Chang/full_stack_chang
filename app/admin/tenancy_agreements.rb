@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# params['commit'] exists when filters are selected
 ActiveAdmin.register TenancyAgreement do
-  # params['commit'] exists when filters are selected
   before_action only: :index do
     params['q'] = { active_eq: true } if params['commit'].blank?
   end
