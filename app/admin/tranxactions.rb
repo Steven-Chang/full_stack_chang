@@ -1,0 +1,60 @@
+# frozen_string_literal: true
+
+ActiveAdmin.register Tranxaction do
+  # params['commit'] exists when filters are selected
+
+  # === INDEX ===
+  index do
+    column :date
+    column :description
+    column :amount do |tranxaction|
+      number_to_currency(tranxaction.amount)
+    end
+    column :tax
+    column :tax_category
+    column :attachments
+    actions
+  end
+
+  filter :amount
+  filter :date
+  filter :description
+  filter :tax
+  filter :tax_category
+
+  # === SHOW ===
+  show do
+    attributes_table do
+      row :id
+      row :date
+      row :description
+      row :amount do |tranxaction|
+        number_to_currency(tranxaction.amount)
+      end
+      row :tax
+      row :tax_category
+      row :attachments
+    end
+  end
+
+  # === FORM ===
+  form do |f|
+    f.object.date ||= Date.current
+    f.inputs do
+      f.input :date, required: true
+      f.input :description, required: true
+      f.input :amount, required: true
+      f.input :tax
+      f.input :tax_category
+    end
+    f.actions
+  end
+
+  # === PERMIT PARAMS ===
+  permit_params :amount,
+                :date,
+                :description,
+                :tax,
+                :tax_category_id,
+                attachments_attributes: %i[url aws_key]
+end
