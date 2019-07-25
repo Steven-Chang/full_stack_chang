@@ -57,13 +57,8 @@ group :development, :test do
   gem 'byebug'
   # Fixtures replacement
   gem 'factory_bot_rails'
-  # To auto test jasmine spec files on saving of any files
-  gem 'guard-jasmine'
-  gem 'jasmine-rails'
   # Test suite
   gem 'rspec-rails', '~> 3.5'
-  # https://github.com/travisjeffery/sinon-rails
-  gem 'sinon-rails'
 end
 
 group :development do
