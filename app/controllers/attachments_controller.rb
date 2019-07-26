@@ -8,10 +8,6 @@ class AttachmentsController < ApplicationController
     @attachments = Attachment.all
   end
 
-  def new
-    @attachment = Attachment.new
-  end
-
   def edit; end
 
   def create
