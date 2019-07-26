@@ -72,16 +72,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/home.html',
 			controller: 'HomeController'
 		})
-		.state('paymentsummariesedit', {
-			url: '/payment-summaries/:id/edit',
-			templateUrl: 'views/payment_summaries/edit.html',
-			controller: 'PaymentSummariesEditController'
-		})
-		.state('paymentsummariesnew', {
-			url: '/payment-summaries/new',
-			templateUrl: 'views/payment_summaries/new.html',
-			controller: 'PaymentSummariesNewController'
-		})
 		.state('projects', {
 			url: '/projects',
 			templateUrl: 'views/projects/index.html',

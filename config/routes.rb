@@ -5,15 +5,15 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   # Attachments
   get 'attachments/presigned' => 'attachments#presigned'
-  resources :attachments
-  resources :clients
+  resources :attachments, except: %i[new show]
+  resources :clients, only: :index
   get 'entries/by_date' => 'entries#by_date'
   resources :entries, only: %i[update destroy]
   get 'payment_summaries/year_endings' => 'payment_summaries#year_endings'
-  resources :payment_summaries
+  resources :payment_summaries, only: :index
   resources :projects
   resources :properties, only: :index do
-    resources :tenancy_agreements
+    resources :tenancy_agreements, only: :index
   end
   resources :scores, only: %i[index create]
   resources :tax_categories, only: :index
