@@ -38,7 +38,9 @@ ActiveAdmin.register Tranxaction do
         number_to_currency(tranxaction.amount)
       end
       row :tax
-      row :tax_category
+      row :tax_category do |tranxaction|
+        tranxaction&.tax_category&.description
+      end
       row :attachments
     end
   end
