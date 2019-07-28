@@ -51,7 +51,7 @@ ActiveAdmin.register Tranxaction do
       f.input :description, required: true
       f.input :amount, required: true
       f.input :tax
-      f.input :tax_category
+      f.input :tax_category, member_label: :description
     end
     f.actions
   end

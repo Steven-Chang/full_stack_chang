@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
+# params['commit'] exists when filters are selected
 ActiveAdmin.register TaxCategory do
-  permit_params :description
-
+  # === INDEX ===
   index do
     column :description
     actions
@@ -10,6 +10,15 @@ ActiveAdmin.register TaxCategory do
 
   filter :description
 
+  # === SHOW ===
+  show do
+    attributes_table do
+      row :id
+      row :description
+    end
+  end
+
+  # === FORM ===
   form do |f|
     f.inputs do
       f.input :description
@@ -17,10 +26,6 @@ ActiveAdmin.register TaxCategory do
     f.actions
   end
 
-  show do
-     attributes_table do
-       row :id
-       row :description
-    end
-  end
+  # === PERMIT PARAMS ===
+  permit_params :description
 end
