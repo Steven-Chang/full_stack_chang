@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
       username
       email
       password
-      tenant
       first_name
       last_name
     ]
