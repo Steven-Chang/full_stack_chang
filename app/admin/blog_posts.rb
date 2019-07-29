@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
+# params['commit'] exists when filters are selected
 ActiveAdmin.register BlogPost do
-  permit_params :description, :image_url, :private, :title, :youtube_url, :date_added
-
+  # === INDEX ===
   index do
     selectable_column
     id_column
@@ -17,18 +17,22 @@ ActiveAdmin.register BlogPost do
   filter :date_added
   filter :private
 
+  # === SHOW ===
   show do
     attributes_table do
       row :id
       row :title
       row :date_added
       row :description
-      row :image_url
-      row :youtube_url
       row :private
+      row :image do |blog_post|
+        image_tag blog_post.image_url if blog_post.image_url
+      end
+      row :youtube_url
     end
   end
 
+  # === FORM ===
   form do |f|
     f.object.date_added ||= DateTime.current
     f.inputs do
@@ -41,4 +45,7 @@ ActiveAdmin.register BlogPost do
     end
     f.actions
   end
+
+  # === PERMIT PARAMS ===
+  permit_params :description, :image_url, :private, :title, :youtube_url, :date_added
 end
