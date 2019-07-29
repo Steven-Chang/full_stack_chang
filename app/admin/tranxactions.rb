@@ -41,7 +41,11 @@ ActiveAdmin.register Tranxaction do
       row :tax_category do |tranxaction|
         tranxaction&.tax_category&.description
       end
-      row :attachments
+      row :attachments do |tranxaction|
+        tranxaction&.attachments&.each do |attachment|
+          link_to attachment.url
+        end
+      end
     end
   end
 
