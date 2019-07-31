@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_31_035147) do
+ActiveRecord::Schema.define(version: 2019_07_31_113557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,8 @@ ActiveRecord::Schema.define(version: 2019_07_31_035147) do
     t.datetime "updated_at", null: false
     t.boolean "tax"
     t.integer "tax_category_id"
+    t.bigint "creditor_id"
+    t.index ["creditor_id"], name: "index_tranxactions_on_creditor_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -15,6 +15,7 @@ ActiveAdmin.register Tranxaction do
     column :tax_category do |tranxaction|
       tranxaction&.tax_category&.description
     end
+    column :creditor
     column :attachments do |tranxaction|
       next if tranxaction.attachments.blank?
 
@@ -28,6 +29,9 @@ ActiveAdmin.register Tranxaction do
   end
 
   filter :amount
+  filter :creditor, collection: lambda {
+    Creditor.all.map { |creditor| [creditor.name, creditor.id] }
+  }
   filter :date
   filter :description
   filter :tax
@@ -49,6 +53,7 @@ ActiveAdmin.register Tranxaction do
       row :tax_category do |tranxaction|
         tranxaction&.tax_category&.description
       end
+      row :creditor
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
           link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
@@ -66,12 +71,14 @@ ActiveAdmin.register Tranxaction do
       f.input :amount, required: true
       f.input :tax
       f.input :tax_category, member_label: :description
+      f.input :creditor, member_label: :name
     end
     f.actions
   end
 
   # === PERMIT PARAMS ===
   permit_params :amount,
+                :creditor_id,
                 :date,
                 :description,
                 :tax,
