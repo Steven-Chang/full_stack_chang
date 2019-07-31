@@ -2,9 +2,10 @@
 
 class Tranxaction < ApplicationRecord
   # === ASSOCIATIONS ===
+  belongs_to :tax_category
+  belongs_to :creditor
   has_many :tranxactables, dependent: :destroy
   has_many :attachments, as: :resource, dependent: :destroy
-  belongs_to :tax_category
 
   # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===
   accepts_nested_attributes_for :attachments

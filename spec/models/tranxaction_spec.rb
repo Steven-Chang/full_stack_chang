@@ -12,9 +12,10 @@ RSpec.describe Tranxaction, type: :model do
   end
 
   describe 'ASSOCIATIONS' do
+    it { should belong_to(:tax_category) }
+    it { should belong_to(:creditor) }
   	it { should have_many(:tranxactables).dependent(:destroy) }
   	it { should have_many(:attachments).dependent(:destroy) }
-  	it { should belong_to(:tax_category) }
   end
 
   describe 'CALLBACKS' do
