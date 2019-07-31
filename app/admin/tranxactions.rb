@@ -16,9 +16,11 @@ ActiveAdmin.register Tranxaction do
       tranxaction&.tax_category&.description
     end
     column :attachments do |tranxaction|
+      next if tranxaction.attachments.blank?
+
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
-          link_to attachment.url, attachment.url, target: '_blank'
+          link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
         end
       end
     end
@@ -49,7 +51,7 @@ ActiveAdmin.register Tranxaction do
       end
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
-          link_to attachment.url, attachment.url, target: '_blank'
+          link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
         end
       end
     end
