@@ -9,4 +9,7 @@ class BlogPost < ApplicationRecord
             :description,
             :title,
             presence: true
+
+  # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===
+  accepts_nested_attributes_for :attachments
 end

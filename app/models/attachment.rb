@@ -6,12 +6,16 @@ class Attachment < ApplicationRecord
 
   # === CALLBACKS ===
   after_destroy do |attachment|
-    # No idea if amazon returns a success or fail??
-    # Most of the net seems to suggest it doesn't
-    Attachment.aws_client.delete_object(
-      bucket: Rails.application.credentials.aws[:bucket_name],
-      key: attachment.aws_key
-    )
+    if attachment.aws_key
+      # No idea if amazon returns a success or fail??
+      # Most of the net seems to suggest it doesn't
+      Attachment.aws_client.delete_object(
+        bucket: Rails.application.credentials.aws[:bucket_name],
+        key: attachment.aws_key
+      )
+    elsif attachment.cloudinary_public_id
+      Cloudinary::Uploader.destroy(attachment.cloudinary_public_id)
+    end
   end
 
   # === ENUMERABLES ===
