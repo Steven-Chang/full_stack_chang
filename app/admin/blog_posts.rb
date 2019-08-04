@@ -4,13 +4,10 @@
 ActiveAdmin.register BlogPost do
   # === INDEX ===
   index do
-    selectable_column
-    id_column
     column :date_added
+    column :title
     column :description
     column :private
-    column :title
-    column :youtube_url
     actions
   end
 
@@ -25,10 +22,6 @@ ActiveAdmin.register BlogPost do
       row :date_added
       row :description
       row :private
-      row :image do |blog_post|
-        image_tag blog_post.image_url if blog_post.image_url
-      end
-      row :youtube_url
     end
   end
 
@@ -39,13 +32,11 @@ ActiveAdmin.register BlogPost do
       f.input :title
       f.input :date_added
       f.input :description
-      f.input :image_url
-      f.input :youtube_url
       f.input :private
     end
     f.actions
   end
 
   # === PERMIT PARAMS ===
-  permit_params :description, :image_url, :private, :title, :youtube_url, :date_added
+  permit_params :description, :private, :title, :date_added
 end
