@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_31_113557) do
+ActiveRecord::Schema.define(version: 2019_08_04_062511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,10 +38,12 @@ ActiveRecord::Schema.define(version: 2019_07_31_113557) do
   create_table "attachments", force: :cascade do |t|
     t.string "resource_type", null: false
     t.integer "resource_id", null: false
-    t.string "url", null: false
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "aws_key"
+    t.string "cloudinary_public_id"
+    t.integer "file_type", default: 1
   end
 
   create_table "blog_posts", force: :cascade do |t|

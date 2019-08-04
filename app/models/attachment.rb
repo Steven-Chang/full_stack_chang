@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class Attachment < ApplicationRecord
+  # === ASSOCIATIONS ===
   belongs_to :resource, polymorphic: true
 
+  # === CALLBACKS ===
   after_destroy do |attachment|
     # No idea if amazon returns a success or fail??
     # Most of the net seems to suggest it doesn't
@@ -12,6 +14,10 @@ class Attachment < ApplicationRecord
     )
   end
 
+  # === ENUMERABLES ===
+  enum file_type: { image: 0, raw: 1, video: 2 }
+
+  # === CLASS METHODS ===
   def self.aws_client
     Aws::S3::Client.new
   end
