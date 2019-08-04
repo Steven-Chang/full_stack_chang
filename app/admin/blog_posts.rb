@@ -39,11 +39,31 @@ ActiveAdmin.register BlogPost do
       f.input :title
       f.input :date_added
       f.input :description
+      li '<label>Cloudinary upload</label><button id="upload_widget" class="cloudinary-button">Upload image</button>
+          <!-- Cloudinary - Upload -->
+          <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+          <script type="text/javascript">  
+            var myWidget = cloudinary.createUploadWidget({
+              cloudName: "hpxlnqput", 
+              uploadPreset: "jumnv4bk"}, (error, result) => { 
+              if (!error && result && result.event === "success") { 
+                console.log("Done! Here is the image info: ", result.info); 
+              }
+            })
+            document.getElementById("upload_widget").addEventListener("click", function(evt){
+              myWidget.open();
+              evt.preventDefault();
+            }, false);
+          </script>'.html_safe
       f.input :private
     end
     f.actions
   end
 
   # === PERMIT PARAMS ===
-  permit_params :description, :private, :title, :date_added
+  permit_params :date_added,
+                :description,
+                :private,
+                :title,
+                attachments_attributes: %i[id cloudinary_public_id]
 end

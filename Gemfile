@@ -97,6 +97,7 @@ group :test do
   gem 'chromedriver-helper'
   # Stub environment variables
   gem 'climate_control'
+  gem 'cloudinary'
   # Cleans the test database before each test
   gem 'database_cleaner'
   # RackSessionAccess provides rack middleware for 'rack.session' environment management.
