@@ -22,6 +22,13 @@ ActiveAdmin.register BlogPost do
       row :date_added
       row :description
       row :private
+      row 'Images' do |blog_post|
+        html = ''
+        blog_post.attachments.where(file_type: 0).each do |attachment|
+          html += "<img src=#{attachment.url}>"
+        end
+        html.html_safe
+      end
     end
   end
 
