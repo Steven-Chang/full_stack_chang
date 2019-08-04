@@ -33,7 +33,7 @@ ActiveAdmin.register BlogPost do
   end
 
   # === FORM ===
-  form do |f|
+  form(html: { autocomplete: :off }) do |f|
     f.object.date_added ||= DateTime.current
     f.inputs do
       f.input :title
