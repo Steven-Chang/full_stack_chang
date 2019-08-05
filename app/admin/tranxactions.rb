@@ -6,6 +6,7 @@ ActiveAdmin.register Tranxaction do
   config.sort_order = 'date_desc'
 
   index do
+    id_column
     column :date
     column :description
     column :amount do |tranxaction|
