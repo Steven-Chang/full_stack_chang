@@ -72,7 +72,7 @@ ActiveAdmin.register Tranxaction do
       f.input :amount, required: true
       f.input :tax
       f.input :tax_category, member_label: :description
-      f.input :creditor, member_label: :name
+      f.input :creditor, member_label: :name, collection: Creditor.order('LOWER(name)')
     end
     f.actions
   end
