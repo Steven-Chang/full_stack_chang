@@ -6,4 +6,9 @@ class Creditor < ApplicationRecord
 
 	# === VALIDATIONS ===
 	validates :name, uniqueness: { case_sensitive: false }
+
+	# === CALLBACKS ===
+	before_save do |creditor|
+		creditor.name = creditor.name.downcase
+	end
 end

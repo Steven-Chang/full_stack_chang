@@ -2,6 +2,9 @@
 
 # params['commit'] exists when filters are selected
 ActiveAdmin.register Creditor do
+  # === CONFIG ===
+  config.sort_order = 'name_asc'
+
   # === INDEX ===
   index do
     column :name
