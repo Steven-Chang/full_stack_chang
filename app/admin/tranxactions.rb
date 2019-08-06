@@ -33,6 +33,7 @@ ActiveAdmin.register Tranxaction do
   filter :creditor, collection: lambda {
     Creditor.all.map { |creditor| [creditor.name, creditor.id] }
   }
+  filter :creditor_id_present, as: :boolean
   filter :date
   filter :description
   filter :tax
