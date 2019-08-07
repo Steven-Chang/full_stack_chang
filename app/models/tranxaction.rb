@@ -2,8 +2,9 @@
 
 class Tranxaction < ApplicationRecord
   # === ASSOCIATIONS ===
-  belongs_to :tax_category
   belongs_to :creditor
+  belongs_to :tax_category
+  belongs_to :tranxactable, polymorphic: true
   has_many :tranxactables, dependent: :destroy
   has_many :attachments, as: :resource, dependent: :destroy
 
