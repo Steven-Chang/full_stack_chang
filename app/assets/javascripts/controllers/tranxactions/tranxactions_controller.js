@@ -144,7 +144,7 @@ app.controller('TranxactionsController', ['$filter', '$http', '$scope', '$state'
     } else if ( $scope.selectedTranxactionType.description === 'rent' ) {
       $scope.newTranxaction.tranxactables.push( { resource_type: 'Property', resource_id: $scope.selectedProperty.id } );
       $scope.newTranxaction.tranxactables.push( { resource_type: 'TenancyAgreement', resource_id: $scope.selectedTenancyAgreement.id } );
-      $scope.newTranxaction.tranxactables.push( { resource_type: 'User', resource_id: $scope.selectedTenancyAgreement.id } );
+      $scope.newTranxaction.tranxactables.push( { resource_type: 'User', resource_id: $scope.selectedTenancyAgreement.user_id } );
     } else if ( $scope.selectedTranxactionType.description === 'work' ){
       $scope.newTranxaction.tranxactables.push( { resource_type: 'Client', resource_id: $scope.selectedClient.id } );
     };

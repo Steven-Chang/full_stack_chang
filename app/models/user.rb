@@ -6,8 +6,7 @@ class User < ApplicationRecord
 
   # === ASSOCIATIONS ===
   has_many :tenancy_agreements, dependent: :restrict_with_error
-  has_many :tranxactables, as: :resource, dependent: :restrict_with_error
-  has_many :tranxactions, through: :tranxactables
+  has_many :tranxactions, through: :tenancy_agreements
 
   # === INSTANCE METHODS ===
   def admin?

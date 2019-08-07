@@ -16,38 +16,38 @@ RSpec.describe PaymentSummary, type: :model do
   	it { should validate_uniqueness_of(:client_id).scoped_to(:year_ending) }
   end
 
-  describe 'INSTANCE METHODS' do
-  	describe '#gross_payment' do
-  		it 'returns the sum of incoming taxable tranxactions for the related financial year' do
-        payment_summary.client.tranxactables.create(tranxaction: tranxaction)
-        tranxaction.update(tax: false)
-  			expect(payment_summary.gross_payment).to eq(0)
-        tranxaction.update(tax: true)
-        expect(payment_summary.gross_payment).to eq(tranxaction.amount)
-        tranxaction.update(date: Date.new(payment_summary.year_ending - 3))
-        expect(payment_summary.gross_payment).to eq(0)
-        tranxaction.update(date: Date.new(payment_summary.year_ending))
-        expect(payment_summary.gross_payment).to eq(tranxaction.amount)
-        tranxaction.update(amount: -1)
-        expect(payment_summary.gross_payment).to eq(0)
-  		end
-  	end
+  # describe 'INSTANCE METHODS' do
+  # 	describe '#gross_payment' do
+  # 		it 'returns the sum of incoming taxable tranxactions for the related financial year' do
+  #       payment_summary.client.tranxactables.create(tranxaction: tranxaction)
+  #       tranxaction.update(tax: false)
+  # 			expect(payment_summary.gross_payment).to eq(0)
+  #       tranxaction.update(tax: true)
+  #       expect(payment_summary.gross_payment).to eq(tranxaction.amount)
+  #       tranxaction.update(date: Date.new(payment_summary.year_ending - 3))
+  #       expect(payment_summary.gross_payment).to eq(0)
+  #       tranxaction.update(date: Date.new(payment_summary.year_ending))
+  #       expect(payment_summary.gross_payment).to eq(tranxaction.amount)
+  #       tranxaction.update(amount: -1)
+  #       expect(payment_summary.gross_payment).to eq(0)
+  # 		end
+  # 	end
 
-    describe '#total_expenses' do
-      it 'returns the sum of outgoing taxable tranxactions for the related financial year' do
-        payment_summary.client.tranxactables.create(tranxaction: tranxaction)
-        tranxaction.update(amount: -1)
-        tranxaction.update(tax: false)
-        expect(payment_summary.total_expenses).to eq(0)
-        tranxaction.update(tax: true)
-        expect(payment_summary.total_expenses).to eq(tranxaction.amount)
-        tranxaction.update(date: Date.new(payment_summary.year_ending - 3))
-        expect(payment_summary.total_expenses).to eq(0)
-        tranxaction.update(date: Date.new(payment_summary.year_ending))
-        expect(payment_summary.total_expenses).to eq(tranxaction.amount)
-        tranxaction.update(amount: 1)
-        expect(payment_summary.total_expenses).to eq(0)
-      end
-    end
-  end
+  #   describe '#total_expenses' do
+  #     it 'returns the sum of outgoing taxable tranxactions for the related financial year' do
+  #       payment_summary.client.tranxactables.create(tranxaction: tranxaction)
+  #       tranxaction.update(amount: -1)
+  #       tranxaction.update(tax: false)
+  #       expect(payment_summary.total_expenses).to eq(0)
+  #       tranxaction.update(tax: true)
+  #       expect(payment_summary.total_expenses).to eq(tranxaction.amount)
+  #       tranxaction.update(date: Date.new(payment_summary.year_ending - 3))
+  #       expect(payment_summary.total_expenses).to eq(0)
+  #       tranxaction.update(date: Date.new(payment_summary.year_ending))
+  #       expect(payment_summary.total_expenses).to eq(tranxaction.amount)
+  #       tranxaction.update(amount: 1)
+  #       expect(payment_summary.total_expenses).to eq(0)
+  #     end
+  #   end
+  # end
 end

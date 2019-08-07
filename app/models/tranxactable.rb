@@ -2,6 +2,6 @@
 
 class Tranxactable < ApplicationRecord
 	# === ASSOCIATIONS ===
-  belongs_to :tranxaction
   belongs_to :resource, polymorphic: true
+  belongs_to :tranxaction
 end
