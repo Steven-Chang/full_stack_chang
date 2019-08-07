@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_07_104847) do
+ActiveRecord::Schema.define(version: 2019_08_07_132728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,14 +134,6 @@ ActiveRecord::Schema.define(version: 2019_08_07_104847) do
     t.boolean "tax", default: true
   end
 
-  create_table "tranxactables", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "resource_type"
-    t.integer "resource_id"
-    t.integer "tranxaction_id"
-  end
-
   create_table "tranxaction_schedules", force: :cascade do |t|
     t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
     t.date "date", null: false
@@ -155,12 +147,6 @@ ActiveRecord::Schema.define(version: 2019_08_07_104847) do
     t.datetime "updated_at", null: false
     t.index ["tax_category_id"], name: "index_tranxaction_schedules_on_tax_category_id"
     t.index ["tranxactable_id"], name: "index_tranxaction_schedules_on_tranxactable_id"
-  end
-
-  create_table "tranxaction_types", force: :cascade do |t|
-    t.string "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tranxactions", force: :cascade do |t|

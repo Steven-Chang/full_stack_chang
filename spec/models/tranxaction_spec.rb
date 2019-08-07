@@ -15,7 +15,6 @@ RSpec.describe Tranxaction, type: :model do
     it { should belong_to(:tax_category) }
     it { should belong_to(:tranxactable) }
     it { should belong_to(:creditor) }
-  	it { should have_many(:tranxactables).dependent(:destroy) }
   	it { should have_many(:attachments).dependent(:destroy) }
   end
 
