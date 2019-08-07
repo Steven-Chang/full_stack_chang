@@ -109,20 +109,10 @@ var app = angular.module('app', [
 				}]
 			}
 		})
-		.state('tranxactions', {
-			url: '/tranxactions',
-			templateUrl: 'views/tranxactions/tranxactions.html',
-			controller: 'TranxactionsController'
-		})
 		.state('tranxactionsedit', {
 			url: '/tranxactions/:id/edit',
 			templateUrl: 'views/tranxactions/edit.html',
 			controller: 'TranxactionsEditController'
-		})
-		.state('tranxactiontypes', {
-			url: '/tranxaction-types',
-			templateUrl: 'views/tranxaction_types/tranxaction_types.html',
-			controller: 'TranxactionTypesController'
 		})
 		.state('whyhirechang', {
 			url: '/whyhirechang',
