@@ -4,42 +4,19 @@ namespace :fsc do
   desc "Adding rent to tenants and sending"
   task :add_rent_and_send => :environment do
 
-    todays_date = Date.today.strftime("%e %b %y").strip
-    date_in_thirteen_days = (Date.today + 13.days).strftime("%e %b %y").strip
-    description = "Rent #{ todays_date } - #{ date_in_thirteen_days }"
+    todays_date = Date.current.strftime("%e %b %y").strip
+    date_in_thirteen_days = (Date.current + 13.days).strftime("%e %b %y").strip
+    description = "Rent #{todays_date} - #{date_in_thirteen_days}"
 
     TenancyAgreement.where(active: true).each do |tenancy_agreement|
-      if ( Date.today - tenancy_agreement.starting_date ).to_i % 14 == 0
+      if (Date.current - tenancy_agreement.starting_date).to_i % 14 == 0
         new_tranxaction = Tranxaction.new
-        new_tranxaction.date = Date.today
+        new_tranxaction.date = Date.current
         new_tranxaction.description = tenancy_agreement.user.username + " " + description
         new_tranxaction.amount = tenancy_agreement.amount
         new_tranxaction.tax = tenancy_agreement.tax
+        new_tranxaction.tranxactable = tenancy_agreement
         new_tranxaction.save
-
-        new_tranxactable = Tranxactable.new
-        new_tranxactable.resource_type = "TranxactionType"
-        new_tranxactable.resource_id = TranxactionType.find_by(description: "rent").id
-        new_tranxactable.tranxaction_id = new_tranxaction.id
-        new_tranxactable.save
-
-        new_tranxactable = Tranxactable.new
-        new_tranxactable.resource_type = "User"
-        new_tranxactable.resource_id = tenancy_agreement.user_id
-        new_tranxactable.tranxaction_id = new_tranxaction.id
-        new_tranxactable.save
-
-        new_tranxactable = Tranxactable.new
-        new_tranxactable.resource_type = "Property"
-        new_tranxactable.resource_id = tenancy_agreement.property_id
-        new_tranxactable.tranxaction_id = new_tranxaction.id
-        new_tranxactable.save
-
-        new_tranxactable = Tranxactable.new
-        new_tranxactable.resource_type = "TenancyAgreement"
-        new_tranxactable.resource_id = tenancy_agreement.id
-        new_tranxactable.tranxaction_id = new_tranxaction.id
-        new_tranxactable.save
 
         balance = tenancy_agreement.tranxactions.sum(:amount)
         email_content = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
