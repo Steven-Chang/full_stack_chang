@@ -55,6 +55,7 @@ ActiveAdmin.register Tranxaction do
     TaxCategory.all.map { |tax_category| [tax_category.description, tax_category.id] }
   }
   filter :tax_category_id_present, as: :boolean
+  filter :tranxactable_type_present, as: :boolean
 
   # === SHOW ===
   show do
