@@ -16,6 +16,20 @@ ActiveAdmin.register Tranxaction do
     column :tax_category do |tranxaction|
       tranxaction&.tax_category&.description
     end
+    column 'Tranxactable' do |tranxaction|
+      next if tranxaction.tranxactable.blank?
+
+      link_description = "#{tranxaction.tranxactable.class}: "
+      if tranxaction.tranxactable.class == TenancyAgreement
+        link_description += tranxaction.tranxactable.user.username
+      elsif tranxaction.tranxactable.class == Client
+        link_description += tranxaction.tranxactable.name
+      elsif tranxaction.tranxactable.class == Property
+        link_description += tranxaction.tranxactable.address
+      end
+      url = "/admin/#{tranxaction.tranxactable.class.to_s.underscore.pluralize}/#{tranxaction.tranxactable.id}"
+      link_to link_description, url
+    end
     column :creditor
     column :attachments do |tranxaction|
       next if tranxaction.attachments.blank?
