@@ -69,6 +69,20 @@ ActiveAdmin.register Tranxaction do
       row :tax_category do |tranxaction|
         tranxaction&.tax_category&.description
       end
+      row :tranxactable do |tranxaction|
+        next if tranxaction.tranxactable.blank?
+
+        link_description = "#{tranxaction.tranxactable.class}: "
+        if tranxaction.tranxactable.class == TenancyAgreement
+          link_description += tranxaction.tranxactable.user.username
+        elsif tranxaction.tranxactable.class == Client
+          link_description += tranxaction.tranxactable.name
+        elsif tranxaction.tranxactable.class == Property
+          link_description += tranxaction.tranxactable.address
+        end
+        url = "/admin/#{tranxaction.tranxactable.class.to_s.underscore.pluralize}/#{tranxaction.tranxactable.id}"
+        link_to link_description, url
+      end
       row :creditor
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
@@ -87,6 +101,8 @@ ActiveAdmin.register Tranxaction do
       f.input :amount, required: true
       f.input :tax
       f.input :tax_category, member_label: :description
+      f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
+      f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.name, client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.user.username || tenancy_agreement.user.email, tenancy_agreement.id] }
       f.input :creditor, member_label: :name, collection: Creditor.order('LOWER(name)')
     end
     f.actions
@@ -99,5 +115,7 @@ ActiveAdmin.register Tranxaction do
                 :description,
                 :tax,
                 :tax_category_id,
+                :tranxactable_type,
+                :tranxactable_id,
                 attachments_attributes: %i[url aws_key]
 end
