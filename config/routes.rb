@@ -20,10 +20,8 @@ Rails.application.routes.draw do
   # Tenancy Agreements
   resources :tenancy_agreements, only: :index
   get 'tranxactions/balance' => 'tranxactions#balance'
-  resources :tranxactions
-  resources :tranxaction_types
+  resources :tranxactions, only: %i[show update]
   # Users
-  get 'number_of_users' => 'users#return_number_of_users'
   resources :users, only: [:index]
 
   root 'application#index'

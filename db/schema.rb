@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_07_132728) do
+ActiveRecord::Schema.define(version: 2019_08_09_231259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,24 @@ ActiveRecord::Schema.define(version: 2019_08_07_132728) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "scheduled_tranxaction_templates", force: :cascade do |t|
+    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
+    t.bigint "creditor_id"
+    t.date "date", null: false
+    t.integer "days_for_recurrence"
+    t.string "description", null: false
+    t.boolean "enabled"
+    t.boolean "tax"
+    t.bigint "tax_category_id"
+    t.string "tranxactable_type", null: false
+    t.bigint "tranxactable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creditor_id"], name: "index_scheduled_tranxaction_templates_on_creditor_id"
+    t.index ["tax_category_id"], name: "index_scheduled_tranxaction_templates_on_tax_category_id"
+    t.index ["tranxactable_type", "tranxactable_id"], name: "index_tranxaction_schedules_on_tranxactable"
+  end
+
   create_table "scores", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "score", null: false
@@ -132,21 +150,6 @@ ActiveRecord::Schema.define(version: 2019_08_07_132728) do
     t.decimal "bond", precision: 18, scale: 8, default: "0.0"
     t.boolean "active", default: true
     t.boolean "tax", default: true
-  end
-
-  create_table "tranxaction_schedules", force: :cascade do |t|
-    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
-    t.date "date", null: false
-    t.integer "days_for_recurrence"
-    t.string "description", null: false
-    t.boolean "enabled"
-    t.boolean "tax"
-    t.bigint "tax_category_id"
-    t.bigint "tranxactable_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["tax_category_id"], name: "index_tranxaction_schedules_on_tax_category_id"
-    t.index ["tranxactable_id"], name: "index_tranxaction_schedules_on_tranxactable_id"
   end
 
   create_table "tranxactions", force: :cascade do |t|
