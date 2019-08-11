@@ -18,9 +18,26 @@ ActiveAdmin.register_page 'Dashboard' do
         panel '18-19 Gross Income' do
           ul do
             Client.all.map do |client|
-              li "#{client.name}: $#{client.tranxactions.where('date >= ?', Date.new(2018,7,1)).where('date < ?', Date.new(2019,7,1)).where('amount > 0').where(tax: true).sum(:amount)}"
+              li "#{client.name}: $#{client.tranxactions
+                                           .where('date >= ?', Date.new(2018, 7, 1))
+                                           .where('date < ?', Date.new(2019, 7, 1))
+                                           .where('amount > 0')
+                                           .where(tax: true)
+                                           .sum(:amount)}"
             end
-            Tranxaction.where('date >= ?', Date.new(2018,7,1)).where('date < ?', Date.new(2019,7,1)).where('amount > 0').where(tax: true).where.not(tranxactable_type: 'Client').map do |tranxaction|
+            li "Rent: $#{Tranxaction.where('date >= ?', Date.new(2018, 7, 1))
+                                    .where('date < ?', Date.new(2019, 7, 1))
+                                    .where('amount > 0')
+                                    .where(tranxactable_type: 'TenancyAgreement')
+                                    .where(tax: true)
+                                    .sum(:amount)}"
+            Tranxaction.where('date >= ?', Date.new(2018, 7, 1))
+                       .where('date < ?', Date.new(2019, 7, 1))
+                       .where('amount > 0')
+                       .where(tax: true)
+                       .where.not(tranxactable_type: 'Client')
+                       .where.not(tranxactable_type: 'TenancyAgreement')
+                       .map do |tranxaction|
               li "#{tranxaction.description}: $#{tranxaction.amount}"
             end
           end
