@@ -54,6 +54,12 @@ ActiveAdmin.register_page 'Dashboard' do
                                          .where(tax: true)
                                          .sum(:amount)}"
           end
+          li "Rent: $#{Tranxaction.where('date >= ?', Date.new(2018, 7, 1))
+                                  .where('date < ?', Date.new(2019, 7, 1))
+                                  .where('amount < 0')
+                                  .where(tranxactable_type: 'TenancyAgreement')
+                                  .where(tax: true)
+                                  .sum(:amount)}"
         end
       end
     end
