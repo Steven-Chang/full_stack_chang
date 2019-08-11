@@ -31,6 +31,12 @@ ActiveAdmin.register_page 'Dashboard' do
                                     .where(tranxactable_type: 'TenancyAgreement')
                                     .where(tax: true)
                                     .sum(:amount)}"
+            li "Property: $#{Tranxaction.where('date >= ?', Date.new(2018, 7, 1))
+                                        .where('date < ?', Date.new(2019, 7, 1))
+                                        .where('amount > 0')
+                                        .where(tranxactable_type: 'Property')
+                                        .where(tax: true)
+                                        .sum(:amount)}"
             Tranxaction.where('date >= ?', Date.new(2018, 7, 1))
                        .where('date < ?', Date.new(2019, 7, 1))
                        .where('amount > 0')
@@ -60,6 +66,12 @@ ActiveAdmin.register_page 'Dashboard' do
                                   .where(tranxactable_type: 'TenancyAgreement')
                                   .where(tax: true)
                                   .sum(:amount)}"
+          li "Property: $#{Tranxaction.where('date >= ?', Date.new(2018, 7, 1))
+                                      .where('date < ?', Date.new(2019, 7, 1))
+                                      .where('amount < 0')
+                                      .where(tranxactable_type: 'Property')
+                                      .where(tax: true)
+                                      .sum(:amount)}"
         end
       end
     end
