@@ -72,6 +72,16 @@ ActiveAdmin.register_page 'Dashboard' do
                                       .where(tranxactable_type: 'Property')
                                       .where(tax: true)
                                       .sum(:amount)}"
+          Tranxaction.where('date >= ?', Date.new(2018, 7, 1))
+                     .where('date < ?', Date.new(2019, 7, 1))
+                     .where('amount > 0')
+                     .where(tax: true)
+                     .where.not(tranxactable_type: 'Client')
+                     .where.not(tranxactable_type: 'TenancyAgreement')
+                     .where.not(tranxactable_type: 'Property')
+                     .map do |tranxaction|
+            li "#{tranxaction.description}: $#{tranxaction.amount}"
+          end
         end
       end
     end
