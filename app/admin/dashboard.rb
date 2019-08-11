@@ -45,8 +45,15 @@ ActiveAdmin.register_page 'Dashboard' do
       end
 
       column do
-        panel 'Info' do
-          para 'Welcome to ActiveAdmin.'
+        panel '18-19 Expenses' do
+          Client.all.map do |client|
+            li "#{client.name}: $#{client.tranxactions
+                                         .where('date >= ?', Date.new(2018, 7, 1))
+                                         .where('date < ?', Date.new(2019, 7, 1))
+                                         .where('amount < 0')
+                                         .where(tax: true)
+                                         .sum(:amount)}"
+          end
         end
       end
     end
