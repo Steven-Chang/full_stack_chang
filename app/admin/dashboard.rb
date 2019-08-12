@@ -96,8 +96,9 @@ ActiveAdmin.register_page 'Dashboard' do
                      .where.not(tranxactable_type: 'Client')
                      .where.not(tranxactable_type: 'TenancyAgreement')
                      .where.not(tranxactable_type: 'Property')
-                     .map do |tranxaction|
-            li "#{tranxaction.description}: #{number_to_currency(tranxaction.amount)}"
+                     .group_by(&:tax_category_id)
+                     .map do |tax_category_id, tranxactions|
+            li "#{TaxCategory.find(tax_category_id).description}(#{tranxactions.count}): #{number_to_currency(tranxactions.sum(:amount))}"
           end
         end
       end
