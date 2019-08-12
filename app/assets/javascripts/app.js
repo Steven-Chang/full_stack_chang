@@ -90,11 +90,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/projects/edit.html',
 			controller: 'ProjectsEditController'
 		})
-		.state('taxdashboard', {
-			url: '/tax-dashboard',
-			templateUrl: 'views/tax_dashboard.html',
-			controller: 'TaxDashboardController'
-		})
 		.state('tetris', {
 			url: '/tetris',
 			templateUrl: 'views/tetris.html',
