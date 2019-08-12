@@ -68,6 +68,19 @@ ActiveAdmin.register_page 'Dashboard' do
                                                            .where('amount < 0')
                                                            .where(tax: true)
                                                            .sum(:amount))}"
+            h4 "#{client.name} expenses by tax categories"
+            client.tranxactions
+                  .where('date >= ?', Date.new(2018, 7, 1))
+                  .where('date < ?', Date.new(2019, 7, 1))
+                  .where('amount < 0')
+                  .where(tax: true)
+                  .select(:tax_category_id,
+                           'SUM(amount) as sum_amount',
+                           'COUNT(*) as tranxactions_count')
+                  .group(:tax_category_id)
+                  .map do |g|
+              li "#{TaxCategory.find(g.tax_category_id).description if g.tax_category_id}(#{g.tranxactions_count}): #{number_to_currency(g.sum_amount)}"
+            end
           end
 
           h3 'TenancyAgreement'
