@@ -81,6 +81,7 @@ ActiveAdmin.register_page 'Dashboard' do
                   .map do |g|
               li "#{TaxCategory.find(g.tax_category_id).description if g.tax_category_id}(#{g.tranxactions_count}): #{number_to_currency(g.sum_amount)}"
             end
+            hr
           end
 
           h3 'TenancyAgreement'
