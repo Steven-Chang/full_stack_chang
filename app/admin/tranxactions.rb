@@ -56,6 +56,9 @@ ActiveAdmin.register Tranxaction do
   }
   filter :tax_category_id_present, as: :boolean
   filter :tranxactable_type_present, as: :boolean
+  filter :tranxactable_type, collection: %w[Client Property TenancyAgreement]
+  filter :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.name, client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.user.username || tenancy_agreement.user.email, tenancy_agreement.id] }
+
 
   # === SHOW ===
   show do
