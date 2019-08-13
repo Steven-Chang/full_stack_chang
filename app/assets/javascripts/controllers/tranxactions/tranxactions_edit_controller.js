@@ -1,4 +1,4 @@
-app.controller('TranxactionsEditController', ['$stateParams', '$scope', '$state', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'FSCModalService', function($stateParams, $scope, $state, AlertService, Auth, BackEndService, DatetimeService, FSCModalService){
+app.controller('TranxactionsEditController', ['$stateParams', '$scope', '$state', '$window', 'AlertService', 'Auth', 'BackEndService', 'DatetimeService', 'FSCModalService', function($stateParams, $scope, $state, $window, AlertService, Auth, BackEndService, DatetimeService, FSCModalService){
 
 	// --------------------
 	// Private
@@ -18,7 +18,7 @@ app.controller('TranxactionsEditController', ['$stateParams', '$scope', '$state'
     $scope.tranxaction.put()
       .then(function(response){
         FSCModalService.loading = false;
-        $state.go("tranxactions");
+        $window.location.href = "https://www.fullstackchang.com/admin/tranxactions/" + response.id;
       }, function( errors ){
         FSCModalService.loading = false;
         AlertService.processErrors( errors );
