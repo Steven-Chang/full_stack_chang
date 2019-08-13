@@ -25,7 +25,11 @@ ActiveAdmin.register BlogPost do
       row 'Images' do |blog_post|
         html = ''
         blog_post.attachments.where(file_type: 0).each do |attachment|
-          html += "<img src=#{attachment.url}>"
+          if attachment.url.present?
+            html += "<img src=#{attachment.url}>"
+          elsif attachment.cloudinary_public_id.present?
+            html += cl_image_tag(attachment.cloudinary_public_id)
+          end
         end
         html.html_safe
       end
@@ -79,5 +83,5 @@ ActiveAdmin.register BlogPost do
                 :description,
                 :private,
                 :title,
-                attachments_attributes: %i[id cloudinary_public_id _destroy]
+                attachments_attributes: %i[id cloudinary_public_id file_type url _destroy]
 end

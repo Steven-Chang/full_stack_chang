@@ -19,6 +19,7 @@ gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap-datepicker-rails'
 # Recommendations from https://www.sitepoint.com/setting-up-an-angular-spa-on-rails-with-devise-and-bootstrap/
 gem 'bower-rails'
+gem 'cloudinary'
 gem 'devise'
 gem 'haml-rails', '~> 2.0'
 # Build JSON APIs with ease. Read more: httgem 'puma', '~> 3.11's://github.com/rails/jbuilder
@@ -97,7 +98,6 @@ group :test do
   gem 'chromedriver-helper'
   # Stub environment variables
   gem 'climate_control'
-  gem 'cloudinary'
   # Cleans the test database before each test
   gem 'database_cleaner'
   # RackSessionAccess provides rack middleware for 'rack.session' environment management.
