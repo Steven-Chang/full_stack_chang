@@ -25,7 +25,11 @@ ActiveAdmin.register BlogPost do
       row 'Images' do |blog_post|
         html = ''
         blog_post.attachments.where(file_type: 0).each do |attachment|
-          html += "<img src=#{attachment.url}>"
+          if attachment.url
+            html += "<img src=#{attachment.url}>"
+          elsif attachment.cloudinary_public_id
+            html += cl_image_tag(attachment.cloudinary_public_id)
+          end
         end
         html.html_safe
       end
