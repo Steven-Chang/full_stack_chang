@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   get 'entries/by_date' => 'entries#by_date'
   resources :entries, only: %i[update destroy]
   resources :scores, only: %i[index create]
-  resources :tranxactions, only: %i[show update]
 
   root 'application#index'
 
