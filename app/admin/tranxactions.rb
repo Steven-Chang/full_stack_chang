@@ -90,7 +90,11 @@ ActiveAdmin.register Tranxaction do
       row :creditor
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
-          link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
+          if attachment.url.present?
+            link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
+          elsif attachment.cloudinary_public_id.present?
+            link_to 'url', cloudinary_url(attachment.cloudinary_public_id), target: '_blank', rel: 'noopener'
+          end
         end
       end
     end
@@ -108,6 +112,37 @@ ActiveAdmin.register Tranxaction do
       f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
       f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.name, client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.user.username || tenancy_agreement.user.email, tenancy_agreement.id] }
       f.input :creditor, member_label: :name, collection: Creditor.order('LOWER(name)')
+      f.has_many :attachments,
+                 heading: 'Attachments',
+                 new_record: 'Manually create an attachment',
+                 allow_destroy: true do |a|
+        a.input :cloudinary_public_id
+        a.input :url
+        a.object.file_type = a.object.persisted? ? a.object.file_type : 'video'
+        a.input :file_type, as: :select,
+                            collection: Attachment.file_types.keys,
+                            include_blank: false
+      end
+      li '<label>Cloudinary upload</label><button id="upload_widget" class="cloudinary-button">Upload image</button>
+          <!-- Cloudinary - Upload -->
+          <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+          <script type="text/javascript">
+            var myWidget = cloudinary.createUploadWidget({
+              cloudName: "hpxlnqput",
+              uploadPreset: "jumnv4bk"}, (error, result) => {
+              if (!error && result && result.event === "success") {
+                console.log("Done! Here is the image info: ", result.info);
+                $(".has_many_add").first().click();
+                $(".has_many_fields").last().find("input").first().val(result.info.public_id);
+                $(".has_many_fields").last().find("select").first().val(result.info.resource_type);
+              }
+            })
+            document.getElementById("upload_widget").addEventListener("click", function(evt){
+              myWidget.open();
+              evt.preventDefault();
+            }, false);
+          </script>'.html_safe
+
     end
     f.actions
   end
@@ -121,5 +156,5 @@ ActiveAdmin.register Tranxaction do
                 :tax_category_id,
                 :tranxactable_type,
                 :tranxactable_id,
-                attachments_attributes: %i[url aws_key]
+                attachments_attributes: %i[id cloudinary_public_id file_type url _destroy]
 end

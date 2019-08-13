@@ -86,11 +86,6 @@ var app = angular.module('app', [
 				}]
 			}
 		})
-		.state('tranxactionsedit', {
-			url: '/tranxactions/:id/edit',
-			templateUrl: 'views/tranxactions/edit.html',
-			controller: 'TranxactionsEditController'
-		})
 		.state('whyhirechang', {
 			url: '/whyhirechang',
 			templateUrl: 'views/whyhirechang.html',
