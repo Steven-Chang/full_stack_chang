@@ -39,15 +39,30 @@ ActiveAdmin.register BlogPost do
       f.input :title
       f.input :date_added
       f.input :description
+      f.input :private
+      f.has_many :attachments,
+                 heading: 'Attachments',
+                 new_record: 'Manually create an attachment',
+                 allow_destroy: true do |a|
+        a.input :cloudinary_public_id
+        a.input :url
+        a.object.file_type = a.object.persisted? ? a.object.file_type : 'video'
+        a.input :file_type, as: :select,
+                            collection: Attachment.file_types.keys,
+                            include_blank: false
+      end
       li '<label>Cloudinary upload</label><button id="upload_widget" class="cloudinary-button">Upload image</button>
           <!-- Cloudinary - Upload -->
           <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-          <script type="text/javascript">  
+          <script type="text/javascript">
             var myWidget = cloudinary.createUploadWidget({
-              cloudName: "hpxlnqput", 
-              uploadPreset: "jumnv4bk"}, (error, result) => { 
-              if (!error && result && result.event === "success") { 
-                console.log("Done! Here is the image info: ", result.info); 
+              cloudName: "hpxlnqput",
+              uploadPreset: "jumnv4bk"}, (error, result) => {
+              if (!error && result && result.event === "success") {
+                console.log("Done! Here is the image info: ", result.info);
+                $(".has_many_add").first().click();
+                $(".has_many_fields").last().find("input").first().val(result.info.public_id);
+                $(".has_many_fields").last().find("select").first().val(result.info.resource_type);
               }
             })
             document.getElementById("upload_widget").addEventListener("click", function(evt){
@@ -55,7 +70,6 @@ ActiveAdmin.register BlogPost do
               evt.preventDefault();
             }, false);
           </script>'.html_safe
-      f.input :private
     end
     f.actions
   end
@@ -65,5 +79,5 @@ ActiveAdmin.register BlogPost do
                 :description,
                 :private,
                 :title,
-                attachments_attributes: %i[id cloudinary_public_id]
+                attachments_attributes: %i[id cloudinary_public_id _destroy]
 end
