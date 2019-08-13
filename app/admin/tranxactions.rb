@@ -36,7 +36,12 @@ ActiveAdmin.register Tranxaction do
 
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
-          link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
+          url = if attachment.url.present?
+            attachment.url
+          elsif attachment.cloudinary_public_id.present?
+            cloudinary_url(attachment.cloudinary_public_id, resource_type: :raw)
+          end
+          link_to 'url', url, target: '_blank', rel: 'noopener'
         end
       end
     end
@@ -93,7 +98,7 @@ ActiveAdmin.register Tranxaction do
           if attachment.url.present?
             link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
           elsif attachment.cloudinary_public_id.present?
-            link_to 'url', cloudinary_url(attachment.cloudinary_public_id), target: '_blank', rel: 'noopener'
+            link_to 'url', cloudinary_url(attachment.cloudinary_public_id, resource_type: :raw), target: '_blank', rel: 'noopener'
           end
         end
       end
