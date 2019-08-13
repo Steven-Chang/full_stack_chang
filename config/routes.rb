@@ -6,23 +6,10 @@ Rails.application.routes.draw do
   # Attachments
   get 'attachments/presigned' => 'attachments#presigned'
   resources :attachments, except: %i[new show]
-  resources :clients, only: :index
   get 'entries/by_date' => 'entries#by_date'
   resources :entries, only: %i[update destroy]
-  get 'payment_summaries/year_endings' => 'payment_summaries#year_endings'
-  resources :payment_summaries, only: :index
-  resources :projects
-  resources :properties, only: :index do
-    resources :tenancy_agreements, only: :index
-  end
   resources :scores, only: %i[index create]
-  resources :tax_categories, only: :index
-  # Tenancy Agreements
-  resources :tenancy_agreements, only: :index
-  get 'tranxactions/balance' => 'tranxactions#balance'
   resources :tranxactions, only: %i[show update]
-  # Users
-  resources :users, only: [:index]
 
   root 'application#index'
 

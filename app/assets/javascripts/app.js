@@ -72,24 +72,6 @@ var app = angular.module('app', [
 			templateUrl: 'views/home.html',
 			controller: 'HomeController'
 		})
-		.state('projects', {
-			url: '/projects',
-			templateUrl: 'views/projects/index.html',
-			controller: 'ProjectsController',
-			resolve: {
-				projects: ['Restangular', function( Restangular ){
-					return Restangular.all('projects').getList()
-						.then(function(projects){
-							return projects;
-      			});
-				}]
-			}
-		})
-		.state('projectsedit', {
-			url: '/projects/:id/edit',
-			templateUrl: 'views/projects/edit.html',
-			controller: 'ProjectsEditController'
-		})
 		.state('tetris', {
 			url: '/tetris',
 			templateUrl: 'views/tetris.html',
