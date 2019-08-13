@@ -8,7 +8,7 @@ class Tranxaction < ApplicationRecord
   has_many :attachments, as: :resource, dependent: :destroy
 
   # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
   # === CALLBACKS ===
   before_save do |tranxaction|
