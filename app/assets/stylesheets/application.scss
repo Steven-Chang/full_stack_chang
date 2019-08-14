@@ -2,66 +2,39 @@
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
  *
  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
  *
-*/
+ *= require_tree .
+ *= require_self
+ */
 
-@import "jquery-ui";
-@import "bootstrap";
-@import "bootstrap-datepicker3";
-@import "angular-confirm/dist/angular-confirm.min";
-@import "angular-moment-picker/dist/angular-moment-picker.min";
+// Would use even without Remark template
+@import "bootstrap/scss/bootstrap";
 
-@import "aims";
-@import "home";
-@import "portfolio";
-@import "tetris";
-@import "why_hire_chang";
+// REMARK TEMPLATE
+// Stylesheets
+@import "remark_classic/global/css/bootstrap-extend.min";
+@import "remark_classic/base/assets/css/site.min";
 
-@import "elisyam/vendors/css/base/elisyam-1.2";
-@import "elisyam/css/animate/animate.min";
-@import "elisyam/css/bootstrap-select/bootstrap-select.min";
+// Plugins
+@import "animsition/dist/css/animsition.min";
+@import "jquery-asScrollable/src/scss/asScrollable";
+@import "switchery/switchery";
+@import "intro.js/minified/introjs.min";
+@import "jquery-slidePanel/src/scss/slidePanel";
+@import "flag-icon-css/css/flag-icon.min";
+@import "remark_classic/topbar/assets/examples/css/pages/register-v3";
+@import "remark_classic/topbar/assets/examples/css/pages/maintenance";
 
-// https://github.com/twbs/bootstrap-sass
-// You can override these by simply redefining the variable before the @import directive
-// $screen-xs: 0px;
-// $screen-sm: 480px;
-// $screen-md: 768px;
-// $screen-lg: 992px;
+// Fonts
+@import "remark_classic/global/fonts/web-icons/web-icons";
+@import "remark_classic/global/fonts/brand-icons/brand-icons";
 
-// Point at which the navbar becomes uncollapsed.
-// $grid-float-breakpoint: @screen-sm-min;
-
-// Point at which the navbar begins collapsing.
-// $grid-float-breakpoint-max: (@grid-float-breakpoint - 1)
-
-p {
-	white-space: pre-line;
-}
-
-[ng-click] {
-  cursor: pointer;
-}
-
-[ui-sref] {
-  cursor: pointer;
-}
-
-.date-picker {
-	z-index: 10000;
-}
-
-.spinner-white {
-	border-top: solid 5px white;
-}
-
-.table-label {
-	font-weight: 600;
-	color: #5d5386;
-};
+// ACTIVE ADMIN
+@import "active_admin";
