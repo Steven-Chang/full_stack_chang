@@ -13,7 +13,7 @@ class ScheduledTranxactionTemplate < ApplicationRecord
   # === CLASS METHODS ===
   def self.process
     where(enabled: true)
-      .where('date <= ?', Date.current)
+      .where('date <= ?', Date.current + 1.day)
       .find_each do |scheduled_tranxaction_template|
         tranxaction = Tranxaction.create(
           amount: scheduled_tranxaction_template.amount,
