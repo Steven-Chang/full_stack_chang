@@ -4,17 +4,10 @@ ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: proc { I18n.t('active_admin.dashboard') }
 
   content title: proc { I18n.t('active_admin.dashboard') } do
-    # div class: 'blank_slate_container', id: 'dashboard_default_message' do
-    #   span class: 'blank_slate' do
-    #     span I18n.t('active_admin.dashboard_welcome.welcome')
-    #     small I18n.t('active_admin.dashboard_welcome.call_to_action')
-    #   end
-    # end
-
     Tranxaction.end_of_financial_year_dates_ordered_descending_for_dashboard.each do |end_of_financial_year_date|
       panel "#{end_of_financial_year_date.year - 1}-#{end_of_financial_year_date.year}" do
         h3 'Clients'
-        table_for Client.where(id: Tranxaction.filter(nil, end_of_financial_year_date - 1.year + 1.day, end_of_financial_year_date, nil, nil, true).where(tranxactable_type: 'Client').pluck(:tranxactable_id).uniq) do
+        table_for Tranxaction.tranxactables_with_tranxactions('Client', end_of_financial_year_date - 1.year + 1.day, end_of_financial_year_date, true) do
           column :name
           column 'revenue' do |client|
             number_to_currency(Tranxaction.balance(client,
@@ -43,7 +36,7 @@ ActiveAdmin.register_page 'Dashboard' do
         end
 
         h3 'Property(including TenancyAgreement)'
-        table_for Property.all do
+        table_for Tranxaction.tranxactables_with_tranxactions('Property', end_of_financial_year_date - 1.year + 1.day, end_of_financial_year_date, true) do
           column :address
           column 'revenue' do |property|
             total = 0

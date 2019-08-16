@@ -17,8 +17,7 @@ class Tranxaction < ApplicationRecord
 
   # === CLASS METHODS ===
   def self.balance(tranxactable = nil, from = nil, to = nil, greater_than = nil, less_than = nil, tax = 'ignore')
-    tranxactions = filter(tranxactable, from, to, greater_than, less_than, tax)
-    tranxactions.sum(:amount)
+    filter(tranxactable, from, to, greater_than, less_than, tax).sum(:amount)
   end
 
   def self.filter(tranxactable = nil, from = nil, to = nil, greater_than = nil, less_than = nil, tax = 'ignore')
@@ -42,5 +41,13 @@ class Tranxaction < ApplicationRecord
     dates = [latest_end_of_financial_year_date]
     dates.push(dates.last - 1.year) while dates.last >= earliest_end_of_financial_year_date
     dates
+  end
+
+  def self.tranxactables_with_tranxactions(tranxactable_type, from = nil, to = nil, tax = 'ignore')
+    tranxactable_ids = Tranxaction.filter(nil, from, to, nil, nil, tax)
+                                  .where(tranxactable_type: tranxactable_type)
+                                  .pluck(:tranxactable_id)
+                                  .uniq
+    tranxactable_type.constantize.where(id: tranxactable_ids)
   end
 end
