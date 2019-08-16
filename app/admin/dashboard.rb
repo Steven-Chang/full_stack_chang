@@ -103,6 +103,71 @@ ActiveAdmin.register_page 'Dashboard' do
             li "#{tranxaction.description}: $#{tranxaction.amount}"
           end
         end
+    
+        Client.all.map do |client|
+          h4 "#{client.name} expenses by tax categories"
+          client.tranxactions
+                .where('date >= ?', end_of_financial_year_date - 1.year + 1.day)
+                .where('date <= ?', end_of_financial_year_date)
+                .where('amount < 0')
+                .where(tax: true)
+                .select(:tax_category_id,
+                         'SUM(amount) as sum_amount',
+                         'COUNT(*) as tranxactions_count')
+                .group(:tax_category_id)
+                .map do |g|
+            li "#{TaxCategory.find(g.tax_category_id).description if g.tax_category_id}(#{g.tranxactions_count}): #{number_to_currency(g.sum_amount)}"
+          end
+          hr
+        end
+
+        h4 'Property expenses by tax categories'
+        Tranxaction.where('date >= ?', end_of_financial_year_date - 1.year + 1.day)
+                   .where('date <= ?', end_of_financial_year_date)
+                   .where('amount < 0')
+                   .where(tax: true)
+                   .where(tranxactable_type: 'Property')
+                   .select(:tax_category_id,
+                           'SUM(amount) as sum_amount',
+                           'COUNT(*) as tranxactions_count')
+                   .group(:tax_category_id)
+                   .map do |g|
+          li "#{TaxCategory.find(g.tax_category_id).description if g.tax_category_id}(#{g.tranxactions_count}): #{number_to_currency(g.sum_amount)}"
+        end
+
+        hr
+
+        h4 'Tenancy agreement expenses by tax categories'
+        Tranxaction.where('date >= ?', end_of_financial_year_date - 1.year + 1.day)
+                   .where('date <= ?', end_of_financial_year_date)
+                   .where('amount < 0')
+                   .where(tax: true)
+                   .where(tranxactable_type: 'TenancyAgreement')
+                   .select(:tax_category_id,
+                           'SUM(amount) as sum_amount',
+                           'COUNT(*) as tranxactions_count')
+                   .group(:tax_category_id)
+                   .map do |g|
+          li "#{TaxCategory.find(g.tax_category_id).description if g.tax_category_id}(#{g.tranxactions_count}): #{number_to_currency(g.sum_amount)}"
+        end
+
+        hr
+
+        h4 'Expense tranxactions that are not Clients, TenancyAgreement or Property'
+        Tranxaction.where('date >= ?', end_of_financial_year_date - 1.year + 1.day)
+                   .where('date < ?', end_of_financial_year_date)
+                   .where('amount < 0')
+                   .where(tax: true)
+                   .where.not(tranxactable_type: 'Client')
+                   .where.not(tranxactable_type: 'TenancyAgreement')
+                   .where.not(tranxactable_type: 'Property')
+                   .select(:tax_category_id,
+                           'SUM(amount) as sum_amount',
+                           'COUNT(*) as tranxactions_count')
+                   .group(:tax_category_id)
+                   .map do |g|
+          li "#{TaxCategory.find(g.tax_category_id).description}(#{g.tranxactions_count}): #{number_to_currency(g.sum_amount)}"
+        end
       end
     end
   end
