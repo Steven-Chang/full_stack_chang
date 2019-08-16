@@ -14,7 +14,7 @@ ActiveAdmin.register_page 'Dashboard' do
     Tranxaction.end_of_financial_year_dates_ordered_descending_for_dashboard.each do |end_of_financial_year_date|
       panel "#{end_of_financial_year_date.year - 1}-#{end_of_financial_year_date.year}" do
         h3 'Clients'
-        table_for Client.all do
+        table_for Client.where(id: Tranxaction.filter(nil, end_of_financial_year_date - 1.year + 1.day, end_of_financial_year_date, nil, nil, true).where(tranxactable_type: 'Client').pluck(:tranxactable_id).uniq) do
           column :name
           column 'revenue' do |client|
             number_to_currency(Tranxaction.balance(client,
