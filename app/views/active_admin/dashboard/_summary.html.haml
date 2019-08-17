@@ -34,3 +34,8 @@
       %td= number_to_currency(other_tranxactions.where('amount > ?', 0).sum(:amount))
       %td= number_to_currency(other_tranxactions.where('amount < ?', 0).sum(:amount))
       %td= number_to_currency(other_tranxactions.sum(:amount))
+    %tr{ style: 'font-weight: bold;'}
+      %td
+      %td{ style: 'border-bottom: 1px solid lightgray; border-top: 1px solid lightgray;'}= number_to_currency(Tranxaction.filter(nil, from, to, 0, nil, true).sum(:amount))
+      %td{ style: 'border-bottom: 1px solid lightgray; border-top: 1px solid lightgray;'}= number_to_currency(Tranxaction.filter(nil, from, to, nil, 0, true).sum(:amount))
+      %td{ style: 'border-bottom: 1px solid lightgray; border-top: 1px solid lightgray;'}= number_to_currency(Tranxaction.filter(nil, from, to, nil, nil, true).sum(:amount))
