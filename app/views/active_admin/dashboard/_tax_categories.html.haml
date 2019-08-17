@@ -1,0 +1,35 @@
+- from = end_of_financial_year_date - 1.year + 1.day
+- to = end_of_financial_year_date
+- clients = Tranxaction.tranxactables_with_tranxactions('Client', from, to, true)
+- properties = Tranxaction.tranxactables_with_tranxactions('Property', from, to, true)
+- tenancy_agreements = Tranxaction.tranxactables_with_tranxactions('TenancyAgreement', from, to, true)
+
+%h3{ style: 'margin: 20px 0 0px 5px' } Tax categories
+%table.table
+  %thead
+    %tr
+      %th category
+      - clients.each do |client|
+        %th= client.reference.truncate(20)
+      - properties.each do |property|
+        %th= property.reference.truncate(20)
+      -tenancy_agreements.each do |tenancy_agreement|
+        %th= tenancy_agreement.reference.truncate(20)
+  %tbody
+    - TaxCategory.all.each do |tax_category|
+      %tr
+        %td= tax_category.description.truncate(20)
+        - clients.each do |client|
+          %td= client.tranxactions.where(tax_category: tax_category).sum(:amount)
+        - properties.each do |property|
+          %td= property.tranxactions.where(tax_category: tax_category).sum(:amount)
+        -tenancy_agreements.each do |tenancy_agreement|
+          %td= tenancy_agreement.tranxactions.where(tax_category: tax_category).sum(:amount)
+    %tr
+      %td nil
+      - clients.each do |client|
+        %td= client.tranxactions.where(tax_category: nil).sum(:amount)
+      - properties.each do |property|
+        %td= property.tranxactions.where(tax_category: nil).sum(:amount)
+      -tenancy_agreements.each do |tenancy_agreement|
+        %td= tenancy_agreement.tranxactions.where(tax_category: nil).sum(:amount)

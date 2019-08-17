@@ -30,7 +30,7 @@
         %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, nil, nil, true))
     - other_tranxactions = Tranxaction.filter(nil, from, to, nil, nil, true).where.not(tranxactable_type: %w[Client Property TenancyAgreement])
     %tr
-      %td
+      %td Other tranxactions
       %td= number_to_currency(other_tranxactions.where('amount > ?', 0).sum(:amount))
       %td= number_to_currency(other_tranxactions.where('amount < ?', 0).sum(:amount))
       %td= number_to_currency(other_tranxactions.sum(:amount))
