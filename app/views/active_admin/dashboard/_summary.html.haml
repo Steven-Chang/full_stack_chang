@@ -1,0 +1,36 @@
+- from = end_of_financial_year_date - 1.year + 1.day
+- to = end_of_financial_year_date
+
+%h3{ style: 'margin: 20px 0 0px 5px' } Summary
+%table.table
+  %thead
+    %tr
+      %th reference
+      %th revenue
+      %th expenses
+      %th net
+  %tbody
+    - Tranxaction.tranxactables_with_tranxactions('Client', from, to, true).each do |tranxactable|
+      %tr
+        %td= tranxactable.reference
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, 0, nil, true))
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, nil, 0, true))
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, nil, nil, true))
+    - Tranxaction.tranxactables_with_tranxactions('Property', from, to, true).each do |tranxactable|
+      %tr
+        %td= tranxactable.reference
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, 0, nil, true))
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, nil, 0, true))
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, nil, nil, true))
+    - Tranxaction.tranxactables_with_tranxactions('TenancyAgreement', from, to, true).each do |tranxactable|
+      %tr
+        %td= tranxactable.reference
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, 0, nil, true))
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, nil, 0, true))
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, nil, nil, true))
+    - other_tranxactions = Tranxaction.filter(nil, from, to, nil, nil, true).where.not(tranxactable_type: %w[Client Property TenancyAgreement])
+    %tr
+      %td
+      %td= number_to_currency(other_tranxactions.where('amount > ?', 0).sum(:amount))
+      %td= number_to_currency(other_tranxactions.where('amount < ?', 0).sum(:amount))
+      %td= number_to_currency(other_tranxactions.sum(:amount))
