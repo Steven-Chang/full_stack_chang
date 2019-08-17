@@ -15,6 +15,7 @@ namespace :fsc do
         new_tranxaction.description = tenancy_agreement.user.username + " " + description
         new_tranxaction.amount = tenancy_agreement.amount
         new_tranxaction.tax = tenancy_agreement.tax
+        new_tranxaction.tax_category = TaxCategory.find_by('LOWER(description) = ?', 'rent')
         new_tranxaction.tranxactable = tenancy_agreement
         new_tranxaction.save
 
