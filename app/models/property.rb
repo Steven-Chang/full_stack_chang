@@ -8,4 +8,10 @@ class Property < ApplicationRecord
 
   # === VALIDATIONS ===
   validates :address, presence: true
+
+  # === INSTANCE METHODS ===
+  # for tranxactable dashboard table
+  def reference
+    address
+  end
 end

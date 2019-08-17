@@ -1,0 +1,23 @@
+- from = end_of_financial_year_date - 1.year + 1.day
+- to = end_of_financial_year_date
+
+%h3{ style: 'margin-bottom: 0' }= tranxactable_type.underscore.humanize.titleize.pluralize
+%table.table
+  %thead
+    %tr
+      %th reference
+      %th revenue
+      %th expenses
+      %th net
+  %tbody
+    - Tranxaction.tranxactables_with_tranxactions(tranxactable_type, from, to, true).each do |tranxactable|
+      %tr
+        %td= tranxactable.reference
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, 0, nil, true))
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, nil, 0, true))
+        %td= number_to_currency(Tranxaction.balance(tranxactable, from, to, nil, nil, true))
+    %tr{ style: 'font-weight: bold;' }
+      %td
+      %td{ style: 'border-top: 1px solid lightgray; border-bottom: 1px solid lightgray;' }= number_to_currency(Tranxaction.filter(nil, from, to, 0, nil, true).where(tranxactable_type: tranxactable_type).sum(:amount))
+      %td{ style: 'border-top: 1px solid lightgray; border-bottom: 1px solid lightgray;' }= number_to_currency(Tranxaction.filter(nil, from, to, nil, 0, true).where(tranxactable_type: tranxactable_type).sum(:amount))
+      %td{ style: 'border-top: 1px solid lightgray; border-bottom: 1px solid lightgray;' }= number_to_currency(Tranxaction.filter(nil, from, to, nil, nil, true).where(tranxactable_type: tranxactable_type).sum(:amount))

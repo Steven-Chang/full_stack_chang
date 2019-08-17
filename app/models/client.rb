@@ -7,4 +7,10 @@ class Client < ApplicationRecord
 
   # === VALIDATIONS ===
   validates :name, presence: true
+
+  # === INSTANCE METHODS ===
+  # for tranxactable dashboard table
+  def reference
+    name
+  end
 end

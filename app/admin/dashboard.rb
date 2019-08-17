@@ -6,85 +6,21 @@ ActiveAdmin.register_page 'Dashboard' do
   content title: proc { I18n.t('active_admin.dashboard') } do
     Tranxaction.end_of_financial_year_dates_ordered_descending_for_dashboard.each do |end_of_financial_year_date|
       panel "#{end_of_financial_year_date.year - 1}-#{end_of_financial_year_date.year}" do
-        h3 'Clients'
-        table_for Tranxaction.tranxactables_with_tranxactions('Client', end_of_financial_year_date - 1.year + 1.day, end_of_financial_year_date, true) do
-          column :name
-          column 'revenue' do |client|
-            number_to_currency(Tranxaction.balance(client,
-                                                   end_of_financial_year_date - 1.year + 1.day,
-                                                   end_of_financial_year_date,
-                                                   0,
-                                                   nil,
-                                                   true))
-          end
-          column 'expenses' do |client|
-            number_to_currency(Tranxaction.balance(client,
-                                                   end_of_financial_year_date - 1.year + 1.day,
-                                                   end_of_financial_year_date,
-                                                   nil,
-                                                   0,
-                                                   true))
-          end
-          column 'net' do |client|
-            number_to_currency(Tranxaction.balance(client,
-                                                   end_of_financial_year_date - 1.year + 1.day,
-                                                   end_of_financial_year_date,
-                                                   nil,
-                                                   nil,
-                                                   true))
-          end
-        end
-
-        h3 'Property(including TenancyAgreement)'
-        table_for Tranxaction.tranxactables_with_tranxactions('Property', end_of_financial_year_date - 1.year + 1.day, end_of_financial_year_date, true) do
-          column :address
-          column 'revenue' do |property|
-            total = 0
-            t = Tranxaction.filter(nil,
-                                   end_of_financial_year_date - 1.year + 1.day,
-                                   end_of_financial_year_date,
-                                   0,
-                                   nil,
-                                   true)
-            total += t.where(tranxactable_type: 'Property').where(tranxactable_id: property.id).sum(:amount)
-            property.tenancy_agreements.each do |tenancy_agreement|
-              total += t.where(tranxactable_type: 'TenancyAgreement').where(tranxactable_id: tenancy_agreement.id).sum(:amount)
-            end
-            number_to_currency(total)
-          end
-          column 'expenses' do |property|
-            total = 0
-            t = Tranxaction.filter(nil,
-                                   end_of_financial_year_date - 1.year + 1.day,
-                                   end_of_financial_year_date,
-                                   nil,
-                                   0,
-                                   true)
-            total += t.where(tranxactable_type: 'Property')
-                      .where(tranxactable_id: property.id)
-                      .sum(:amount)
-            property.tenancy_agreements.each do |tenancy_agreement|
-              total += t.where(tranxactable_type: 'TenancyAgreement')
-                        .where(tranxactable_id: tenancy_agreement.id)
-                        .sum(:amount)
-            end
-            number_to_currency(total)
-          end
-          column 'net' do |property|
-            total = 0
-            t = Tranxaction.filter(nil,
-                                   end_of_financial_year_date - 1.year + 1.day,
-                                   end_of_financial_year_date,
-                                   nil,
-                                   nil,
-                                   true)
-            total += t.where(tranxactable_type: 'Property').where(tranxactable_id: property.id).sum(:amount)
-            property.tenancy_agreements.each do |tenancy_agreement|
-              total += t.where(tranxactable_type: 'TenancyAgreement').where(tranxactable_id: tenancy_agreement.id).sum(:amount)
-            end
-            number_to_currency(total)
-          end
-        end
+        render partial: 'active_admin/dashboard/tranxactable_types',
+               locals: {
+                 tranxactable_type: 'Client',
+                 end_of_financial_year_date: end_of_financial_year_date
+               }
+        render partial: 'active_admin/dashboard/tranxactable_types',
+               locals: {
+                 tranxactable_type: 'Property',
+                 end_of_financial_year_date: end_of_financial_year_date
+               }
+        render partial: 'active_admin/dashboard/tranxactable_types',
+               locals: {
+                 tranxactable_type: 'TenancyAgreement',
+                 end_of_financial_year_date: end_of_financial_year_date
+               }
 
         h3 'Incoming tranxactions that are not related to Clients, Properties or TenancyAgreements'
         ul do

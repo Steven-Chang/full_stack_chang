@@ -17,4 +17,10 @@ class TenancyAgreement < ApplicationRecord
   def balance
     tranxactions.sum(:amount)
   end
+
+  # === INSTANCE METHODS ===
+  # for tranxactable dashboard table
+  def reference
+    "#{user.username || user.email}: #{property.address}"
+  end
 end
