@@ -8,9 +8,8 @@ ruby '2.5.1'
 gem 'activeadmin'
 # This will allow our API to expose only those fields that are necessary to Angular frontend.
 gem 'active_model_serializers'
+# This will allow our API to expose only those fields that are necessary to Angular frontend.
 gem 'angular_rails_csrf'
-# allows us to place our html views in the assets/javascript directory
-gem 'angular-rails-templates'
 gem 'aws-sdk', '~> 2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -36,10 +35,10 @@ gem 'newrelic_rpm'
 gem 'pg'
 gem 'puma', '~> 3.11'
 gem 'pundit'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 6.0.0.rc1'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'sendgrid-ruby'
@@ -89,6 +88,7 @@ group :development do
   gem 'spring'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+  gem 'webpacker'
 end
 
 group :test do
@@ -100,8 +100,6 @@ group :test do
   gem 'climate_control'
   # Cleans the test database before each test
   gem 'database_cleaner'
-  # RackSessionAccess provides rack middleware for 'rack.session' environment management.
-  gem 'rack_session_access'
   gem 'selenium-webdriver'
   # Additional matchers
   gem 'shoulda-matchers', require: false

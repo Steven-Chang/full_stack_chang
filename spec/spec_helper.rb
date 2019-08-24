@@ -19,7 +19,6 @@
 #
 
 require 'pundit/rspec'
-require 'rack_session_access/capybara'
 require 'shoulda/matchers'
 require 'simplecov'
 require 'warden/test/helpers'

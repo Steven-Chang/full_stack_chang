@@ -7,7 +7,6 @@ var app = angular.module('app', [
   'moment-picker',
 	'ui.router', 
 	'Devise', 
-	'templates', 
 	'restangular',
 	'youtube-embed'
 ])
