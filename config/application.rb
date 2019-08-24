@@ -11,7 +11,7 @@ Bundler.require(*Rails.groups)
 module FullStackChang
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults "6.0"
 
     config.active_record.belongs_to_required_by_default = false
     config.assets.paths << Rails.root.join('public')
