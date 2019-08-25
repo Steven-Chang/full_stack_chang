@@ -7,7 +7,6 @@ require("@rails/activestorage").start()
 require("channels")
 
 // WOULD USE WITHOUT REMARK THEME
-require("active_admin")
 require("bootstrap/dist/js/bootstrap")
 
 // REMARK THEME
