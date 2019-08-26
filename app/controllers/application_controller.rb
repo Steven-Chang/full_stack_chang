@@ -3,7 +3,10 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-  def home; end
+  def home
+    @body_class = 'animsition page-maintenance layout-full'
+    @page_title = 'Home | fullstackchang.com'
+  end
 
   protected
 
