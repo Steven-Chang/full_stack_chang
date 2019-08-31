@@ -1,4 +1,4 @@
-.page-register-v3:before {
+.page-login-v3:before {
   position: fixed;
   top: 0;
   left: 0;
@@ -15,31 +15,31 @@
   background-image: linear-gradient(to bottom, #3e8ef7 0%, #0b69e3 100%);
   background-repeat: repeat-x; }
 
-.page-register-v3 .panel {
+.page-login-v3 .panel {
   width: 400px;
   margin-bottom: 45px;
   background: #fff;
   border-radius: 0.286rem; }
-  .page-register-v3 .panel .panel-body {
+  .page-login-v3 .panel .panel-body {
     padding: 50px 40px 40px; }
-  .page-register-v3 .panel .brand-text {
+  .page-login-v3 .panel .brand-text {
     margin-top: 8px; }
 
-.page-register-v3 form {
+.page-login-v3 form {
   margin: 45px 0 30px; }
-  .page-register-v3 form a {
+  .page-login-v3 form a {
     margin-left: 20px; }
-  .page-register-v3 form .form-material.floating + .page-register-v3 form .form-material.floating {
+  .page-login-v3 form .form-material.floating + .page-login-v3 form .form-material.floating {
     margin-top: 30px; }
-  .page-register-v3 form .form-material label {
+  .page-login-v3 form .form-material label {
     color: #a3afb7;
     font-weight: 300; }
 
 @media (max-width: 479.98px) {
-  .page-register-v3 .page-content {
+  .page-login-v3 .page-content {
     padding: 30px 20px; }
-  .page-register-v3 .panel {
+  .page-login-v3 .panel {
     width: auto;
     padding: 10px; }
-    .page-register-v3 .panel .panel-body {
+    .page-login-v3 .panel .panel-body {
       padding: 35px 25px 35px; } }

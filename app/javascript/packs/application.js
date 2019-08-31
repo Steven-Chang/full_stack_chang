@@ -11,8 +11,8 @@ require("bootstrap/dist/js/bootstrap")
 
 // REMARK THEME
 // Core
-require("remark_classic/global/vendor/babel-external-helpers/babel-external-helpers")
 require("animsition/dist/js/animsition.min")
+require("remark_classic/global/vendor/babel-external-helpers/babel-external-helpers")
 require("jquery-mousewheel/jquery.mousewheel")
 require("jquery-asScrollbar/dist/jquery-asScrollbar.min")
 require("jquery-asScrollable/dist/jquery-asScrollable.min")
@@ -20,9 +20,9 @@ require("jquery-asScrollable/dist/jquery-asScrollable.min")
 // Plugins
 require("switchery/switchery")
 require("intro.js/minified/introjs.min")
+require("jquery-slidePanel/dist/jquery-slidePanel.min")
 require("jquery-placeholder/jquery.placeholder")
 require("screenfull/dist/screenfull")
-require("jquery-slidePanel/dist/jquery-slidePanel.min")
 
 // Scripts
 require("remark_classic/global/vendor/breakpoints/breakpoints.min")
