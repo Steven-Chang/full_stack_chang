@@ -10,32 +10,27 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
  */
 
 // Would use even without Remark template
-@import "active_admin";
 @import "bootstrap/scss/bootstrap";
 
-// REMARK TEMPLATE
+ // REMARK TEMPLATE
 // Stylesheets
 @import "remark_classic/global/css/bootstrap-extend.min";
 @import "remark_classic/base/assets/css/site.min";
 
-// Plugins
+ // Plugins
 @import "animsition/dist/css/animsition.min";
 @import "jquery-asScrollable/src/scss/asScrollable";
 @import "switchery/switchery";
 @import "intro.js/minified/introjs.min";
 @import "jquery-slidePanel/src/scss/slidePanel";
 @import "flag-icon-css/css/flag-icon.min";
-@import "remark_classic/topbar/assets/examples/css/pages/register-v3";
+@import "remark_classic/topbar/assets/examples/css/pages/login-v3.min";
 @import "remark_classic/topbar/assets/examples/css/pages/maintenance";
 
-// Fonts
+ // Fonts 
 @import "remark_classic/global/fonts/web-icons/web-icons";
 @import "remark_classic/global/fonts/brand-icons/brand-icons";
-
-// ACTIVE ADMIN
-@import "active_admin";

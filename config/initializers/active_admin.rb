@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = 'Full Stack Chang'
+  config.site_title = 'fullstackchang.com'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -172,14 +174,17 @@ ActiveAdmin.setup do |config|
 
   # == Setting a Favicon
   #
-  # config.favicon = 'favicon.ico'
+  config.favicon = 'fsc.png'
 
   # == Meta Tags
   #
   # Add additional meta tags to the head element of active admin pages.
   #
   # Add tags to all pages logged in users see:
-  #   config.meta_tags = { author: 'My Company' }
+  config.meta_tags = {
+    author: 'fullstackchang.com',
+    description: 'The personal website/portfolio of full stack web developer, Steven Chang.'
+  }
 
   # By default, sign up/sign in/recover password pages are excluded
   # from showing up in search engine results by adding a robots meta
@@ -208,7 +213,7 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-  #   config.register_stylesheet 'my_stylesheet.css'
+  # config.register_stylesheet 'my_stylesheet.css'
   #
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', media: :print

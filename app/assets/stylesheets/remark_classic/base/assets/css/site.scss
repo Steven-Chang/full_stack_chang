@@ -915,7 +915,7 @@ body.site-gridmenu-active {
     margin: 0 !important; }
 
 .site-menubar-fold .page, .site-menubar-fold .site-footer {
-  margin-left: 90px; }
+  margin-left: 0px; }
 
 .site-menubar-fold.page-aside-fixed.page-aside-left .page-aside {
   left: 90px; }
@@ -1072,7 +1072,7 @@ body.site-gridmenu-active {
 
 @media (min-width: 768px) and (max-width: 1199.98px) {
   .css-menubar .page, .css-menubar .site-footer {
-    margin-left: 90px; }
+    margin-left: 0px; }
   .css-menubar.page-aside-fixed.page-aside-left .page-aside {
     left: 90px; }
   .css-menubar.page-aside-fixed.page-aside-left .site-footer {
@@ -1340,7 +1340,7 @@ body.site-gridmenu-active {
 
 @media (min-width: 1200px) {
   .css-menubar .page, .css-menubar .site-footer {
-    margin-left: 260px; }
+    margin-left: 0px; }
   .css-menubar.page-aside-fixed.page-aside-left .page-aside {
     left: 260px; }
   .css-menubar.page-aside-fixed.page-aside-left .site-footer {
