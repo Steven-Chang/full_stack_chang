@@ -1,11 +1,284 @@
-<div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">>
-  <div class="page-content vertical-align-middle">
-    <img src="https://res.cloudinary.com/hluibvnjl/image/upload/fl_lossy,q_50,fl_awebp/v1566686257/giphy_eucryw.webp">
-    <h2>Under Maintenance</h2>
+<div class="page">
+  <div class="page-content container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- Page Widget -->
+        <div class="card card-shadow text-center">
+          <div class="card-block">
+            <span class="avatar avatar-lg" href="javascript:void(0)">
+              <img src="https://res.cloudinary.com/hpxlnqput/image/upload/f_auto,w_300,q_100/v1567319338/14280689_fwswez">
+            </span>
+            <h4 class="profile-user">Steven Chang</h4>
+            <p class="profile-job">Chief Technology Officer @ <a href='https://www.chilfundraising.com/' target='_blank' style=''>CHIL Fundraising</a></p>
+            <div style='text-align: center;'>
+              <p>Aiming to contribute to humanity via intuitive and reliable software.</p>
+              <p>Communication and transparency are key.</p>
+              <p>Respect and thanks to the software community.</p>
+            </div>
+          </div>
+        </div>
+        <!-- End Page Widget -->
+      </div>
 
-    <footer class="page-copyright">
-      <p>WEBSITE BY FULL STACK CHANG</p>
-      <p>© 2019. All RIGHT RESERVED.</p>
-    </footer>
+      <div class="col-lg-9">
+        <!-- Panel -->
+        <div class="panel">
+          <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
+            <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+              <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#activities"
+                  aria-controls="activities" role="tab">Portfolio</a></li>
+<!--               <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#profile" aria-controls="profile"
+                  role="tab">Tools</a></li>
+              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#messages" aria-controls="messages"
+                  role="tab">Pride</a></li> -->
+            </ul>
+
+            <div class="tab-content">
+              <div class="tab-pane active animation-slide-left" id="activities" role="tabpanel">
+                <ul class="list-group">
+                  <% Project.where(private: false).order(start_date: :desc).each do |project| %>
+                    <li class="list-group-item">
+                      <div class="media">
+                        <% if project.attachments.present? %>
+                          <div class="pr-20">
+                            <span class="avatar" href="javascript:void(0)">
+                              <%= image_tag project.attachments.first.url, class: 'img-fluid' %>
+                            </span>
+                          </div>
+                        <% end %>
+                        <div class="media-body">
+                          <h5 class="mt-0 mb-1"><%= project.title %></h5>
+                          <% if project.start_date.present? %>
+                            <h6 class="mt-1"><small><%= project.start_date.strftime('%d %b %y') %> - <%= project.end_date.present? ? project.end_date.strftime('%d %b %y') : 'NOW' %> (<%= project.duration_formatted %>)</small></h6>
+                          <% end %>
+                          <div class="profile-brief"><%= project.description %></div>
+                        </div>
+                      </div>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+
+              <div class="tab-pane animation-slide-left" id="profile" role="tabpanel">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="pr-20">
+                        <a class="avatar" href="javascript:void(0)">
+<!--                           <img class="img-fluid" src="../../../global/portraits/5.jpg"
+                            alt="..."> -->
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mt-0 mb-5">Terrance Arnold
+                          <small>posted a new blog</small>
+                        </h5>
+                        <small>active 14 minutes ago</small>
+                        <div class="profile-brief">
+                          <div class="media">
+                            <a class="pr-20">
+<!--                               <img class="w-160" src="../../../global/photos/placeholder.png" alt="...">
+ -->                            </a>
+                            <div class="media-body pl-20">
+                              <h4 class="mt-0 mb-5">Getting Started</h4>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing
+                                elit. Integer nec odio. Praesent libero. Sed
+                                cursus ante dapibus diam. Sed nisi. Nulla quis
+                                sem at nibh elementum imperdiet. Duis sagittis
+                                ipsum. Praesent mauris.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="pr-20">
+                        <a class="avatar" href="javascript:void(0)">
+<!--                           <img class="img-fluid" src="../../../global/portraits/2.jpg"
+                            alt="..."> -->
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mt-0 mb-5">Ida Fleming
+                          <small>posted an updated</small>
+                        </h5>
+                        <small>active 14 minutes ago</small>
+                        <div class="profile-brief">“Check if it can be corrected with overflow : hidden”</div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="pr-20">
+                        <a class="avatar" href="javascript:void(0)">
+<!--                           <img class="img-fluid" src="../../../global/portraits/4.jpg"
+                            alt="..."> -->
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mt-0 mb-5">Owen Hunt
+                          <small>posted a new note</small>
+                        </h5>
+                        <small>active 14 minutes ago</small>
+                        <div class="profile-brief">Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Integer nec odio. Praesent libero. Sed cursus
+                          ante dapibus diam. Sed nisi. Nulla quis sem at nibh
+                          elementum imperdiet. Duis sagittis ipsum. Praesent
+                          mauris. Fusce nec tellus sed augue semper porta.
+                          Mauris massa.</div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="pr-20">
+                        <a class="avatar" href="javascript:void(0)">
+<!--                           <img class="img-fluid" src="../../../global/portraits/2.jpg"
+                            alt="..."> -->
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mt-0 mb-5">Ida Fleming
+                          <small>posted an new activity comment</small>
+                        </h5>
+                        <small>active 14 minutes ago</small>
+                        <div class="profile-brief">Cras sit amet nibh libero, in gravida nulla. Nulla
+                          vel metus.</div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="pr-20">
+                        <a class="avatar" href="javascript:void(0)">
+<!--                           <img class="img-fluid" src="../../../global/portraits/3.jpg"
+                            alt="..."> -->
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mt-0 mb-5">Julius
+                          <small>uploaded 4 photos</small>
+                        </h5>
+                        <small>active 14 minutes ago</small>
+                        <div class="profile-brief clearfix">
+<!--                           <img class="profile-uploaded" src="../../../global/photos/placeholder.png" alt="...">
+                          <img class="profile-uploaded" src="../../../global/photos/placeholder.png" alt="...">
+                          <img class="profile-uploaded" src="../../../global/photos/placeholder.png" alt="...">
+                          <img class="profile-uploaded" src="../../../global/photos/placeholder.png" alt="..."> -->
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="tab-pane animation-slide-left" id="messages" role="tabpanel">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="pr-20">
+                        <a class="avatar" href="javascript:void(0)">
+<!--                           <img class="img-fluid" src="../../../global/portraits/2.jpg"
+                            alt="..."> -->
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mt-0 mb-5">Ida Fleming
+                          <small>posted an updated</small>
+                        </h5>
+                        <small>active 14 minutes ago</small>
+                        <div class="profile-brief">“Check if it can be corrected with overflow : hidden”</div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="pr-20">
+                        <a class="avatar" href="javascript:void(0)">
+<!--                           <img class="img-fluid" src="../../../global/portraits/5.jpg"
+                            alt="..."> -->
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mt-0 mb-5">Terrance Arnold
+                          <small>posted a new blog</small>
+                        </h5>
+                        <small>active 14 minutes ago</small>
+                        <div class="profile-brief">
+                          <div class="media">
+                            <a class="pr-20">
+<!--                               <img class="w-160" src="../../../global/photos/placeholder.png" alt="...">
+ -->                            </a>
+                            <div class="media-body pl-20">
+                              <h4 class="mt-0 mb-5">Getting Started</h4>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing
+                                elit. Integer nec odio. Praesent libero. Sed
+                                cursus ante dapibus diam. Sed nisi. Nulla quis
+                                sem at nibh elementum imperdiet. Duis sagittis
+                                ipsum. Praesent mauris.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="pr-20">
+                        <a class="avatar" href="javascript:void(0)">
+<!--                           <img class="img-fluid" src="../../../global/portraits/4.jpg"
+                            alt="..."> -->
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mt-0 mb-5">Owen Hunt
+                          <small>posted a new note</small>
+                        </h5>
+                        <small>active 14 minutes ago</small>
+                        <div class="profile-brief">Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Integer nec odio. Praesent libero. Sed cursus
+                          ante dapibus diam. Sed nisi. Nulla quis sem at nibh
+                          elementum imperdiet. Duis sagittis ipsum. Praesent
+                          mauris. Fusce nec tellus sed augue semper porta.
+                          Mauris massa.</div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="pr-20">
+                        <a class="avatar" href="javascript:void(0)">
+<!--                           <img class="img-fluid" src="../../../global/portraits/3.jpg"
+                            alt="..."> -->
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h5 class="mt-0 mb-5">Julius
+                          <small>posted an updated</small>
+                        </h5>
+                        <small>active 14 minutes ago</small>
+                        <div class="profile-brief">Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Integer nec odio. Praesent libero. Sed cursus
+                          ante dapibus diam.</div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Panel -->
+      </div>
+    </div>
   </div>
 </div>

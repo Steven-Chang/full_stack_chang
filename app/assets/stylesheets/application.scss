@@ -19,7 +19,7 @@
  // REMARK TEMPLATE
 // Stylesheets
 @import "remark_classic/global/css/bootstrap-extend.min";
-@import "remark_classic/base/assets/css/site.min";
+@import "remark_classic/base/assets/css/site";
 
  // Plugins
 @import "animsition/dist/css/animsition.min";
@@ -29,8 +29,12 @@
 @import "jquery-slidePanel/src/scss/slidePanel";
 @import "flag-icon-css/css/flag-icon.min";
 @import "remark_classic/topbar/assets/examples/css/pages/login-v3.min";
-@import "remark_classic/topbar/assets/examples/css/pages/maintenance";
+@import "remark_classic/topbar/assets/examples/css/pages/profile";
 
  // Fonts 
 @import "remark_classic/global/fonts/web-icons/web-icons";
 @import "remark_classic/global/fonts/brand-icons/brand-icons";
+
+body {
+  font-family: "Roboto", sans-serif !important;
+}
