@@ -1,0 +1,31 @@
+!!!
+%html.no-js.css-menubar{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui", :name => "viewport"}/
+    %meta{:content => "The personal website/portfolio of full stack web developer, Steven Chang.", :name => "description"}/
+    %meta{:content => "Steven Chang", :name => "author"}/
+    %title= @page_title || 'fullstackchang.com'
+    = favicon_link_tag asset_path('fsc.png'), rel: 'apple-touch-icon'
+    = favicon_link_tag asset_path('fsc.png')
+    / Google Fonts
+    %link{:href => "https://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic", :rel => "stylesheet"}/
+    /[if lt IE 9]
+      <script src="../../../global/vendor/html5shiv/html5shiv.min.js"></script>
+    /[if lt IE 10]
+      <script src="../../../global/vendor/media-match/media.match.min.js"></script>
+      <script src="../../../global/vendor/respond/respond.min.js"></script>
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_pack_tag 'application'
+    / Youtube
+    %script{:src => "https://www.youtube.com/iframe_api"}
+  %body{:class => "#{@body_class}"}
+    = render 'navbar'
+    /[if lt IE 8]
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    = yield
+    = render 'footer'

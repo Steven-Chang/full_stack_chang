@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   def home
-    @body_class = 'animsition page-maintenance layout-full'
-    @page_title = 'Home | fullstackchang.com'
+    @body_class = 'animsition site-navbar-small page-profile'
+    @page_title = 'Home'
   end
 
   protected

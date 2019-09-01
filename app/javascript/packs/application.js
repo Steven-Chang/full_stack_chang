@@ -22,7 +22,9 @@ require("switchery/switchery")
 require("intro.js/minified/introjs.min")
 require("jquery-slidePanel/dist/jquery-slidePanel.min")
 require("jquery-placeholder/jquery.placeholder")
+require("remark_classic/global/js/Plugin/responsive-tabs")
 require("screenfull/dist/screenfull")
+require("remark_classic/global/js/Plugin/tabs")
 
 // Scripts
 require("remark_classic/global/vendor/breakpoints/breakpoints.min")
