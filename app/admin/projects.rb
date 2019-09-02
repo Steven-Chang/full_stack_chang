@@ -42,4 +42,14 @@ ActiveAdmin.register Project do
       end
     end
   end
+
+  # === PERMIT PARAMS ===
+  permit_params :description,
+                :end_date,
+                :name,
+                :private,
+                :role,
+                :start_date,
+                :title,
+                :url
 end
