@@ -13,11 +13,9 @@
  *= require_self
  */
 
-// Would use even without Remark template
-@import "bootstrap/scss/bootstrap";
-
- // REMARK TEMPLATE
+// REMARK TEMPLATE
 // Stylesheets
+@import "remark_classic/global/css/bootstrap.min";
 @import "remark_classic/global/css/bootstrap-extend.min";
 @import "remark_classic/base/assets/css/site";
 
@@ -34,7 +32,3 @@
  // Fonts 
 @import "remark_classic/global/fonts/web-icons/web-icons";
 @import "remark_classic/global/fonts/brand-icons/brand-icons";
-
-body {
-  font-family: "Roboto", sans-serif !important;
-}
