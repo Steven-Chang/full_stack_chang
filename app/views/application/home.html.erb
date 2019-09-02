@@ -43,7 +43,7 @@
                       <div class="timeline-dot"></div>
                       <div class="timeline-content">
                         <% if project.attachments.present? %>
-                          <%= image_tag project.attachments.first.url, class: 'float-right' %>
+                          <%= image_tag project.attachments.first.url, class: 'float-right', style: 'max-width: 120px;' %>
                         <% end %>
                         <span class="block mb-5"><%= project.title %></span>
                         <span class="block font-size-15 mb-5"><%= project.start_date.strftime('%d %b %y') %> - <%= project.end_date.present? ? project.end_date.strftime('%d %b %y') : 'NOW' %> (<%= project.duration_formatted %>)</span>
