@@ -7,7 +7,7 @@
     %meta{:content => "width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui", :name => "viewport"}/
     %meta{:content => "The personal website/portfolio of full stack web developer, Steven Chang.", :name => "description"}/
     %meta{:content => "Steven Chang", :name => "author"}/
-    %title= @page_title || 'fullstackchang.com'
+    %title= @page_title ? "#{@page_title} | fullstackchang.com" : 'fullstackchang.com'
     = favicon_link_tag asset_path('fsc.png'), rel: 'apple-touch-icon'
     = favicon_link_tag asset_path('fsc.png')
     / Google Fonts
