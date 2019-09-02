@@ -35,28 +35,27 @@
 
             <div class="tab-content">
               <div class="tab-pane active animation-slide-left" id="activities" role="tabpanel">
-                <ul class="list-group">
+            <div class="user-background card card-shadow">
+              <div class="card-block">
+                <ul class="timeline timeline-single">
                   <% Project.where(private: false).order(start_date: :desc).each do |project| %>
-                    <li class="list-group-item">
-                      <div class="media">
+                    <li class="timeline-item">
+                      <div class="timeline-dot"></div>
+                      <div class="timeline-content">
                         <% if project.attachments.present? %>
-                          <div class="pr-20">
-                            <span class="avatar" href="javascript:void(0)">
-                              <%= image_tag project.attachments.first.url, class: 'img-fluid' %>
-                            </span>
-                          </div>
+                          <%= image_tag project.attachments.first.url, class: 'float-right' %>
                         <% end %>
-                        <div class="media-body">
-                          <h5 class="mt-0 mb-1"><%= project.title %></h5>
-                          <% if project.start_date.present? %>
-                            <h6 class="mt-1"><small><%= project.start_date.strftime('%d %b %y') %> - <%= project.end_date.present? ? project.end_date.strftime('%d %b %y') : 'NOW' %> (<%= project.duration_formatted %>)</small></h6>
-                          <% end %>
-                          <div class="profile-brief"><%= project.description %></div>
-                        </div>
+                        <span class="block mb-5"><%= project.title %></span>
+                        <span class="block font-size-15 mb-5"><%= project.start_date.strftime('%d %b %y') %> - <%= project.end_date.present? ? project.end_date.strftime('%d %b %y') : 'NOW' %> (<%= project.duration_formatted %>)</span>
+                        <% if project.role.present? %>
+                          <span class="block mb-5"><%= project.role %></span>
+                        <% end %>
                       </div>
                     </li>
                   <% end %>
                 </ul>
+              </div>
+            </div>
               </div>
 
               <div class="tab-pane animation-slide-left" id="profile" role="tabpanel">
