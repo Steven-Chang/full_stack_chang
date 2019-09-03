@@ -15,6 +15,10 @@ FactoryBot.define do
     sequence(:name) { |n| "client #{n}" }
   end
 
+  factory :creditor do
+    sequence(:name) { |n| "creditor-#{n}" }
+  end
+
   factory :payment_summary do
     year_ending { Date.current.month < 7 ? Date.current.year : Date.current.year + 1 }
 
@@ -27,6 +31,11 @@ FactoryBot.define do
 
   factory :tax_category do
     sequence(:description) { |n| "tax category #{n}" }
+  end
+
+  factory :tool do
+    sequence(:name) { |n| "tool #{n}" }
+    category { Tool.categories.keys.first }
   end
 
   factory :tranxaction do
