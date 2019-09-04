@@ -17,4 +17,7 @@ class Tool < ApplicationRecord
 
   # === VALIDATIONS ===
   validates :name, uniqueness: { case_sensitive: false }
+
+  # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 end
