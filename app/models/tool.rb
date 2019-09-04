@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class Tool < ApplicationRecord
+  # === CONSTANTS ===
+  CATEGORY_LABEL_MAPPING = {
+    app: 'Application & Data',
+    utility: 'Utilities',
+    devop: 'DevOps',
+    business: 'Business Tools'
+  }.freeze
+
   # === ENUMS ===
   enum category: %i[app utility devop business]
 
