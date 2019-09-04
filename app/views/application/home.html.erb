@@ -27,154 +27,53 @@
             <ul class="nav nav-tabs nav-tabs-line" role="tablist">
               <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#activities"
                   aria-controls="activities" role="tab">Portfolio</a></li>
-<!--               <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#profile" aria-controls="profile"
+              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#profile" aria-controls="profile"
                   role="tab">Tools</a></li>
-              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#messages" aria-controls="messages"
+<!--               <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#messages" aria-controls="messages"
                   role="tab">Pride</a></li> -->
             </ul>
 
             <div class="tab-content">
               <div class="tab-pane active animation-slide-left" id="activities" role="tabpanel">
-            <div class="user-background card card-shadow">
-              <div class="card-block">
-                <ul class="timeline timeline-single">
-                  <% Project.where(private: false).order(start_date: :desc).each do |project| %>
-                    <li class="timeline-item">
-                      <div class="timeline-dot"></div>
-                      <div class="timeline-content">
-                        <% if project.attachments.present? %>
-                          <%= image_tag project.attachments.first.url, class: 'float-right', style: 'max-width: 120px;' %>
-                        <% end %>
-                        <span class="block mb-5"><%= project.title %></span>
-                        <span class="block font-size-15 mb-5"><%= project.start_date.strftime('%d %b %y') %> - <%= project.end_date.present? ? project.end_date.strftime('%d %b %y') : 'NOW' %> (<%= project.duration_formatted %>)</span>
-                        <% if project.role.present? %>
-                          <span class="block mb-5"><%= project.role %></span>
-                        <% end %>
-                      </div>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
+                <div class="user-background card card-shadow">
+                  <div class="card-block">
+                    <ul class="timeline timeline-single">
+                      <% Project.where(private: false).order(start_date: :desc).each do |project| %>
+                        <li class="timeline-item">
+                          <div class="timeline-dot"></div>
+                          <div class="timeline-content">
+                            <% if project.attachments.present? %>
+                              <%= image_tag project.attachments.first.url, class: 'float-right', style: 'max-width: 120px;' %>
+                            <% end %>
+                            <span class="block mb-5"><%= project.title %></span>
+                            <span class="block font-size-15 mb-5"><%= project.start_date.strftime('%d %b %y') %> - <%= project.end_date.present? ? project.end_date.strftime('%d %b %y') : 'NOW' %> (<%= project.duration_formatted %>)</span>
+                            <% if project.role.present? %>
+                              <span class="block mb-5"><%= project.role %></span>
+                            <% end %>
+                          </div>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               <div class="tab-pane animation-slide-left" id="profile" role="tabpanel">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="pr-20">
-                        <a class="avatar" href="javascript:void(0)">
-<!--                           <img class="img-fluid" src="../../../global/portraits/5.jpg"
-                            alt="..."> -->
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-5">Terrance Arnold
-                          <small>posted a new blog</small>
-                        </h5>
-                        <small>active 14 minutes ago</small>
-                        <div class="profile-brief">
-                          <div class="media">
-                            <a class="pr-20">
-<!--                               <img class="w-160" src="../../../global/photos/placeholder.png" alt="...">
- -->                            </a>
-                            <div class="media-body pl-20">
-                              <h4 class="mt-0 mb-5">Getting Started</h4>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing
-                                elit. Integer nec odio. Praesent libero. Sed
-                                cursus ante dapibus diam. Sed nisi. Nulla quis
-                                sem at nibh elementum imperdiet. Duis sagittis
-                                ipsum. Praesent mauris.</p>
-                            </div>
+                <div class="user-background card card-shadow">
+                  <% Tool::CATEGORY_LABEL_MAPPING.each do |key, value| %>
+                    <div class="card-block">
+                      <h5 class="card-title"><span><%= "#{value} (#{Tool.where(category: key).count})" %></span></h5>
+                      <% Tool.where(category: key).order(:name).each do |tool| %>
+                        <div style="border: 1px solid white; border-radius: 6px; background-color: #fafafa; height: 120px; width: 120px; text-align: center; padding: 10px 25px;">
+                          <div style="height: 70px; width: 70px; display: inline-block; text-align: center; background: white; border-radius: 4px; padding: 5px; color: ">
+                            <img src="https://img.stackshare.io/service/1022/jqueryui_avatar_96.png" style="height: 60px; width: 60px;">
+                            <div style="margin-bottom: 0px; margin-top: 10px; line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"><%= tool.name %></div>
                           </div>
                         </div>
-                      </div>
+                      <% end %>
                     </div>
-                  </li>
-
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="pr-20">
-                        <a class="avatar" href="javascript:void(0)">
-<!--                           <img class="img-fluid" src="../../../global/portraits/2.jpg"
-                            alt="..."> -->
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-5">Ida Fleming
-                          <small>posted an updated</small>
-                        </h5>
-                        <small>active 14 minutes ago</small>
-                        <div class="profile-brief">“Check if it can be corrected with overflow : hidden”</div>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="pr-20">
-                        <a class="avatar" href="javascript:void(0)">
-<!--                           <img class="img-fluid" src="../../../global/portraits/4.jpg"
-                            alt="..."> -->
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-5">Owen Hunt
-                          <small>posted a new note</small>
-                        </h5>
-                        <small>active 14 minutes ago</small>
-                        <div class="profile-brief">Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Integer nec odio. Praesent libero. Sed cursus
-                          ante dapibus diam. Sed nisi. Nulla quis sem at nibh
-                          elementum imperdiet. Duis sagittis ipsum. Praesent
-                          mauris. Fusce nec tellus sed augue semper porta.
-                          Mauris massa.</div>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="pr-20">
-                        <a class="avatar" href="javascript:void(0)">
-<!--                           <img class="img-fluid" src="../../../global/portraits/2.jpg"
-                            alt="..."> -->
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-5">Ida Fleming
-                          <small>posted an new activity comment</small>
-                        </h5>
-                        <small>active 14 minutes ago</small>
-                        <div class="profile-brief">Cras sit amet nibh libero, in gravida nulla. Nulla
-                          vel metus.</div>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="pr-20">
-                        <a class="avatar" href="javascript:void(0)">
-<!--                           <img class="img-fluid" src="../../../global/portraits/3.jpg"
-                            alt="..."> -->
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-5">Julius
-                          <small>uploaded 4 photos</small>
-                        </h5>
-                        <small>active 14 minutes ago</small>
-                        <div class="profile-brief clearfix">
-<!--                           <img class="profile-uploaded" src="../../../global/photos/placeholder.png" alt="...">
-                          <img class="profile-uploaded" src="../../../global/photos/placeholder.png" alt="...">
-                          <img class="profile-uploaded" src="../../../global/photos/placeholder.png" alt="...">
-                          <img class="profile-uploaded" src="../../../global/photos/placeholder.png" alt="..."> -->
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                  <% end %>
+                </div>
               </div>
 
               <div class="tab-pane animation-slide-left" id="messages" role="tabpanel">
