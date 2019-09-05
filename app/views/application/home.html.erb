@@ -66,7 +66,7 @@
                       <% Tool.where(category: key).order(:name).each do |tool| %>
                         <div style="border: 1px solid white; border-radius: 6px; background-color: #fafafa; height: 120px; width: 120px; text-align: center; padding: 10px 25px;">
                           <div style="height: 70px; width: 70px; display: inline-block; text-align: center; background: white; border-radius: 4px; padding: 5px; color: ">
-                            <img src="https://img.stackshare.io/service/1022/jqueryui_avatar_96.png" style="height: 60px; width: 60px;">
+                            <%= cl_image_tag tool.attachments.first.cloudinary_public_id, width: 120, fetch_format: :auto, style: 'width: 60px;' %>
                             <div style="margin-bottom: 0px; margin-top: 10px; line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"><%= tool.name %></div>
                           </div>
                         </div>
