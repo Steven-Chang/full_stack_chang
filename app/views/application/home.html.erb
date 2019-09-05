@@ -64,11 +64,13 @@
                     <div class="card-block">
                       <h5 class="card-title"><span><%= "#{value} (#{Tool.where(category: key).count})" %></span></h5>
                       <% Tool.where(category: key).order(:name).each do |tool| %>
-                        <div class="mb-2 mr-2 text-center d-inline-block bg-light" style="border: 1px solid white; border-radius: 6px; height: 120px; width: 120px; padding: 10px 25px;">
-                          <div class="d-inline-block bg-white text-center p-1" style="height: 70px; width: 70px; border-radius: 4px;">
-                            <%= cl_image_tag tool.attachments.first.cloudinary_public_id, width: 120, fetch_format: :auto, style: 'width: 60px;' %>
+                        <div class="mb-2 mr-2 text-center d-inline-block bg-light" style="border: 1px solid white; border-radius: 6px; height: 120px; width: 120px;">
+                          <div style="padding: 10px 25px 0 25px;">
+                            <div class="d-inline-block bg-white text-center p-1" style="height: 70px; width: 70px; border-radius: 4px;">
+                              <%= cl_image_tag tool.attachments.first.cloudinary_public_id, width: 120, fetch_format: :auto, style: 'width: 60px;' %>
+                            </div>
                           </div>
-                          <div class="mt-1" style="line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"><%= tool.name %></div>
+                          <div class="p-1" style="line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"><%= tool.name %></div>
                         </div>
                       <% end %>
                     </div>
