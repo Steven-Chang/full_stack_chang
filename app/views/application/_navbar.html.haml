@@ -2,8 +2,7 @@
   %nav.site-navbar.navbar.navbar-default.navbar-fixed-top.navbar-mega.navbar-inverse{ role: 'navigation' }
     .navbar-header
       = link_to 'fullstackchang.com', root_path, class: 'navbar-brand'
-    %div{ style: 'position: absolute; right: 15px;' }
+    .position-absolute{ style: 'right: 15px;' }
+      = link_to 'Admin', current_user ? admin_root_path : new_user_session_path, class: 'text-white'
       - if current_user
-        = link_to 'Sign out', destroy_user_session_path, method: :delete, style: 'color: white; font-family: Roboto, sans-serif; text-decoration: none;'
-      - else
-        = link_to 'Admin', new_user_session_path, style: 'color: white; font-family: Roboto, sans-serif; text-decoration: none;'
+        = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'text-white ml-4'
