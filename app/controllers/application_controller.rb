@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def after_sign_out_path_for(_resource_or_scope)
+    '/'
+  end
+
   def configure_permitted_parameters
     added_attrs = %i[
       username
