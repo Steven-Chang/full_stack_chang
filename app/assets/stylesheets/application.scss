@@ -21,13 +21,15 @@
 
  // Plugins
 @import "animsition/dist/css/animsition.min";
-@import "jquery-asScrollable/src/scss/asScrollable";
-@import "switchery/switchery";
-@import "intro.js/minified/introjs.min";
-@import "jquery-slidePanel/src/scss/slidePanel";
 @import "flag-icon-css/css/flag-icon.min";
+@import "intro.js/minified/introjs.min";
+@import "jquery-asScrollable/src/scss/asScrollable";
+@import "jquery-slidePanel/src/scss/slidePanel";
+@import "magnific-popup/dist/magnific-popup";
+@import "remark_classic/topbar/assets/examples/css/pages/gallery.min";
 @import "remark_classic/topbar/assets/examples/css/pages/login-v3.min";
 @import "remark_classic/topbar/assets/examples/css/pages/profile";
+@import "switchery/switchery";
 
  // Fonts 
 @import "remark_classic/global/fonts/web-icons/web-icons";

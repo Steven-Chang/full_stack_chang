@@ -25,16 +25,16 @@
         <div class="panel">
           <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
             <ul class="nav nav-tabs nav-tabs-line" role="tablist">
-              <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#activities"
-                  aria-controls="activities" role="tab">Portfolio</a></li>
-              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#profile" aria-controls="profile"
+              <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#portfolio"
+                  aria-controls="portfolio" role="tab">Portfolio</a></li>
+              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#tools" aria-controls="tools"
                   role="tab">Tools</a></li>
-<!--               <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#messages" aria-controls="messages"
-                  role="tab">Pride</a></li> -->
+              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#proud-of" aria-controls="proud-of"
+                  role="tab">Proud of</a></li>
             </ul>
 
             <div class="tab-content">
-              <div class="tab-pane active animation-slide-left" id="activities" role="tabpanel">
+              <div class="tab-pane active animation-slide-left" id="portfolio" role="tabpanel">
                 <div class="user-background card card-shadow">
                   <div class="card-block">
                     <ul class="timeline timeline-single">
@@ -45,7 +45,7 @@
                             <% if project.attachments.present? %>
                               <%= image_tag project.attachments.first.url, class: 'float-right', style: 'max-width: 120px;' %>
                             <% end %>
-                            <span class="block mb-5"><%= project.title %></span>
+                            <span class="block mb-5"><h5><%= project.title %></h5></span>
                             <span class="block font-size-15 mb-5"><%= project.start_date.strftime('%d %b %y') %> - <%= project.end_date.present? ? project.end_date.strftime('%d %b %y') : 'NOW' %> (<%= project.duration_formatted %>)</span>
                             <% if project.role.present? %>
                               <span class="block mb-5"><%= project.role %></span>
@@ -58,7 +58,7 @@
                 </div>
               </div>
 
-              <div class="tab-pane animation-slide-left" id="profile" role="tabpanel">
+              <div class="tab-pane animation-slide-left" id="tools" role="tabpanel">
                 <div class="user-background card card-shadow">
                   <% Tool::CATEGORY_LABEL_MAPPING.each do |key, value| %>
                     <div class="card-block">
@@ -78,98 +78,40 @@
                 </div>
               </div>
 
-              <div class="tab-pane animation-slide-left" id="messages" role="tabpanel">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="pr-20">
-                        <a class="avatar" href="javascript:void(0)">
-<!--                           <img class="img-fluid" src="../../../global/portraits/2.jpg"
-                            alt="..."> -->
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-5">Ida Fleming
-                          <small>posted an updated</small>
-                        </h5>
-                        <small>active 14 minutes ago</small>
-                        <div class="profile-brief">“Check if it can be corrected with overflow : hidden”</div>
-                      </div>
+              <div class="tab-pane animation-slide-left" id="proud-of" role="tabpanel">
+                <ul class="blocks blocks-100 blocks-xxl-4 blocks-lg-3 blocks-md-2 mt-4" data-plugin="filterable"
+                  data-filters="#exampleFilter">
+                  <li>
+                    <div class="card card-shadow">
+                      <figure class="card-img-top overlay-hover overlay">
+                        <img class="overlay-figure overlay-scale" src="https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"
+                        >
+                        <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
+                          <a class="icon wb-search" href="https://res.cloudinary.com/hpxlnqput/image/upload/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"></a>
+                        </figcaption>
+                      </figure>
                     </div>
                   </li>
-
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="pr-20">
-                        <a class="avatar" href="javascript:void(0)">
-<!--                           <img class="img-fluid" src="../../../global/portraits/5.jpg"
-                            alt="..."> -->
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-5">Terrance Arnold
-                          <small>posted a new blog</small>
-                        </h5>
-                        <small>active 14 minutes ago</small>
-                        <div class="profile-brief">
-                          <div class="media">
-                            <a class="pr-20">
-<!--                               <img class="w-160" src="../../../global/photos/placeholder.png" alt="...">
- -->                            </a>
-                            <div class="media-body pl-20">
-                              <h4 class="mt-0 mb-5">Getting Started</h4>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing
-                                elit. Integer nec odio. Praesent libero. Sed
-                                cursus ante dapibus diam. Sed nisi. Nulla quis
-                                sem at nibh elementum imperdiet. Duis sagittis
-                                ipsum. Praesent mauris.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                  <li>
+                    <div class="card card-shadow">
+                      <figure class="card-img-top overlay-hover overlay">
+                        <img class="overlay-figure overlay-scale" src="https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"
+                        >
+                        <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
+                          <a class="icon wb-search" href="https://res.cloudinary.com/hpxlnqput/image/upload/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"></a>
+                        </figcaption>
+                      </figure>
                     </div>
                   </li>
-
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="pr-20">
-                        <a class="avatar" href="javascript:void(0)">
-<!--                           <img class="img-fluid" src="../../../global/portraits/4.jpg"
-                            alt="..."> -->
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-5">Owen Hunt
-                          <small>posted a new note</small>
-                        </h5>
-                        <small>active 14 minutes ago</small>
-                        <div class="profile-brief">Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Integer nec odio. Praesent libero. Sed cursus
-                          ante dapibus diam. Sed nisi. Nulla quis sem at nibh
-                          elementum imperdiet. Duis sagittis ipsum. Praesent
-                          mauris. Fusce nec tellus sed augue semper porta.
-                          Mauris massa.</div>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="pr-20">
-                        <a class="avatar" href="javascript:void(0)">
-<!--                           <img class="img-fluid" src="../../../global/portraits/3.jpg"
-                            alt="..."> -->
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-5">Julius
-                          <small>posted an updated</small>
-                        </h5>
-                        <small>active 14 minutes ago</small>
-                        <div class="profile-brief">Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Integer nec odio. Praesent libero. Sed cursus
-                          ante dapibus diam.</div>
-                      </div>
+                  <li>
+                    <div class="card card-shadow">
+                      <figure class="card-img-top overlay-hover overlay">
+                        <img class="overlay-figure overlay-scale" src="https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"
+                        >
+                        <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
+                          <a class="icon wb-search" href="https://res.cloudinary.com/hpxlnqput/image/upload/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"></a>
+                        </figcaption>
+                      </figure>
                     </div>
                   </li>
                 </ul>
