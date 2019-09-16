@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Client, type: :model do
   describe 'ASSOCIATIONS' do
     it { should have_many(:payment_summaries).dependent(:destroy) }
-    it { should have_many(:tranxactions).dependent(:destroy) }
+    it { should have_many(:tranxactions).dependent(:restrict_with_exception) }
   end
 
   describe 'VALIDATIONS' do
