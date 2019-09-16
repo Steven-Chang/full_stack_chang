@@ -3,7 +3,7 @@
 class Client < ApplicationRecord
 	# === ASSOCIATIONS ===
   has_many :payment_summaries, dependent: :destroy
-  has_many :tranxactions, as: :tranxactable, dependent: :destroy
+  has_many :tranxactions, as: :tranxactable, dependent: :restrict_with_exception
 
   # === VALIDATIONS ===
   validates :name, presence: true
