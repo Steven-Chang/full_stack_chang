@@ -3,7 +3,6 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "^4.0.7",
-    "animsition": "^4.0.2",
     "bootstrap": "^4.3.1",
     "flag-icon-css": "^3.3.0",
     "intro.js": "^2.9.3",
