@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   def home
-    @body_class = 'animsition site-navbar-small page-profile site-navbar-small'
+    @body_class = 'site-navbar-small page-profile site-navbar-small'
     @page_title = 'Home'
   end
 

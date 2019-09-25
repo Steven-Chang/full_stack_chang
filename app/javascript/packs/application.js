@@ -11,7 +11,6 @@ require("bootstrap/dist/js/bootstrap")
 
 // REMARK THEME
 // Core
-require("animsition/dist/js/animsition.min")
 require("remark_classic/global/vendor/babel-external-helpers/babel-external-helpers")
 require("jquery-mousewheel/jquery.mousewheel")
 require("jquery-asScrollbar/dist/jquery-asScrollbar.min")

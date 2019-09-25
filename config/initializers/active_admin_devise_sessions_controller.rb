@@ -5,7 +5,7 @@ class ActiveAdmin::Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    @body_class = 'animsition page-login-v3 layout-full'
+    @body_class = 'page-login-v3 layout-full'
     @page_title = 'Sign In'
     super
   end
