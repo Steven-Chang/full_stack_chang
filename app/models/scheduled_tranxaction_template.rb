@@ -8,13 +8,15 @@ class ScheduledTranxactionTemplate < ApplicationRecord
 
 	# === VALIDATIONS ===
 	validates :amount, numericality: true
+  validates :date_offset, numericality: true
 	validates :date, :days_for_recurrence, :tranxactable, presence: true
 
   # === CLASS METHODS ===
   def self.process
     where(enabled: true)
-      .where('date <= ?', Date.current + 1.day)
       .find_each do |scheduled_tranxaction_template|
+        next unless scheduled_tranxaction_template.date <= Date.current + 1.day + scheduled_tranxaction_template.date_offset.to_i
+
         tranxaction = Tranxaction.create(
           amount: scheduled_tranxaction_template.amount,
           creditor: scheduled_tranxaction_template.creditor,

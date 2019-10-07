@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_03_024947) do
+ActiveRecord::Schema.define(version: 2019_10_04_202641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 2019_09_03_024947) do
     t.bigint "tranxactable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "date_offset", default: 0
     t.index ["creditor_id"], name: "index_scheduled_tranxaction_templates_on_creditor_id"
     t.index ["tax_category_id"], name: "index_scheduled_tranxaction_templates_on_tax_category_id"
     t.index ["tranxactable_type", "tranxactable_id"], name: "index_tranxaction_schedules_on_tranxactable"

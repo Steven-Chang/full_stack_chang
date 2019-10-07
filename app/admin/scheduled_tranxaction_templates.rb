@@ -6,6 +6,7 @@ ActiveAdmin.register ScheduledTranxactionTemplate do
   index do
     id_column
     column :date
+    column :date_offset
     column :description
     column :amount do |scheduled_tranxaction_template|
       number_to_currency(scheduled_tranxaction_template.amount)
@@ -39,6 +40,7 @@ ActiveAdmin.register ScheduledTranxactionTemplate do
     attributes_table do
       row :id
       row :date
+      row :date_offset
       row :description
       row :amount do |scheduled_tranxaction_template|
         number_to_currency(scheduled_tranxaction_template.amount)
@@ -72,6 +74,7 @@ ActiveAdmin.register ScheduledTranxactionTemplate do
     f.object.date ||= Date.current
     f.inputs do
       f.input :date, required: true
+      f.input :date_offset, required: false
       f.input :description, required: true
       f.input :amount, required: true
       f.input :days_for_recurrence, required: true
@@ -89,6 +92,7 @@ ActiveAdmin.register ScheduledTranxactionTemplate do
   permit_params :amount,
                 :creditor_id,
                 :date,
+                :date_offset,
                 :days_for_recurrence,
                 :description,
                 :enabled,
