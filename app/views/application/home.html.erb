@@ -10,7 +10,7 @@
             </span>
             <h4 class="profile-user">Steven Chang</h4>
             <p class="profile-job">Chief Technology Officer @ <a href='https://www.chilfundraising.com/' target='_blank' style=''>CHIL Fundraising</a></p>
-            <div style='text-align: center;'>
+            <div class='text-center'>
               <p>Aiming to contribute to humanity via intuitive and reliable software.</p>
               <p>Communication and transparency are key.</p>
               <p>Respect and thanks to the software community.</p>
@@ -49,6 +49,9 @@
                             <span class="block font-size-15 mb-5"><%= project.start_date.strftime('%d %b %y') %> - <%= project.end_date.present? ? project.end_date.strftime('%d %b %y') : 'NOW' %> (<%= project.duration_formatted %>)</span>
                             <% if project.role.present? %>
                               <span class="block mb-5"><%= project.role %></span>
+                            <% end %>
+                            <% if project.description.present? %>
+                              <%= project.description %>
                             <% end %>
                           </div>
                         </li>
