@@ -51,7 +51,9 @@
                               <span class="block mb-5"><%= project.role %></span>
                             <% end %>
                             <% if project.description.present? %>
-                              <%= project.description %>
+                              <div style='white-space: pre-line;'>
+                                <%= project.description %>
+                              </div>
                             <% end %>
                           </div>
                         </li>
