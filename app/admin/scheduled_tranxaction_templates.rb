@@ -82,7 +82,12 @@ ActiveAdmin.register ScheduledTranxactionTemplate do
       f.input :tax
       f.input :tax_category, member_label: :description
       f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
-      f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.name, client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.user.username || tenancy_agreement.user.email, tenancy_agreement.id] }
+      f.input :tranxactable_id, as: :select,
+                                collection: (Client.all.map { |client| [client.name, client.id] } +
+                                            Property.all.map { |property| [property.address, property.id] } +
+                                            TenancyAgreement.all.map do |tenancy_agreement|
+                                              [tenancy_agreement.user.username || tenancy_agreement.user.email, tenancy_agreement.id]
+                                            end)
       f.input :creditor, member_label: :name, collection: Creditor.order('LOWER(name)')
     end
     f.actions

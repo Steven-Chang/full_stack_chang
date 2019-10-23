@@ -23,6 +23,6 @@ ActiveAdmin.register Property do
      attributes_table do
        row :id
        row :address
-    end
+     end
   end
 end

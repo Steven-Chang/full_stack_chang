@@ -10,13 +10,11 @@ ActiveAdmin.register Tool do
       row :name
       row :category
       row 'Images' do |tool|
-        html = ''
+        out = []
         tool.attachments.where(file_type: 0).each do |attachment|
-          if attachment.cloudinary_public_id.present?
-            html += cl_image_tag(attachment.cloudinary_public_id)
-          end
+          outs << cl_image_tag(attachment.cloudinary_public_id) if attachment.cloudinary_public_id.present?
         end
-        html.html_safe
+        safe_join(out)
       end
     end
   end

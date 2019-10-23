@@ -21,6 +21,6 @@ ActiveAdmin.register Aim do
      attributes_table do
        row :id
        row :description
-    end
+     end
   end
 end
