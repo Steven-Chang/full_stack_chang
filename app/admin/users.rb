@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation
+  permit_params :email, :medicare_number, :medicare_expiry, :password, :password_confirmation
 
   index do
     selectable_column
     id_column
     column :email
-    column :current_sign_in_at
-    column :sign_in_count
+    column :medicare_number
+    column :medicare_expiry
     column :created_at
     actions
   end
@@ -21,6 +21,8 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs do
       f.input :email
+      f.input :medicare_number
+      f.input :medicare_expiry
       f.input :password
       f.input :password_confirmation
     end
