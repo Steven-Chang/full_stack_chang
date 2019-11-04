@@ -41,7 +41,7 @@ ActiveAdmin.register BlogPost do
     f.object.date_added ||= DateTime.current
     f.inputs do
       f.input :title
-      f.input :date_added
+      f.input :date_added, start_year: 1985
       f.input :description
       f.input :private
       f.has_many :attachments,
