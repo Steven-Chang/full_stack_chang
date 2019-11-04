@@ -6,7 +6,6 @@ class BlogPost < ApplicationRecord
 
   # === VALIDATIONS ===
   validates :date_added,
-            :description,
             :title,
             presence: true
 

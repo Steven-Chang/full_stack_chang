@@ -9,7 +9,6 @@ RSpec.describe BlogPost, type: :model do
 
   describe 'VALIDATIONS' do
     it { should validate_presence_of(:date_added) }
-    it { should validate_presence_of(:description) }
     it { should validate_presence_of(:title) }
   end
 end
