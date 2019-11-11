@@ -2,6 +2,9 @@
 
 # params['commit'] exists when filters are selected
 ActiveAdmin.register BlogPost do
+  # === CONFIG ===
+  config.sort_order = 'date_added_desc'
+
   # === INDEX ===
   index do
     column :date_added
