@@ -3,15 +3,26 @@
 # params['commit'] exists when filters are selected
 ActiveAdmin.register BlogPost do
   # === CONFIG ===
+  config.batch_actions = false
   config.sort_order = 'date_added_desc'
 
   # === INDEX ===
-  index do
-    column :date_added
-    column :title
-    column :description
-    column :private
-    actions
+  index as: :blog, download_links: false do
+    title do |blog_post|
+      span blog_post.title, class: 'title'
+    end
+    body do |blog_post|
+      div blog_post.date_added.strftime('%d %B %Y'), class: 'date_added'
+      pre blog_post.description
+      blog_post.attachments.each do |attachment|
+        if attachment.cloudinary_public_id.present?
+          div(style: 'border: 1px solid lightgray; display: inline-block;') do
+            cl_image_tag(attachment.cloudinary_public_id, height: 120, fetch_format: :auto, crop: :crop, width: 120, style: 'width: inherit;')
+          end
+        end
+      end
+    end
+    # column :private
   end
 
   filter :date_added
