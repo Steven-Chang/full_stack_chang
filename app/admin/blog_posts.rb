@@ -12,16 +12,16 @@ ActiveAdmin.register BlogPost do
       span blog_post.title, class: 'title'
     end
     body do |blog_post|
-      div class: 'container' do
+      div do
         div blog_post.date_added.strftime('%d %B %Y'), class: 'date_added'
-        div(style: "white-space: pre-wrap;") do
+        div(style: 'white-space: pre-wrap;') do
           blog_post.description
         end
-        blog_post.attachments.each do |attachment|
-          if attachment.cloudinary_public_id.present?
-            div(style: 'border: 1px solid lightgray; display: inline-block; height: 150px;') do
-              cl_image_tag(attachment.cloudinary_public_id, height: 240, fetch_format: :auto, style: 'width: inherit; height: 100%;')
-            end
+        blog_post.attachments.where(file_type: 0).limit(9).order('RANDOM()').each do |attachment|
+          next if attachment.cloudinary_public_id.blank?
+
+          div(style: 'border: 1px solid lightgray; display: inline-block; height: 150px;') do
+            cl_image_tag(attachment.cloudinary_public_id, height: 240, fetch_format: :auto, style: 'width: inherit; height: 100%;')
           end
         end
       end
