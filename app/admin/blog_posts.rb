@@ -66,7 +66,7 @@ ActiveAdmin.register BlogPost do
                  heading: 'Attachments',
                  new_record: 'Manually create an attachment',
                  allow_destroy: true do |a|
-        a.input :cloudinary_public_id
+        a.input :cloudinary_public_id, hint: a.object.file_type == 'image' && a.object.cloudinary_public_id ? cl_image_tag(a.object.cloudinary_public_id) : nil
         a.input :url
         a.object.file_type = a.object.persisted? ? a.object.file_type : 'video'
         a.input :file_type, as: :select,
