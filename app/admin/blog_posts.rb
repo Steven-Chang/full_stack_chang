@@ -46,7 +46,7 @@ ActiveAdmin.register BlogPost do
           if attachment.url.present?
             html += "<img src=#{attachment.url}>"
           elsif attachment.cloudinary_public_id.present?
-            html += cl_image_tag(attachment.cloudinary_public_id)
+            html += cl_image_tag(attachment.cloudinary_public_id, fetch_format: :auto, height: 360, style: 'width: inherit;')
           end
         end
         html.html_safe
@@ -66,7 +66,7 @@ ActiveAdmin.register BlogPost do
                  heading: 'Attachments',
                  new_record: 'Manually create an attachment',
                  allow_destroy: true do |a|
-        a.input :cloudinary_public_id, hint: a.object.file_type == 'image' && a.object.cloudinary_public_id ? cl_image_tag(a.object.cloudinary_public_id) : nil
+        a.input :cloudinary_public_id, hint: a.object.file_type == 'image' && a.object.cloudinary_public_id.present? ? cl_image_tag(a.object.cloudinary_public_id, height: 240, fetch_format: :auto, style: 'width: inherit;') : nil
         a.input :url
         a.object.file_type = a.object.persisted? ? a.object.file_type : 'video'
         a.input :file_type, as: :select,
