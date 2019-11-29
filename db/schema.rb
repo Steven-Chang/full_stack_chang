@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_30_124438) do
+ActiveRecord::Schema.define(version: 2019_11_29_023809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,4 +199,13 @@ ActiveRecord::Schema.define(version: 2019_10_30_124438) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "entries", "aims", name: "entries_aim_id_fk"
+  add_foreign_key "payment_summaries", "clients", name: "payment_summaries_client_id_fk"
+  add_foreign_key "scheduled_tranxaction_templates", "creditors", name: "scheduled_tranxaction_templates_creditor_id_fk"
+  add_foreign_key "scheduled_tranxaction_templates", "tax_categories", name: "scheduled_tranxaction_templates_tax_category_id_fk"
+  add_foreign_key "scores", "projects", name: "scores_project_id_fk"
+  add_foreign_key "tenancy_agreements", "properties", name: "tenancy_agreements_property_id_fk"
+  add_foreign_key "tenancy_agreements", "users", name: "tenancy_agreements_user_id_fk"
+  add_foreign_key "tranxactions", "creditors", name: "tranxactions_creditor_id_fk"
+  add_foreign_key "tranxactions", "tax_categories", name: "tranxactions_tax_category_id_fk"
 end

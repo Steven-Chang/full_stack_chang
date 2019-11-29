@@ -12,6 +12,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'cloudinary'
 gem 'devise'
 gem 'haml'
+# Foreign key migration generator for Rails
+gem 'immigrant'
 # Build JSON APIs with ease. Read more: httgem 'puma', '~> 3.11's://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Use ActiveStorage variant
