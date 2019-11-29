@@ -32,6 +32,7 @@ ActiveAdmin.register BlogPost do
   filter :date_added
   filter :description
   filter :private
+  filter :title
 
   # === SHOW ===
   show do
