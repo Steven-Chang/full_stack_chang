@@ -6,6 +6,10 @@ require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 
+// JAVASCRIPT
+// Admin
+require("../admin/tranxactions/form")
+
 // WOULD USE WITHOUT REMARK THEME
 require("bootstrap/dist/js/bootstrap")
 
