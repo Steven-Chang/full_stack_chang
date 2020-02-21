@@ -48,6 +48,8 @@
                   %a.nav-link{"aria-controls" => "tools", "data-toggle" => "tab", :href => "#tools", :role => "tab"} Tools
                 %li.nav-item{:role => "presentation"}
                   %a.nav-link{"aria-controls" => "proud-of", "data-toggle" => "tab", :href => "#proud-of", :role => "tab"} Proud of
+                %li.nav-item{:role => "presentation"}
+                  %a.nav-link{"aria-controls" => "references", "data-toggle" => "tab", :href => "#references", :role => "tab"} References
               .tab-content
                 #portfolio.tab-pane.active.animation-slide-left{:role => "tabpanel"}
                   .user-background.card.card-shadow
@@ -104,4 +106,29 @@
                           %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}/
                           %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
                             %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}
+                #references.tab-pane.animation-slide-left{:role => "tabpanel"}
+                  .user-background.card.card-shadow
+                    .card-block
+                      .table-responsive
+                        %table.table
+                          %thead
+                            %tr
+                              %th Name
+                              %th Position
+                              %th Company
+                              %th Phone
+                              %th Email
+                          %tbody
+                            %tr
+                              %td Brett Macdonald
+                              %td CEO
+                              %td CHIL Fundraising
+                              %td +61 2 9237 8427
+                              %td= mail_to 'brett@CHILfundraising.com'
+                            %tr
+                              %td Ruth Wang
+                              %td Senior Developer
+                              %td Maestrano
+                              %td
+                              %td
           / End Panel
