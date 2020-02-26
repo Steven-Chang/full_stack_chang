@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_023809) do
+ActiveRecord::Schema.define(version: 2020_02_26_020532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,12 +27,6 @@ ActiveRecord::Schema.define(version: 2019_11_29_023809) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
-  end
-
-  create_table "aims", force: :cascade do |t|
-    t.string "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -67,15 +61,6 @@ ActiveRecord::Schema.define(version: 2019_11_29_023809) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_creditors_on_name", unique: true
-  end
-
-  create_table "entries", force: :cascade do |t|
-    t.integer "aim_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.date "date"
-    t.boolean "achieved", default: false
-    t.string "description"
   end
 
   create_table "payment_summaries", force: :cascade do |t|
@@ -199,7 +184,6 @@ ActiveRecord::Schema.define(version: 2019_11_29_023809) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "entries", "aims", name: "entries_aim_id_fk"
   add_foreign_key "payment_summaries", "clients", name: "payment_summaries_client_id_fk"
   add_foreign_key "scheduled_tranxaction_templates", "creditors", name: "scheduled_tranxaction_templates_creditor_id_fk"
   add_foreign_key "scheduled_tranxaction_templates", "tax_categories", name: "scheduled_tranxaction_templates_tax_category_id_fk"
