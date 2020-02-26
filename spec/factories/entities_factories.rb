@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :aim do
-    sequence(:description) { |n| "aim-#{n}" }
-  end
-
   factory :blog_post do
     date_added { Date.current }
     description { 'Blog post description' }
