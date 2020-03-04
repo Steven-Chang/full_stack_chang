@@ -319,8 +319,8 @@ ActiveAdmin.setup do |config|
   # config.order_clause = MyOrderClause
 end
 
-# NOTE: If you are have issues getting webpacker content to show up in active admin, add the follow to the intializer. 
-# This will include `app/views/admin/_header_additions.html.erb` into the head of the page.  In that view, you can add 
+# NOTE: If you are have issues getting webpacker content to show up in active admin, add the follow to the intializer.
+# This will include `app/views/admin/_header_additions.html.erb` into the head of the page.  In that view, you can add
 # your calls to include the webpacker content.
 
 module AdminPageLayoutOverride
