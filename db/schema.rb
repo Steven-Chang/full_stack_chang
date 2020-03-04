@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_213150) do
+ActiveRecord::Schema.define(version: 2020_03_04_225256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 2020_03_04_213150) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "aws_key"
     t.string "cloudinary_public_id"
     t.integer "file_type", default: 1
   end
