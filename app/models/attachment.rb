@@ -11,6 +11,4 @@ class Attachment < ApplicationRecord
 
   # === ENUMERABLES ===
   enum file_type: { image: 0, raw: 1, video: 2 }
-
-  # === CLASS METHODS ===
 end
