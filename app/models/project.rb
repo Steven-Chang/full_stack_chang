@@ -2,8 +2,9 @@
 
 class Project < ApplicationRecord
 	# === ASSOCIATIONS ===
-  has_many :scores, dependent: :destroy
+  has_many :achievements, dependent: :destroy
   has_many :attachments, as: :resource, dependent: :destroy
+  has_many :scores, dependent: :destroy
 
   # === VALIDATIONS ===
   validates :title, presence: true
