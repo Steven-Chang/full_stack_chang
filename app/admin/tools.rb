@@ -12,11 +12,12 @@ ActiveAdmin.register Tool do
       row 'Images' do |tool|
         out = []
         tool.attachments.where(file_type: 0).each do |attachment|
-          outs << cl_image_tag(attachment.cloudinary_public_id) if attachment.cloudinary_public_id.present?
+          out << cl_image_tag(attachment.cloudinary_public_id) if attachment.cloudinary_public_id.present?
         end
         safe_join(out)
       end
     end
+    active_admin_comments
   end
 
   # === FORM ===
