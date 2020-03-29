@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_225256) do
+ActiveRecord::Schema.define(version: 2020_03_29_230507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,13 @@ ActiveRecord::Schema.define(version: 2020_03_04_225256) do
     t.date "end_date"
     t.boolean "private", default: true
     t.string "role"
+  end
+
+  create_table "projects_tools", id: false, force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "tool_id"
+    t.index ["project_id"], name: "index_projects_tools_on_project_id"
+    t.index ["tool_id"], name: "index_projects_tools_on_tool_id"
   end
 
   create_table "properties", force: :cascade do |t|

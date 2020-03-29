@@ -6,6 +6,7 @@ RSpec.describe Project, type: :model do
   let(:project) { build(:project) }
 
   describe 'ASSOCIATIONS' do
+    it { should have_and_belong_to_many(:tools) }
     it { should have_many(:achievements).dependent(:destroy) }
     it { should have_many(:scores).dependent(:destroy) }
     it { should have_many(:attachments).dependent(:destroy) }

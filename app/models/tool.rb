@@ -13,7 +13,10 @@ class Tool < ApplicationRecord
   enum category: %i[app utility devop business]
 
   # === ASSOCIATIONS ===
-  has_many :attachments, as: :resource, dependent: :destroy, inverse_of: :resource
+  has_and_belongs_to_many :projects
+  has_many :attachments, as: :resource,
+                         dependent: :destroy,
+                         inverse_of: :resource
 
   # === VALIDATIONS ===
   validates :name, uniqueness: { case_sensitive: false }

@@ -5,6 +5,7 @@ class Project < ApplicationRecord
   has_many :achievements, dependent: :destroy
   has_many :attachments, as: :resource, dependent: :destroy
   has_many :scores, dependent: :destroy
+  has_and_belongs_to_many :tools
 
   # === VALIDATIONS ===
   validates :title, presence: true
