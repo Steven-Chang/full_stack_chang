@@ -84,6 +84,9 @@ Rails/ApplicationJob:
 Rails/ApplicationRecord:
   Enabled: false
 
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
   Exclude:

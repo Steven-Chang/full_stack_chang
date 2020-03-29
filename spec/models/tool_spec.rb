@@ -6,6 +6,7 @@ RSpec.describe Tool, type: :model do
   let!(:tool) { create(:tool) }
 
   describe 'ASSOCIATIONS' do
+    it { should have_and_belong_to_many(:projects) }
     it { should have_many(:attachments).dependent(:destroy).inverse_of(:resource) }
   end
 
