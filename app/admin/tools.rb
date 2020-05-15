@@ -9,6 +9,7 @@ ActiveAdmin.register Tool do
       row :id
       row :name
       row :category
+      row :visible
       row 'Images' do |tool|
         out = []
         tool.attachments.where(file_type: 0).each do |attachment|
@@ -25,6 +26,7 @@ ActiveAdmin.register Tool do
     f.inputs do
       f.input :name
       f.input :category
+      f.input :visible
       f.has_many :attachments,
                  heading: 'Attachments',
                  new_record: 'Manually create an attachment',
@@ -60,5 +62,6 @@ ActiveAdmin.register Tool do
   # === PERMIT PARAMS ===
   permit_params :name,
                 :category,
+                :visible,
                 attachments_attributes: %i[id name cloudinary_public_id file_type _destroy]
 end
