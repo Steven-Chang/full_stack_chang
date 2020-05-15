@@ -80,7 +80,7 @@
                       .card-block
                         %h5.card-title
                           %span= "#{value} (#{Tool.where(category: key).count})"
-                        - Tool.where(category: key).order(:name).each do |tool|
+                        - Tool.where(category: key, visible: true).order(:name).each do |tool|
                           .mb-2.mr-2.text-center.d-inline-block.bg-light.align-top{:style => "border: 1px solid white; border-radius: 6px; height: 135px; width: 120px;"}
                             %div{:style => "padding: 10px 25px 0 25px;"}
                               .d-inline-block.bg-white.text-center.p-1{:style => "height: 70px; width: 70px; border-radius: 4px;"}
