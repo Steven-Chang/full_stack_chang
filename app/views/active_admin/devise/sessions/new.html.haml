@@ -12,6 +12,9 @@
           .form-group.form-material.floating{"data-plugin" => "formMaterial"}
             = f.password_field :password, class: 'form-control'
             = f.label :password, class: 'floating-label'
+          .form-group.form-material.floating{"data-plugin" => "formMaterial"}
+            = f.text_field :otp_attempt, class: 'form-control'
+            = f.label :otp_attempt, class: 'floating-label'
           .form-group.clearfix
             .checkbox-custom.checkbox-inline.checkbox-primary.checkbox-lg.float-left
               %input#inputCheckbox{ name: 'remember_me', type: 'checkbox' }/

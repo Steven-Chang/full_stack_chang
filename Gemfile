@@ -10,6 +10,8 @@ gem 'activeadmin'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'cloudinary'
 gem 'devise'
+# Barebones two-factor authentication with Devise
+gem 'devise-two-factor'
 gem 'haml'
 # Foreign key migration generator for Rails
 gem 'immigrant'
