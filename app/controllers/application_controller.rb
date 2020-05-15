@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  # === INCLUDES ===
   include Pundit
+
+  # === CALLBACKS ===
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def home
     @body_class = 'site-navbar-small page-profile site-navbar-small'
@@ -20,6 +24,7 @@ class ApplicationController < ActionController::Base
     ]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
   end
 
   # use predefined method name
