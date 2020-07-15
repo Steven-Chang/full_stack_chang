@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Attachment.all.find_each do |a|
   next if a.aws_key.blank? || a.cloudinary_public_id.present?
 
