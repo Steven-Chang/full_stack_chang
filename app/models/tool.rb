@@ -4,13 +4,14 @@ class Tool < ApplicationRecord
   # === CONSTANTS ===
   CATEGORY_LABEL_MAPPING = {
     app: 'Application & Data',
+    crypto: 'Crypto',
     utility: 'Utilities',
     devop: 'DevOps',
     business: 'Business Tools'
   }.freeze
 
   # === ENUMS ===
-  enum category: %i[app utility devop business]
+  enum category: %i[app crypto utility devop business]
 
   # === ASSOCIATIONS ===
   has_and_belongs_to_many :projects
