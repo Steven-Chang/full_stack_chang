@@ -17,6 +17,8 @@ gem 'haml'
 gem 'immigrant'
 # Build JSON APIs with ease. Read more: httgem 'puma', '~> 3.11's://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
+# https://github.com/sparklemotion/mechanize
+gem 'mechanize'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 # Monitoring the app
