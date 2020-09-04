@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_03_140217) do
+ActiveRecord::Schema.define(version: 2020_09_04_121649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2020_09_03_140217) do
     t.decimal "taker_fee", precision: 8, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "url"
     t.index ["crypto_id"], name: "index_crypto_exchanges_on_crypto_id"
     t.index ["exchange_id"], name: "index_crypto_exchanges_on_exchange_id"
   end
