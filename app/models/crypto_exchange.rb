@@ -7,15 +7,18 @@ class CryptoExchange < ApplicationRecord
 
   # === INSTANCE METHODS ===
   # This needs review as calculating money
-  def trade_fee_total(qantity, rate, maker_or_taker)
-    quantity * rate * trade_fee_general / 100
+  def trade_fee_total(quantity, rate, maker_or_taker = 'maker')
+    quantity * rate * trade_fee_general(maker_or_taker) / 100
   end
 
   def trade_fee_general(maker_or_taker)
-    if maker_or_taker == 'maker'
+    case maker_or_taker
+    when 'maker'
       maker_fee.present? ? maker_fee : exchange.maker_fee
-    else
+    when 'taker'
       taker_fee.present? ? taker_fee : exchange.taker_fee
+    else
+      'enter raise error code here when you get time and is needed'
     end
   end
 end

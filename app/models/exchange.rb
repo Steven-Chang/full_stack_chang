@@ -11,7 +11,7 @@ class Exchange < ApplicationRecord
   def get_open_orders(crypto_identifier, buy_or_sell, number_of_orders = 1)
     crypto = Crypto.find_by(identifier: crypto_identifier.downcase)
 
-    case identifier == 'coinspot'
+    case identifier
     when 'coinspot'
       m = Mechanize.new
       url = crypto_exchanges.find_by(crypto: crypto).url
