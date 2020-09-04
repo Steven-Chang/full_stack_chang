@@ -2,8 +2,7 @@
 
 class Exchange < ApplicationRecord
   # === ASSOCIATIONS ===
-  has_many :crypto_exchanges, dependent: :destroy
-  has_many :cryptos, through: :crypto_exchanges
+  has_many :trade_pairs, dependent: :destroy
 
   # === VALIDATIONS ===
   validates :identifier, :name, presence: true
