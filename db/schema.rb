@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_03_140217) do
+ActiveRecord::Schema.define(version: 2020_09_04_232330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 2020_09_03_140217) do
     t.decimal "taker_fee", precision: 8, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "url"
+    t.string "symbol", null: false
     t.index ["crypto_id"], name: "index_crypto_exchanges_on_crypto_id"
     t.index ["exchange_id"], name: "index_crypto_exchanges_on_exchange_id"
   end
@@ -193,6 +195,18 @@ ActiveRecord::Schema.define(version: 2020_09_03_140217) do
     t.index ["name"], name: "index_tools_on_name", unique: true
   end
 
+  create_table "trade_pairs", force: :cascade do |t|
+    t.string "symbol", null: false
+    t.string "url"
+    t.bigint "exchange_id"
+    t.decimal "withdrawal_fee", precision: 8, scale: 6
+    t.decimal "maker_fee", precision: 8, scale: 6
+    t.decimal "taker_fee", precision: 8, scale: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exchange_id"], name: "index_trade_pairs_on_exchange_id"
+  end
+
   create_table "tranxactions", force: :cascade do |t|
     t.date "date", null: false
     t.string "description", null: false
@@ -246,6 +260,7 @@ ActiveRecord::Schema.define(version: 2020_09_03_140217) do
   add_foreign_key "scores", "projects", name: "scores_project_id_fk"
   add_foreign_key "tenancy_agreements", "properties", name: "tenancy_agreements_property_id_fk"
   add_foreign_key "tenancy_agreements", "users", name: "tenancy_agreements_user_id_fk"
+  add_foreign_key "trade_pairs", "exchanges", name: "trade_pairs_exchange_id_fk"
   add_foreign_key "tranxactions", "creditors", name: "tranxactions_creditor_id_fk"
   add_foreign_key "tranxactions", "tax_categories", name: "tranxactions_tax_category_id_fk"
 end
