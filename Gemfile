@@ -38,6 +38,8 @@ gem 'rubocop-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'sendgrid-ruby'
+# Simple, efficient background processing for Ruby.
+gem 'sidekiq'
 gem 'webpacker'
 
 group :development, :test do
