@@ -38,6 +38,7 @@ Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
 
 Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
   Enabled: false
 
 Layout/IndentationWidth:
@@ -58,6 +59,8 @@ Lint/RescueException:
   Exclude:
     - 'config/application.rb'
 
+Layout/TrailingEmptyLines:
+  Enabled: true
 
 Metrics/MethodLength:
   Max: 40
@@ -125,3 +128,6 @@ Style/MixinUsage:
 Style/RegexpLiteral:
   EnforcedStyle: mixed
   AllowInnerSlashes: true
+
+Style/RedundantPercentQ:
+  Enabled: true
