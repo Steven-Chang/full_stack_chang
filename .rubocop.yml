@@ -13,10 +13,6 @@ AllCops:
     - 'bin/**'
     - 'lib/tasks/*'
     - 'node_modules/**/*'
-  NewCops: disable
-
-Documentation:
-  Enabled: false
 
 Rails:
   Enabled: true
@@ -46,9 +42,6 @@ Layout/IndentationConsistency:
 Layout/IndentationWidth:
   Enabled: false
 
-Layout/Tab:
-  Enabled: false
-
 Layout/LineLength:
   Max: 160
   Exclude:
@@ -57,9 +50,13 @@ Layout/LineLength:
     - 'app/admin/tranxactions.rb'
     - 'Gemfile'
 
+Layout/Tab:
+  Enabled: false
+
 Lint/RescueException:
   Exclude:
     - 'config/application.rb'
+
 
 Metrics/MethodLength:
   Max: 40
@@ -109,13 +106,16 @@ Rails/UniqueValidationWithoutIndex:
     - app/models/trade_pair.rb
 
 Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
-  Exclude:
-    - config/application.rb
+  Enabled: false
 
 Style/Documentation:
-  Exclude:
-    - 'config/application.rb'
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: true
+
+Style/IfUnlessModifier: 
+  Enabled: true
 
 Style/MixinUsage:
   Exclude:
