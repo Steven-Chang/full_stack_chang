@@ -4,8 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Exchange, type: :model do
   describe 'ASSOCIATIONS' do
-    it { should have_many(:crypto_exchanges).dependent(:destroy) }
-    it { should have_many(:cryptos) }
+    it { should have_many(:trade_pairs).dependent(:destroy) }
   end
 
   describe 'VALIDATIONS' do
