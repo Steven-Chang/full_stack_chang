@@ -34,6 +34,7 @@ gem 'rails', '~> 6.0.0.rc1'
 gem 'redis', '~> 4.0'
 # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
 gem 'rubocop', '~> 0.79.0', require: false
+gem 'rubocop-performance'
 gem 'rubocop-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
