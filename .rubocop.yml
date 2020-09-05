@@ -1,6 +1,7 @@
-# require: rubocop-rspec
 # inherit_from: .rubocop_todo.yml
-require: rubocop-rails
+require:
+  - rubocop-rails
+  # - rubocop-rspec
 
 AllCops:
   TargetRubyVersion: 2.6.5
@@ -12,6 +13,7 @@ AllCops:
     - 'bin/**'
     - 'lib/tasks/*'
     - 'node_modules/**/*'
+  NewCops: disable
 
 Documentation:
   Enabled: false
@@ -25,6 +27,9 @@ Rails/Output:
     - 'config/application.rb'
     - 'config/initializers/*.rb'
     - 'db/seeds.rb'
+
+Layout/HeredocIndentation:
+  Enabled: false
 
 Layout/ParameterAlignment:
   Enabled: false
@@ -41,17 +46,20 @@ Layout/IndentationConsistency:
 Layout/IndentationWidth:
   Enabled: false
 
-Layout/IndentationStyle:
+Layout/Tab:
   Enabled: false
+
+Layout/LineLength:
+  Max: 160
+  Exclude:
+    - 'app/admin/blog_posts.rb'
+    - 'app/admin/dashboard.rb'
+    - 'app/admin/tranxactions.rb'
+    - 'Gemfile'
 
 Lint/RescueException:
   Exclude:
     - 'config/application.rb'
-
-Metrics/LineLength:
-  Max: 160
-  Exclude:
-    - 'Gemfile'
 
 Metrics/MethodLength:
   Max: 40
@@ -77,6 +85,8 @@ Metrics/PerceivedComplexity:
 
 Metrics/ParameterLists:
   Max: 5
+  Exclude:
+    - app/models/tranxaction.rb
 
 Rails/ApplicationJob:
   Enabled: false
@@ -86,6 +96,17 @@ Rails/ApplicationRecord:
 
 Rails/HasAndBelongsToMany:
   Enabled: false
+
+Rails/OutputSafety:
+  Exclude:
+    - app/admin/blog_posts.rb
+    - app/admin/tools.rb
+    - app/admin/tranxactions.rb
+
+Rails/UniqueValidationWithoutIndex:
+  Exclude:
+    - app/models/tax_category.rb
+    - app/models/trade_pair.rb
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact

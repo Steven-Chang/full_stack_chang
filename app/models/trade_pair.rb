@@ -20,9 +20,9 @@ class TradePair < ApplicationRecord
   def trade_fee_general(maker_or_taker)
     case maker_or_taker
     when 'maker'
-      maker_fee.present? ? maker_fee : exchange.maker_fee
+      maker_fee.presence || exchange.maker_fee
     when 'taker'
-      taker_fee.present? ? taker_fee : exchange.taker_fee
+      taker_fee.presence || exchange.taker_fee
     else
       'enter raise error code here when you get time and is needed'
     end

@@ -7,9 +7,9 @@ RSpec.describe TradePair, type: :model do
   let(:trade_pair_without_fees) { trade_pair }
   let(:trade_pair_with_fees) { create(:trade_pair, :fees_present) }
 
-  describe 'ASSOCIATIONS' do    describe 'ASSOCIATIONS' do
+  describe 'ASSOCIATIONS' do
     it { should belong_to(:exchange) }
-  end   end
+  end
 
   describe 'VALIDATIONS' do
     it { should validate_presence_of(:symbol) }
@@ -38,7 +38,7 @@ RSpec.describe TradePair, type: :model do
       context 'when specific fees do not exist' do
         it 'returns the general fees from the exchange' do
           expect(trade_pair_without_fees.trade_fee_general('maker')).to eq(trade_pair_without_fees.exchange.maker_fee)
-          expect(trade_pair_without_fees.trade_fee_general('taker')).to eq(trade_pair_without_fees.exchange.taker_fee)  
+          expect(trade_pair_without_fees.trade_fee_general('taker')).to eq(trade_pair_without_fees.exchange.taker_fee)
         end
       end
     end

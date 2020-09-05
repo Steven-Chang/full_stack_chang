@@ -6,9 +6,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 gem 'activeadmin'
+gem 'binance'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'binance'
 gem 'cloudinary'
 gem 'devise'
 # Barebones two-factor authentication with Devise
@@ -33,7 +33,7 @@ gem 'rails', '~> 6.0.0.rc1'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
-gem 'rubocop', '~> 0.90.0', require: false
+gem 'rubocop', '~> 0.79.0', require: false
 gem 'rubocop-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

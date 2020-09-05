@@ -11,7 +11,7 @@ class Tool < ApplicationRecord
   }.freeze
 
   # === ENUMS ===
-  enum category: %i[app crypto utility devop business]
+  enum category: { app: 0, crypto: 1, utility: 2, devop: 3, business: 4 }
 
   # === ASSOCIATIONS ===
   has_and_belongs_to_many :projects
