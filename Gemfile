@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.6.5'
 
 gem 'activeadmin'
 # Reduces boot times through caching; required in config/boot.rb
@@ -33,7 +33,7 @@ gem 'rails', '~> 6.0.0.rc1'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
-gem 'rubocop', '~> 0.71.0', require: false
+gem 'rubocop', '~> 0.90.0', require: false
 gem 'rubocop-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -76,7 +76,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'capybara'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   # Stub environment variables

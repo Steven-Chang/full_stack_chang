@@ -3,7 +3,7 @@
 require: rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.5.1
+  TargetRubyVersion: 2.6.5
   DisplayCopNames: true
   DisplayStyleGuide: true
   Exclude:
@@ -26,7 +26,7 @@ Rails/Output:
     - 'config/initializers/*.rb'
     - 'db/seeds.rb'
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 
 Layout/CommentIndentation:
@@ -41,7 +41,7 @@ Layout/IndentationConsistency:
 Layout/IndentationWidth:
   Enabled: false
 
-Layout/Tab:
+Layout/IndentationStyle:
   Enabled: false
 
 Lint/RescueException:
