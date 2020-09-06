@@ -28,26 +28,29 @@ class Exchange < ApplicationRecord
   # === VALIDATIONS ===
   validates :identifier, :name, presence: true
 
-  # CURRENTLY ONLY SET UP TO BUY ON COINSPOT AND SELL ON BINANCE
   def self.arbitrage_opportunity_available
-    # sell_price_including_fee - buy_price_including_fee > 0
-    coinspot = find_by(identifier: 'coinspot')
-    coinspot_sell_order = coinspot.get_open_orders('btcaud', 'sell').first
-    desired_trade_amount = trade_amount_desired(2000, coinspot_sell_order[:rate_cents])
-    if trade_amount_available?(desired_trade_amount, coinspot_sell_order[:amount])
-      buy_trade_total_including_fee_in_cents = coinspot.trade_pairs.find_by(symbol: 'btcaud').trade_total(desired_trade_amount, coinspot_sell_order[:rate_cents])
-    else
-      return false
+    all.each do |exchange|
+      sell_order = exchange.order_with_enough_liquidity(2000, 'sell')
+      if sell_order
+        desired_trade_amount = trade_amount_desired(2000, sell_order[:rate_cents])
+        buy_trade_total_including_fee_in_cents = exchange.trade_pairs.find_by(symbol: 'btcaud').trade_total(desired_trade_amount, sell_order[:rate_cents])
+
+        where.not(identifier: exchange.identifier).each do |exchange_to_sell_at|
+          buy_order = exchange_to_sell_at.order_with_enough_liquidity(desired_trade_amount, 'buy')
+          if buy_order
+            sell_trade_total_including_fee_in_cents = exchange_to_sell_at.trade_pairs.find_by(symbol: 'btcaud').trade_total(desired_trade_amount, buy_order[:rate_cents], 'taker')
+            net_result = sell_trade_total_including_fee_in_cents - buy_trade_total_including_fee_in_cents
+            if net_result > 0
+              return "Buy from #{exchange.name} for #{sell_order[:rate_cents]} and sell at #{exchange_to_sell_at.name} for #{buy_order[:rate_cents]} for a nest result of #{net_result} cents"
+            else
+              puts "Buying from #{exchange.name} at #{sell_order[:rate_cents]} and selling at #{exchange_to_sell_at.name} for #{buy_order[:rate_cents]} will lose you #{net_result} cents"
+            end
+          end
+        end
+      end
     end
 
-    binance = find_by(identifier: 'binance')
-    binance_buy_order = binance.get_open_orders('btcaud', 'buy').first
-    if trade_amount_available?(desired_trade_amount, binance_buy_order[:amount])
-      sell_trade_total_including_fee_in_cents = binance.trade_pairs.find_by(symbol: 'btcaud').trade_total(desired_trade_amount, binance_buy_order[:rate_cents])
-      sell_trade_total_including_fee_in_cents - buy_trade_total_including_fee_in_cents > 0
-    else
-      false
-    end
+    false
   end
 
   def self.create_default_exchanges
@@ -68,7 +71,7 @@ class Exchange < ApplicationRecord
       page = m.get(url)
       selector = buy_or_sell == 'buy' ? '.openbuyrows' : '.opensellrows'
       number_of_orders.times do |n|
-        order = parse_and_map_order_retrieved_order(page.search(selector)[n - 1])
+        order = parse_and_map_order_retrieved_order(page.search(selector)[n])
         orders.push(order)
       end
     when 'binance'
@@ -84,6 +87,15 @@ class Exchange < ApplicationRecord
     end
 
     orders
+  end
+
+  # amount in cents if currency
+  def order_with_enough_liquidity(amount, buy_or_sell)
+    get_open_orders('btcaud', buy_or_sell).each do |open_order|
+      desired_trade_amount = buy_or_sell == 'sell' ? Exchange.trade_amount_desired(amount, open_order[:rate_cents]) : amount
+      return open_order if Exchange.trade_amount_available?(desired_trade_amount, open_order[:amount])
+    end
+    nil
   end
 
   private
