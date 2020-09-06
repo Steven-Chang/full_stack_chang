@@ -31,7 +31,7 @@ class TradePair < ApplicationRecord
   end
 
   # If in dollars this will be calculated in cents
-  def trade_total(quantity, rate, include_fee = true, maker_or_taker = 'maker')
+  def trade_total(quantity, rate, maker_or_taker = 'maker')
     tft = trade_fee_total(quantity, rate, maker_or_taker)
     tft *= -1 if maker_or_taker == 'taker'
     rate * quantity + tft
