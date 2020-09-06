@@ -4,7 +4,7 @@
 User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 # === PROJECTS ===
-if Project.find_by(title: 'tetris').empty?
+if Project.find_by(title: 'tetris').nil?
   puts 'Creating project Tetris'
   Project.create(
     title: 'tetris',

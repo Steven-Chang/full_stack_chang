@@ -50,7 +50,28 @@ RSpec.describe TradePair, type: :model do
       end
 
       it 'calculates the total trade fee' do
-        expect(trade_pair.trade_fee_total(0.1, 10)).to eq(1 * 0.001)
+        expect(trade_pair.trade_fee_total(0.1, 10)).to eq(0.1 * 10 * trade_pair.trade_fee_general('maker') / 100)
+      end
+    end
+
+    describe '#trade_total' do
+      let(:rate) { 0.1 }
+      let(:quantity) { 0.1 }
+
+      context 'when making a purchase' do
+        let(:maker_or_taker) { 'maker' }
+
+        it 'calculates the correct trade_total' do
+          expect(trade_pair.trade_total(quantity, rate, true, maker_or_taker)).to eq (quantity * rate + trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
+        end
+      end
+
+      context 'when making a sale' do
+        let(:maker_or_taker) { 'taker' }
+
+        it 'calculates the correct trade_total' do
+          expect(trade_pair.trade_total(quantity, rate, true, maker_or_taker)).to eq (quantity * rate - trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
+        end
       end
     end
   end

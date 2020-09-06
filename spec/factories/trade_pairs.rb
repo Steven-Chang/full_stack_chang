@@ -7,8 +7,8 @@ FactoryBot.define do
     association :exchange
 
     trait :fees_present do
-      maker_fee { 0.001 }
-      taker_fee { 0.001 }
+      maker_fee { 0.1 }
+      taker_fee { 0.1 }
     end
   end
 end

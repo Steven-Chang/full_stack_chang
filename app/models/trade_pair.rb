@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# maker_fee and taker_fee to be the percentage amount
 class TradePair < ApplicationRecord
   # === ASSOCIATIONS ===
   belongs_to :exchange
@@ -12,9 +13,10 @@ class TradePair < ApplicationRecord
   before_save { symbol.downcase! }
 
   # === INSTANCE METHODS ===
+
   # This needs review as calculating money
   def trade_fee_total(quantity, rate, maker_or_taker = 'maker')
-    quantity * rate * trade_fee_general(maker_or_taker)
+    quantity * rate * trade_fee_general(maker_or_taker) / 100
   end
 
   def trade_fee_general(maker_or_taker)
@@ -26,5 +28,12 @@ class TradePair < ApplicationRecord
     else
       'enter raise error code here when you get time and is needed'
     end
+  end
+
+  # If in dollars this will be calculated in cents
+  def trade_total(quantity, rate, include_fee = true, maker_or_taker = 'maker')
+    tft = trade_fee_total(quantity, rate, maker_or_taker)
+    tft *= -1 if maker_or_taker == 'taker'
+    rate * quantity + tft
   end
 end
