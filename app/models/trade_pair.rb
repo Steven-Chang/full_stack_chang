@@ -4,6 +4,7 @@
 class TradePair < ApplicationRecord
   # === ASSOCIATIONS ===
   belongs_to :exchange
+  has_many :orders, dependent: :destroy
 
   # === VALIDATIONS ===
   validates :symbol, presence: true

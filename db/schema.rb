@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_06_220258) do
+ActiveRecord::Schema.define(version: 2020_09_06_233004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,17 @@ ActiveRecord::Schema.define(version: 2020_09_06_220258) do
     t.decimal "fiat_withdrawal_fee", default: "0.0"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "status", null: false
+    t.string "buy_or_sell", null: false
+    t.decimal "price", precision: 8, scale: 6
+    t.decimal "quantity", precision: 8, scale: 6
+    t.bigint "trade_pair_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["trade_pair_id"], name: "index_orders_on_trade_pair_id"
   end
 
   create_table "payment_summaries", force: :cascade do |t|
@@ -198,8 +209,8 @@ ActiveRecord::Schema.define(version: 2020_09_06_220258) do
     t.decimal "taker_fee", precision: 8, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.decimal "minimum_total", precision: 8, scale: 2, default: "0.0", null: false
-    t.decimal "amount_step", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "minimum_total", precision: 8, scale: 2
+    t.decimal "amount_step", precision: 8, scale: 2
     t.index ["exchange_id"], name: "index_trade_pairs_on_exchange_id"
   end
 
@@ -246,6 +257,7 @@ ActiveRecord::Schema.define(version: 2020_09_06_220258) do
   end
 
   add_foreign_key "achievements", "projects", name: "achievements_project_id_fk"
+  add_foreign_key "orders", "trade_pairs", name: "orders_trade_pair_id_fk"
   add_foreign_key "payment_summaries", "clients", name: "payment_summaries_client_id_fk"
   add_foreign_key "projects_tools", "projects", name: "projects_tools_project_id_fk"
   add_foreign_key "projects_tools", "tools", name: "projects_tools_tool_id_fk"

@@ -29,13 +29,13 @@ class Exchange < ApplicationRecord
   validates :identifier, :name, presence: true
 
   def self.arbitrage_opportunity_available
-    all.each do |exchange|
+    all.find_each do |exchange|
       sell_order = exchange.order_with_enough_liquidity(2000, 'sell')
       if sell_order
         desired_trade_amount = trade_amount_desired(2000, sell_order[:rate_cents])
         buy_trade_total_including_fee_in_cents = exchange.trade_pairs.find_by(symbol: 'btcaud').trade_total(desired_trade_amount, sell_order[:rate_cents])
 
-        where.not(identifier: exchange.identifier).each do |exchange_to_sell_at|
+        where.not(identifier: exchange.identifier).find_each do |exchange_to_sell_at|
           buy_order = exchange_to_sell_at.order_with_enough_liquidity(desired_trade_amount, 'buy')
           if buy_order
             sell_trade_total_including_fee_in_cents = exchange_to_sell_at.trade_pairs.find_by(symbol: 'btcaud').trade_total(desired_trade_amount, buy_order[:rate_cents], 'taker')
