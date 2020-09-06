@@ -20,6 +20,8 @@ gem 'immigrant'
 gem 'jbuilder', '~> 2.0'
 # https://github.com/sparklemotion/mechanize
 gem 'mechanize'
+gem 'monetize'
+gem 'money'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 # Monitoring the app
