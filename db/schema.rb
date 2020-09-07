@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_07_213807) do
+ActiveRecord::Schema.define(version: 2020_09_07_232809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,13 +100,13 @@ ActiveRecord::Schema.define(version: 2020_09_07_213807) do
   create_table "orders", force: :cascade do |t|
     t.string "status", null: false
     t.string "buy_or_sell", null: false
-    t.decimal "price", precision: 8, scale: 6
-    t.decimal "quantity", precision: 8, scale: 6
+    t.decimal "price", precision: 15, scale: 10
+    t.decimal "quantity", precision: 15, scale: 10
     t.bigint "trade_pair_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "reference"
-    t.decimal "quantity_received", precision: 8, scale: 6
+    t.decimal "quantity_received", precision: 15, scale: 10
     t.index ["trade_pair_id"], name: "index_orders_on_trade_pair_id"
   end
 
@@ -210,8 +210,8 @@ ActiveRecord::Schema.define(version: 2020_09_07_213807) do
     t.decimal "taker_fee", precision: 8, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.decimal "minimum_total", precision: 8, scale: 2
-    t.decimal "amount_step", precision: 8, scale: 2
+    t.decimal "minimum_total", precision: 15, scale: 10
+    t.decimal "amount_step", precision: 15, scale: 10
     t.boolean "active_for_accumulation"
     t.index ["exchange_id"], name: "index_trade_pairs_on_exchange_id"
   end
