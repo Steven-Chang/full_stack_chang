@@ -8,7 +8,9 @@ class Project < ApplicationRecord
   has_and_belongs_to_many :tools
 
   # === VALIDATIONS ===
-  validates :title, presence: true
+  validates :title,
+            :start_date,
+            presence: true
 
   # === INSTANCE METHODS ===
   def duration_formatted

@@ -13,6 +13,7 @@ RSpec.describe Project, type: :model do
   end
 
   describe 'VALIDATIONS' do
+    it { should validate_presence_of(:start_date) }
     it { should validate_presence_of(:title) }
   end
 
