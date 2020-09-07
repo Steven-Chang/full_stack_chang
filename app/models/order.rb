@@ -3,6 +3,7 @@
 class Order < ApplicationRecord
   # === ASSOCIATIONS ===
   belongs_to :trade_pair
+  has_one :exchange, through: :trade_pair
 
   # === VALIDATIONS ===
   validates :status,
