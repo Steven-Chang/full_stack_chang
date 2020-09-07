@@ -5,7 +5,7 @@ ActiveAdmin.register_page 'Dashboard' do
 
   content title: proc { I18n.t('active_admin.dashboard') } do
     h5 '*Other tranxactions: No direct association with Client, Property or TenancyAgreement'
-    Tranxaction.end_of_financial_year_dates_ordered_descending_for_dashboard.each do |end_of_financial_year_date|
+    Tranxaction.end_of_financial_year_dates_ordered_descending_for_dashboard&.each do |end_of_financial_year_date|
       panel "#{end_of_financial_year_date.year - 1}-#{end_of_financial_year_date.year}" do
         render partial: 'active_admin/dashboard/summary',
                locals: {
