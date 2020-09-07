@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 # params['commit'] exists when filters are selected
-ActiveAdmin.register Exchange do
+ActiveAdmin.register TradePair do
   # === CONFIG ===
   config.sort_order = 'symbol_asc'
 
   # === INDEX ===
   index do
     column :symbol
-    column :exchange do |e|
-      e.identifier
+    column :exchange do |trade_pair|
+      trade_pair.exchange.identifier
     end
     column :maker_fee
     column :taker_fee
@@ -26,8 +26,8 @@ ActiveAdmin.register Exchange do
   show do
     attributes_table do
       row :symbol
-      row :exchange do |e|
-        e.identifier
+      row :exchange do |trade_pair|
+        trade_pair.exchange.identifier
       end
       row :url
       row :maker_fee
@@ -42,7 +42,9 @@ ActiveAdmin.register Exchange do
   form do |f|
     f.inputs do
       f.input :symbol
-      f.input :exchange
+      f.input :exchange do |trade_pair|
+        trade_pair.exchange.identifier
+      end
       f.input :url
       f.input :maker_fee
       f.input :taker_fee
