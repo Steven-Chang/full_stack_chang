@@ -14,8 +14,21 @@ class Order < ApplicationRecord
   validates :status, inclusion: { in: %w[open filled] }
 
   # === CALLBACKS ===
-  before_save do
-    status.downcase!
-    buy_or_sell.downcase!
+  before_validation :format_status
+  before_validation :format_buy_or_sell
+
+  private
+
+  def format_buy_or_sell
+    return if buy_or_sell.blank?
+
+    self.buy_or_sell = buy_or_sell.downcase
+  end
+
+  def format_status
+    return if status.blank?
+
+    self.status = 'open' if status.downcase == 'new'
+    self.status = status.downcase
   end
 end
