@@ -12,6 +12,10 @@ RSpec.describe TradePair, type: :model do
     it { should have_many(:orders).dependent(:destroy) }
   end
 
+  describe 'DELEGATES' do
+    it { should delegate_method(:client).to(:exchange) }
+  end
+
   describe 'VALIDATIONS' do
     it { should validate_presence_of(:symbol) }
     it { should validate_uniqueness_of(:symbol).scoped_to(:exchange_id).case_insensitive }
