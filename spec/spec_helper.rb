@@ -20,14 +20,7 @@
 
 require 'pundit/rspec'
 require 'shoulda/matchers'
-require 'simplecov'
 require 'warden/test/helpers'
-
-# Ignore SimpleCov as it is failing SemaphoreCI right now
-# SimpleCov.minimum_coverage 100
-# SimpleCov.start 'rails' do
-#   add_filter 'app/models/concerns/data/local/stubs/'
-# end
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

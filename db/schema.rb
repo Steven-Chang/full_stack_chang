@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_09_07_213807) do
-=======
-ActiveRecord::Schema.define(version: 2020_09_07_064015) do
->>>>>>> add-active-to-trade-pairs
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
