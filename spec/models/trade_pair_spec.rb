@@ -9,6 +9,11 @@ RSpec.describe TradePair, type: :model do
 
   describe 'ASSOCIATIONS' do
     it { should belong_to(:exchange) }
+    it { should have_many(:orders).dependent(:destroy) }
+  end
+
+  describe 'DELEGATES' do
+    it { should delegate_method(:client).to(:exchange) }
   end
 
   describe 'VALIDATIONS' do
@@ -62,7 +67,7 @@ RSpec.describe TradePair, type: :model do
         let(:maker_or_taker) { 'maker' }
 
         it 'calculates the correct trade_total' do
-          expect(trade_pair.trade_total(quantity, rate, true, maker_or_taker)).to eq (quantity * rate + trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
+          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq (quantity * rate + trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
         end
       end
 
@@ -70,7 +75,7 @@ RSpec.describe TradePair, type: :model do
         let(:maker_or_taker) { 'taker' }
 
         it 'calculates the correct trade_total' do
-          expect(trade_pair.trade_total(quantity, rate, true, maker_or_taker)).to eq (quantity * rate - trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
+          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq (quantity * rate - trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
         end
       end
     end
