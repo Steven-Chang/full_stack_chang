@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 # === ADMIN ===
-User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+if Rails.env.development? && User.find_by(email: 'admin@example.com').nil?
+  User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') 
+end
 
 # === PROJECTS ===
 if Project.find_by(title: 'tetris').nil?
   puts 'Creating project Tetris'
-  Project.create(
+  Project.create!(
     title: 'tetris',
-    private: false
+    private: false,
+    start_date: Date.current
   )
 
   puts 'Creating scores for Tetris'

@@ -21,10 +21,6 @@ FactoryBot.define do
     association :client
   end
 
-  factory :project do
-    title { 'Project title' }
-  end
-
   factory :tax_category do
     sequence(:description) { |n| "tax category #{n}" }
   end
