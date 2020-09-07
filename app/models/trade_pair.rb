@@ -19,7 +19,7 @@ class TradePair < ApplicationRecord
     binance: {
       btcaud: {
         minimum_total: 20,
-        minimum_step: 0.000002
+        amount_step: 0.000002
       },
       bnbeth: {
         amount_step: 0.02,

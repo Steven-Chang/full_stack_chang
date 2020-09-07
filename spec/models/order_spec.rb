@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Order, type: :model do
   describe 'ASSOCIATIONS' do
     it { should belong_to(:trade_pair) }
+    it { should have_one(:exchange).through(:trade_pair) }
   end
 
   describe 'VALIDATIONS' do
