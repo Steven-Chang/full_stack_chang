@@ -91,8 +91,6 @@ group :test do
   gem 'selenium-webdriver'
   # Additional matchers
   gem 'shoulda-matchers', require: false
-  # Calculates the tests coverage
-  gem 'simplecov', require: false
   # Freezes time in specs
   gem 'timecop'
 end
