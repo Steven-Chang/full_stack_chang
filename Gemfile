@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
+gem 'airbrake'
 gem 'activeadmin'
 gem 'binance'
 # Reduces boot times through caching; required in config/boot.rb
