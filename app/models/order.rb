@@ -18,6 +18,21 @@ class Order < ApplicationRecord
   before_validation :format_status
   before_validation :format_buy_or_sell
 
+  # === DELEGATES ===
+  delegate :client, to: :exchange
+  delegate :symbol, to: :trade_pair
+
+  # Update this later to be able to handle cancelled orders
+  def update_from_exchange
+    case exchange.identifier
+    when 'binance'
+      result = client.query_order(symbol: symbol.upcase, order_id: reference)
+      return unless result['symbol'].present?
+      return if result['status'] == 'CANCELED' 
+
+    end
+  end
+
   private
 
   def format_buy_or_sell
@@ -31,5 +46,8 @@ class Order < ApplicationRecord
 
     self.status = 'open' if status.downcase == 'new'
     self.status = status.downcase
+  end
+
+  def map_status
   end
 end

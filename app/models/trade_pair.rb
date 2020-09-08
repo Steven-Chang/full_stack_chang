@@ -44,7 +44,10 @@ class TradePair < ApplicationRecord
 
   # === CLASS METHODS ===
   def self.accumulate
-    puts 1231231
+    where(active_for_accumulation: true).find_each do |trade_pair|
+      puts 123123123
+      # trade_pair.accumulate
+    end
   end
 
   def self.create_default_trade_pairs
@@ -70,6 +73,8 @@ class TradePair < ApplicationRecord
   # DO THIS ONLY WITH CRO AND BNB PAIRS FOR NOW AS WE WANT TO STACK THOSE TO GET CHEAPER FEES
   def accumulate
     return unless active_for_accumulation
+    check_and_update_open_orders
+
     return if orders.where(status: 'open').present?
 
     last_filled_order = orders.where(status: 'filled').order(:updated_at).last
@@ -188,6 +193,12 @@ class TradePair < ApplicationRecord
   end
 
   private
+
+  def check_and_update_open_orders
+    orders.where(status: 'open').each do |order|
+      order.update_from_exchange
+    end
+  end
 
   def open_orders?
     client.open_orders(symbol.upcase).present?
