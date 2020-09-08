@@ -43,6 +43,10 @@ class TradePair < ApplicationRecord
   delegate :client, to: :exchange
 
   # === CLASS METHODS ===
+  def self.accumulate
+    puts 1231231
+  end
+
   def self.create_default_trade_pairs
     DEFAULT_TRADE_PAIRS.each do |exchange_identifier, values|
       next unless (exch = Exchange.find_by(identifier: exchange_identifier))
