@@ -4,7 +4,7 @@ require 'sidekiq/web'
 Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 
 Rails.application.routes.draw do
-  authenticate :user, lambda { |u| u.has_role?(:admin) } do
+  authenticate :user, lambda { |u| u.admin } do
     mount Sidekiq::Web, at: '/sidekiq', as: 'sidekiq'
   end
 
