@@ -45,8 +45,7 @@ class TradePair < ApplicationRecord
   # === CLASS METHODS ===
   def self.accumulate
     where(active_for_accumulation: true).find_each do |trade_pair|
-      puts 123123123
-      # trade_pair.accumulate
+      trade_pair.accumulate
     end
   end
 
@@ -71,6 +70,8 @@ class TradePair < ApplicationRecord
   # Currently the idea is to stack up BNB & CRO with all the different trade pairs that you want more of anyways
   # The great thing is you can work with minimal balance and go from there
   # DO THIS ONLY WITH CRO AND BNB PAIRS FOR NOW AS WE WANT TO STACK THOSE TO GET CHEAPER FEES
+  # quantity * price = quantity_received
+  # so I want to sell less and receive more
   def accumulate
     return unless active_for_accumulation
     check_and_update_open_orders
@@ -85,20 +86,26 @@ class TradePair < ApplicationRecord
       next_quantity = trade_amount_desired(next_price, nil, amount_step.to_s.split('.').last.size)
     else
       next_buy_or_sell = 'sell'
-      # next_price = 0
-      # next_quantity = minimum_total * 2
-      # Quantity and price should be calculated from the previous order details
+      next_quantity = last_filled_order.quantity - amount_step
+      next_price = (last_filled_order.quantity_received * 1.01) / next_quantity
+
+      raise 'check calculations' if next_price <= last_filled_order.price
+      raise 'check calculations' if next_quantity >= last_filled_order.quantity
     end
 
     create_order(next_buy_or_sell, next_price, next_quantity)
   end
 
+  # The quantity here is the amount
+  # In BNBETH - that is the BNB
   def create_order(buy_or_sell, price, quantity)
     case exchange.identifier
     when 'binance'
       result = client.create_order!(symbol: symbol.upcase, side: buy_or_sell, type: 'limit', time_in_force: 'GTC', quantity: quantity.to_s, price: price.to_s)
       if result['orderId']
         orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open', buy_or_sell: buy_or_sell, price: result['price'], quantity: quantity, reference: result['orderId'])
+      else
+        raise result['error_message']
       end
     end
   end
@@ -225,8 +232,9 @@ class TradePair < ApplicationRecord
   end
 
   # if amount is currency, it must be in cents
+  # The amount in BNBETH is the amount of BNB
   def trade_amount_desired(rate, amount = nil, truncate = 4)
-    amount ||= minimum_total * 3
+    amount ||= minimum_total * 2
 
     (amount / rate.to_d).truncate(truncate)
   end
