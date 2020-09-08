@@ -30,6 +30,7 @@ class Order < ApplicationRecord
       return unless result['symbol'].present?
       return if result['status'] == 'CANCELED' 
 
+      update!(status: result['status'].downcase, quantity_received: result['cummulativeQuoteQty'].to_d)
     end
   end
 
@@ -46,8 +47,5 @@ class Order < ApplicationRecord
 
     self.status = 'open' if status.downcase == 'new'
     self.status = status.downcase
-  end
-
-  def map_status
   end
 end
