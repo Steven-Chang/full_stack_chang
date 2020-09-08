@@ -23,7 +23,8 @@ class TradePair < ApplicationRecord
       },
       bnbeth: {
         amount_step: 0.02,
-        minimum_total: 0.02
+        minimum_total: 0.02,
+        price_precision: 6
       }
     }
   }.freeze
@@ -88,6 +89,7 @@ class TradePair < ApplicationRecord
       next_buy_or_sell = 'sell'
       next_quantity = last_filled_order.quantity - amount_step
       next_price = (last_filled_order.quantity_received * 1.01) / next_quantity
+      next_price = next_price
 
       raise 'check calculations' if next_price <= last_filled_order.price
       raise 'check calculations' if next_quantity >= last_filled_order.quantity
@@ -99,13 +101,15 @@ class TradePair < ApplicationRecord
   # The quantity here is the amount
   # In BNBETH - that is the BNB
   def create_order(buy_or_sell, price, quantity)
+    price = price.truncate(price_precision)
+
     case exchange.identifier
     when 'binance'
       result = client.create_order!(symbol: symbol.upcase, side: buy_or_sell, type: 'limit', time_in_force: 'GTC', quantity: quantity.to_s, price: price.to_s)
       if result['orderId']
         orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open', buy_or_sell: buy_or_sell, price: result['price'], quantity: quantity, reference: result['orderId'])
       else
-        raise result['error_message']
+        puts result.inspect
       end
     end
   end
