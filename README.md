@@ -4,6 +4,15 @@
 
 - Rails Rails 6.0.0.rc1 (Lots of changes e.g. Webpack instead of pipeline!)
 
+## Credentials / Master Key
+
+```
+# Editing
+EDITOR=vim rails credentials:edit
+# Usage
+Rails.application.credentials.aws[:access_key_id]
+```
+
 ## THEME/LAYOUT
 
 - Remark Layout
