@@ -25,6 +25,7 @@ module FullStackChang
       DeviseController.respond_to :html, :json
     end
 
+    # === GENERATORS ===
     # Don't create assets during scaffold creation
     # Just create as needed otherwise you'll end up with a bunch of unused files
     config.generators do |g|
@@ -36,6 +37,10 @@ module FullStackChang
       g.stylesheets false
     end
 
+    # === ACTIVE JOB ===
+    config.active_job.queue_adapter = :sidekiq
+
+    # === AFTER INITIALIZE ===
     config.after_initialize do
       if initialized_server? && Rails.env.production?
         AccumulateCryptoJob.perform_now
