@@ -31,6 +31,11 @@ class TradePair < ApplicationRecord
         minimum_total: 11,
         price_precision: 7
       },
+      bnbdai: {
+        amount_step: 0.001,
+        minimum_total: 11,
+        price_precision: 3
+      },
       bnbeth: {
         amount_step: 0.01,
         minimum_total: 0.02,
