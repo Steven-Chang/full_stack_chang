@@ -45,7 +45,7 @@ ActiveAdmin.register Order do
   # === FORM ===
   form do |f|
     f.inputs do
-      f.input :trade_pair, member_label: Proc.new { |tp| "#{tp.symbol}: #{tp.exchange.identifier}" }, input_html: { disabled: true } 
+      f.input :trade_pair, member_label: proc { |tp| "#{tp.symbol}: #{tp.exchange.identifier}" }, input_html: { disabled: true }
       f.input :status
       f.input :buy_or_sell
       f.input :price

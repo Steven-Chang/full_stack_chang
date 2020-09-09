@@ -3,7 +3,7 @@
 # Binance how to get assets and commission fees
 # client.account_info
 #  => {"makerCommission"=>10, "takerCommission"=>10, "buyerCommission"=>0, "sellerCommission"=>0, "canTrade"=>true, "canWithdraw"=>true, "canDeposit"=>true, "updateTime"=>1599083626830, "accountType"=>"SPOT", "balances"=>[{"asset"=>"BTC", "free"=>"0.00000000", "locked"=>"0.00000000"}, {"asset"=>"LTC", "free"=>"0.00000000", "locked"=>"0.00000000"}, {"asset"=>"ETH", "free"=>"0.00000000", "locked"=>"0.00000000"}, {"asset"=>"NEO", "free"=>"0.00000000", "locked"=>"0.00000000"}, {"asset"=>"BNB", "free"=>"0.85509867", "
-  
+
 # MINIMUM_TOTAL is for the BASE ASSET(the second of the trading pair)
 # MINIMUM STEP is for the QUOTE ASSET(the first of the trading pair)
 
@@ -40,7 +40,7 @@ class TradePair < ApplicationRecord
             :minimum_total,
             :price_precision,
             presence: true,
-            if: Proc.new { |trade_pair| trade_pair.active_for_accumulation }
+            if: proc { |trade_pair| trade_pair.active_for_accumulation }
 
   # === CALLBACKS ===
   before_save { symbol.downcase! }
@@ -167,11 +167,11 @@ class TradePair < ApplicationRecord
         end
 
         orders.create!(reference: reference,
-                      status: status,
-                      buy_or_sell: retrieved_order['side'],
-                      price: retrieved_order['price'].to_d,
-                      quantity: quantity,
-                      quantity_received: retrieved_order['cummulativeQuoteQty'].to_d)
+                       status: status,
+                       buy_or_sell: retrieved_order['side'],
+                       price: retrieved_order['price'].to_d,
+                       quantity: quantity,
+                       quantity_received: retrieved_order['cummulativeQuoteQty'].to_d)
       end
     end
   end

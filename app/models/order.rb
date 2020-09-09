@@ -27,8 +27,8 @@ class Order < ApplicationRecord
     case exchange.identifier
     when 'binance'
       result = client.query_order(symbol: symbol.upcase, order_id: reference)
-      return unless result['symbol'].present?
-      return if result['status'] == 'CANCELED' 
+      return if result['symbol'].blank?
+      return if result['status'] == 'CANCELED'
 
       update!(status: result['status'].downcase, quantity_received: result['cummulativeQuoteQty'].to_d)
     end
