@@ -75,7 +75,7 @@ RSpec.describe TradePair, type: :model do
         let(:maker_or_taker) { 'maker' }
 
         it 'calculates the correct trade_total' do
-          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq (quantity * rate + trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
+          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq(quantity * rate + trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
         end
       end
 
@@ -83,7 +83,7 @@ RSpec.describe TradePair, type: :model do
         let(:maker_or_taker) { 'taker' }
 
         it 'calculates the correct trade_total' do
-          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq (quantity * rate - trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
+          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq(quantity * rate - trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
         end
       end
     end

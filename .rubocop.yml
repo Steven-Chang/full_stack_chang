@@ -18,13 +18,6 @@ AllCops:
 Rails:
   Enabled: true
 
-# Warnings at application launch (Rails.logger not defined yet)
-Rails/Output:
-  Exclude:
-    - 'config/application.rb'
-    - 'config/initializers/*.rb'
-    - 'db/seeds.rb'
-
 Layout/HeredocIndentation:
   Enabled: false
 
@@ -89,6 +82,9 @@ Metrics/ParameterLists:
   Exclude:
     - app/models/tranxaction.rb
 
+Performance/Casecmp:
+  Enabled: false
+
 Rails/ApplicationJob:
   Enabled: false
 
@@ -96,6 +92,10 @@ Rails/ApplicationRecord:
   Enabled: false
 
 Rails/HasAndBelongsToMany:
+  Enabled: false
+
+# Warnings at application launch (Rails.logger not defined yet)
+Rails/Output:
   Enabled: false
 
 Rails/OutputSafety:

@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
-# Binance how to get assets and commission fees
-# client.account_info
-#  => {"makerCommission"=>10, "takerCommission"=>10, "buyerCommission"=>0, "sellerCommission"=>0, "canTrade"=>true, "canWithdraw"=>true, "canDeposit"=>true, "updateTime"=>1599083626830, "accountType"=>"SPOT", "balances"=>[{"asset"=>"BTC", "free"=>"0.00000000", "locked"=>"0.00000000"}, {"asset"=>"LTC", "free"=>"0.00000000", "locked"=>"0.00000000"}, {"asset"=>"ETH", "free"=>"0.00000000", "locked"=>"0.00000000"}, {"asset"=>"NEO", "free"=>"0.00000000", "locked"=>"0.00000000"}, {"asset"=>"BNB", "free"=>"0.85509867", "
-
 # MINIMUM_TOTAL is for the BASE ASSET(the second of the trading pair)
 # MINIMUM STEP is for the QUOTE ASSET(the first of the trading pair)
 
 # maker_fee and taker_fee to be the percentage amount
 class TradePair < ApplicationRecord
   # === CONSTANTS ===
-  DEFAULT_TRADE_PAIRS = YAML.load_file(Rails.root.join('db', 'defaults', 'trade_pairs.yml'))
+  DEFAULT_TRADE_PAIRS = YAML.load_file(Rails.root.join('db/defaults/trade_pairs.yml'))
 
   # === ASSOCIATIONS ===
   belongs_to :exchange
@@ -80,8 +76,8 @@ class TradePair < ApplicationRecord
       next_quantity = last_filled_order.quantity - amount_step
       next_price = (last_filled_order.quantity_received * (1.0 + (taker_fee_for_calculation * 3))) / next_quantity
 
-      raise 'check calculations' if next_price <= last_filled_order.price
-      raise 'check calculations' if next_quantity >= last_filled_order.quantity
+      raise StandardError, 'check calculations' if next_price <= last_filled_order.price
+      raise StandardError, 'check calculations' if next_quantity >= last_filled_order.quantity
     end
 
     create_order(next_buy_or_sell, next_price, next_quantity)
@@ -94,9 +90,18 @@ class TradePair < ApplicationRecord
 
     case exchange.identifier
     when 'binance'
-      result = client.create_order!(symbol: symbol.upcase, side: buy_or_sell, type: 'limit', time_in_force: 'GTC', quantity: quantity.to_s, price: price.to_s)
+      result = client.create_order!(symbol: symbol.upcase,
+                                    side: buy_or_sell,
+                                    type: 'limit',
+                                    time_in_force: 'GTC',
+                                    quantity: quantity.to_s,
+                                    price: price.to_s)
       if result['orderId']
-        orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open', buy_or_sell: buy_or_sell, price: result['price'], quantity: quantity, reference: result['orderId'])
+        orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open',
+                      buy_or_sell: buy_or_sell,
+                      price: result['price'],
+                      quantity: quantity,
+                      reference: result['orderId'])
       else
         puts result.inspect
       end
@@ -124,7 +129,7 @@ class TradePair < ApplicationRecord
         orders.push(order)
       end
     else
-      raise StandardError.new "Exchange isn's set up to get open orders"
+      raise StandardError, "Exchange isn's set up to get open orders"
     end
 
     orders
@@ -213,7 +218,7 @@ class TradePair < ApplicationRecord
       { amount: retrieved_order.second.to_d,
         rate: retrieved_order.first }
     else
-      raise StandardError.new "Exchange isn't set up to parse and map retrieved orders"
+      raise StandardError, "Exchange isn't set up to parse and map retrieved orders"
     end
   end
 
