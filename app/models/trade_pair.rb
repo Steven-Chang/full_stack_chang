@@ -30,6 +30,11 @@ class TradePair < ApplicationRecord
         amount_step: 0.01,
         minimum_total: 0.02,
         price_precision: 6
+      },
+      bnbusdt: {
+        amount_step: 0.01,
+        minimum_total: 11,
+        price_precision: 4
       }
     }
   }.freeze
