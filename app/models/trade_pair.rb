@@ -17,6 +17,16 @@ class TradePair < ApplicationRecord
       }
     },
     binance: {
+      atombnb: {
+        amount_step: 0.01,
+        minimum_total: 0.2,
+        price_precision: 4
+      },
+      bandbnb: {
+        amount_step: 0.1,
+        minimum_total: 0.2,
+        price_precision: 5
+      },
       btcaud: {
         amount_step: 0.000001,
         minimum_total: 20
@@ -75,6 +85,11 @@ class TradePair < ApplicationRecord
         amount_step: 1,
         minimum_total: 0.2,
         price_precision: 7
+      },
+      thetabnb: {
+        amount_step: 1,
+        minimum_total: 0.2,
+        price_precision: 6
       }
     }
   }.freeze
