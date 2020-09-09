@@ -1,0 +1,52 @@
+---
+coinspot:
+  btcaud:
+    url: https://www.coinspot.com.au/trade/BTC
+binance:
+  batbnb:
+    amount_step: 0.1
+    minimum_total: 0.2
+    price_precision: 5
+  btcaud:
+    amount_step: 0.000001
+    minimum_total: 20
+  bnbaud:
+    amount_step: 0.001
+    minimum_total: 11
+    price_precision: 3
+  bnbbtc:
+    amount_step: 0.01
+    minimum_total: 0.0002
+    price_precision: 7
+  bnbbusd:
+    amount_step: 0.01
+    minimum_total: 11
+    price_precision: 7
+  bnbdai:
+    amount_step: 0.001
+    minimum_total: 11
+    price_precision: 3
+  bnbeth:
+    amount_step: 0.01
+    minimum_total: 0.02
+    price_precision: 6
+  bnbtusd:
+    amount_step: 0.01
+    minimum_total: 11
+    price_precision: 4
+  bnbusdc:
+    amount_step: 0.01
+    minimum_total: 11
+    price_precision: 4
+  bnbusdt:
+    amount_step: 0.01
+    minimum_total: 11
+    price_precision: 4
+  dotbnb:
+    amount_step: 0.1
+    minimum_total: 0.2
+    price_precision: 5
+  xmrbnb:
+    amount_step: 0.001
+    minimum_total: 0.2
+    price_precision: 3    
