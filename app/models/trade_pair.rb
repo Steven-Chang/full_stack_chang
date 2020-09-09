@@ -36,6 +36,11 @@ class TradePair < ApplicationRecord
   # === VALIDATIONS ===
   validates :symbol, presence: true
   validates :symbol, uniqueness: { case_sensitive: false, scope: :exchange_id }
+  validates :amount_step,
+            :minimum_total,
+            :price_precision,
+            presence: true,
+            if: Proc.new { |trade_pair| trade_pair.active_for_accumulation }
 
   # === CALLBACKS ===
   before_save { symbol.downcase! }
@@ -75,6 +80,7 @@ class TradePair < ApplicationRecord
   # so I want to sell less and receive more
   def accumulate
     return unless active_for_accumulation
+
     check_and_update_open_orders
 
     return if orders.where(status: 'open').present?
