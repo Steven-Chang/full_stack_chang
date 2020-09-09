@@ -43,6 +43,11 @@ module FullStackChang
     # === AFTER INITIALIZE ===
     config.after_initialize do
       if initialized_server? && Rails.env.production?
+        # Creating defaults
+        Exchange.create_default_exchanges
+        TradePair.create_default_trade_pairs
+
+        # Jobs
         AccumulateCryptoJob.perform_now
       end
     end
