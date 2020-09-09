@@ -60,6 +60,11 @@ class TradePair < ApplicationRecord
         amount_step: 0.01,
         minimum_total: 11,
         price_precision: 4
+      },
+      dotbnb: {
+        amount_step: 0.1,
+        minimum_total: 0.2,
+        price_precision: 5
       }
     }
   }.freeze
