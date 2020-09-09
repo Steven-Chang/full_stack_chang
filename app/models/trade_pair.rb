@@ -21,6 +21,11 @@ class TradePair < ApplicationRecord
         amount_step: 0.000001,
         minimum_total: 20
       },
+      bnbaud: {
+        amount_step: 0.001,
+        minimum_total: 11,
+        price_precision: 3
+      },
       bnbbtc: {
         amount_step: 0.01,
         minimum_total: 0.0002,
