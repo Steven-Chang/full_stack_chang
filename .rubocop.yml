@@ -121,6 +121,9 @@ Style/GuardClause:
 Style/IfUnlessModifier: 
   Enabled: true
 
+Style/Lambda:
+  EnforcedStyle: lambda
+
 Style/MixinUsage:
   Exclude:
     - 'db/seeds.rb'

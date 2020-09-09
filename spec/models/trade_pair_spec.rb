@@ -19,6 +19,14 @@ RSpec.describe TradePair, type: :model do
   describe 'VALIDATIONS' do
     it { should validate_presence_of(:symbol) }
     it { should validate_uniqueness_of(:symbol).scoped_to(:exchange_id).case_insensitive }
+
+    context 'when active_for_accumulation' do
+      before { allow(subject).to receive(:active_for_accumulation).and_return(true) }
+
+      it { should validate_presence_of(:amount_step) }
+      it { should validate_presence_of(:minimum_total) }
+      it { should validate_presence_of(:price_precision) }
+    end
   end
 
   describe 'CALLBACKS' do
