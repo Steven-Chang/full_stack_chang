@@ -15,6 +15,7 @@ ActiveAdmin.register TradePair do
     column :taker_fee
     column :minimum_total
     column :amount_step
+    column :price_precision
     column :active_for_accumulation
     actions
   end
@@ -34,6 +35,7 @@ ActiveAdmin.register TradePair do
       row :taker_fee
       row :minimum_total
       row :amount_step
+      row :price_precision
       row :active_for_accumulation
     end
   end
@@ -50,11 +52,12 @@ ActiveAdmin.register TradePair do
       f.input :taker_fee
       f.input :minimum_total
       f.input :amount_step
+      f.input :price_precision
       f.input :active_for_accumulation
     end
     f.actions
   end
 
   # === PERMIT PARAMS ===
-  permit_params :symbol, :exchange, :url, :maker_fee, :taker_fee, :minimum_total, :amount_step, :active_for_accumulation
+  permit_params :symbol, :exchange, :url, :maker_fee, :taker_fee, :minimum_total, :amount_step, :price_precision, :active_for_accumulation
 end

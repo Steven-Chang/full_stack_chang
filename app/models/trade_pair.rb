@@ -23,7 +23,8 @@ class TradePair < ApplicationRecord
       },
       bnbeth: {
         amount_step: 0.02,
-        minimum_total: 0.02
+        minimum_total: 0.02,
+        price_precision: 6
       }
     }
   }.freeze
@@ -35,6 +36,11 @@ class TradePair < ApplicationRecord
   # === VALIDATIONS ===
   validates :symbol, presence: true
   validates :symbol, uniqueness: { case_sensitive: false, scope: :exchange_id }
+  validates :amount_step,
+            :minimum_total,
+            :price_precision,
+            presence: true,
+            if: Proc.new { |trade_pair| trade_pair.active_for_accumulation }
 
   # === CALLBACKS ===
   before_save { symbol.downcase! }
@@ -74,13 +80,14 @@ class TradePair < ApplicationRecord
   # so I want to sell less and receive more
   def accumulate
     return unless active_for_accumulation
+
     check_and_update_open_orders
 
     return if orders.where(status: 'open').present?
 
     last_filled_order = orders.where(status: 'filled').order(:updated_at).last
 
-    if last_filled_order.nil? || last_filled_order == 'sell'
+    if last_filled_order.nil? || last_filled_order.status == 'sell'
       next_buy_or_sell = 'buy'
       next_price = get_open_orders(next_buy_or_sell).third[:rate].to_d
       next_quantity = trade_amount_desired(next_price, nil, amount_step.to_s.split('.').last.size)
@@ -99,13 +106,15 @@ class TradePair < ApplicationRecord
   # The quantity here is the amount
   # In BNBETH - that is the BNB
   def create_order(buy_or_sell, price, quantity)
+    price = price.truncate(price_precision)
+
     case exchange.identifier
     when 'binance'
       result = client.create_order!(symbol: symbol.upcase, side: buy_or_sell, type: 'limit', time_in_force: 'GTC', quantity: quantity.to_s, price: price.to_s)
       if result['orderId']
         orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open', buy_or_sell: buy_or_sell, price: result['price'], quantity: quantity, reference: result['orderId'])
       else
-        raise result['error_message']
+        puts result.inspect
       end
     end
   end
