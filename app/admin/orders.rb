@@ -7,6 +7,7 @@ ActiveAdmin.register Order do
 
   # === INDEX ===
   index do
+    column :updated_at
     column :trade_pair do |order|
       order.trade_pair.symbol
     end
