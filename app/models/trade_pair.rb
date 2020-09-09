@@ -46,10 +46,10 @@ class TradePair < ApplicationRecord
         next if exch.trade_pairs.find_by(symbol: trade_pair_symbol)
 
         exch.trade_pairs.create(symbol: trade_pair_symbol,
-                                url: trade_pair_values[:url],
-                                minimum_total: trade_pair_values[:minimum_total],
-                                amount_step: trade_pair_values[:amount_step],
-                                price_precision: trade_pair_values[:price_precision])
+                                url: trade_pair_values['url'],
+                                minimum_total: trade_pair_values['minimum_total'],
+                                amount_step: trade_pair_values['amount_step'],
+                                price_precision: trade_pair_values['price_precision'])
       end
     end
   end
