@@ -18,16 +18,16 @@ class TradePair < ApplicationRecord
     },
     binance: {
       btcaud: {
-        minimum_total: 20,
-        amount_step: 0.000002
+        amount_step: 0.000001,
+        minimum_total: 20
       },
       bnbbtc: {
-        amount_step: 0.02,
+        amount_step: 0.01,
         minimum_total: 0.0002,
         price_precision: 7
       },
       bnbeth: {
-        amount_step: 0.02,
+        amount_step: 0.01,
         minimum_total: 0.02,
         price_precision: 6
       }
@@ -100,7 +100,7 @@ class TradePair < ApplicationRecord
     else
       next_buy_or_sell = 'sell'
       next_quantity = last_filled_order.quantity - amount_step
-      next_price = (last_filled_order.quantity_received * 1.01) / next_quantity
+      next_price = (last_filled_order.quantity_received * (1.0 + (taker_fee_for_calculation * 3))) / next_quantity
 
       raise 'check calculations' if next_price <= last_filled_order.price
       raise 'check calculations' if next_quantity >= last_filled_order.quantity
@@ -239,6 +239,11 @@ class TradePair < ApplicationRecord
     else
       raise StandardError.new "Exchange isn't set up to parse and map retrieved orders"
     end
+  end
+
+  def taker_fee_for_calculation
+    tf = taker_fee || exchange.taker_fee
+    tf / 100
   end
 
   # if amount or rate is currency, it must be in cents
