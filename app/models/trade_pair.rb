@@ -87,7 +87,7 @@ class TradePair < ApplicationRecord
 
     last_filled_order = orders.where(status: 'filled').order(:updated_at).last
 
-    if last_filled_order.nil? || last_filled_order == 'sell'
+    if last_filled_order.nil? || last_filled_order.status == 'sell'
       next_buy_or_sell = 'buy'
       next_price = get_open_orders(next_buy_or_sell).third[:rate].to_d
       next_quantity = trade_amount_desired(next_price, nil, amount_step.to_s.split('.').last.size)
@@ -95,7 +95,6 @@ class TradePair < ApplicationRecord
       next_buy_or_sell = 'sell'
       next_quantity = last_filled_order.quantity - amount_step
       next_price = (last_filled_order.quantity_received * 1.01) / next_quantity
-      next_price = next_price
 
       raise 'check calculations' if next_price <= last_filled_order.price
       raise 'check calculations' if next_quantity >= last_filled_order.quantity
