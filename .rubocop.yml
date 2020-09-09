@@ -134,3 +134,6 @@ Style/RegexpLiteral:
 
 Style/RedundantPercentQ:
   Enabled: true
+
+Style/SymbolProc:
+  Enabled: false

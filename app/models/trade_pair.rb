@@ -141,11 +141,9 @@ class TradePair < ApplicationRecord
         status = retrieved_order['status'].downcase
         if status == 'canceled'
           quantity = retrieved_order['executedQty'].to_d
-          if quantity == 0
-            next
-          else
-            status = 'filled'
-          end
+          next if quantity.zero?
+
+          status = 'filled'
         else
           quantity = retrieved_order['origQty'].to_d
         end
