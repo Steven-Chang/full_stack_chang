@@ -3,6 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+  let(:order) { build(:order) }
+  let(:order_created) { create(:order) }
+  let(:order_id_binance_canceled) { '184222891' }
+  let(:order_id_binance_filled) { '184976569' }
+
   describe 'ASSOCIATIONS' do
     it { should belong_to(:trade_pair) }
     it { should have_one(:exchange).through(:trade_pair) }
@@ -11,5 +16,122 @@ RSpec.describe Order, type: :model do
   describe 'VALIDATIONS' do
     it { should validate_inclusion_of(:buy_or_sell).in_array(%w[buy sell]) }
     it { should validate_inclusion_of(:status).in_array(%w[open filled]) }
+    it { should validate_presence_of(:status) }
+    it { should validate_presence_of(:buy_or_sell) }
+    it { should validate_presence_of(:price) }
+    it { should validate_presence_of(:quantity) }
+  end
+
+  describe 'DELEGATES' do
+    it { should delegate_method(:client).to(:exchange) }
+    it { should delegate_method(:symbol).to(:trade_pair) }
+  end
+
+  describe 'CALLBACKS' do
+    describe 'before_validation' do
+      context 'when buy_or_sell is present' do
+        it 'downcases buy_or_sell' do
+          order.buy_or_sell = 'BUY'
+          order.save
+          expect(order.buy_or_sell).to eq 'buy'
+        end
+      end
+
+      context 'when status is present' do
+        it 'changes new to open' do
+          order.status = 'NEW'
+          order.save
+          expect(order.status).to eq 'open'
+        end
+
+        it 'downcases the status' do
+          order.status = 'FILLED'
+          order.save
+          expect(order.status).to eq 'filled'
+        end
+      end
+    end
+  end
+
+  describe 'INSTANCE METHODS' do
+    describe '#query' do
+      context 'when order is with binance' do
+        before { order_created.exchange.update!(identifier: 'binance') }
+
+        context 'when symbol is registered with binance' do
+          before { order_created.trade_pair.update!(symbol: 'bnbeth') }
+
+          context 'when order_id is real' do
+            context 'when order_id is for a canceled order' do
+              before { order_created.update!(reference: order_id_binance_canceled) }
+
+              it 'is queries that order' do
+                result = order_created.query
+                expect(result['orderId']).to eq(order_id_binance_canceled.to_i)
+                expect(order_created.query['status']).to eq('CANCELED')
+              end
+            end
+
+            context 'when order_id is for a filled order' do
+              before { order_created.update!(reference: order_id_binance_filled) }
+
+              it 'is queries that order' do
+                result = order_created.query
+                expect(result['orderId']).to eq(order_id_binance_filled.to_i)
+                expect(result['status']).to eq('FILLED')
+              end
+            end
+          end
+        end    
+      end
+    end
+
+    describe '#update_from_exchange' do
+      context 'when order is with binance' do
+        before { order_created.exchange.update!(identifier: 'binance') }
+
+        context 'when symbol is not registered with binance' do
+          before { order_created.trade_pair.update!(symbol: 'SHITCOIN') }
+
+          it 'does not update the order' do
+            expect(order_created).not_to receive(:update!)
+            order_created.update_from_exchange
+          end
+        end
+
+        context 'when symbol is registered with binance' do
+          before { order_created.trade_pair.update!(symbol: 'bnbeth') }
+
+          context 'when order_id is not legit' do
+            before { order_created.update!(reference: 'fakeref') }
+
+            it 'does not update the order' do
+              expect(order_created).not_to receive(:update!)
+              order_created.update_from_exchange
+            end
+          end
+
+          context 'when order_id is legit' do
+            context 'when order status is canceled' do
+              before { order_created.update!(reference: order_id_binance_canceled) }
+
+              it 'does updates the order' do
+                expect(order_created).not_to receive(:update!)
+                order_created.update_from_exchange
+              end
+            end
+
+            context 'when order status is not canceled' do
+              before { order_created.update!(reference: order_id_binance_filled) }
+
+              it 'does updates the order' do
+                expect(order_created).to receive(:update!)
+                order_created.update_from_exchange
+              end
+            end
+          end
+        end
+      end
+    end
   end
 end
