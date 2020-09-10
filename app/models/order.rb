@@ -36,7 +36,7 @@ class Order < ApplicationRecord
   end
 
   # This only works for 'sell' right now
-  def place_counter
+  def create_counter
     return if buy_or_sell == 'sell'
 
     next_buy_or_sell = 'sell'
