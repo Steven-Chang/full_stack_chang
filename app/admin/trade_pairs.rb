@@ -44,9 +44,7 @@ ActiveAdmin.register TradePair do
   form do |f|
     f.inputs do
       f.input :symbol
-      f.input :exchange do |trade_pair|
-        trade_pair.exchange.identifier
-      end
+      f.input :exchange, member_label: :identifier, collection: Exchange.order('LOWER(identifier)')
       f.input :url
       f.input :maker_fee
       f.input :taker_fee
@@ -59,5 +57,5 @@ ActiveAdmin.register TradePair do
   end
 
   # === PERMIT PARAMS ===
-  permit_params :symbol, :exchange, :url, :maker_fee, :taker_fee, :minimum_total, :amount_step, :price_precision, :active_for_accumulation
+  permit_params :symbol, :exchange_id, :url, :maker_fee, :taker_fee, :minimum_total, :amount_step, :price_precision, :active_for_accumulation
 end
