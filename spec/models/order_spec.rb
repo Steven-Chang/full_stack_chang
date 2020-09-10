@@ -81,8 +81,8 @@ RSpec.describe Order, type: :model do
                 end
               end
 
-              context 'when created order is more than a day old' do
-                before { order_created.update!(created_at: Time.current - 2.days) }
+              context 'when created order is more than 12 hours old' do
+                before { order_created.update!(created_at: Time.current - 13.hours) }
 
                 it 'does not destroy the order' do
                   expect(order_created.present?).to be true
