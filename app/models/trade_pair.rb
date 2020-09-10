@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # MINIMUM_TOTAL is for the BASE ASSET(the second of the trading pair)
-# MINIMUM STEP is for the QUOTE ASSET(the first of the trading pair)
+# AMOUNT STEP is for the QUOTE ASSET(the first of the trading pair)
 
 # maker_fee and taker_fee to be the percentage amount
 class TradePair < ApplicationRecord
@@ -26,6 +26,9 @@ class TradePair < ApplicationRecord
 
   # === DELEGATES ===
   delegate :client, to: :exchange
+
+  # === ALIAS ===
+  alias amount_step quantity_step
 
   # === CLASS METHODS ===
   def self.accumulate
@@ -61,33 +64,29 @@ class TradePair < ApplicationRecord
   def accumulate
     return unless active_for_accumulation
 
-    check_and_update_open_orders
-
-    return if orders.where(status: 'open').present?
-
-    last_filled_order = orders.where(status: 'filled').order(:updated_at).last
-
-    if last_filled_order.nil? || last_filled_order.buy_or_sell == 'sell'
-      next_buy_or_sell = 'buy'
-      next_price = get_open_orders(next_buy_or_sell).third[:rate].to_d
-      next_quantity = trade_amount_desired(next_price, nil, amount_step.to_s.split('.').last.size)
-    else
-      next_buy_or_sell = 'sell'
-      next_quantity = last_filled_order.quantity - amount_step
-      next_price = (last_filled_order.quantity_received * (1.0 + (taker_fee_for_calculation * 3))) / next_quantity
-
-      raise StandardError, 'check calculations' if next_price <= last_filled_order.price
-      raise StandardError, 'check calculations' if next_quantity >= last_filled_order.quantity
+    orders.where(status: 'open').find_each do |order|
+      order.update_from_exchange
+      order.reload 
+      order.create_counter if order.filled?
     end
+    open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
 
-    create_order(next_buy_or_sell, next_price, next_quantity)
+    return if open_buy_orders.count >= 2
+    return if open_buy_orders.where('created_at > ?', Time.current - 3.hours).present?
+
+    next_price = get_open_orders('buy').third[:rate].to_d
+    base_total = minimum_total * 2
+
+    create_order('buy', next_price, base_total)
   end
 
-  # The quantity here is the amount
-  # In BNBETH - that is the BNB
-  def create_order(buy_or_sell, price, quantity)
+  # Watch out for the difference in base_total and quantity
+  # base_total in Binance is the bottom input total
+  # and quantity is the middle one which we submit which is the middle one
+  # That's why there's all these calculations
+  def create_order(buy_or_sell, price, base_total)
     price = price.truncate(price_precision)
-    quantity = quantity.to_i if amount_step >= 1
+    quantity = new_order_quantity_formatted(base_total, price)
 
     case exchange.identifier
     when 'binance'
@@ -95,13 +94,13 @@ class TradePair < ApplicationRecord
                                     side: buy_or_sell,
                                     type: 'limit',
                                     time_in_force: 'GTC',
-                                    quantity: quantity.to_s,
+                                    quantity: quantity,
                                     price: price.to_s)
       if result['orderId']
         orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open',
                       buy_or_sell: buy_or_sell,
                       price: result['price'],
-                      quantity: quantity,
+                      quantity: result['origQty'].to_d,
                       reference: result['orderId'])
       else
         puts result.inspect
@@ -164,15 +163,6 @@ class TradePair < ApplicationRecord
     end
   end
 
-  # amount in cents if currency
-  def order_with_enough_liquidity(buy_or_sell, amount = nil)
-    get_open_orders(buy_or_sell).each do |open_order|
-      desired_trade_amount = buy_or_sell == 'sell' ? trade_amount_desired(open_order[:rate_cents]) : amount
-      return open_order if trade_amount_available?(desired_trade_amount, open_order[:amount])
-    end
-    nil
-  end
-
   # This needs review as calculating money
   def trade_fee_total(quantity, rate, maker_or_taker = 'maker')
     quantity * rate * trade_fee_general(maker_or_taker) / 100
@@ -198,14 +188,14 @@ class TradePair < ApplicationRecord
 
   private
 
-  def check_and_update_open_orders
-    orders.where(status: 'open').find_each do |order|
-      order.update_from_exchange
+  def new_order_quantity_formatted(base_total, price)
+    truncation_factor = quantity_step >= 1 ? 0 : quantity_step.to_s.split('.').last.size
+    quantity = (base_total / price).truncate(truncation_factor)
+    quantity = quantity.to_i if quantity_step >= 1
+    case exchange.identifier
+    when 'binance'
+      quantity.to_s
     end
-  end
-
-  def open_orders?
-    client.open_orders(symbol.upcase).present?
   end
 
   # This needs review for currency
@@ -221,23 +211,5 @@ class TradePair < ApplicationRecord
     else
       raise StandardError, "Exchange isn't set up to parse and map retrieved orders"
     end
-  end
-
-  def taker_fee_for_calculation
-    tf = taker_fee || exchange.taker_fee
-    tf / 100
-  end
-
-  # if amount or rate is currency, it must be in cents
-  def trade_amount_available?(trade_amount_desired, amount_available_in_order)
-    amount_available_in_order >= trade_amount_desired
-  end
-
-  # if amount is currency, it must be in cents
-  # The amount in BNBETH is the amount of BNB
-  def trade_amount_desired(rate, amount = nil, truncate = 4)
-    amount ||= minimum_total * 2
-
-    (amount / rate.to_d).truncate(truncate)
   end
 end
