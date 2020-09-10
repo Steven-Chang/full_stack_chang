@@ -28,6 +28,87 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'CALLBACKS' do
+    describe 'after_update' do
+      describe 'cancelling stale orders' do
+        context 'when created order is a sell order' do
+          before { order_created.update(buy_or_sell: 'sell') }
+
+          it 'does not destroy the order' do
+            expect(order_created.present?).to be true
+          end
+        end
+
+        context 'when created order is a buy order' do
+          before { order_created.update(buy_or_sell: 'buy') }
+
+          it 'does not destroy the order' do
+            expect(order_created.present?).to be true
+          end
+
+          context 'when created order is not open' do
+            before { order_created.update(status: 'filled') }
+
+            it 'does not destroy the order' do
+              expect(order_created.present?).to be true
+            end
+          end
+
+          context 'when created order is open' do
+            before { order_created.update(status: 'open') }
+
+            it 'does not destroy the order' do
+              expect(order_created.present?).to be true
+            end
+
+            context 'when created order has been partially filled' do
+              before { order_created.update!(quantity_received: 0.1) }
+
+              it 'does not destroy the order' do
+                expect(order_created.present?).to be true
+              end            
+            end
+
+            context 'when created order has not been filled' do
+              before { order_created.update!(quantity_received: 0) }
+
+              it 'does not destroy the order' do
+                expect(order_created.present?).to be true
+              end
+
+              context 'when created order is less than a day old' do
+                it 'does not destroy the order' do
+                  expect(order_created.present?).to be true
+                end
+              end
+
+              context 'when created order is more than a day old' do
+                before { order_created.update!(created_at: Time.current - 2.days) }
+
+                it 'does not destroy the order' do
+                  expect(order_created.present?).to be true
+                end
+
+                context 'when exchange is binance' do
+                  before { order_created.exchange.update!(identifier: 'binance') }
+
+                  context 'when the cancel order to client to exchange is successful' do
+                    before do
+                      allow(order_created.client).to receive(:cancel_order!).and_return({})
+                    end
+
+                    it 'does not destroy the order' do
+                      expect(order_created).to receive(:cancel)
+                      order_created.save
+                    end
+                  end
+                end
+              end
+            end          
+          end
+        end
+      end
+    end
+
     describe 'before_validation' do
       context 'when buy_or_sell is present' do
         it 'downcases buy_or_sell' do

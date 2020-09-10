@@ -17,12 +17,23 @@ class Order < ApplicationRecord
   validates :status, inclusion: { in: %w[open filled] }
 
   # === CALLBACKS ===
+  after_update :cancel, if: :stale?
   before_validation :format_status
   before_validation :format_buy_or_sell
 
   # === DELEGATES ===
   delegate :client, to: :exchange
   delegate :symbol, to: :trade_pair
+
+  def cancel
+    case exchange.identifier
+    when 'binance'
+      result = client.cancel_order!(symbol: symbol.upcase, order_id: reference)
+      return if result['code'].present?
+
+      destroy!
+    end
+  end
 
   def query
     case exchange.identifier
@@ -56,5 +67,14 @@ class Order < ApplicationRecord
 
     self.status = 'open' if status.downcase == 'new'
     self.status = status.downcase
+  end
+
+  def open?
+    status == 'open'
+  end
+
+  # Currently we only want to remove old buy orders
+  def stale?
+    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - 1.day)
   end
 end
