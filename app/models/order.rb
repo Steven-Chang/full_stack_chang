@@ -65,7 +65,7 @@ class Order < ApplicationRecord
   def format_status
     return if status.blank?
 
-    self.status = 'open' if status.downcase == 'new'
+    self.status = 'open' if status.downcase == 'new' || status.downcase == 'partially_filled'
     self.status = status.downcase
   end
 
