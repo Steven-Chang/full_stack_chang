@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# A note about cancelling orders
+# Gotta factor in partially filled orders
 class Order < ApplicationRecord
   # === ASSOCIATIONS ===
   belongs_to :trade_pair
@@ -22,11 +24,18 @@ class Order < ApplicationRecord
   delegate :client, to: :exchange
   delegate :symbol, to: :trade_pair
 
+  def query
+    case exchange.identifier
+    when 'binance'
+      client.query_order(symbol: symbol.upcase, order_id: reference)
+    end
+  end
+
   # Update this later to be able to handle cancelled orders
   def update_from_exchange
     case exchange.identifier
     when 'binance'
-      result = client.query_order(symbol: symbol.upcase, order_id: reference)
+      result = query
       return if result['symbol'].blank?
       return if result['status'] == 'CANCELED'
 

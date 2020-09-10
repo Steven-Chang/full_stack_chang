@@ -4,6 +4,9 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   let(:order) { build(:order) }
+  let(:order_created) { create(:order) }
+  let(:order_id_binance_canceled) { '184222891' }
+  let(:order_id_binance_filled) { '184976569' }
 
   describe 'ASSOCIATIONS' do
     it { should belong_to(:trade_pair) }
@@ -45,6 +48,88 @@ RSpec.describe Order, type: :model do
           order.status = 'FILLED'
           order.save
           expect(order.status).to eq 'filled'
+        end
+      end
+    end
+  end
+
+  describe 'INSTANCE METHODS' do
+    describe '#query' do
+      context 'when order is with binance' do
+        before { order_created.exchange.update!(identifier: 'binance') }
+
+        context 'when symbol is registered with binance' do
+          before { order_created.trade_pair.update!(symbol: 'bnbeth') }
+
+          context 'when order_id is real' do
+            context 'when order_id is for a canceled order' do
+              before { order_created.update!(reference: order_id_binance_canceled) }
+
+              it 'is queries that order' do
+                result = order_created.query
+                expect(result['orderId']).to eq(order_id_binance_canceled.to_i)
+                expect(order_created.query['status']).to eq('CANCELED')
+              end
+            end
+
+            context 'when order_id is for a filled order' do
+              before { order_created.update!(reference: order_id_binance_filled) }
+
+              it 'is queries that order' do
+                result = order_created.query
+                expect(result['orderId']).to eq(order_id_binance_filled.to_i)
+                expect(result['status']).to eq('FILLED')
+              end
+            end
+          end
+        end    
+      end
+    end
+
+    describe '#update_from_exchange' do
+      context 'when order is with binance' do
+        before { order_created.exchange.update!(identifier: 'binance') }
+
+        context 'when symbol is not registered with binance' do
+          before { order_created.trade_pair.update!(symbol: 'SHITCOIN') }
+
+          it 'does not update the order' do
+            expect(order_created).not_to receive(:update!)
+            order_created.update_from_exchange
+          end
+        end
+
+        context 'when symbol is registered with binance' do
+          before { order_created.trade_pair.update!(symbol: 'bnbeth') }
+
+          context 'when order_id is not legit' do
+            before { order_created.update!(reference: 'fakeref') }
+
+            it 'does not update the order' do
+              expect(order_created).not_to receive(:update!)
+              order_created.update_from_exchange
+            end
+          end
+
+          context 'when order_id is legit' do
+            context 'when order status is canceled' do
+              before { order_created.update!(reference: order_id_binance_canceled) }
+
+              it 'does updates the order' do
+                expect(order_created).not_to receive(:update!)
+                order_created.update_from_exchange
+              end
+            end
+
+            context 'when order status is not canceled' do
+              before { order_created.update!(reference: order_id_binance_filled) }
+
+              it 'does updates the order' do
+                expect(order_created).to receive(:update!)
+                order_created.update_from_exchange
+              end
+            end
+          end
         end
       end
     end
