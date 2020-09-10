@@ -87,6 +87,7 @@ class TradePair < ApplicationRecord
   # In BNBETH - that is the BNB
   def create_order(buy_or_sell, price, quantity)
     price = price.truncate(price_precision)
+    quantity = quantity.to_i if amount_step >= 1
 
     case exchange.identifier
     when 'binance'
