@@ -72,7 +72,8 @@ class TradePair < ApplicationRecord
 
     return if open_buy_orders.count >= 2
     return if open_sell_orders.count >= 2
-    return if open_sell_orders.where('created_at > ?', Time.current - 3.hours).present?
+    return if open_buy_orders.where('created_at > ?', Time.current - 1.hours).present?
+    return if open_sell_orders.where('created_at > ?', Time.current - 1.hours).present?
 
     next_price = get_open_orders('buy').third[:rate].to_d
     base_total = minimum_total * 2
