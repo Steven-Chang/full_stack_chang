@@ -74,17 +74,18 @@ class TradePair < ApplicationRecord
 
     next_price = get_open_orders('buy').third[:rate].to_d
     base_total = minimum_total * 2
+    quantity = calculate_quantity(base_total, next_price)
 
-    create_order('buy', next_price, base_total)
+    create_order('buy', next_price, quantity)
   end
 
   # Watch out for the difference in base_total and quantity
   # base_total in Binance is the bottom input total
   # and quantity is the middle one which we submit which is the middle one
   # That's why there's all these calculations
-  def create_order(buy_or_sell, price, base_total)
+  def create_order(buy_or_sell, price, quantity)
     price = price.truncate(price_precision)
-    quantity = new_order_quantity_formatted(base_total, price)
+    quantity = quantity_formatted_for_order(quantity)
 
     case exchange.identifier
     when 'binance'
@@ -186,9 +187,12 @@ class TradePair < ApplicationRecord
 
   private
 
-  def new_order_quantity_formatted(base_total, price)
+  def calculate_quantity(base_total, price)
     truncation_factor = amount_step >= 1 ? 0 : amount_step.to_s.split('.').last.size
-    quantity = (base_total / price).truncate(truncation_factor)
+    (base_total / price).truncate(truncation_factor)
+  end
+
+  def quantity_formatted_for_order(quantity)
     quantity = quantity.to_i if amount_step >= 1
     case exchange.identifier
     when 'binance'
