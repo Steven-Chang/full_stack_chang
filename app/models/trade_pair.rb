@@ -67,8 +67,10 @@ class TradePair < ApplicationRecord
       order.reload
       order.create_counter if order.filled?
     end
+    open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
     open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
 
+    return if open_buy_orders.count >= 2
     return if open_sell_orders.count >= 2
     return if open_sell_orders.where('created_at > ?', Time.current - 3.hours).present?
 
