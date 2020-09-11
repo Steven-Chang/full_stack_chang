@@ -65,7 +65,7 @@ RSpec.describe Order, type: :model do
 
               it 'does not destroy the order' do
                 expect(order_created.present?).to be true
-              end            
+              end
             end
 
             context 'when created order has not been filled' do
@@ -103,7 +103,7 @@ RSpec.describe Order, type: :model do
                   end
                 end
               end
-            end          
+            end
           end
         end
       end
@@ -218,7 +218,7 @@ RSpec.describe Order, type: :model do
               end
             end
           end
-        end    
+        end
       end
     end
 

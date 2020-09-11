@@ -64,7 +64,7 @@ class TradePair < ApplicationRecord
 
     orders.where(status: 'open').find_each do |order|
       order.update_from_exchange
-      order.reload 
+      order.reload
       order.create_counter if order.filled?
     end
     open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')

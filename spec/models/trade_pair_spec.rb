@@ -121,7 +121,7 @@ RSpec.describe TradePair, type: :model do
 
               context 'when order was created more than 3 hours ago' do
                 it 'creates an order' do
-                  allow(trade_pair).to receive(:get_open_orders).with('buy').and_return([{},{},{rate: 33}])
+                  allow(trade_pair).to receive(:get_open_orders).with('buy').and_return([{}, {}, { rate: 33 }])
                   next_price = 33.to_d
                   base_total = trade_pair.minimum_total * 2
                   expect(trade_pair).not_to receive(:create_order).with('buy', next_price, base_total)
