@@ -98,6 +98,6 @@ class Order < ApplicationRecord
 
   # Currently we only want to remove old buy orders
   def stale?
-    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - 3.hours)
+    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - 12.hours)
   end
 end
