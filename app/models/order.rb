@@ -17,7 +17,6 @@ class Order < ApplicationRecord
   validates :status, inclusion: { in: %w[open filled] }
 
   # === CALLBACKS ===
-  after_update :cancel, if: :stale?
   before_validation :format_status
   before_validation :format_buy_or_sell
 
@@ -25,6 +24,14 @@ class Order < ApplicationRecord
   delegate :client, to: :exchange
   delegate :symbol, to: :trade_pair
 
+  # === CLASS METHODS ===
+  def self.cancel_stale_orders
+    where(status: 'open', buy_or_sell: 'buy').find_each do |order|
+      order.cancel if order.stale?
+    end
+  end
+
+  # === INSTANCE METHODS ===
   def cancel
     case exchange.identifier
     when 'binance'
@@ -60,6 +67,11 @@ class Order < ApplicationRecord
     end
   end
 
+  def taker_fee_for_calculation
+    tf = trade_pair.taker_fee || exchange.taker_fee
+    tf / 100
+  end
+
   # Update this later to be able to handle cancelled orders
   def update_from_exchange
     case exchange.identifier
@@ -72,9 +84,10 @@ class Order < ApplicationRecord
     end
   end
 
-  def taker_fee_for_calculation
-    tf = trade_pair.taker_fee || exchange.taker_fee
-    tf / 100
+  # Currently we only want to remove old buy orders
+  # Move this to private if possible after writing tests
+  def stale?
+    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - 2.hours)
   end
 
   private
@@ -94,10 +107,5 @@ class Order < ApplicationRecord
 
   def open?
     status == 'open'
-  end
-
-  # Currently we only want to remove old buy orders
-  def stale?
-    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - 12.hours)
   end
 end

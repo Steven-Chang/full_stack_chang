@@ -62,6 +62,8 @@ class TradePair < ApplicationRecord
   def accumulate
     return unless active_for_accumulation
 
+    Order.cancel_stale_orders
+
     orders.where(status: 'open').find_each do |order|
       order.update_from_exchange
       order.reload
