@@ -35,6 +35,24 @@ class Order < ApplicationRecord
     end
   end
 
+  # This only works for 'sell' right now
+  def create_counter
+    return if buy_or_sell == 'sell'
+
+    next_buy_or_sell = 'sell'
+    next_quantity = quantity - trade_pair.amount_step
+    next_price = (quantity_received * (1.0 + (taker_fee_for_calculation * 3))) / next_quantity
+
+    raise StandardError, 'Next price should be higher than current price' if next_price <= price
+    raise StandardError, 'Next quantity should be less than current quantity' if next_quantity >= quantity
+
+    trade_pair.create_order(next_buy_or_sell, next_price, next_quantity)
+  end
+
+  def filled?
+    status == 'filled'
+  end
+
   def query
     case exchange.identifier
     when 'binance'
@@ -52,6 +70,11 @@ class Order < ApplicationRecord
 
       update!(status: result['status'].downcase, quantity_received: result['cummulativeQuoteQty'].to_d)
     end
+  end
+
+  def taker_fee_for_calculation
+    tf = trade_pair.taker_fee || exchange.taker_fee
+    tf / 100
   end
 
   private

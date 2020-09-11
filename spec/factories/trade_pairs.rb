@@ -2,7 +2,10 @@
 
 FactoryBot.define do
   factory :trade_pair do
-    symbol { 'BTCAUD' }
+    symbol { 'shitcoin' }
+    amount_step { 0.01 }
+    minimum_total { 0.2 }
+    price_precision { 7 }
 
     association :exchange
 

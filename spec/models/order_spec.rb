@@ -135,6 +135,61 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'INSTANCE METHODS' do
+    describe '#create_counter' do
+      context 'when order is for a sell' do
+        before { order.buy_or_sell = 'sell' }
+
+        it 'does not create a counter order' do
+          expect(order.trade_pair).not_to receive(:create_order)
+          order.create_counter
+        end
+      end
+
+      context 'when order is for a buy' do
+        before { order.buy_or_sell = 'buy' }
+
+        context 'when next price is less than or equal to order price' do
+          before { order.update!(quantity: 0, quantity_received: 0) }
+
+          it 'should raise an error' do
+            expect { order.create_counter }.to raise_error('Next price should be higher than current price')
+          end
+        end
+
+        context 'when next quantity is greater than or equal to current quantity' do
+          before do
+            order.update!(quantity: 1, quantity_received: 1)
+            allow(order.trade_pair).to receive(:amount_step).and_return(0)
+          end
+
+          it 'should raise an error' do
+            expect { order.create_counter }.to raise_error('Next quantity should be less than current quantity')
+          end
+        end
+
+        context 'when next quantity is lower and next price is higher it' do
+          before do
+            order.update!(quantity: 1, quantity_received: 1)
+            allow(order.trade_pair).to receive(:create_order)
+          end
+
+          it 'should call trade_pair.create_order' do
+            next_quantity = order.quantity - order.trade_pair.amount_step
+            next_price = (order.quantity_received * (1.0 + (order.taker_fee_for_calculation * 3))) / next_quantity
+            expect(order.trade_pair).to receive(:create_order).with('sell', next_price, next_quantity)
+            order.create_counter
+          end
+        end
+      end
+    end
+
+    describe '#filled?' do
+      it 'returns true when order is filled' do
+        order.status = 'filled'
+        expect(order.filled?).to be true
+      end
+    end
+
     describe '#query' do
       context 'when order is with binance' do
         before { order_created.exchange.update!(identifier: 'binance') }
