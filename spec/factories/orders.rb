@@ -12,5 +12,9 @@ FactoryBot.define do
     trait :open do
       status { 'open' }
     end
+
+    trait :sell do
+      buy_or_sell { 'sell' }
+    end
   end
 end

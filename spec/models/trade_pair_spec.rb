@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe TradePair, type: :model do
-  let(:order) { create(:order, :open, trade_pair_id: trade_pair.id) }
-  let(:order_two) { create(:order, :open, trade_pair_id: trade_pair.id) }
+  let(:order) { create(:order, :open, :sell, trade_pair_id: trade_pair.id) }
+  let(:order_two) { create(:order, :open, :sell, trade_pair_id: trade_pair.id) }
   let!(:trade_pair) { create(:trade_pair) }
   let(:trade_pair_without_fees) { trade_pair }
   let(:trade_pair_with_fees) { create(:trade_pair, :fees_present) }
@@ -113,7 +113,7 @@ RSpec.describe TradePair, type: :model do
             context 'when order is a buy order' do
               context 'when order was created in the last 3 hours' do
                 it 'does not create an order' do
-                  expect(trade_pair.orders.where(status: 'open', buy_or_sell: 'buy').count).to be 1
+                  expect(trade_pair.orders.where(status: 'open', buy_or_sell: 'sell').count).to be 1
                   expect(trade_pair).not_to receive(:create_order)
                   trade_pair.accumulate
                 end
@@ -142,7 +142,7 @@ RSpec.describe TradePair, type: :model do
           end
 
           it 'does not call #create_order' do
-            expect(trade_pair.orders.where(status: 'open', buy_or_sell: 'buy').count).to be 2
+            expect(trade_pair.orders.where(status: 'open', buy_or_sell: 'sell').count).to be 2
             expect(trade_pair).not_to receive(:create_order)
             trade_pair.accumulate
           end
