@@ -22,7 +22,9 @@ ActiveAdmin.register Order do
     actions
   end
 
-  filter :trade_pair
+  filter :trade_pair, collection: lambda {
+    TradePair.all.map { |trade_pair| [trade_pair.symbol, trade_pair.id] }
+  }
   filter :status
   filter :buy_or_sell
 
