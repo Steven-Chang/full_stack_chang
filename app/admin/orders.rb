@@ -14,6 +14,7 @@ ActiveAdmin.register Order do
     column :exchange do |order|
       order.exchange.identifier
     end
+    column :reference
     column :status
     column :buy_or_sell
     column :price
@@ -37,6 +38,7 @@ ActiveAdmin.register Order do
       row :exchange do |order|
         order.exchange.identifier
       end
+      row :reference
       row :status
       row :buy_or_sell
       row :price
@@ -48,7 +50,8 @@ ActiveAdmin.register Order do
   # === FORM ===
   form do |f|
     f.inputs do
-      f.input :trade_pair, member_label: proc { |tp| "#{tp.symbol}: #{tp.exchange.identifier}" }, input_html: { disabled: true }
+      f.input :trade_pair, member_label: proc { |tp| "#{tp.symbol}: #{tp.exchange.identifier}" }
+      f.input :reference
       f.input :status
       f.input :buy_or_sell
       f.input :price
@@ -59,5 +62,5 @@ ActiveAdmin.register Order do
   end
 
   # === PERMIT PARAMS ===
-  permit_params :status, :buy_or_sell, :price, :quantity, :quantity_received
+  permit_params :reference, :status, :buy_or_sell, :price, :quantity, :quantity_received, :trade_pair_id
 end
