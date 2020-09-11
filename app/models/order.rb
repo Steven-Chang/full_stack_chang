@@ -43,8 +43,8 @@ class Order < ApplicationRecord
     next_quantity = quantity - trade_pair.amount_step
     next_price = (quantity_received * (1.0 + (taker_fee_for_calculation * 3))) / next_quantity
 
-    raise StandardError, 'check calculations' if next_price <= price
-    raise StandardError, 'check calculations' if next_quantity >= quantity
+    raise StandardError, 'Next price should be higher than current price' if next_price <= price
+    raise StandardError, 'Next quantity should be less than current quantity' if next_quantity >= quantity
 
     trade_pair.create_order(next_buy_or_sell, next_price, next_quantity)
   end
@@ -72,6 +72,11 @@ class Order < ApplicationRecord
     end
   end
 
+  def taker_fee_for_calculation
+    tf = trade_pair.taker_fee || exchange.taker_fee
+    tf / 100
+  end
+
   private
 
   def format_buy_or_sell
@@ -94,10 +99,5 @@ class Order < ApplicationRecord
   # Currently we only want to remove old buy orders
   def stale?
     buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - 12.hours)
-  end
-
-  def taker_fee_for_calculation
-    tf = trade_pair.taker_fee || exchange.taker_fee
-    tf / 100
   end
 end
