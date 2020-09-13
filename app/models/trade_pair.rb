@@ -73,14 +73,15 @@ class TradePair < ApplicationRecord
     open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
 
     # Max 5 open orders or open sell orders
-    limit = 5
+    limit = 4
     return if open_buy_orders.count >= limit
     return if open_sell_orders.count >= limit
-    # If there's less than 5 and 1 hasn't been created in the last 1 hour
+
+    # If there's less than 4 and 1 hasn't been created in the last 2 minutes,
     # create another
     if open_buy_orders.count < limit
-      return if open_buy_orders.where('created_at > ?', Time.current - 1.hours).present?
-      return if open_sell_orders.count >= 2 && open_sell_orders.where('created_at > ?', Time.current - 1.hours).present?
+      return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
+      return if open_sell_orders.count >= 2 && open_sell_orders.where('created_at > ?', Time.current - 20.minutes).present?
     end
 
     next_price = get_open_orders('buy').third[:rate].to_d
