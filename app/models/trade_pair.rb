@@ -72,8 +72,8 @@ class TradePair < ApplicationRecord
     open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
     open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
 
-    # Max 5 open orders or open sell orders
-    limit = 4
+    # Max 3 open orders or open sell orders
+    limit = 3
     return if open_buy_orders.count >= limit
     return if open_sell_orders.count >= limit
 
