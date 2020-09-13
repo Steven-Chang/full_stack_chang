@@ -48,8 +48,8 @@ RSpec.describe TradePair, type: :model do
           trade_pair.update!(active_for_accumulation: true)
         end
 
-        it 'calls #accumulate on the order' do
-          expect_any_instance_of(TradePair).to receive(:accumulate)
+        it 'calls AccumulateTradePairJob with the trade pair id' do
+          expect(AccumulateTradePairJob).to receive(:perform_later).with(trade_pair.id)
           TradePair.accumulate
         end
       end
@@ -60,7 +60,7 @@ RSpec.describe TradePair, type: :model do
         end
 
         it 'does not call #accumulate on the order' do
-          expect(trade_pair).not_to receive(:accumulate)
+          expect(AccumulateTradePairJob).not_to receive(:perform_later).with(trade_pair.id)
           TradePair.accumulate
         end
       end
