@@ -31,7 +31,7 @@ class TradePair < ApplicationRecord
   # === CLASS METHODS ===
   def self.accumulate
     where(active_for_accumulation: true).find_each do |trade_pair|
-      trade_pair.accumulate
+      AccumulateTradePairJob.perform_later(trade_pair.id)
     end
   end
 

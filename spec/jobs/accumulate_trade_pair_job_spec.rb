@@ -3,11 +3,11 @@
 
 require 'rails_helper'
 
-RSpec.describe AccumulateCryptoJob, type: :job do
+RSpec.describe AccumulateTradePairJob, type: :job do
   describe '#perform_later' do
-    it 'runs AccumulateCryptoJob' do
+    it 'performs AccumulateTradePairJob' do
       ActiveJob::Base.queue_adapter = :test
-      expect { AccumulateCryptoJob.perform_later }.to have_enqueued_job
+      expect { AccumulateTradePairJob.perform_later(1) }.to have_enqueued_job
     end
   end
 end
