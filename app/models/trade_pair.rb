@@ -69,22 +69,22 @@ class TradePair < ApplicationRecord
       order.reload
       order.create_counter if order.filled?
     end
-    open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
-    open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
+    # open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
+    # open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
 
-    # Max 3 open orders or open sell orders
-    limit = 3
-    return if open_buy_orders.count >= limit
-    return if open_sell_orders.count >= limit
+    # Max 5 open orders or open sell orders
+    # limit = 4
+    # return if open_buy_orders.count >= limit
+    # return if open_sell_orders.count >= limit
 
     # If there's less than 4 and 1 hasn't been created in the last 2 minutes,
     # create another
-    if open_buy_orders.count < limit
-      return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
-      return if open_sell_orders.count >= 2 && open_sell_orders.where('created_at > ?', Time.current - 20.minutes).present?
-    end
+    # if open_buy_orders.count < limit
+    #   return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
+    #   return if open_sell_orders.count >= 2 && open_sell_orders.where('created_at > ?', Time.current - 20.minutes).present?
+    # end
 
-    next_price = get_open_orders('buy').third[:rate].to_d
+    next_price = get_open_orders('buy', 500)[rand(500)][:rate].to_d
     base_total = minimum_total * 2
     quantity = calculate_quantity(base_total, next_price)
 
