@@ -84,7 +84,7 @@ class TradePair < ApplicationRecord
       return if open_sell_orders.where('created_at > ?', Time.current - 1.hour).count >= 3
     end
 
-    next_price = get_open_orders('buy', limit)[rand(33)][:rate].to_d
+    next_price = get_open_orders('buy', 10)[rand(10)][:rate].to_d
     base_total = minimum_total * 2
     quantity = calculate_quantity(base_total, next_price)
 
