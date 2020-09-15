@@ -89,7 +89,6 @@ class TradePair < ApplicationRecord
     quantity = calculate_quantity(base_total, next_price)
 
     create_order('buy', next_price, quantity)
-    accumulate
   end
 
   # Watch out for the difference in base_total and quantity
