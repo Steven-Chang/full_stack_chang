@@ -87,7 +87,7 @@ class Order < ApplicationRecord
   # Currently we only want to remove old buy orders
   # Move this to private if possible after writing tests
   def stale?
-    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - 3.hours)
+    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - 1.hours)
   end
 
   private

@@ -69,26 +69,27 @@ class TradePair < ApplicationRecord
       order.reload
       order.create_counter if order.filled?
     end
-    # open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
-    # open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
+    open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
+    open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
 
-    # Max 5 open orders or open sell orders
-    # limit = 4
-    # return if open_buy_orders.count >= limit
-    # return if open_sell_orders.count >= limit
+    limit = 77
+    starting_limit = 3
+    if open_buy_orders.count >= start_limit || open_sell_orders.count >= start_limit
+      return if open_buy_orders.count >= limit
+      return if open_sell_orders.count >= limit
+      # return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
+      # Hourly, we want up to 3 open sell orders
+      # But can have an infinite number of buy orders to reach that sell limit... The issue is that that means we could use up all those buy orders up in one hit... which is no good so how about we make it 9...
+      return if open_buy_orders.where('created_at > ?', Time.current - 1.hour).count >= 9
+      return if open_sell_orders.where('created_at > ?', Time.current - 1.hour).count >= 3
+    end
 
-    # If there's less than 4 and 1 hasn't been created in the last 2 minutes,
-    # create another
-    # if open_buy_orders.count < limit
-    #   return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
-    #   return if open_sell_orders.count >= 2 && open_sell_orders.where('created_at > ?', Time.current - 20.minutes).present?
-    # end
-
-    next_price = get_open_orders('buy', 500)[rand(500)][:rate].to_d
+    next_price = get_open_orders('buy', limit)[rand(33)][:rate].to_d
     base_total = minimum_total * 2
     quantity = calculate_quantity(base_total, next_price)
 
     create_order('buy', next_price, quantity)
+    accumulate
   end
 
   # Watch out for the difference in base_total and quantity
