@@ -78,9 +78,16 @@ class Order < ApplicationRecord
     when 'binance'
       result = query
       return if result['symbol'].blank?
-      return if result['status'] == 'CANCELED'
 
-      update!(status: result['status'].downcase, quantity_received: result['cummulativeQuoteQty'].to_d)
+      if result['status'] == 'CANCELED'
+        if result['cummulativeQuoteQty'].to_d.zero?
+          destroy!
+        else
+          update!(status: 'filled', quantity_received: result['cummulativeQuoteQty'].to_d)
+        end
+      else
+        update!(status: result['status'].downcase, quantity_received: result['cummulativeQuoteQty'].to_d)
+      end
     end
   end
 

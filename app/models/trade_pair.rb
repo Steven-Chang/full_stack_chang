@@ -74,7 +74,7 @@ class TradePair < ApplicationRecord
 
     limit = 77
     starting_limit = 3
-    if open_buy_orders.count >= start_limit || open_sell_orders.count >= start_limit
+    if open_buy_orders.count >= starting_limit || open_sell_orders.count >= starting_limit
       return if open_buy_orders.count >= limit
       return if open_sell_orders.count >= limit
       # return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
