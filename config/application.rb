@@ -49,6 +49,7 @@ module FullStackChang
 
         # Jobs
         AccumulateCryptoJob.perform_now
+        ProcessScheduledTranxactionTemplatesJob.perform_now
       end
     end
   end
