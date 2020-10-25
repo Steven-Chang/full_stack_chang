@@ -8,6 +8,8 @@ require("channels")
 
 // JAVASCRIPT
 // Admin
+require("../admin/blog_posts/form")
+require("../admin/tools/form")
 require("../admin/tranxactions/form")
 
 // WOULD USE WITHOUT REMARK THEME
