@@ -8,9 +8,8 @@ require("channels")
 
 // JAVASCRIPT
 // Admin
-require("../admin/blog_posts/form")
-require("../admin/tools/form")
 require("../admin/tranxactions/form")
+require("../admin/cloudinary_upload_widget")
 
 // WOULD USE WITHOUT REMARK THEME
 require("bootstrap/dist/js/bootstrap")
