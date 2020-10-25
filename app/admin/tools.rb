@@ -39,7 +39,6 @@ ActiveAdmin.register Tool do
       end
       li '<label>Cloudinary upload</label><button id="upload_widget" class="cloudinary-button">Upload image</button>
           <!-- Cloudinary - Upload -->
-          <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
           <script type="text/javascript">
             var myWidget = cloudinary.createUploadWidget({
               cloudName: "hpxlnqput",
