@@ -1,15 +1,5 @@
 $(document).ready(function() {
-  if($(".formtastic.tranxaction").length) {
-    $('#tranxaction_tranxactable_type').change(function() {
-      if($('#tranxaction_tranxactable_type').val().length) {
-        $('#tranxaction_tranxactable_id_input').show();
-      } else {
-        $('#tranxaction_tranxactable_id_input').hide();
-      };
-    });
-  };
-
-  if($("#edit_tranxaction").length || $("#new_tranxaction").length) {
+  if($("#edit_blog_post").length || $("#new_blog_post").length) {
     // Cloudinary - Upload
     var myWidget = cloudinary.createUploadWidget({
       cloudName: "hpxlnqput",
