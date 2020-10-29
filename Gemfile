@@ -44,6 +44,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'sendgrid-ruby'
 # Simple, efficient background processing for Ruby.
 gem 'sidekiq'
+gem 'twilio-ruby', '~> 5.41.0'
 gem 'webpacker'
 
 group :development, :test do
