@@ -9,7 +9,9 @@ RSpec.describe Order, type: :model do
   let(:order_id_binance_filled) { '184976569' }
 
   describe 'ASSOCIATIONS' do
+    it { should belong_to(:parent_order) }
     it { should belong_to(:trade_pair) }
+    it { should have_one(:child_order).dependent(:nullify) }
     it { should have_one(:exchange).through(:trade_pair) }
   end
 
