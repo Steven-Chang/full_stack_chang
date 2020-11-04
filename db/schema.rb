@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_235616) do
+ActiveRecord::Schema.define(version: 2020_11_04_104734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_235616) do
     t.integer "file_type", default: 1
   end
 
-  create_table "blog_posts", id: :serial, force: :cascade do |t|
+  create_table "blog_posts", force: :cascade do |t|
     t.text "description"
     t.string "title", null: false
     t.datetime "date_added"
@@ -57,15 +57,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_235616) do
     t.boolean "private", default: true
   end
 
-  create_table "client_payments", id: :serial, force: :cascade do |t|
-    t.integer "client_id", null: false
-    t.decimal "amount", precision: 18, scale: 8, default: "0.0"
-    t.date "date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "clients", id: :serial, force: :cascade do |t|
+  create_table "clients", force: :cascade do |t|
     t.string "name", null: false
     t.string "email"
     t.datetime "created_at", null: false
@@ -77,6 +69,18 @@ ActiveRecord::Schema.define(version: 2020_09_08_235616) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_creditors_on_name", unique: true
+  end
+
+  create_table "crypto_exchanges", force: :cascade do |t|
+    t.bigint "crypto_id"
+    t.bigint "exchange_id"
+    t.decimal "withdrawal_fee", precision: 8, scale: 6
+    t.decimal "maker_fee", precision: 8, scale: 6
+    t.decimal "taker_fee", precision: 8, scale: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["crypto_id"], name: "index_crypto_exchanges_on_crypto_id"
+    t.index ["exchange_id"], name: "index_crypto_exchanges_on_exchange_id"
   end
 
   create_table "cryptos", force: :cascade do |t|
@@ -107,6 +111,8 @@ ActiveRecord::Schema.define(version: 2020_09_08_235616) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "reference"
     t.decimal "quantity_received", precision: 15, scale: 10
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_orders_on_order_id"
     t.index ["trade_pair_id"], name: "index_orders_on_trade_pair_id"
   end
 
@@ -120,7 +126,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_235616) do
     t.index ["client_id", "year_ending"], name: "index_payment_summaries_on_client_id_and_year_ending", unique: true
   end
 
-  create_table "projects", id: :serial, force: :cascade do |t|
+  create_table "projects", force: :cascade do |t|
     t.text "description"
     t.string "title", null: false
     t.string "url"
@@ -164,14 +170,14 @@ ActiveRecord::Schema.define(version: 2020_09_08_235616) do
     t.index ["tranxactable_type", "tranxactable_id"], name: "index_tranxaction_schedules_on_tranxactable"
   end
 
-  create_table "scores", id: :serial, force: :cascade do |t|
+  create_table "scores", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "score", null: false
-    t.integer "level"
-    t.integer "lines"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
+    t.integer "level"
+    t.integer "lines"
     t.index ["project_id"], name: "index_scores_on_project_id"
   end
 
@@ -232,7 +238,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_235616) do
     t.index ["tranxactable_type", "tranxactable_id"], name: "index_tranxactions_on_tranxactable_type_and_tranxactable_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -260,6 +266,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_235616) do
   end
 
   add_foreign_key "achievements", "projects", name: "achievements_project_id_fk"
+  add_foreign_key "orders", "orders"
   add_foreign_key "orders", "trade_pairs", name: "orders_trade_pair_id_fk"
   add_foreign_key "payment_summaries", "clients", name: "payment_summaries_client_id_fk"
   add_foreign_key "projects_tools", "projects", name: "projects_tools_project_id_fk"

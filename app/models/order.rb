@@ -4,8 +4,10 @@
 # Gotta factor in partially filled orders
 class Order < ApplicationRecord
   # === ASSOCIATIONS ===
+  belongs_to :parent_order, class_name: 'Order', optional: true, foreign_key: 'order_id', inverse_of: :child_order
   belongs_to :trade_pair
   has_one :exchange, through: :trade_pair
+  has_one :child_order, class_name: 'Order', dependent: :nullify, foreign_key: 'order_id', inverse_of: :parent_order
 
   # === VALIDATIONS ===
   validates :status,
