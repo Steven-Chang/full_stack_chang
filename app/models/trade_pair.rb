@@ -85,7 +85,7 @@ class TradePair < ApplicationRecord
     end
 
     next_price = get_open_orders('buy', 10)[rand(10)][:rate].to_d
-    base_total = minimum_total * 2
+    base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
 
     create_order('buy', next_price, quantity)
