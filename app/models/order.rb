@@ -47,6 +47,7 @@ class Order < ApplicationRecord
   # This only works for 'sell' right now
   def create_counter
     return if buy_or_sell == 'sell'
+    return if child_order.present?
 
     next_buy_or_sell = 'sell'
     next_quantity = quantity - trade_pair.amount_step
@@ -55,7 +56,7 @@ class Order < ApplicationRecord
     raise StandardError, 'Next price should be higher than current price' if next_price <= price
     raise StandardError, 'Next quantity should be less than current quantity' if next_quantity >= quantity
 
-    trade_pair.create_order(next_buy_or_sell, next_price, next_quantity)
+    trade_pair.create_order(next_buy_or_sell, next_price, next_quantity, id)
   end
 
   def filled?
