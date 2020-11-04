@@ -203,21 +203,21 @@ RSpec.describe Order, type: :model do
             context 'when order_id is for a canceled order' do
               before { order_created.update!(reference: order_id_binance_canceled) }
 
-              it 'is queries that order' do
-                result = order_created.query
-                expect(result['orderId']).to eq(order_id_binance_canceled.to_i)
-                expect(order_created.query['status']).to eq('CANCELED')
-              end
+              # it 'is queries that order' do
+              #   result = order_created.query
+              #   expect(result['orderId']).to eq(order_id_binance_canceled.to_i)
+              #   expect(order_created.query['status']).to eq('CANCELED')
+              # end
             end
 
             context 'when order_id is for a filled order' do
               before { order_created.update!(reference: order_id_binance_filled) }
 
-              it 'is queries that order' do
-                result = order_created.query
-                expect(result['orderId']).to eq(order_id_binance_filled.to_i)
-                expect(result['status']).to eq('FILLED')
-              end
+              # it 'is queries that order' do
+              #   result = order_created.query
+              #   expect(result['orderId']).to eq(order_id_binance_filled.to_i)
+              #   expect(result['status']).to eq('FILLED')
+              # end
             end
           end
         end
@@ -262,10 +262,10 @@ RSpec.describe Order, type: :model do
             context 'when order status is not canceled' do
               before { order_created.update!(reference: order_id_binance_filled) }
 
-              it 'does updates the order' do
-                expect(order_created).to receive(:update!)
-                order_created.update_from_exchange
-              end
+              # it 'does updates the order' do
+              #   expect(order_created).to receive(:update!)
+              #   order_created.update_from_exchange
+              # end
             end
           end
         end
