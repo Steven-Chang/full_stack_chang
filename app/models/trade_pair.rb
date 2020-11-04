@@ -72,7 +72,7 @@ class TradePair < ApplicationRecord
     open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
     open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
 
-    limit = 33
+    limit = 99
     starting_limit = 3
     if open_buy_orders.count >= starting_limit || open_sell_orders.count >= starting_limit
       return if open_buy_orders.count >= limit
@@ -80,12 +80,12 @@ class TradePair < ApplicationRecord
       # return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
       # Hourly, we want up to 3 open sell orders
       # But can have an infinite number of buy orders to reach that sell limit... The issue is that that means we could use up all those buy orders up in one hit... which is no good so how about we make it 9...
-      return if open_buy_orders.where('created_at > ?', Time.current - 1.hour).count >= 9
-      return if open_sell_orders.where('created_at > ?', Time.current - 1.hour).count >= 3
+      return if open_buy_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
+      return if open_sell_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
     end
 
     next_price = get_open_orders('buy', 10)[rand(10)][:rate].to_d
-    base_total = minimum_total * 2
+    base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
 
     create_order('buy', next_price, quantity)
@@ -95,7 +95,7 @@ class TradePair < ApplicationRecord
   # base_total in Binance is the bottom input total
   # and quantity is the middle one which we submit which is the middle one
   # That's why there's all these calculations
-  def create_order(buy_or_sell, price, quantity)
+  def create_order(buy_or_sell, price, quantity, order_id = nil)
     price = price.truncate(price_precision)
     quantity = quantity_formatted_for_order(quantity)
 
@@ -112,7 +112,8 @@ class TradePair < ApplicationRecord
                       buy_or_sell: buy_or_sell,
                       price: result['price'],
                       quantity: result['origQty'].to_d,
-                      reference: result['orderId'])
+                      reference: result['orderId'],
+                      order_id: order_id)
       else
         puts result.inspect
       end

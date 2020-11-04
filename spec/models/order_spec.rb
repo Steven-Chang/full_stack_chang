@@ -178,7 +178,7 @@ RSpec.describe Order, type: :model do
           it 'should call trade_pair.create_order' do
             next_quantity = order.quantity - order.trade_pair.amount_step
             next_price = (order.quantity_received * (1.0 + (order.taker_fee_for_calculation * 3))) / next_quantity
-            expect(order.trade_pair).to receive(:create_order).with('sell', next_price, next_quantity)
+            expect(order.trade_pair).to receive(:create_order).with('sell', next_price, next_quantity, order.id)
             order.create_counter
           end
         end
