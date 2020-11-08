@@ -85,7 +85,7 @@ class TradePair < ApplicationRecord
       return if open_sell_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
     end
 
-    next_price = get_open_orders('buy', 10)[rand(10)][:rate].to_d
+    next_price = get_open_orders('buy', 50)[rand(50)][:rate].to_d
     base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
 
@@ -137,6 +137,8 @@ class TradePair < ApplicationRecord
       number_of_orders = number_of_orders < 5 ? 5 : number_of_orders
       retrieved_object = client.depth(symbol: symbol.upcase, limit: number_of_orders)
       retrieved_orders = buy_or_sell == 'buy' ? retrieved_object['bids'] : retrieved_object['asks']
+      raise StandardError, retrieved_orders['msg'] if retrieved_orders['code'].present?
+
       retrieved_orders.each do |retrieved_order|
         order = parse_and_map_order_retrieved_order(retrieved_order)
         orders.push(order)
