@@ -27,8 +27,11 @@ class Order < ApplicationRecord
   delegate :symbol, to: :trade_pair
 
   # === CLASS METHODS ===
-  def self.cancel_stale_orders
-    where(status: 'open', buy_or_sell: 'buy').find_each do |order|
+  def self.cancel_stale_orders(trade_pair_id = nil)
+    orders = where(status: 'open', buy_or_sell: 'buy')
+    orders = orders.where(trade_pair_id: trade_pair_id) if trade_pair_id
+
+    orders.find_each do |order|
       order.cancel if order.stale?
     end
   end

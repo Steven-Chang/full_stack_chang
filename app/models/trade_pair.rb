@@ -54,15 +54,10 @@ class TradePair < ApplicationRecord
   # === INSTANCE METHODS ===
   # This is to trade between the two pairs on the basis that fluctuations will give opportunities to increase the size of either
   # In the end if one is worth way more than the other, it's not a big deal
-  # Currently the idea is to stack up BNB & CRO with all the different trade pairs that you want more of anyways
-  # The great thing is you can work with minimal balance and go from there
-  # DO THIS ONLY WITH CRO AND BNB PAIRS FOR NOW AS WE WANT TO STACK THOSE TO GET CHEAPER FEES
-  # quantity * price = quantity_received
-  # so I want to sell less and receive more
   def accumulate
     return unless active_for_accumulation
 
-    Order.cancel_stale_orders
+    Order.cancel_stale_orders(id)
 
     orders.where(status: 'open').find_each do |order|
       order.update_from_exchange
