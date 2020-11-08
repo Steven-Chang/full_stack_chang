@@ -30,8 +30,14 @@ class TradePair < ApplicationRecord
 
   # === CLASS METHODS ===
   def self.accumulate
-    where(active_for_accumulation: true).find_each do |trade_pair|
-      AccumulateTradePairJob.perform_later(trade_pair.id)
+    where(active_for_accumulation: true)
+      .where('orders.status = ?', 'open')
+      .left_joins(:orders)
+      .group(:id)
+      .order('COUNT(orders.id) ASC')
+      .pluck(:id)
+      .each do |trade_pair_id|
+      AccumulateTradePairJob.perform_later(trade_pair_id)
     end
   end
 
