@@ -136,8 +136,8 @@ class TradePair < ApplicationRecord
     when 'binance'
       number_of_orders = number_of_orders < 5 ? 5 : number_of_orders
       retrieved_object = client.depth(symbol: symbol.upcase, limit: number_of_orders)
+      raise StandardError, retrieved_object['msg'] if retrieved_object['code'].present?
       retrieved_orders = buy_or_sell == 'buy' ? retrieved_object['bids'] : retrieved_object['asks']
-      raise StandardError, retrieved_orders['msg'] if retrieved_orders['code'].present?
 
       retrieved_orders.each do |retrieved_order|
         order = parse_and_map_order_retrieved_order(retrieved_order)
