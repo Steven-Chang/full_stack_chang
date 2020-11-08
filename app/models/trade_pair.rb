@@ -205,16 +205,8 @@ class TradePair < ApplicationRecord
 
     return true if open_orders_limit.present? && open_buy_orders.count + open_sell_orders.count >= open_orders_limit
 
-    limit = 99
     starting_limit = 3
     if open_buy_orders.count >= starting_limit || open_sell_orders.count >= starting_limit
-      return true if open_buy_orders.count >= limit
-      return true if open_sell_orders.count >= limit
-      # return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
-      # Hourly, we want up to 3 open sell orders
-      # But can have an infinite number of buy orders to reach that sell limit...
-      # The issue is that that means we could use up all those buy orders up in one hit...
-      # which is no good so how about we make it 9...
       return true if open_buy_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
       return true if open_sell_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
     end
