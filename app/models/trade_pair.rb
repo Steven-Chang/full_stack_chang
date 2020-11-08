@@ -56,29 +56,12 @@ class TradePair < ApplicationRecord
   # In the end if one is worth way more than the other, it's not a big deal
   def accumulate
     return unless active_for_accumulation
+    return unless exchange.identifier == 'binance'
 
     Order.cancel_stale_orders(id)
+    update_orders_from_exchange(true, status: 'open')
 
-    orders.where(status: 'open').find_each do |order|
-      order.update_from_exchange
-      order.reload
-      order.create_counter if order.filled?
-    end
-    open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
-    open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
-    return if open_orders_limit.present? && open_buy_orders.count + open_sell_orders.count >= open_orders_limit
-
-    limit = 99
-    starting_limit = 3
-    if open_buy_orders.count >= starting_limit || open_sell_orders.count >= starting_limit
-      return if open_buy_orders.count >= limit
-      return if open_sell_orders.count >= limit
-      # return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
-      # Hourly, we want up to 3 open sell orders
-      # But can have an infinite number of buy orders to reach that sell limit... The issue is that that means we could use up all those buy orders up in one hit... which is no good so how about we make it 9...
-      return if open_buy_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
-      return if open_sell_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
-    end
+    return if accumulate_order_limit_reached?
 
     next_price = get_open_orders('buy', 50)[rand(50)][:rate].to_d
     base_total = minimum_total
@@ -132,8 +115,8 @@ class TradePair < ApplicationRecord
       number_of_orders = number_of_orders < 5 ? 5 : number_of_orders
       retrieved_object = client.depth(symbol: symbol.upcase, limit: number_of_orders)
       raise StandardError, retrieved_object['msg'] if retrieved_object['code'].present?
-      retrieved_orders = buy_or_sell == 'buy' ? retrieved_object['bids'] : retrieved_object['asks']
 
+      retrieved_orders = buy_or_sell == 'buy' ? retrieved_object['bids'] : retrieved_object['asks']
       retrieved_orders.each do |retrieved_order|
         order = parse_and_map_order_retrieved_order(retrieved_order)
         orders.push(order)
@@ -196,7 +179,41 @@ class TradePair < ApplicationRecord
     rate * quantity + tft
   end
 
+  def update_orders_from_exchange(create_counter = false, order_options = nil)
+    filtered_orders = orders
+    filtered_orders = orders.where(order_options) if order_options
+    filtered_orders.find_each do |order|
+      order.update_from_exchange
+      if create_counter
+        order.reload
+        order.create_counter if order.filled?
+      end
+    end
+  end
+
   private
+
+  def accumulate_order_limit_reached?
+    open_buy_orders = orders.where(status: 'open', buy_or_sell: 'buy')
+    open_sell_orders = orders.where(status: 'open', buy_or_sell: 'sell')
+
+    return true if open_orders_limit.present? && open_buy_orders.count + open_sell_orders.count >= open_orders_limit
+
+    limit = 99
+    starting_limit = 3
+    if open_buy_orders.count >= starting_limit || open_sell_orders.count >= starting_limit
+      return true if open_buy_orders.count >= limit
+      return true if open_sell_orders.count >= limit
+      # return if open_buy_orders.where('created_at > ?', Time.current - 20.minutes).present?
+      # Hourly, we want up to 3 open sell orders
+      # But can have an infinite number of buy orders to reach that sell limit...
+      # The issue is that that means we could use up all those buy orders up in one hit...
+      # which is no good so how about we make it 9...
+      return true if open_buy_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
+      return true if open_sell_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
+    end
+    false
+  end
 
   def calculate_quantity(base_total, price)
     truncation_factor = amount_step >= 1 ? 0 : amount_step.to_s.split('.').last.size
