@@ -207,8 +207,7 @@ class TradePair < ApplicationRecord
 
     starting_limit = 3
     if open_buy_orders.count >= starting_limit || open_sell_orders.count >= starting_limit
-      return true if open_buy_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
-      return true if open_sell_orders.where('created_at > ?', Time.current - 1.hour).count >= 6
+      return true if open_buy_orders.where('created_at > ?', Time.current - 12.minutes).present?
     end
     false
   end
