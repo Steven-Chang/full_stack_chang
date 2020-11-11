@@ -212,7 +212,9 @@ class TradePair < ApplicationRecord
 
     starting_limit = 3
     if open_buy_orders.count >= starting_limit || open_sell_orders.count >= starting_limit
-      return true if open_buy_orders.where('created_at > ?', Time.current - 12.minutes).present?
+      accumulate_limit_time = Time.current - 12.minutes
+      accumulate_limit_time = Time.current - accumulate_time_limit_in_seconds.seconds if accumulate_time_limit_in_seconds.present?
+      return true if open_buy_orders.where('created_at > ?', accumulate_limit_time).present?
     end
     false
   end
