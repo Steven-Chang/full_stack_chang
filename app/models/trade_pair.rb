@@ -30,6 +30,11 @@ class TradePair < ApplicationRecord
 
   # === CLASS METHODS ===
   def self.accumulate
+    # This is needed to do the trade pairs that don't have any orders first
+    # Can refactor in the future but not crucial
+    where(active_for_accumulation: true).find_each do |trade_pair|
+      AccumulateTradePairJob.perform_later(trade_pair.id) if trade_pair.orders.empty?
+    end
     where(active_for_accumulation: true)
       .where('orders.status = ?', 'open')
       .left_joins(:orders)

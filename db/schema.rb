@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_07_021944) do
+ActiveRecord::Schema.define(version: 2020_11_11_023230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(version: 2020_11_07_021944) do
     t.boolean "active_for_accumulation"
     t.integer "price_precision"
     t.integer "open_orders_limit"
+    t.integer "accumulate_time_limit_in_seconds"
     t.index ["exchange_id"], name: "index_trade_pairs_on_exchange_id"
   end
 
