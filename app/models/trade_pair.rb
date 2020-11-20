@@ -33,10 +33,10 @@ class TradePair < ApplicationRecord
   def self.accumulate
     # This is needed to do the trade pairs that don't have any orders first
     # Can refactor in the future but not crucial
-    where(enabled: true).find_each do |trade_pair|
+    where(enabled: true, mode: 'accumulate').find_each do |trade_pair|
       AccumulateTradePairJob.perform_later(trade_pair.id) if trade_pair.orders.empty?
     end
-    where(enabled: true)
+    where(enabled: true, mode: 'accumulate')
       .where('orders.status = ?', 'open')
       .left_joins(:orders)
       .group(:id)
@@ -72,6 +72,7 @@ class TradePair < ApplicationRecord
   def accumulate
     return unless enabled
     return unless exchange.identifier == 'binance'
+    return unless mode == 'accumulate'
 
     Order.cancel_stale_orders(id)
     update_orders_from_exchange(true, status: 'open')
