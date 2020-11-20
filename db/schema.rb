@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_11_023230) do
+ActiveRecord::Schema.define(version: 2020_11_20_122044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,7 +218,7 @@ ActiveRecord::Schema.define(version: 2020_11_11_023230) do
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "minimum_total", precision: 15, scale: 10
     t.decimal "amount_step", precision: 15, scale: 10
-    t.boolean "active_for_accumulation"
+    t.boolean "enabled"
     t.integer "price_precision"
     t.integer "open_orders_limit"
     t.integer "accumulate_time_limit_in_seconds"
