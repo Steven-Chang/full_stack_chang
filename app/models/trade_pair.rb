@@ -14,6 +14,9 @@ class TradePair < ApplicationRecord
   has_one :exchange, through: :credential
   has_many :orders, dependent: :destroy
 
+  # === ENUMERABLES ===
+  enum mode: { accumulate: 0, buy: 1, sell: 2 }
+
   # === VALIDATIONS ===
   validates :symbol, presence: true
   validates :symbol, uniqueness: { case_sensitive: false, scope: :credential_id }
