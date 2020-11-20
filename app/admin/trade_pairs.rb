@@ -21,12 +21,14 @@ ActiveAdmin.register TradePair do
     column :price_precision
     column :open_orders_limit
     column :accumulate_time_limit_in_seconds
+    column :mode
     column :enabled
     actions
   end
 
   filter :symbol
   filter :credential
+  filter :mode
 
   # === SHOW ===
   show do
@@ -46,6 +48,7 @@ ActiveAdmin.register TradePair do
       row :price_precision
       row :open_orders_limit
       row :accumulate_time_limit_in_seconds
+      row :mode
       row :enabled
     end
     active_admin_comments
@@ -64,6 +67,7 @@ ActiveAdmin.register TradePair do
       f.input :price_precision
       f.input :open_orders_limit
       f.input :accumulate_time_limit_in_seconds
+      f.input :mode
       f.input :enabled
     end
     f.actions
@@ -80,5 +84,6 @@ ActiveAdmin.register TradePair do
                 :amount_step,
                 :price_precision,
                 :accumulate_time_limit_in_seconds,
+                :mode,
                 :enabled
 end
