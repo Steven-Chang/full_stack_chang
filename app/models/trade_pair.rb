@@ -20,7 +20,7 @@ class TradePair < ApplicationRecord
             :minimum_total,
             :price_precision,
             presence: true,
-            if: proc { |trade_pair| trade_pair.active_for_accumulation }
+            if: proc { |trade_pair| trade_pair.enabled }
 
   # === CALLBACKS ===
   before_save { symbol.downcase! }
@@ -32,10 +32,10 @@ class TradePair < ApplicationRecord
   def self.accumulate
     # This is needed to do the trade pairs that don't have any orders first
     # Can refactor in the future but not crucial
-    where(active_for_accumulation: true).find_each do |trade_pair|
+    where(enabled: true).find_each do |trade_pair|
       AccumulateTradePairJob.perform_later(trade_pair.id) if trade_pair.orders.empty?
     end
-    where(active_for_accumulation: true)
+    where(enabled: true)
       .where('orders.status = ?', 'open')
       .left_joins(:orders)
       .group(:id)
@@ -66,7 +66,7 @@ class TradePair < ApplicationRecord
   # This is to trade between the two pairs on the basis that fluctuations will give opportunities to increase the size of either
   # In the end if one is worth way more than the other, it's not a big deal
   def accumulate
-    return unless active_for_accumulation
+    return unless enabled
     return unless exchange.identifier == 'binance'
 
     Order.cancel_stale_orders(id)

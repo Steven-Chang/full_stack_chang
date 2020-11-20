@@ -22,8 +22,8 @@ RSpec.describe TradePair, type: :model do
     it { should validate_presence_of(:symbol) }
     it { should validate_uniqueness_of(:symbol).scoped_to(:exchange_id).case_insensitive }
 
-    context 'when active_for_accumulation' do
-      before { allow(subject).to receive(:active_for_accumulation).and_return(true) }
+    context 'when enabled' do
+      before { allow(subject).to receive(:enabled).and_return(true) }
 
       it { should validate_presence_of(:amount_step) }
       it { should validate_presence_of(:minimum_total) }
@@ -43,9 +43,9 @@ RSpec.describe TradePair, type: :model do
 
   describe 'CLASS METHODS' do
     describe '.accumulate' do
-      context 'when trade_pair is active_for_accumulation' do
+      context 'when trade_pair is enabled' do
         before do
-          trade_pair.update!(active_for_accumulation: true)
+          trade_pair.update!(enabled: true)
         end
 
         it 'calls AccumulateTradePairJob with the trade pair id' do
@@ -54,9 +54,9 @@ RSpec.describe TradePair, type: :model do
         end
       end
 
-      context 'when trade_pair is not active_for_accumulation' do
+      context 'when trade_pair is not enabled' do
         before do
-          trade_pair.update!(active_for_accumulation: false)
+          trade_pair.update!(enabled: false)
         end
 
         it 'does not call #accumulate on the order' do
@@ -70,16 +70,16 @@ RSpec.describe TradePair, type: :model do
   describe 'INSTANCE METHODS' do
     # Needs refactoring to handle different limits
     # describe '#accumulate' do
-    #   context 'when not active_for_accumulation' do
-    #     before { trade_pair.update!(active_for_accumulation: false) }
+    #   context 'when not enabled' do
+    #     before { trade_pair.update!(enabled: false) }
 
     #     it 'does not call #create_order' do
     #       expect(trade_pair).not_to receive(:create_order)
     #     end
     #   end
 
-    #   context 'when active_for_accumulation' do
-    #     before { trade_pair.update!(active_for_accumulation: true) }
+    #   context 'when enabled' do
+    #     before { trade_pair.update!(enabled: true) }
 
     #     context 'when trade pair has one open orders' do
     #       before { order }

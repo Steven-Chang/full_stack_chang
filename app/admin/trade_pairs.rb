@@ -18,7 +18,7 @@ ActiveAdmin.register TradePair do
     column :price_precision
     column :open_orders_limit
     column :accumulate_time_limit_in_seconds
-    column :active_for_accumulation
+    column :enabled
     actions
   end
 
@@ -40,7 +40,7 @@ ActiveAdmin.register TradePair do
       row :price_precision
       row :open_orders_limit
       row :accumulate_time_limit_in_seconds
-      row :active_for_accumulation
+      row :enabled
     end
   end
 
@@ -57,7 +57,7 @@ ActiveAdmin.register TradePair do
       f.input :price_precision
       f.input :open_orders_limit
       f.input :accumulate_time_limit_in_seconds
-      f.input :active_for_accumulation
+      f.input :enabled
     end
     f.actions
   end
@@ -73,5 +73,5 @@ ActiveAdmin.register TradePair do
                 :amount_step,
                 :price_precision,
                 :accumulate_time_limit_in_seconds,
-                :active_for_accumulation
+                :enabled
 end
