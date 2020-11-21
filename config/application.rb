@@ -44,8 +44,18 @@ module FullStackChang
     config.after_initialize do
       if initialized_server? && Rails.env.production?
         # Creating defaults
+        Credential.create_defaults
         Exchange.create_default_exchanges
         TradePair.create_default_trade_pairs
+        if TradePair.where.not(credential: nil).blank?
+          TradePair.find_each do |tp|
+            if tp.created_at < Date.new(2020, 11, 2)
+              tp.update!(credential: Credential.find_by(identifier: 'emily'))
+            else
+              tp.update!(credential: Credential.find_by(identifier: 'steve'))
+            end
+          end
+        end
 
         # Jobs
         AccumulateCryptoJob.perform_now

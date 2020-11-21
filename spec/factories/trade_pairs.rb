@@ -2,12 +2,12 @@
 
 FactoryBot.define do
   factory :trade_pair do
-    symbol { 'shitcoin' }
+    sequence(:symbol) { |n| "shitcoin-#{n}" }
     amount_step { 0.01 }
     minimum_total { 0.2 }
     price_precision { 7 }
 
-    association :exchange
+    association :credential
 
     trait :fees_present do
       maker_fee { 0.1 }
