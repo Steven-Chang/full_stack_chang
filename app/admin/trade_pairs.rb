@@ -26,7 +26,7 @@ ActiveAdmin.register TradePair do
   end
 
   filter :symbol
-  filter :exchange
+  filter :credential
 
   # === SHOW ===
   show do
@@ -54,7 +54,6 @@ ActiveAdmin.register TradePair do
   form do |f|
     f.inputs do
       f.input :symbol
-      f.input :exchange, member_label: :identifier, collection: Exchange.order('LOWER(identifier)')
       f.input :credential, member_label: :identifier, collection: Credential.order('LOWER(identifier)')
       f.input :url
       f.input :maker_fee
@@ -71,7 +70,6 @@ ActiveAdmin.register TradePair do
 
   # === PERMIT PARAMS ===
   permit_params :symbol,
-                :exchange_id,
                 :credential_id,
                 :open_orders_limit,
                 :url,
