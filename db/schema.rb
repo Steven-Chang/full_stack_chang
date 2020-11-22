@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_21_061713) do
+ActiveRecord::Schema.define(version: 2020_11_22_044835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,7 +219,6 @@ ActiveRecord::Schema.define(version: 2020_11_21_061713) do
   create_table "trade_pairs", force: :cascade do |t|
     t.string "symbol", null: false
     t.string "url"
-    t.bigint "exchange_id"
     t.decimal "maker_fee", precision: 8, scale: 6
     t.decimal "taker_fee", precision: 8, scale: 6
     t.datetime "created_at", precision: 6, null: false
@@ -233,7 +232,6 @@ ActiveRecord::Schema.define(version: 2020_11_21_061713) do
     t.integer "mode", default: 0
     t.bigint "credential_id"
     t.index ["credential_id"], name: "index_trade_pairs_on_credential_id"
-    t.index ["exchange_id"], name: "index_trade_pairs_on_exchange_id"
   end
 
   create_table "tranxactions", force: :cascade do |t|
@@ -290,7 +288,6 @@ ActiveRecord::Schema.define(version: 2020_11_21_061713) do
   add_foreign_key "tenancy_agreements", "properties", name: "tenancy_agreements_property_id_fk"
   add_foreign_key "tenancy_agreements", "users", name: "tenancy_agreements_user_id_fk"
   add_foreign_key "trade_pairs", "credentials"
-  add_foreign_key "trade_pairs", "exchanges", name: "trade_pairs_exchange_id_fk"
   add_foreign_key "tranxactions", "creditors", name: "tranxactions_creditor_id_fk"
   add_foreign_key "tranxactions", "tax_categories", name: "tranxactions_tax_category_id_fk"
 end
