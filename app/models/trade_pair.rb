@@ -75,7 +75,7 @@ class TradePair < ApplicationRecord
 
     return if accumulate_order_limit_reached?
 
-    next_price = get_open_orders('buy', 50)[rand(50)][:rate].to_d
+    next_price = get_open_orders('buy', 5)[0][:rate].to_d * rand(0.97..0.99)
     base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
 
