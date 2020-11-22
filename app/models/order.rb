@@ -23,8 +23,7 @@ class Order < ApplicationRecord
   before_validation :format_buy_or_sell
 
   # === DELEGATES ===
-  delegate :client, to: :exchange
-  delegate :symbol, to: :trade_pair
+  delegate :symbol, :client, to: :trade_pair
 
   # === CLASS METHODS ===
   def self.cancel_stale_orders(trade_pair_id = nil)
