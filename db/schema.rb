@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_122044) do
+ActiveRecord::Schema.define(version: 2020_11_21_061713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(version: 2020_11_20_122044) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "credentials", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.bigint "exchange_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exchange_id"], name: "index_credentials_on_exchange_id"
   end
 
   create_table "creditors", force: :cascade do |t|
@@ -222,6 +230,9 @@ ActiveRecord::Schema.define(version: 2020_11_20_122044) do
     t.integer "price_precision"
     t.integer "open_orders_limit"
     t.integer "accumulate_time_limit_in_seconds"
+    t.integer "mode", default: 0
+    t.bigint "credential_id"
+    t.index ["credential_id"], name: "index_trade_pairs_on_credential_id"
     t.index ["exchange_id"], name: "index_trade_pairs_on_exchange_id"
   end
 
@@ -278,6 +289,7 @@ ActiveRecord::Schema.define(version: 2020_11_20_122044) do
   add_foreign_key "scores", "projects", name: "scores_project_id_fk"
   add_foreign_key "tenancy_agreements", "properties", name: "tenancy_agreements_property_id_fk"
   add_foreign_key "tenancy_agreements", "users", name: "tenancy_agreements_user_id_fk"
+  add_foreign_key "trade_pairs", "credentials"
   add_foreign_key "trade_pairs", "exchanges", name: "trade_pairs_exchange_id_fk"
   add_foreign_key "tranxactions", "creditors", name: "tranxactions_creditor_id_fk"
   add_foreign_key "tranxactions", "tax_categories", name: "tranxactions_tax_category_id_fk"

@@ -6,7 +6,7 @@ RSpec.describe Exchange, type: :model do
   let(:default_exchange) { create }
 
   describe 'ASSOCIATIONS' do
-    it { should have_many(:trade_pairs).dependent(:destroy) }
+    it { should have_many(:trade_pairs) }
   end
 
   describe 'VALIDATIONS' do

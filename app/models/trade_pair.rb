@@ -10,7 +10,8 @@ class TradePair < ApplicationRecord
   DEFAULT_TRADE_PAIRS = YAML.load_file(Rails.root.join('db/defaults/trade_pairs.yml'))
 
   # === ASSOCIATIONS ===
-  belongs_to :exchange
+  belongs_to :credential
+  has_one :exchange, through: :credential
   has_many :orders, dependent: :destroy
 
   # === VALIDATIONS ===

@@ -10,7 +10,8 @@ RSpec.describe TradePair, type: :model do
   let(:trade_pair_with_fees) { create(:trade_pair, :fees_present) }
 
   describe 'ASSOCIATIONS' do
-    it { should belong_to(:exchange) }
+    it { should belong_to(:credential) }
+    it { should have_one(:exchange) }
     it { should have_many(:orders).dependent(:destroy) }
   end
 

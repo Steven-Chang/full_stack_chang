@@ -19,7 +19,8 @@ class Exchange < ApplicationRecord
   }.freeze
 
   # === ASSOCIATIONS ===
-  has_many :trade_pairs, dependent: :destroy
+  has_many :credentials, dependent: :destroy
+  has_many :trade_pairs, through: :credentials
 
   # === VALIDATIONS ===
   validates :identifier, :name, presence: true
