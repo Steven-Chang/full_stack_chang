@@ -26,9 +26,6 @@ class TradePair < ApplicationRecord
   # === CALLBACKS ===
   before_save { symbol.downcase! }
 
-  # === DELEGATES ===
-  delegate :client, to: :exchange
-
   # === CLASS METHODS ===
   def self.accumulate
     # This is needed to do the trade pairs that don't have any orders first
@@ -80,6 +77,17 @@ class TradePair < ApplicationRecord
     quantity = calculate_quantity(base_total, next_price)
 
     create_order('buy', next_price, quantity)
+  end
+
+  def client
+    case exchange.identifier
+    when 'binance'
+      api_key = Rails.env.production? ? Rails.application.credentials.binance[credential.identifier.to_sym][:api_key] : Rails.application.credentials.development[:binance][:test][:api_key]
+      secret_key = Rails.env.production? ? Rails.application.credentials.binance[credential.identifier.to_sym][:secret_key] : Rails.application.credentials.development[:binance][:test][:secret_key]
+      Binance::Client::REST.new(api_key: api_key, secret_key: secret_key)
+    else
+      raise StandardError, 'No client for that exchange'
+    end
   end
 
   # Watch out for the difference in base_total and quantity

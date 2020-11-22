@@ -25,7 +25,7 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'DELEGATES' do
-    it { should delegate_method(:client).to(:exchange) }
+    it { should delegate_method(:client).to(:trade_pair) }
     it { should delegate_method(:symbol).to(:trade_pair) }
   end
 

@@ -35,14 +35,4 @@ class Exchange < ApplicationRecord
   end
 
   # === INSTANCE METHODS ===
-
-  def client
-    case identifier
-    when 'binance'
-      Binance::Client::REST.new(api_key: Rails.application.credentials.binance_steven[:api_key],
-                                secret_key: Rails.application.credentials.binance_steven[:secret_key])
-    else
-      raise StandardError, 'No client for that exchange'
-    end
-  end
 end
