@@ -21,7 +21,7 @@ RSpec.describe TradePair, type: :model do
 
   describe 'VALIDATIONS' do
     it { should validate_presence_of(:symbol) }
-    it { should validate_uniqueness_of(:symbol).scoped_to(:exchange_id).case_insensitive }
+    it { should validate_uniqueness_of(:symbol).scoped_to(:credential_id).case_insensitive }
 
     context 'when enabled' do
       before { allow(subject).to receive(:enabled).and_return(true) }

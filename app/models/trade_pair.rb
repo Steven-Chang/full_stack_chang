@@ -16,7 +16,7 @@ class TradePair < ApplicationRecord
 
   # === VALIDATIONS ===
   validates :symbol, presence: true
-  validates :symbol, uniqueness: { case_sensitive: false, scope: :exchange_id }
+  validates :symbol, uniqueness: { case_sensitive: false, scope: :credential_id }
   validates :amount_step,
             :minimum_total,
             :price_precision,
