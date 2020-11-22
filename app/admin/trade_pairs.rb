@@ -11,6 +11,9 @@ ActiveAdmin.register TradePair do
     column :exchange do |trade_pair|
       trade_pair.exchange.identifier
     end
+    column :credential do |trade_pair|
+      trade_pair.credential&.identifier
+    end
     column :maker_fee
     column :taker_fee
     column :minimum_total
@@ -32,6 +35,9 @@ ActiveAdmin.register TradePair do
       row :exchange do |trade_pair|
         trade_pair.exchange.identifier
       end
+      row :credential do |trade_pair|
+        trade_pair.credential&.identifier
+      end
       row :url
       row :maker_fee
       row :taker_fee
@@ -49,6 +55,7 @@ ActiveAdmin.register TradePair do
     f.inputs do
       f.input :symbol
       f.input :exchange, member_label: :identifier, collection: Exchange.order('LOWER(identifier)')
+      f.input :credential, member_label: :identifier, collection: Credential.order('LOWER(identifier)')
       f.input :url
       f.input :maker_fee
       f.input :taker_fee
@@ -65,6 +72,7 @@ ActiveAdmin.register TradePair do
   # === PERMIT PARAMS ===
   permit_params :symbol,
                 :exchange_id,
+                :credential_id,
                 :open_orders_limit,
                 :url,
                 :maker_fee,
