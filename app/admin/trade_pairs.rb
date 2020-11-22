@@ -48,6 +48,7 @@ ActiveAdmin.register TradePair do
       row :accumulate_time_limit_in_seconds
       row :enabled
     end
+    active_admin_comments
   end
 
   # === FORM ===
