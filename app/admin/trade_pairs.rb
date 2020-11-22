@@ -9,7 +9,7 @@ ActiveAdmin.register TradePair do
   index do
     column :symbol
     column :exchange do |trade_pair|
-      trade_pair.exchange.identifier
+      trade_pair.exchange&.identifier
     end
     column :credential do |trade_pair|
       trade_pair.credential&.identifier
@@ -33,7 +33,7 @@ ActiveAdmin.register TradePair do
     attributes_table do
       row :symbol
       row :exchange do |trade_pair|
-        trade_pair.exchange.identifier
+        trade_pair.exchange&.identifier
       end
       row :credential do |trade_pair|
         trade_pair.credential&.identifier
