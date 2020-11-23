@@ -33,10 +33,10 @@ class TradePair < ApplicationRecord
   def self.accumulate
     # This is needed to do the trade pairs that don't have any orders first
     # Can refactor in the future but not crucial
-    where(enabled: true, mode: 'accumulate').find_each do |trade_pair|
+    where(enabled: true).find_each do |trade_pair|
       AccumulateTradePairJob.perform_later(trade_pair.id) if trade_pair.orders.empty?
     end
-    where(enabled: true, mode: 'accumulate')
+    where(enabled: true)
       .where('orders.status = ?', 'open')
       .left_joins(:orders)
       .group(:id)
@@ -67,15 +67,16 @@ class TradePair < ApplicationRecord
   end
 
   # === INSTANCE METHODS ===
-  # This is to trade between the two pairs on the basis that fluctuations will give opportunities to increase the size of either
-  # In the end if one is worth way more than the other, it's not a big deal
+  # Although this is called accumulate, handles all modes
+  # Eventually want to change this to trade
+  # Does not handle 'sell right now'
   def accumulate
     return unless enabled
     return unless exchange.identifier == 'binance'
-    return unless mode == 'accumulate'
+    return if mode == 'sell'
 
     Order.cancel_stale_orders(id)
-    update_orders_from_exchange(true, status: 'open')
+    update_orders_from_exchange(mode == 'accumulate', status: 'open')
 
     return if accumulate_order_limit_reached?
 
