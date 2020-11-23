@@ -46,7 +46,6 @@ class Order < ApplicationRecord
     end
   end
 
-  # This only works for 'sell' right now
   def create_counter
     return if buy_or_sell == 'sell'
     return if child_order.present?
