@@ -15,7 +15,7 @@ class TradePair < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   # === ENUMERABLES ===
-  enum mode: { accumulate: 0, buy: 1, sell: 2 }
+  enum mode: { accumulate: 0, buy: 1, sell: 2, counter_only: 3 }
 
   # === VALIDATIONS ===
   validates :symbol, presence: true
@@ -75,15 +75,15 @@ class TradePair < ApplicationRecord
     return unless exchange.identifier == 'binance'
     return if mode == 'sell'
 
-    Order.cancel_stale_orders(id)
-    update_orders_from_exchange(mode == 'accumulate', status: 'open')
+    update_orders_from_exchange((mode == 'accumulate' || mode == 'counter_only'), status: 'open')
+    Order.cancel_stale_orders(id, mode == 'counter_only' ? 0 : 1)
 
+    return if mode == 'counter_only'
     return if accumulate_order_limit_reached?
 
     next_price = get_open_orders('buy', 5)[0][:rate].to_d * rand(0.97..0.99)
     base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
-
     create_order('buy', next_price, quantity)
   end
 

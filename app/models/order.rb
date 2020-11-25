@@ -26,12 +26,12 @@ class Order < ApplicationRecord
   delegate :symbol, :client, to: :trade_pair
 
   # === CLASS METHODS ===
-  def self.cancel_stale_orders(trade_pair_id = nil)
+  def self.cancel_stale_orders(trade_pair_id = nil, number_of_hours = 1)
     orders = where(status: 'open', buy_or_sell: 'buy')
     orders = orders.where(trade_pair_id: trade_pair_id) if trade_pair_id
 
     orders.find_each do |order|
-      order.cancel if order.stale?
+      order.cancel if order.stale?(number_of_hours)
     end
   end
 
@@ -97,8 +97,8 @@ class Order < ApplicationRecord
 
   # Currently we only want to remove old buy orders
   # Move this to private if possible after writing tests
-  def stale?
-    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - 1.hours)
+  def stale?(number_of_hours = 1)
+    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - number_of_hours.hours)
   end
 
   private
