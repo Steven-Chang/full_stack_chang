@@ -213,7 +213,7 @@ class TradePair < ApplicationRecord
     filtered_orders.find_each do |order|
       order.update_from_exchange
       if create_counter
-        order.reload
+        order.reload if order.persisted?
         order.create_counter if order.filled?
       end
     end
