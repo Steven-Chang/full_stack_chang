@@ -227,13 +227,9 @@ class TradePair < ApplicationRecord
 
     return true if open_orders_limit.present? && open_buy_orders.count + open_sell_orders.count >= open_orders_limit
 
-    starting_limit = 3
-    if open_buy_orders.count >= starting_limit || open_sell_orders.count >= starting_limit
-      accumulate_limit_time = Time.current - 12.minutes
-      accumulate_limit_time = Time.current - accumulate_time_limit_in_seconds.seconds if accumulate_time_limit_in_seconds.present?
-      return true if open_buy_orders.where('created_at > ?', accumulate_limit_time).present?
-    end
-    false
+    accumulate_limit_time = Time.current - 12.minutes
+    accumulate_limit_time = Time.current - accumulate_time_limit_in_seconds.seconds if accumulate_time_limit_in_seconds.present?
+    open_buy_orders.where('created_at > ?', accumulate_limit_time).present?
   end
 
   def calculate_quantity(base_total, price)
