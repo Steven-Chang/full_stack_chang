@@ -7,6 +7,7 @@ ActiveAdmin.register Credential do
     column :exchange do |credential|
       credential.exchange&.identifier
     end
+    column :enabled
     actions
   end
 
@@ -20,17 +21,20 @@ ActiveAdmin.register Credential do
       row :exchange do |credential|
         credential.exchange&.identifier
       end
+      row :enabled
     end
   end
 
   # === FORM ===
-  # form do |f|
-  #   f.inputs do
-  #     f.input :enabled
-  #   end
-  #   f.actions
-  # end
+  form do |f|
+    f.inputs do
+      f.input :identifier
+      f.input :exchange, member_label: :identifier, collection: Exchange.order('LOWER(identifier)'), include_blank: false
+      f.input :enabled
+    end
+    f.actions
+  end
 
   # === PERMIT PARAMS ===
-  # permit_params :enabled
+  permit_params :enabled, :exchange_id, :identifier
 end
