@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is still going to be a bit of a punt as orders might not get filled exactly as wanted.
 # I guess it's all about probability
 
@@ -11,7 +13,6 @@ btcaud_rate = btcaud_first_open_buy_order[:rate].to_d
 c_btcaud_trade_pair = Exchange.find_by(identifier: 'coinspot').trade_pairs.find_by(symbol: 'btcaud')
 c_btcaud_first_open_buy_order = c_btcaud_trade_pair.get_open_orders('sell', 3)[0]
 c_btcaud_rate = c_btcaud_first_open_buy_order[:rate_cents] / 100.0
-c_btcaud_rate
 
 # Buy on coinspot
 # Sell on Binance
