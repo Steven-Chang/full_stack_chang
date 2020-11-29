@@ -22,15 +22,19 @@ class WillJob < ApplicationJob
         phone_number: '0405 818 525'
       }
     }
+    beneficiary_emails = []
 
     return unless Rails.env.production?
-    return if BlogPost.where('created_at > ?', Time.current - 30.days).present?
 
-    beneficiaries.each do |_key, value|
-      # beneficiary_name = key
-      beneficiary_email = value[:email]
-      # beneficiary_phone_number = value[:phone_number]
+    if BlogPost.where('created_at > ?', Time.current - 30.days).present?
+      beneficiary_emails.push('stevenchang5000@gmail.com') if Date.current.day == 1
+    else
+      beneficiaries.each do |_key, value|
+        beneficiary_emails.push(value[:email])
+      end
+    end
 
+    beneficiary_emails.each do |beneficiary_email|
       mail = SendGrid::Mail.new
       mail.from = Email.new(email: 'stevenchang5000@gmail.com', name: 'Steven Chang')
       personalization = Personalization.new
