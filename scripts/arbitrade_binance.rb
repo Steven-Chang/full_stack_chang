@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is still going to be a bit of a punt as orders might not get filled exactly as wanted.
 # I guess it's all about probability
 

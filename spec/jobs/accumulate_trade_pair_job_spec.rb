@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # https://relishapp.com/rspec/rspec-rails/docs/job-specs/job-spec
 
 require 'rails_helper'
