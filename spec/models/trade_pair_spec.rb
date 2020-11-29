@@ -38,32 +38,6 @@ RSpec.describe TradePair, type: :model do
     end
   end
 
-  describe 'CLASS METHODS' do
-    describe '.accumulate' do
-      context 'when trade_pair is enabled' do
-        before do
-          trade_pair.update!(enabled: true)
-        end
-
-        it 'calls AccumulateTradePairJob with the trade pair id' do
-          expect(AccumulateTradePairJob).to receive(:perform_later).with(trade_pair.id)
-          TradePair.accumulate
-        end
-      end
-
-      context 'when trade_pair is not enabled' do
-        before do
-          trade_pair.update!(enabled: false)
-        end
-
-        it 'does not call #accumulate on the order' do
-          expect(AccumulateTradePairJob).not_to receive(:perform_later).with(trade_pair.id)
-          TradePair.accumulate
-        end
-      end
-    end
-  end
-
   describe 'INSTANCE METHODS' do
     # Needs refactoring to handle different limits
     # describe '#accumulate' do

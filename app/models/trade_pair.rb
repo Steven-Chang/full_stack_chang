@@ -30,23 +30,6 @@ class TradePair < ApplicationRecord
   before_save { symbol.downcase! }
 
   # === CLASS METHODS ===
-  def self.accumulate
-    # This is needed to do the trade pairs that don't have any orders first
-    # Can refactor in the future but not crucial
-    where(enabled: true).find_each do |trade_pair|
-      AccumulateTradePairJob.perform_later(trade_pair.id) if trade_pair.orders.empty?
-    end
-    where(enabled: true)
-      .where('orders.status = ?', 'open')
-      .left_joins(:orders)
-      .group(:id)
-      .order('COUNT(orders.id) ASC')
-      .pluck(:id)
-      .each do |trade_pair_id|
-      AccumulateTradePairJob.perform_later(trade_pair_id)
-    end
-  end
-
   def self.create_default_trade_pairs
     DEFAULT_TRADE_PAIRS.each do |exchange_identifier, values|
       next unless exchange_identifier.to_s == 'binance'
@@ -72,6 +55,7 @@ class TradePair < ApplicationRecord
   # Does not handle 'sell right now'
   def accumulate
     return unless enabled
+    return unless credential.enabled
     return unless exchange.identifier == 'binance'
     return if mode == 'sell'
 

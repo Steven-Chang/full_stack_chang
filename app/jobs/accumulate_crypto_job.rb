@@ -6,6 +6,6 @@ class AccumulateCryptoJob < ApplicationJob
   end
 
   def perform
-    TradePair.accumulate
+    Credential.trade
   end
 end
