@@ -2,7 +2,7 @@
 
 class AccumulateCryptoJob < ApplicationJob
   after_perform do |_job|
-    AccumulateCryptoJob.set(wait_until: Time.zone.now + 33.seconds).perform_later unless AccumulateCryptoJob.scheduled?
+    AccumulateCryptoJob.set(wait_until: Time.zone.now + 7.seconds).perform_later unless AccumulateCryptoJob.scheduled?
   end
 
   def perform
