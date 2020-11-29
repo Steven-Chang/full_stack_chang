@@ -74,8 +74,13 @@ class TradePair < ApplicationRecord
   def client
     case exchange.identifier
     when 'binance'
-      api_key = Rails.env.production? ? Rails.application.credentials.binance[credential.identifier.to_sym][:api_key] : Rails.application.credentials.development[:binance][:test][:api_key]
-      secret_key = Rails.env.production? ? Rails.application.credentials.binance[credential.identifier.to_sym][:secret_key] : Rails.application.credentials.development[:binance][:test][:secret_key]
+      if Rails.env.production?
+        api_key = Rails.application.credentials.binance[credential.identifier.to_sym][:api_key]
+        secret_key = Rails.application.credentials.binance[credential.identifier.to_sym][:secret_key]
+      else
+        api_key = Rails.application.credentials.development[:binance][:test][:api_key]
+        secret_key = Rails.application.credentials.development[:binance][:test][:secret_key]
+      end
       Binance::Client::REST.new(api_key: api_key, secret_key: secret_key)
     else
       raise StandardError, 'No client for that exchange'
