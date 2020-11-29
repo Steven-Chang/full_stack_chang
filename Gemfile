@@ -52,6 +52,8 @@ group :development, :test do
   gem 'byebug'
   # Fixtures replacement
   gem 'factory_bot_rails'
+  # Code smell detector for Ruby https://github.com/troessner/reek
+  gem 'reek'
   # Test suite
   gem 'rspec-rails', '~> 3.5'
 end
