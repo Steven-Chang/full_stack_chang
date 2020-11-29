@@ -15,8 +15,10 @@ module EmailHelper
     sg = SendGrid::API.new(api_key: Rails.application.credentials.sendgrid[:api_key])
     response = sg.client.mail._('send').post(request_body: mail.to_json)
 
-    Rails.logger.debug response.status_code
-    Rails.logger.debug response.body
-    Rails.logger.debug response.headers
+    Rails.logger.debug ''"
+      #{response.status_code}
+      #{response.body}
+      #{response.headers}
+    "''
   end
 end
