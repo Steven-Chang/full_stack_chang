@@ -8,9 +8,11 @@ class ProcessOpenOrdersJob < ApplicationJob
   def perform
     return if Order.where('updated_at > ?', Time.current - 1.minute).count > 777
 
-    Credential.where(enabled: true).trade_pairs.where(enabled: true).find_each do |trade_pair|
-      trade_pair.orders.where(status: 'open').find_each do |order|
-        ProcessOpenOrderJob(order.id)
+    Credential.where(enabled: true).find_each do |credential|
+      credential.trade_pairs.where(enabled: true).find_each do |trade_pair|
+        trade_pair.orders.where(status: 'open').find_each do |order|
+          ProcessOpenOrderJob(order.id)
+        end
       end
     end
   end
