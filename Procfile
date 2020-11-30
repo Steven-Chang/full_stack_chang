@@ -1,2 +1,2 @@
 release: bin/rake db:migrate
-sidekiqworker: bundle exec sidekiq -c 10
+sidekiqworker: bundle exec sidekiq -c 17
