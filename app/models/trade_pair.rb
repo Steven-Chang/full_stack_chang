@@ -8,6 +8,7 @@
 class TradePair < ApplicationRecord
   # === CONSTANTS ===
   DEFAULT_TRADE_PAIRS = YAML.load_file(Rails.root.join('db/defaults/trade_pairs.yml'))
+  MAX_TRADE_FREQUENCY_IN_SECONDS = 7
 
   # === ASSOCIATIONS ===
   belongs_to :credential
@@ -25,6 +26,7 @@ class TradePair < ApplicationRecord
             :price_precision,
             presence: true,
             if: proc { |trade_pair| trade_pair.enabled }
+  validates :accumulate_time_limit_in_seconds, numericality: { greater_than_or_equal_to: MAX_TRADE_FREQUENCY_IN_SECONDS, allow_nil: true }
 
   # === CALLBACKS ===
   before_save { symbol.downcase! }

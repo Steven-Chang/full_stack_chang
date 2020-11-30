@@ -16,6 +16,7 @@ RSpec.describe TradePair, type: :model do
   end
 
   describe 'VALIDATIONS' do
+    it { should validate_numericality_of(:accumulate_time_limit_in_seconds).is_greater_than_or_equal_to(TradePair::MAX_TRADE_FREQUENCY_IN_SECONDS) }
     it { should validate_presence_of(:symbol) }
     it { should validate_uniqueness_of(:symbol).scoped_to(:credential_id).case_insensitive }
 
