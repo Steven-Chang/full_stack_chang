@@ -29,6 +29,7 @@ ActiveAdmin.register TradePair do
   filter :symbol
   filter :credential
   filter :mode
+  filter :enabled
 
   # === SHOW ===
   show do
