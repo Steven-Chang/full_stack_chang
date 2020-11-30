@@ -11,7 +11,7 @@ class ProcessOpenOrdersJob < ApplicationJob
     Credential.where(enabled: true).find_each do |credential|
       credential.trade_pairs.where(enabled: true).find_each do |trade_pair|
         trade_pair.orders.where(status: 'open').find_each do |order|
-          ProcessOpenOrderJob(order.id)
+          ProcessOpenOrderJob.perform_later(order.id)
         end
       end
     end
