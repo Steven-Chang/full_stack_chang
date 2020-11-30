@@ -62,7 +62,7 @@ class TradePair < ApplicationRecord
     return if mode == 'sell'
 
     update_orders_from_exchange((mode == 'accumulate' || mode == 'counter_only'), status: 'open')
-    Order.cancel_stale_orders(id, mode == 'counter_only' ? 0 : 1)
+    Order.cancel_stale_orders(id, mode == 'counter_only' ? 0 : 3)
 
     return if mode == 'counter_only'
     return if accumulate_order_limit_reached?
