@@ -27,7 +27,9 @@ ActiveAdmin.register TradePair do
   end
 
   filter :symbol
-  filter :credential
+  filter :credential, collection: lambda {
+    Credential.all.map { |credential| ["#{credential.identifier} (#{credential.exchange.identifier})", credential.id] }
+  }
   filter :mode
   filter :enabled
 
