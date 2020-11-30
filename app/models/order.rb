@@ -25,16 +25,6 @@ class Order < ApplicationRecord
   # === DELEGATES ===
   delegate :symbol, :client, to: :trade_pair
 
-  # === CLASS METHODS ===
-  def self.cancel_stale_orders(trade_pair_id = nil, number_of_hours = 1)
-    orders = where(status: 'open', buy_or_sell: 'buy')
-    orders = orders.where(trade_pair_id: trade_pair_id) if trade_pair_id
-
-    orders.find_each do |order|
-      order.cancel if order.stale?(number_of_hours)
-    end
-  end
-
   # === INSTANCE METHODS ===
   def cancel
     case exchange.identifier
@@ -71,6 +61,12 @@ class Order < ApplicationRecord
     end
   end
 
+  # Currently we only want to remove old buy orders
+  # Move this to private if possible after writing tests
+  def stale?(number_of_hours = 3)
+    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - number_of_hours.hours)
+  end
+
   def taker_fee_for_calculation
     tf = trade_pair.taker_fee || exchange.taker_fee
     tf / 100
@@ -93,12 +89,6 @@ class Order < ApplicationRecord
         update!(status: result['status'].downcase, quantity_received: result['cummulativeQuoteQty'].to_d)
       end
     end
-  end
-
-  # Currently we only want to remove old buy orders
-  # Move this to private if possible after writing tests
-  def stale?(number_of_hours = 1)
-    buy_or_sell == 'buy' && open? && (quantity_received.nil? || quantity_received.zero?) && (created_at < Time.current - number_of_hours.hours)
   end
 
   private

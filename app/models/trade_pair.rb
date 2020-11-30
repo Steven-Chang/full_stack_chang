@@ -60,10 +60,6 @@ class TradePair < ApplicationRecord
     return unless credential.enabled
     return unless exchange.identifier == 'binance'
     return if mode == 'sell'
-
-    update_orders_from_exchange((mode == 'accumulate' || mode == 'counter_only'), status: 'open')
-    Order.cancel_stale_orders(id, mode == 'counter_only' ? 0 : 3)
-
     return if mode == 'counter_only'
     return if accumulate_order_limit_reached?
 
@@ -196,18 +192,6 @@ class TradePair < ApplicationRecord
     tft = trade_fee_total(quantity, rate, maker_or_taker)
     tft *= -1 if maker_or_taker == 'taker'
     rate * quantity + tft
-  end
-
-  def update_orders_from_exchange(create_counter = false, order_options = nil)
-    filtered_orders = orders
-    filtered_orders = orders.where(order_options) if order_options
-    filtered_orders.find_each do |order|
-      order.update_from_exchange
-      if create_counter
-        order.reload if order.persisted?
-        order.create_counter if order.filled?
-      end
-    end
   end
 
   private
