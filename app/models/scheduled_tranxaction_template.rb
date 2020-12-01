@@ -14,22 +14,23 @@ class ScheduledTranxactionTemplate < ApplicationRecord
   # === CLASS METHODS ===
   def self.process
     where(enabled: true)
-      .find_each do |scheduled_tranxaction_template|
-        next unless scheduled_tranxaction_template.date <= Date.current + 1.day + scheduled_tranxaction_template.date_offset.to_i
+      .find_each do |stt|
+        next unless (stt_date = stt.date)
+        next unless stt_date <= Date.current + 1.day + stt.date_offset.to_i
 
         tranxaction = Tranxaction.create(
-          amount: scheduled_tranxaction_template.amount,
-          creditor: scheduled_tranxaction_template.creditor,
-          date: scheduled_tranxaction_template.date,
-          description: scheduled_tranxaction_template.description,
-          tax: scheduled_tranxaction_template.tax,
-          tax_category: scheduled_tranxaction_template.tax_category,
-          tranxactable: scheduled_tranxaction_template.tranxactable
+          amount: stt.amount,
+          creditor: stt.creditor,
+          date: stt_date,
+          description: stt.description,
+          tax: stt.tax,
+          tax_category: stt.tax_category,
+          tranxactable: stt.tranxactable
         )
         next unless tranxaction.persisted?
 
-        next_date_to_process = scheduled_tranxaction_template.date + scheduled_tranxaction_template.days_for_recurrence.days
-        scheduled_tranxaction_template.update!(date: next_date_to_process)
+        next_date_to_process = stt_date + stt.days_for_recurrence.days
+        stt.update!(date: next_date_to_process)
 		  end
   end
 end
