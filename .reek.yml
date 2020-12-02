@@ -22,6 +22,9 @@ directories:
       enabled: false
     TooManyStatements:
       enabled: false
+  'app/jobs':
+    UtilityFunction:
+      enabled: false
 
 ### Excluding directories
 

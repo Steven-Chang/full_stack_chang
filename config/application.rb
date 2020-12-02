@@ -8,11 +8,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-def initialized_server?
-  defined?(Rails::Server) || (defined?(::Puma) && File.basename($PROGRAM_NAME).starts_with?('puma')) ||
-    (defined?(::Nack::Server) && File.basename($PROGRAM_NAME).starts_with?('nack')) # nack is Pow
-end
-
 module FullStackChang
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -28,32 +23,16 @@ module FullStackChang
     # === GENERATORS ===
     # Don't create assets during scaffold creation
     # Just create as needed otherwise you'll end up with a bunch of unused files
-    config.generators do |g|
+    config.generators do |generator|
       # Assets == js & Stylesheets
-      g.assets false
-      g.helper false
-      g.jbuilder false
-      g.serializer false
-      g.stylesheets false
+      generator.assets false
+      generator.helper false
+      generator.jbuilder false
+      generator.serializer false
+      generator.stylesheets false
     end
 
     # === ACTIVE JOB ===
     config.active_job.queue_adapter = :sidekiq
-
-    # === AFTER INITIALIZE ===
-    config.after_initialize do
-      if initialized_server? && Rails.env.production?
-        # Creating defaults
-        Credential.create_defaults
-        Exchange.create_default_exchanges
-        TradePair.create_default_trade_pairs
-
-        # Jobs
-        AccumulateCryptoJob.perform_now
-        ProcessOpenOrdersJob.perform_now
-        ProcessScheduledTranxactionTemplatesJob.perform_now
-        WillJob.perform_now
-      end
-    end
   end
 end
