@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+def initialized_server?
+  defined?(Rails::Server) || (defined?(::Puma) && File.basename($PROGRAM_NAME).starts_with?('puma')) ||
+    (defined?(::Nack::Server) && File.basename($PROGRAM_NAME).starts_with?('nack')) # nack is Pow
+end
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -93,15 +98,17 @@ Rails.application.configure do
 
   # === AFTER INITIALIZE ===
   config.after_initialize do
-    # Creating defaults
-    Credential.create_defaults
-    Exchange.create_default_exchanges
-    TradePair.create_default_trade_pairs
+    if initialized_server?
+      # Creating defaults
+      Credential.create_defaults
+      Exchange.create_default_exchanges
+      TradePair.create_default_trade_pairs
 
-    # Jobs
-    AccumulateCryptoJob.perform_now
-    ProcessOpenOrdersJob.perform_now
-    ProcessScheduledTranxactionTemplatesJob.perform_now
-    WillJob.perform_now
+      # Jobs
+      AccumulateCryptoJob.perform_now
+      ProcessOpenOrdersJob.perform_now
+      ProcessScheduledTranxactionTemplatesJob.perform_now
+      WillJob.perform_now
+    end
   end
 end
