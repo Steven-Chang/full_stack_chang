@@ -17,20 +17,19 @@ class Credential < ApplicationRecord
 
   def self.trade
     Credential.where(enabled: true).find_each do |credential|
+      trade_pairs_enabled = credential.trade_pairs.where(enabled: true)
       # This is needed to do the trade pairs that don't have any orders first
       # Can refactor in the future but not crucial
-      credential.trade_pairs.where(enabled: true).find_each do |trade_pair|
+      trade_pairs_enabled.find_each do |trade_pair|
         AccumulateTradePairJob.perform_later(trade_pair.id) if trade_pair.orders.empty?
       end
 
-      credential.trade_pairs
-                .where(enabled: true)
-                .where('orders.status = ?', 'open')
-                .left_joins(:orders)
-                .group(:id)
-                .order('COUNT(orders.id) ASC')
-                .pluck(:id)
-                .each do |trade_pair_id|
+      trade_pairs_enabled.where('orders.status = ?', 'open')
+                         .left_joins(:orders)
+                         .group(:id)
+                         .order('COUNT(orders.id) ASC')
+                         .pluck(:id)
+                         .each do |trade_pair_id|
         AccumulateTradePairJob.perform_later(trade_pair_id)
       end
     end
@@ -41,14 +40,8 @@ class Credential < ApplicationRecord
     case exchange.identifier
     when 'binance'
       rails_credentials = Rails.application.credentials
-      if Rails.env.production?
-        api_key = rails_credentials.binance[identifier.to_sym][:api_key]
-        secret_key = rails_credentials.binance[identifier.to_sym][:secret_key]
-      else
-        api_key = rails_credentials.development[:binance][:test][:api_key]
-        secret_key = rails_credentials.development[:binance][:test][:secret_key]
-      end
-      Binance::Client::REST.new(api_key: api_key, secret_key: secret_key)
+      binance_credentials = Rails.env.production? ? rails_credentials.binance[identifier.to_sym] : rails_credentials.development[:binance][:test]
+      Binance::Client::REST.new(api_key: binance_credentials[:api_key], secret_key: binance_credentials[:secret_key])
     else
       raise StandardError, 'No client for that exchange'
     end

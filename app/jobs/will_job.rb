@@ -49,9 +49,6 @@ class WillJob < ApplicationJob
       rescue StandardError => e
         Rails.logger.debug e.message
       end
-      Rails.logger.debug response.status_code
-      Rails.logger.debug response.body
-      Rails.logger.debug response.headers
     end
   end
 end
