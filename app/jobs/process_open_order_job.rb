@@ -9,7 +9,7 @@ class ProcessOpenOrderJob < ApplicationJob
       return unless order.persisted?
 
       order.create_counter if order.filled? && %w[accumulate counter_only].include?(order.trade_pair.mode)
-      order.cancel if order.stale?(order.trade_pair.mode == accumulate ? 3 : 0)
+      order.cancel if order.stale?(order.trade_pair.mode == 'accumulate' ? 3 : 0)
     end
   end
 end
