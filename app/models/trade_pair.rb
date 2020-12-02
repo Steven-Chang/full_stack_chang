@@ -63,7 +63,7 @@ class TradePair < ApplicationRecord
     return if mode == 'counter_only'
     return if accumulate_order_limit_reached?
 
-    next_price = get_open_orders('buy', 5)[0][:rate].to_d * rand(0.97..0.99)
+    next_price = get_open_buy_orders(5)[0][:rate].to_d * rand(0.97..0.99)
     base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
     create_order('buy', next_price, quantity)
@@ -114,14 +114,14 @@ class TradePair < ApplicationRecord
     end
   end
 
-  def get_open_orders(buy_or_sell, number_of_orders = 5)
+  def get_open_buy_orders(number_of_orders = 5)
     orders = []
 
     case exchange.identifier
     when 'coinspot'
-      m = Mechanize.new
-      page = m.get(url)
-      selector = buy_or_sell == 'buy' ? '.openbuyrows' : '.opensellrows'
+      mechanize_instance = Mechanize.new
+      page = mechanize_instance.get(url)
+      selector = '.openbuyrows'
       number_of_orders.times do |n|
         order = parse_and_map_order_retrieved_order(page.search(selector)[n])
         orders.push(order)
@@ -131,7 +131,36 @@ class TradePair < ApplicationRecord
       retrieved_object = client.depth(symbol: symbol.upcase, limit: number_of_orders)
       raise StandardError, retrieved_object['msg'] if retrieved_object['code'].present?
 
-      retrieved_orders = buy_or_sell == 'buy' ? retrieved_object['bids'] : retrieved_object['asks']
+      retrieved_orders = retrieved_object['bids']
+      retrieved_orders.each do |retrieved_order|
+        order = parse_and_map_order_retrieved_order(retrieved_order)
+        orders.push(order)
+      end
+    else
+      raise StandardError, "Exchange isn's set up to get open orders"
+    end
+
+    orders
+  end
+
+  def get_open_sell_orders(number_of_orders = 5)
+    orders = []
+
+    case exchange.identifier
+    when 'coinspot'
+      mechanize_instance = Mechanize.new
+      page = mechanize_instance.get(url)
+      selector = '.opensellrows'
+      number_of_orders.times do |n|
+        order = parse_and_map_order_retrieved_order(page.search(selector)[n])
+        orders.push(order)
+      end
+    when 'binance'
+      number_of_orders = number_of_orders < 5 ? 5 : number_of_orders
+      retrieved_object = client.depth(symbol: symbol.upcase, limit: number_of_orders)
+      raise StandardError, retrieved_object['msg'] if retrieved_object['code'].present?
+
+      retrieved_orders = retrieved_object['asks']
       retrieved_orders.each do |retrieved_order|
         order = parse_and_map_order_retrieved_order(retrieved_order)
         orders.push(order)

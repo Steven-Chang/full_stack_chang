@@ -24,8 +24,8 @@ class Tranxaction < ApplicationRecord
     tranxactions = tranxactable ? tranxactable.tranxactions : Tranxaction.all
     tranxactions = tranxactions.where('date >= ?', from) if from
     tranxactions = tranxactions.where('date <= ?', to) if to
-    tranxactions = tranxactions.where('amount > ?', greater_than) unless greater_than.nil?
-    tranxactions = tranxactions.where('amount < ?', less_than) unless less_than.nil?
+    tranxactions = tranxactions.where('amount > ?', greater_than) if greater_than
+    tranxactions = tranxactions.where('amount < ?', less_than) if less_than
     tranxactions.where(tax: tax) unless tax == 'ignore'
   end
 
@@ -39,7 +39,8 @@ class Tranxaction < ApplicationRecord
     latest_end_of_financial_year_date = Date.new(latest_tranxaction_date.year + (latest_tranxaction_date.month > 6 ? 1 : 0), 6, 30)
     earliest_end_of_financial_year_date = Date.new(earliest_tranxaction_date.year + (earliest_tranxaction_date.month > 6 ? 1 : 0), 6, 30)
     dates = [latest_end_of_financial_year_date]
-    dates.push(dates.last - 1.year) while dates.last >= earliest_end_of_financial_year_date
+    dates_last = dates.last
+    dates.push(dates_last - 1.year) while dates_last >= earliest_end_of_financial_year_date
     dates
   end
 
