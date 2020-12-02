@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_015119) do
+ActiveRecord::Schema.define(version: 2020_12_02_104835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,17 +179,6 @@ ActiveRecord::Schema.define(version: 2020_11_29_015119) do
     t.index ["tranxactable_type", "tranxactable_id"], name: "index_tranxaction_schedules_on_tranxactable"
   end
 
-  create_table "scores", force: :cascade do |t|
-    t.integer "project_id", null: false
-    t.integer "score", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name", null: false
-    t.integer "level"
-    t.integer "lines"
-    t.index ["project_id"], name: "index_scores_on_project_id"
-  end
-
   create_table "tax_categories", force: :cascade do |t|
     t.string "description", null: false
     t.datetime "created_at", null: false
@@ -285,7 +274,6 @@ ActiveRecord::Schema.define(version: 2020_11_29_015119) do
   add_foreign_key "projects_tools", "tools", name: "projects_tools_tool_id_fk"
   add_foreign_key "scheduled_tranxaction_templates", "creditors", name: "scheduled_tranxaction_templates_creditor_id_fk"
   add_foreign_key "scheduled_tranxaction_templates", "tax_categories", name: "scheduled_tranxaction_templates_tax_category_id_fk"
-  add_foreign_key "scores", "projects", name: "scores_project_id_fk"
   add_foreign_key "tenancy_agreements", "properties", name: "tenancy_agreements_property_id_fk"
   add_foreign_key "tenancy_agreements", "users", name: "tenancy_agreements_user_id_fk"
   add_foreign_key "trade_pairs", "credentials"
