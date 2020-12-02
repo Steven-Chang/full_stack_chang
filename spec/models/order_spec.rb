@@ -226,10 +226,15 @@ RSpec.describe Order, type: :model do
 
     describe '#update_from_exchange' do
       context 'when order is with binance' do
-        before { order_created.exchange.update!(identifier: 'binance') }
+        before do
+          order_created.exchange.update(identifier: 'binance')
+          order_created.reload
+        end
 
         context 'when symbol is not registered with binance' do
-          before { order_created.trade_pair.update!(symbol: 'SHITCOIN') }
+          before do
+            order_created.trade_pair.update!(symbol: 'SHITCOIN')
+          end
 
           it 'does not update the order' do
             expect(order_created).not_to receive(:update!)

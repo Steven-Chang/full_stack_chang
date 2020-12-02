@@ -31,6 +31,10 @@ class TradePair < ApplicationRecord
   # === CALLBACKS ===
   before_save { symbol.downcase! }
 
+  # === DELEGATES ===
+  delegate :client,
+           to: :credential
+
   # === CLASS METHODS ===
   def self.create_default_trade_pairs
     DEFAULT_TRADE_PAIRS.each do |exchange_identifier, values|
@@ -69,22 +73,6 @@ class TradePair < ApplicationRecord
     create_order('buy', next_price, quantity)
   end
 
-  def client
-    case exchange.identifier
-    when 'binance'
-      if Rails.env.production?
-        api_key = Rails.application.credentials.binance[credential.identifier.to_sym][:api_key]
-        secret_key = Rails.application.credentials.binance[credential.identifier.to_sym][:secret_key]
-      else
-        api_key = Rails.application.credentials.development[:binance][:test][:api_key]
-        secret_key = Rails.application.credentials.development[:binance][:test][:secret_key]
-      end
-      Binance::Client::REST.new(api_key: api_key, secret_key: secret_key)
-    else
-      raise StandardError, 'No client for that exchange'
-    end
-  end
-
   # Watch out for the difference in base_total and quantity
   # base_total in Binance is the bottom input total
   # and quantity is the middle one which we submit which is the middle one
@@ -101,12 +89,12 @@ class TradePair < ApplicationRecord
                                     time_in_force: 'GTC',
                                     quantity: quantity,
                                     price: price.to_s)
-      if result['orderId']
+      if (binance_order_id = result['orderId'])
         orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open',
                       buy_or_sell: buy_or_sell,
                       price: result['price'],
                       quantity: result['origQty'].to_d,
-                      reference: result['orderId'],
+                      reference: binance_order_id,
                       order_id: order_id)
       else
         puts result.inspect
@@ -122,8 +110,8 @@ class TradePair < ApplicationRecord
       mechanize_instance = Mechanize.new
       page = mechanize_instance.get(url)
       selector = '.openbuyrows'
-      number_of_orders.times do |n|
-        order = parse_and_map_order_retrieved_order(page.search(selector)[n])
+      number_of_orders.times do |row_number|
+        order = parse_and_map_order_retrieved_order(page.search(selector)[row_number])
         orders.push(order)
       end
     when 'binance'
@@ -151,8 +139,8 @@ class TradePair < ApplicationRecord
       mechanize_instance = Mechanize.new
       page = mechanize_instance.get(url)
       selector = '.opensellrows'
-      number_of_orders.times do |n|
-        order = parse_and_map_order_retrieved_order(page.search(selector)[n])
+      number_of_orders.times do |row_number|
+        order = parse_and_map_order_retrieved_order(page.search(selector)[row_number])
         orders.push(order)
       end
     when 'binance'
