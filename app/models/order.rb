@@ -29,7 +29,6 @@ class Order < ApplicationRecord
 
   # === INSTANCE METHODS ===
   def cancel
-    credential.cancel_order(symbol, reference)
     case exchange.identifier
     when 'binance'
       result = client.cancel_order!(symbol: symbol.upcase, order_id: reference)
