@@ -3,7 +3,8 @@
 class ProcessOpenOrderJob < ApplicationJob
   def perform(order_id)
     if Order.where('updated_at > ?', Time.current - 1.minute).count > 777
-      ProcessOpenOrderJob.set(wait_until: Time.zone.now + 59.seconds).perform_later(order_id)
+      wait_until_time = Order.find_by(id: order_id)&.trade_pair&.mode == 'accumulate' ? 59.seconds : 3.minutes
+      ProcessOpenOrderJob.set(wait_until: Time.zone.now + wait_until_time).perform_later(order_id)
     elsif (order = Order.find_by(id: order_id))
       order.update_from_exchange
       return unless order.persisted?
