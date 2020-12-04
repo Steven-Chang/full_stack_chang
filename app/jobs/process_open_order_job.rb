@@ -2,15 +2,13 @@
 
 class ProcessOpenOrderJob < ApplicationJob
   def perform(order_id)
-    if Order.where('updated_at > ?', Time.current - 1.minute).count > 777
-      wait_until_time = Order.find_by(id: order_id)&.trade_pair&.mode == 'accumulate' ? 59.seconds : 3.minutes
-      ProcessOpenOrderJob.set(wait_until: Time.zone.now + wait_until_time).perform_later(order_id)
-    elsif (order = Order.find_by(id: order_id))
-      order.update_from_exchange
-      return unless order.persisted?
+    return if Order.where('updated_at > ?', Time.current - 1.minute).count > 777
+    return unless (order = Order.find_by(id: order_id))
 
-      order.create_counter if order.filled? && %w[accumulate counter_only].include?(order.trade_pair.mode)
-      order.cancel if order.stale?(order.trade_pair.mode == 'accumulate' ? 3 : 0)
-    end
+    order.update_from_exchange
+    return unless order.persisted?
+
+    order.create_counter if order.filled? && %w[accumulate counter_only].include?(order.trade_pair.mode)
+    order.cancel if order.stale?(order.trade_pair.mode == 'accumulate' ? 3 : 0)
   end
 end
