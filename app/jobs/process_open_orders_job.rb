@@ -2,7 +2,7 @@
 
 class ProcessOpenOrdersJob < ApplicationJob
   after_perform do |_job|
-    ProcessOpenOrdersJob.set(wait_until: Time.zone.now + 3.minutes).perform_later unless ProcessOpenOrdersJob.scheduled?
+    ProcessOpenOrdersJob.set(wait_until: Time.zone.now + 1.minute).perform_later unless ProcessOpenOrdersJob.scheduled?
   end
 
   def perform
