@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :reek:MissingSafeMethod { exclude: [ authenticate_admin_user! ] }
 class ApplicationController < ActionController::Base
   # === INCLUDES ===
   include Pundit

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 def initialized_server?
-  defined?(Rails::Server) || (defined?(::Puma) && File.basename($PROGRAM_NAME).starts_with?('puma')) ||
-    (defined?(::Nack::Server) && File.basename($PROGRAM_NAME).starts_with?('nack')) # nack is Pow
+  file_basename_program_name = File.basename($PROGRAM_NAME)
+
+  defined?(Rails::Server) || (defined?(::Puma) && file_basename_program_name.starts_with?('puma')) ||
+    (defined?(::Nack::Server) && file_basename_program_name.starts_with?('nack')) # nack is Pow
 end
 
 Rails.application.configure do
