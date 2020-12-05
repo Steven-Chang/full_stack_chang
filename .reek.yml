@@ -10,6 +10,9 @@ detectors:
     enabled: false
   TooManyStatements:
     enabled: false
+  UncommunicativeVariableName:
+    accept:
+      - e
 
 ### Directory specific configuration
 

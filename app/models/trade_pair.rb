@@ -219,8 +219,7 @@ class TradePair < ApplicationRecord
 
     return true if open_orders_limit.present? && open_buy_orders.count + open_sell_orders.count >= open_orders_limit
 
-    accumulate_limit_time = Time.current - 12.minutes
-    accumulate_limit_time = Time.current - accumulate_time_limit_in_seconds.seconds if accumulate_time_limit_in_seconds.present?
+    accumulate_limit_time = Time.current - (accumulate_time_limit_in_seconds&.seconds || 12.minutes)
     open_buy_orders.where('created_at > ?', accumulate_limit_time).present?
   end
 
@@ -241,9 +240,10 @@ class TradePair < ApplicationRecord
   def parse_and_map_order_retrieved_order(retrieved_order)
     case exchange.identifier
     when 'coinspot'
-      { amount: retrieved_order.children[1].text.split(' ').first.to_d,
-        rate_cents: Monetize.parse(retrieved_order.children[3].text).fractional,
-        total_cents: retrieved_order.children[5].text }
+      retrieved_order_childen = retrieved_order.children
+      { amount: retrieved_order_childen[1].text.split(' ').first.to_d,
+        rate_cents: Monetize.parse(retrieved_order_childen[3].text).fractional,
+        total_cents: retrieved_order_childen[5].text }
     when 'binance'
       { amount: retrieved_order.second.to_d,
         rate: retrieved_order.first }
