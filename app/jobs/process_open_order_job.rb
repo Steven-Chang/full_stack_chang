@@ -2,8 +2,8 @@
 
 class ProcessOpenOrderJob < ApplicationJob
   def perform(order_id)
-    return if Order.where('updated_at > ?', Time.current - 1.minute).count > 777
     return unless (order = Order.find_by(id: order_id))
+    return if order.credential.orders.where('updated_at > ?', Time.current - 1.minute).count > 777
 
     order.update_from_exchange
     return unless order.persisted?
