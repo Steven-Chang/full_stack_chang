@@ -4,6 +4,7 @@ class Credential < ApplicationRecord
   # === ASSOCIATIONS ===
   belongs_to :exchange
   has_many :trade_pairs, dependent: :restrict_with_exception
+  has_many :orders, through: :trade_pairs
 
   # === CLASS METHODS ===
   def self.create_defaults
