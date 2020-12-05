@@ -7,6 +7,8 @@ class ProcessOpenOrdersJob < ApplicationJob
 
   def perform
     Credential.where(enabled: true).find_each do |credential|
+      next if order.credential.orders.where('orders.updated_at > ?', Time.current - 1.minute).count > 333
+
       credential.trade_pairs.where(enabled: true).find_each do |trade_pair|
         trade_pair.orders.where(status: 'open').find_each do |order|
           ProcessOpenOrderJob.perform_later(order.id)
