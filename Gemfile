@@ -26,8 +26,6 @@ gem 'money'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 # Monitoring the app
-# https://rpm.newrelic.com/accounts/2222353/applications/setup#ruby
-gem 'newrelic_rpm'
 gem 'pg'
 gem 'puma', '~> 3.11'
 gem 'pundit'
