@@ -19,18 +19,6 @@ RSpec.describe Tranxaction, type: :model do
   end
 
   describe 'CALLBACKS' do
-  # 	describe 'after_create' do
-  #     context 'when tranxaction has a tranxactable with resource_type Client' do
-  #       before do
-  #         Tranxactable.create(resource: client, tranxaction: tranxaction)
-  #       end
-
-  #       it 'creates a Tranxactable with that tranxaction and with TranxactionType for work' do
-  #         tranxaction.save!
-  #         expect(Tranxactable.count).to be true
-  #       end
-  #     end
-  # 	end
     describe 'before_save' do
       context 'when tranxaction has a tax_category' do
         before do
