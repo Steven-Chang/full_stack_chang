@@ -12,5 +12,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   resources :cryptos
   resources :scores, only: %i[index create]
+  # API
+  get 'minutes_to_sale', to: 'charts#minutes_to_sale'
+
   root 'application#home'
 end

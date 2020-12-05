@@ -11,10 +11,12 @@ gem 'arctic_admin'
 gem 'binance'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'chartkick'
 gem 'cloudinary'
 gem 'devise'
 # Barebones two-factor authentication with Devise
 gem 'devise-two-factor'
+gem 'groupdate'
 gem 'haml'
 # Foreign key migration generator for Rails
 gem 'immigrant'
