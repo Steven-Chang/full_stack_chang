@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_104835) do
+ActiveRecord::Schema.define(version: 2020_12_06_074643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_104835) do
     t.string "reference"
     t.decimal "quantity_received", precision: 15, scale: 10
     t.bigint "order_id"
+    t.decimal "percentage_from_market_price", precision: 8, scale: 6
     t.index ["order_id"], name: "index_orders_on_order_id"
     t.index ["trade_pair_id"], name: "index_orders_on_trade_pair_id"
   end
