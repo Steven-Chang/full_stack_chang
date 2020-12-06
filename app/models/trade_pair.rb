@@ -67,17 +67,18 @@ class TradePair < ApplicationRecord
     return if mode == 'counter_only'
     return if accumulate_order_limit_reached?
 
-    next_price = get_open_buy_orders(5)[0][:rate].to_d * rand(0.97..0.99)
+    percentage_from_market_price = rand(1.01..3).round(2)
+    next_price = get_open_buy_orders(5)[0][:rate].to_d * ((100 - percentage_from_market_price) / 100)
     base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
-    create_order('buy', next_price, quantity)
+    create_order('buy', next_price, quantity, nil, percentage_from_market_price)
   end
 
   # Watch out for the difference in base_total and quantity
   # base_total in Binance is the bottom input total
   # and quantity is the middle one which we submit which is the middle one
   # That's why there's all these calculations
-  def create_order(buy_or_sell, price, quantity, order_id = nil)
+  def create_order(buy_or_sell, price, quantity, order_id = nil, percentage_from_market_price = nil)
     price = price.truncate(price_precision)
     quantity = quantity_formatted_for_order(quantity)
 
@@ -95,7 +96,8 @@ class TradePair < ApplicationRecord
                       price: result['price'],
                       quantity: result['origQty'].to_d,
                       reference: binance_order_id,
-                      order_id: order_id)
+                      order_id: order_id,
+                      percentage_from_market_price: percentage_from_market_price)
       else
         puts result.inspect
       end
