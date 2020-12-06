@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :scores, only: %i[index create]
   # API
   get 'minutes_to_sale', to: 'charts#minutes_to_sale'
+  get 'total_scalped', to: 'charts#total_scalped'
 
   root 'application#home'
 end
