@@ -17,7 +17,7 @@ class Order < ApplicationRecord
             :quantity,
             presence: true
   validates :buy_or_sell, inclusion: { in: %w[buy sell] }
-  validates :status, inclusion: { in: %w[open filled] }
+  validates :status, inclusion: { in: %w[open filled cancelled_stale] }
 
   # === CALLBACKS ===
   before_validation :format_status
@@ -34,7 +34,7 @@ class Order < ApplicationRecord
       result = client.cancel_order!(symbol: symbol.upcase, order_id: reference)
       return if result['code'].present?
 
-      destroy!
+      update!(status: 'cancelled_stale')
     end
   end
 
