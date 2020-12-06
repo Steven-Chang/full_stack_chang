@@ -13,7 +13,7 @@ ActiveAdmin.register_page 'Dashboard' do
     end
 
     panel 'Cancelled stale orders vs percentage from market price' do
-      bar_chart Order.where(status: 'cancelled_stale').group(:percentage_from_market_price).count
+      bar_chart Order.where(status: 'cancelled_stale').where.not(percentage_from_market_price: nil).group(:percentage_from_market_price).count
     end
   end
 end
