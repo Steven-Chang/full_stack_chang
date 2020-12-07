@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 cred_trade_pairs = Credential.find_by(identifier: 'chang_superfund', enabled: true).trade_pairs
-cred_trade_pairs.where(symbol: %w[btcaud btcusdt ethaud ethusdt]).each do |trade_pair|
+cred_trade_pairs.where(symbol: %w[btcaud btcusdt ethaud ethusdt linkusdt linkusdc linkaud]).each do |trade_pair|
   trade_pair.orders.where(status: 'filled', buy_or_sell: 'buy').find_each do |order|
     next if order.child_order.present?
     next if order.quantity_received.blank?
@@ -14,6 +14,8 @@ cred_trade_pairs.where(symbol: %w[btcaud btcusdt ethaud ethusdt]).each do |trade
                     'btcusdc'
                   when 'ethusdt'
                     'ethusdc'
+                  when 'linkusdt'
+                    'linkusdc'
                   else
                     trade_pair.symbol
     end
