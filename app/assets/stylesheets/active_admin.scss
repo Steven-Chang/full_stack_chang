@@ -10,6 +10,9 @@
 // Active Admin's got SASS!
 @import "arctic_admin/base";
 
+// REMARK
+@import "remark_classic/global/css/bootstrap.min";
+
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //

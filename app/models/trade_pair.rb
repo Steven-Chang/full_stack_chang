@@ -66,6 +66,8 @@ class TradePair < ApplicationRecord
     return if mode == 'sell'
     return if mode == 'counter_only'
     return if accumulate_order_limit_reached?
+    # return if max_qty is lower than total available in balance
+    # Will have to make an api call to Binance
 
     percentage_from_market_price = rand(1.01..3).round(2)
     next_price = get_open_buy_orders(5)[0][:rate].to_d * ((100 - percentage_from_market_price) / 100)
