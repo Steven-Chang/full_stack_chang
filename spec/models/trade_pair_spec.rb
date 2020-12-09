@@ -23,6 +23,8 @@ RSpec.describe TradePair, type: :model do
     it { should validate_numericality_of(:accumulate_time_limit_in_seconds).is_greater_than_or_equal_to(TradePair::MAX_TRADE_FREQUENCY_IN_SECONDS) }
     it { should validate_presence_of(:symbol) }
     it { should validate_uniqueness_of(:symbol).scoped_to(:credential_id).case_insensitive }
+    it { should validate_numericality_of(:percentage_from_market_price_buy_minimum).is_greater_than_or_equal_to(0.01).is_less_than_or_equal_to(100).allow_nil }
+    it { should validate_numericality_of(:percentage_from_market_price_buy_maximum).is_greater_than_or_equal_to(0.01).is_less_than_or_equal_to(100).allow_nil }
 
     context 'when enabled' do
       before { allow(subject).to receive(:enabled).and_return(true) }

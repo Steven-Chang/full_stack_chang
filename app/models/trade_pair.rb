@@ -19,6 +19,13 @@ class TradePair < ApplicationRecord
   enum mode: { accumulate: 0, buy: 1, sell: 2, counter_only: 3 }
 
   # === VALIDATIONS ===
+  validates :percentage_from_market_price_buy_minimum,
+            :percentage_from_market_price_buy_maximum,
+            numericality: {
+              allow_nil: true,
+              greater_than_or_equal_to: 0.01,
+              less_than_or_equal_to: 100
+            }
   validates :symbol, presence: true
   validates :symbol, uniqueness: { case_sensitive: false, scope: :credential_id }
   validates :amount_step,
@@ -66,10 +73,8 @@ class TradePair < ApplicationRecord
     return if mode == 'sell'
     return if mode == 'counter_only'
     return if accumulate_order_limit_reached?
-    # return if max_qty is lower than total available in balance
-    # Will have to make an api call to Binance
 
-    percentage_from_market_price = rand(1.01..3).round(2)
+    percentage_from_market_price = rand(percentage_from_market_price_minimum('buy')..3).round(2)
     next_price = get_open_buy_orders(5)[0][:rate].to_d * ((100 - percentage_from_market_price) / 100)
     base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
@@ -254,5 +259,11 @@ class TradePair < ApplicationRecord
     else
       raise StandardError, "Exchange isn't set up to parse and map retrieved orders"
     end
+  end
+
+  def percentage_from_market_price_minimum(buy_or_sell)
+    return if buy_or_sell != 'buy'
+
+    percentage_from_market_price_buy_minimum || TradePair.find_by(symbol: 'master')&.percentage_from_market_price_buy_minimum || 1.01
   end
 end
