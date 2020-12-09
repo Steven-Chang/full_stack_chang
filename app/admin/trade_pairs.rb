@@ -16,9 +16,8 @@ ActiveAdmin.register TradePair do
     end
     column :maker_fee
     column :taker_fee
-    column :minimum_total
-    column :amount_step
-    column :price_precision
+    column :minimum_hodl_quantity
+    column :maximum_hodl_quantity
     column :open_orders_limit
     column :accumulate_time_limit_in_seconds
     column :mode
@@ -49,6 +48,8 @@ ActiveAdmin.register TradePair do
       row :minimum_total
       row :amount_step
       row :price_precision
+      row :minimum_hodl_quantity
+      row :maximum_hodl_quantity
       row :open_orders_limit
       row :accumulate_time_limit_in_seconds
       row :mode
@@ -68,6 +69,8 @@ ActiveAdmin.register TradePair do
       f.input :minimum_total
       f.input :amount_step
       f.input :price_precision
+      f.input :minimum_hodl_quantity
+      f.input :maximum_hodl_quantity
       f.input :open_orders_limit
       f.input :accumulate_time_limit_in_seconds
       f.input :mode
@@ -82,6 +85,8 @@ ActiveAdmin.register TradePair do
                 :open_orders_limit,
                 :url,
                 :maker_fee,
+                :maximum_hodl_quantity,
+                :minimum_hodl_quantity,
                 :taker_fee,
                 :minimum_total,
                 :amount_step,
