@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_074643) do
+ActiveRecord::Schema.define(version: 2020_12_09_021705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,6 +222,10 @@ ActiveRecord::Schema.define(version: 2020_12_06_074643) do
     t.integer "accumulate_time_limit_in_seconds"
     t.integer "mode", default: 0
     t.bigint "credential_id"
+    t.decimal "minimum_hodl_quantity", precision: 15, scale: 10
+    t.decimal "maximum_hodl_quantity", precision: 15, scale: 10
+    t.decimal "percentage_from_market_price_buy_minimum", precision: 8, scale: 6
+    t.decimal "percentage_from_market_price_buy_maximum", precision: 8, scale: 6
     t.index ["credential_id"], name: "index_trade_pairs_on_credential_id"
   end
 
