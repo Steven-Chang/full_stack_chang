@@ -10,4 +10,4 @@
   .col-md-6
     .panel.mb-3
       %h4 Cancelled stale orders vs percentage from market price
-      = bar_chart Order.where(status: 'cancelled_stale').where.not(percentage_from_market_price: nil).group(:percentage_from_market_price).count
+      = bar_chart Order.where(status: 'cancelled_stale').where.not(percentage_from_market_price: nil).order(:percentage_from_market_price).group(:percentage_from_market_price).count

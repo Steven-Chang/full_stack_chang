@@ -10,7 +10,11 @@ class ChartsController < ApplicationController
   end
 
   def total_scalped
-    render json: scalped_orders.group_by_day { |u| u.created_at }.map { |k, v| [k, v.map { |u| u.price * u.quantity }.inject(0) { |sum, el| sum + el }]}.to_h
+    render json: scalped_orders.group_by_day { |u| u.created_at }
+                               .map { |k, v|
+                                 [k, v.map { |u| u.price * u.quantity }
+                                      .inject(0) { |sum, el| sum + el }]
+                               }.to_h
   end
 
   private
