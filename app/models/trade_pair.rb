@@ -74,7 +74,7 @@ class TradePair < ApplicationRecord
     return if mode == 'counter_only'
     return if accumulate_order_limit_reached?
 
-    percentage_from_market_price = rand(percentage_from_market_price_minimum('buy')..3).round(2)
+    percentage_from_market_price = rand(percentage_from_market_price_minimum('buy')..percentage_from_market_price_maximum('buy')).round(2)
     next_price = get_open_buy_orders(5)[0][:rate].to_d * ((100 - percentage_from_market_price) / 100)
     base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
@@ -265,5 +265,11 @@ class TradePair < ApplicationRecord
     return if buy_or_sell != 'buy'
 
     percentage_from_market_price_buy_minimum || TradePair.find_by(symbol: 'master')&.percentage_from_market_price_buy_minimum || 1.01
+  end
+
+  def percentage_from_market_price_maximum(buy_or_sell)
+    return if buy_or_sell != 'buy'
+
+    percentage_from_market_price_buy_maximum || TradePair.find_by(symbol: 'master')&.percentage_from_market_price_buy_maximum || 3
   end
 end
