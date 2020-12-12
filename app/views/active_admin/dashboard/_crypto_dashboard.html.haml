@@ -5,9 +5,5 @@
       = line_chart minutes_to_sale_path, xtitle: 'Date scalp order created', ytitle: 'Minutes to fill scalp order'
   .col-md-6
     .panel.mb-3
-      %h4 Total scalped
-      = line_chart total_scalped_path, xtitle: 'Date scalp order created', ytitle: 'Sum of scalped orders ($)'
-  .col-md-6
-    .panel.mb-3
       %h4 Cancelled stale orders vs percentage from market price
       = bar_chart Order.where(status: 'cancelled_stale').where.not(percentage_from_market_price: nil).order(:percentage_from_market_price).group(:percentage_from_market_price).count
