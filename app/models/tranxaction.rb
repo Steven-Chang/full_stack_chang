@@ -30,8 +30,7 @@ class Tranxaction < ApplicationRecord
   end
 
   def self.end_of_financial_year_dates_ordered_descending_for_dashboard
-    tax_tranxactions_ordered_by_date = Tranxaction.where(tax: true)
-                                                  .order(:date)
+    tax_tranxactions_ordered_by_date = Tranxaction.where(tax: true).order(:date)
     return if tax_tranxactions_ordered_by_date.empty?
 
     earliest_tranxaction_date = tax_tranxactions_ordered_by_date.first.date
@@ -39,8 +38,7 @@ class Tranxaction < ApplicationRecord
     latest_end_of_financial_year_date = Date.new(latest_tranxaction_date.year + (latest_tranxaction_date.month > 6 ? 1 : 0), 6, 30)
     earliest_end_of_financial_year_date = Date.new(earliest_tranxaction_date.year + (earliest_tranxaction_date.month > 6 ? 1 : 0), 6, 30)
     dates = [latest_end_of_financial_year_date]
-    dates_last = dates.last
-    dates.push(dates_last - 1.year) while dates_last >= earliest_end_of_financial_year_date
+    dates.push(dates.last - 1.year) while dates.last >= earliest_end_of_financial_year_date
     dates
   end
 
