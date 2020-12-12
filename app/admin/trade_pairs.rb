@@ -50,6 +50,8 @@ ActiveAdmin.register TradePair do
       row :price_precision
       row :minimum_hodl_quantity
       row :maximum_hodl_quantity
+      row :percentage_from_market_price_buy_minimum
+      row :percentage_from_market_price_buy_maximum
       row :open_orders_limit
       row :accumulate_time_limit_in_seconds
       row :mode
@@ -71,6 +73,8 @@ ActiveAdmin.register TradePair do
       f.input :price_precision
       f.input :minimum_hodl_quantity
       f.input :maximum_hodl_quantity
+      f.input :percentage_from_market_price_buy_minimum
+      f.input :percentage_from_market_price_buy_maximum
       f.input :open_orders_limit
       f.input :accumulate_time_limit_in_seconds
       f.input :mode
@@ -87,6 +91,8 @@ ActiveAdmin.register TradePair do
                 :maker_fee,
                 :maximum_hodl_quantity,
                 :minimum_hodl_quantity,
+                :percentage_from_market_price_buy_minimum,
+                :percentage_from_market_price_buy_maximum,
                 :taker_fee,
                 :minimum_total,
                 :amount_step,
