@@ -11,7 +11,7 @@ class TradePair < ApplicationRecord
   MAX_TRADE_FREQUENCY_IN_SECONDS = 7
 
   # === ASSOCIATIONS ===
-  belongs_to :credential
+  belongs_to :credential, optional: true
   has_one :exchange, through: :credential
   has_many :orders, dependent: :destroy
 
