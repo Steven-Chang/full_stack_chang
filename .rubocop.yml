@@ -60,6 +60,8 @@ Metrics/MethodLength:
 
 Metrics/ClassLength:
   Max: 200
+  Exclude:
+    - 'app/models/*.rb'
 
 Metrics/BlockLength:
   Exclude:
