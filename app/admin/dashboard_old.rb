@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register_page 'Dashboard Old' do
-  menu priority: 2, label: 'Dashboard Old'
+ActiveAdmin.register_page 'Tax Summaries' do
+  menu priority: 2, label: 'Tax Summaries'
 
-  content title: 'Dashboard Old' do
+  content title: 'Tax Summaries' do
     h5 '*Other tranxactions: No direct association with Client, Property or TenancyAgreement'
     Tranxaction.end_of_financial_year_dates_ordered_descending_for_dashboard&.slice(0, 1)&.each do |end_of_financial_year_date|
       panel "#{end_of_financial_year_date.year - 1}-#{end_of_financial_year_date.year}" do
