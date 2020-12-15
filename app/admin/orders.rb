@@ -11,6 +11,9 @@ ActiveAdmin.register Order do
     column :trade_pair do |order|
       order.trade_pair.symbol
     end
+    column :credential do |order|
+      order.credential&.identifier
+    end
     column :exchange do |order|
       order.exchange.identifier
     end
