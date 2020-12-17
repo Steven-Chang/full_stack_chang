@@ -29,6 +29,7 @@ ActiveAdmin.register TradePair do
 
   # === INDEX ===
   index do
+    selectable_column
     column :symbol
     column :exchange do |trade_pair|
       trade_pair.exchange&.identifier
