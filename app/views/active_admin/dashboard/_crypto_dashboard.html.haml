@@ -19,11 +19,11 @@
   .col-md-6
     .panel.mb-3
       %h4 # of filled orders today!
-      %h1= Order.where(status: 'filled', updated_at: Date.current).count
+      %h1= Order.where(status: 'filled').where('updated_at > ?', Time.current.beginning_of_day).count
   .col-md-6
     .panel.mb-3
       %h4 # of scalped orders today!
-      %h1= Order.where.not(order_id: nil).where(status: 'filled', updated_at: Date.current).count  
+      %h1= Order.where.not(order_id: nil).where(status: 'filled').where('updated_at > ?', Time.current.beginning_of_day).count 
 .row
   .col-md-6
     .panel.mb-3
