@@ -20,21 +20,21 @@
   .col-md-6
     .panel.mb-3
       %h4 # of filled orders today!
-      %h1= Order.where(status: 'filled').where('updated_at > ?', Time.current.beginning_of_day).count
+      %h1= Order.filled.where('updated_at > ?', Time.current.beginning_of_day).count
   .col-md-6
     .panel.mb-3
       %h4 # of scalped orders today!
-      %h1= Order.where.not(order_id: nil).where(status: 'filled').where('updated_at > ?', Time.current.beginning_of_day).count
+      %h1= Order.where.not(order_id: nil).filled.where('updated_at > ?', Time.current.beginning_of_day).count
 %hr
 .row
   .col-md-6
     .panel.mb-3
       %h4 # of filled orders all time
-      %h1= Order.where(status: 'filled').count
+      %h1= Order.filled.count
   .col-md-6
     .panel.mb-3
       %h4 # of scalped orders all time
-      %h1= Order.where.not(order_id: nil).where(status: 'filled').count
+      %h1= Order.where(buy_or_sell: 'sell').filled.count
 %hr
 .row
   .col-md-6
