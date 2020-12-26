@@ -27,6 +27,9 @@ class Order < ApplicationRecord
   delegate :symbol,
            :client, to: :trade_pair
 
+  # === SCOPES ===
+  scope :filled, lambda { where(status: 'filled') }
+
   # === INSTANCE METHODS ===
   def cancel
     case exchange.identifier
