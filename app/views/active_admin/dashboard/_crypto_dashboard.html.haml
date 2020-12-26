@@ -1,4 +1,30 @@
 .row
+  .col-12
+    .panel.mb-3
+    %h4 Mission statement
+    To increase crypto investment in Australia by providing liquidity to crypto/aud trade pairs.
+    %hr
+    %h5 Objectives / Rules
+    %ul
+      %li Generate a profit for members by using low risk, high profit strategies.
+      %li Minimize the stress and custodian risks involved
+      %li Provide liquidity to crypto / aud trade pairs only
+      %li Make the whole process easy to use and understand
+      %li Improve and increase the crypto industry within Australia (Employ as much Australian infrastructure, businesses and people as possible)
+-# .row
+-#   .col-12
+-#     .panel.mb-3
+-#       %h4 So far we have made it easier for people to trade in AUD by providing
+.row
+  .col-md-6
+    .panel.mb-3
+      %h4 # of filled orders today!
+      %h1= Order.where(status: 'filled', updated_at: Date.current).count
+  .col-md-6
+    .panel.mb-3
+      %h4 # of scalped orders today!
+      %h1= Order.where.not(order_id: nil).where(status: 'filled', updated_at: Date.current).count  
+.row
   .col-md-6
     .panel.mb-3
       %h4 Average minutes to scalp
