@@ -11,10 +11,16 @@
         %li Provide liquidity to crypto / aud trade pairs only
         %li Make the whole process easy to use and understand
         %li Improve and increase the crypto industry within Australia (Employ as much Australian infrastructure, businesses and people as possible)
--# .row
--#   .col-12
--#     .panel.mb-3
--#       %h4 So far we have made it easier for people to trade in AUD by providing
+%hr
+.row
+  .col-md-6
+    .panel.mb-3
+      %h4 AUD traded today (AUD used to purchase crypto + amount of AUD received from sale of crypto)
+      %h1= Money.new(Order.filled.where(trade_pair_id: TradePair.where(symbol: %w[bnbaud btcaud ethaud linkaud]).ids).where('updated_at > ?', Time.current.beginning_of_day).sum(:quantity_received) * 100, 'AUD').format
+  .col-md-6
+    .panel.mb-3
+      %h4 AUD trade all time(AUD used to purchase crypto + amount of AUD received from sale of crypto)
+      %h1= Money.new(Order.filled.where(trade_pair_id: TradePair.where(symbol: %w[bnbaud btcaud ethaud linkaud]).ids).sum(:quantity_received) * 100, 'AUD').format
 %hr
 .row
   .col-md-6

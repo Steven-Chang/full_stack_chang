@@ -28,7 +28,9 @@ class Order < ApplicationRecord
            :client, to: :trade_pair
 
   # === SCOPES ===
+  scope :buy, lambda { where(buy_or_sell: 'buy') }
   scope :filled, lambda { where(status: 'filled') }
+  scope :sell, lambda { where(buy_or_sell: 'sell') }
 
   # === INSTANCE METHODS ===
   def cancel
