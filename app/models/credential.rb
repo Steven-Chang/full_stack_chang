@@ -22,7 +22,7 @@ class Credential < ApplicationRecord
       # This is needed to do the trade pairs that don't have any orders first
       # Can refactor in the future but not crucial
       trade_pairs_enabled.find_each do |trade_pair|
-        AccumulateTradePairJob.perform_later(trade_pair.id) if trade_pair.orders.empty?
+        AccumulateTradePairJob.perform_later(trade_pair.id) if trade_pair.orders.where(status: 'open').empty?
       end
 
       trade_pairs_enabled.where('orders.status = ?', 'open')
