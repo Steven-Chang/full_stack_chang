@@ -6,25 +6,39 @@ ActiveAdmin.register TradePair do
   config.sort_order = 'symbol_asc'
 
   # === BATCH ACTIONS ===
-  batch_action :update_mode_to_buy do |ids|
+  batch_action :enabled_false do |ids|
+    batch_action_collection.find(ids).each do |trade_pair|
+      trade_pair.update!(enabled: false)
+    end
+    redirect_to collection_path, notice: 'Trade pairs disabled'
+  end
+
+  batch_action :enabled_true do |ids|
+    batch_action_collection.find(ids).each do |trade_pair|
+      trade_pair.update!(enabled: true)
+    end
+    redirect_to collection_path, notice: 'Trade pairs enabled'
+  end
+
+  batch_action :mode_buy do |ids|
     batch_action_collection.find(ids).each do |trade_pair|
       trade_pair.update!(mode: 'buy')
     end
-    redirect_to collection_path, alert: 'Modes updated to buy'
+    redirect_to collection_path, notice: 'Modes updated to buy'
   end
 
-  batch_action :update_mode_to__counter_only do |ids|
+  batch_action :mode_counter_only do |ids|
     batch_action_collection.find(ids).each do |trade_pair|
       trade_pair.update!(mode: 'counter_only')
     end
-    redirect_to collection_path, alert: 'Modes updated to counter_only'
+    redirect_to collection_path, notice: 'Modes updated to counter_only'
   end
 
-  batch_action :update_mode_to__scalp do |ids|
+  batch_action :mode_scalp do |ids|
     batch_action_collection.find(ids).each do |trade_pair|
       trade_pair.update!(mode: 0)
     end
-    redirect_to collection_path, alert: 'Modes updated to scalp'
+    redirect_to collection_path, notice: 'Modes updated to scalp'
   end
 
   # === INDEX ===
