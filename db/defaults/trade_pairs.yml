@@ -46,6 +46,10 @@ binance:
     amount_step: 0.000001
     minimum_total: 11
     price_precision: 2
+  btcupusdt:
+    amount_step: 0.01
+    minimum_total: 11
+    price_precision: 3
   dotbnb:
     amount_step: 0.1
     minimum_total: 0.2
