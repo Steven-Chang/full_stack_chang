@@ -5,6 +5,11 @@ ActiveAdmin.register Order do
   # === CONFIG ===
   config.sort_order = 'updated_at_desc'
 
+  # === SCOPES ===
+  scope :all, default: true
+  scope :open
+  scope :filled
+
   # === INDEX ===
   index do
     column :updated_at
