@@ -13,7 +13,7 @@ class ProcessOpenOrderJob < ApplicationJob
 
     trade_pair_mode = order.trade_pair.mode
     order.create_counter if order.filled? && %w[accumulate counter_only].include?(trade_pair_mode)
-    if order.stale?(trade_pair_mode == 'counter_only' ? 0 : 7)
+    if order.stale?(trade_pair_mode == 'counter_only' ? 0 : 6)
       order.cancel
     else
       order.save(updated_at: Time.current)
