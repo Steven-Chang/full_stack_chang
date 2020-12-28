@@ -5,6 +5,10 @@ ActiveAdmin.register TradePair do
   # === CONFIG ===
   config.sort_order = 'symbol_asc'
 
+  # === SCOPES ===
+  scope :all
+  scope :enabled, default: true
+
   # === BATCH ACTIONS ===
   batch_action :enabled_false do |ids|
     batch_action_collection.find(ids).each do |trade_pair|

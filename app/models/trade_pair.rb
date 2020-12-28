@@ -42,6 +42,9 @@ class TradePair < ApplicationRecord
   delegate :client,
            to: :credential
 
+  # === SCOPES ===
+  scope :enabled, lambda { where(enabled: true) }
+
   # === CLASS METHODS ===
   def self.create_default_trade_pairs
     DEFAULT_TRADE_PAIRS.each do |exchange_identifier, values|
