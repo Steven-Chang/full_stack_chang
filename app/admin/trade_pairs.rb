@@ -49,17 +49,9 @@ ActiveAdmin.register TradePair do
   index do
     selectable_column
     column :symbol
-    column :exchange do |trade_pair|
-      trade_pair.exchange&.identifier
-    end
     column :credential do |trade_pair|
-      trade_pair.credential&.identifier
+      "#{trade_pair.credential&.identifier} - #{trade_pair.exchange&.identifier}"
     end
-    column :maker_fee
-    column :taker_fee
-    column :minimum_hodl_quantity
-    column :maximum_hodl_quantity
-    column :open_orders_limit
     column :accumulate_time_limit_in_seconds
     column :mode
     column :enabled
@@ -71,6 +63,11 @@ ActiveAdmin.register TradePair do
     Credential.all.map { |credential| ["#{credential.identifier} (#{credential.exchange.identifier})", credential.id] }
   }
   filter :mode
+  filter :maker_fee
+  filter :taker_fee
+  filter :open_orders_limit
+  filter :minimum_hodl_quantity
+  filter :maximum_hodl_quantity
   filter :enabled
 
   # === SHOW ===
