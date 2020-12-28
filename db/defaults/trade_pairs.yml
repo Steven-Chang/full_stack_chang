@@ -54,6 +54,10 @@ binance:
     amount_step: 0.1
     minimum_total: 0.2
     price_precision: 5
+  ethaud:
+    amount_step: 0.00001
+    minimum_total: 20
+    price_precision: 2
   ethupusdt:
     amount_step: 0.01
     minimum_total: 11
