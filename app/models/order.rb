@@ -70,7 +70,7 @@ class Order < ApplicationRecord
 
   # Currently we only want to remove old buy orders
   # Move this to private if possible after writing tests
-  def stale?(number_of_hours = 7)
+  def stale?(number_of_hours = 6)
     return if quantity_received&.positive?
 
     buy_or_sell == 'buy' && open? && (created_at < Time.current - number_of_hours.hours)
