@@ -4,6 +4,9 @@ ActiveAdmin.register Credential do
   # === ACTIONS ===
   actions :index, :show
 
+  # === CALLBACKS ===
+  before_filter :skip_sidebar!, only: :index
+
   # === SCOPES ===
   scope :all
   scope :enabled, default: true
