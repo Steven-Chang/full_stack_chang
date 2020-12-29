@@ -30,9 +30,12 @@ ActiveAdmin.register Order do
     actions
   end
 
-  filter :trade_pair_symbol, as: :select, collection: lambda {
-    TradePair.all.map { |trade_pair| [trade_pair.symbol, trade_pair.symbol] }
-  }
+  filter :trade_pair_symbol, as: :select,
+                             collection: lambda {
+                              TradePair.pluck(:symbol).uniq.sort
+                             }
+  filter :credential, as: :select,
+                      collection: lambda { Credential.all.map { |credential| ["#{credential.identifier} (#{credential.exchange.identifier})", credential.id] } }
   filter :status,
          as: :select,
          collection: proc { %w[open filled cancelled_stale] }
