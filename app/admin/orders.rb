@@ -2,6 +2,9 @@
 
 # params['commit'] exists when filters are selected
 ActiveAdmin.register Order do
+  # === ACTIONS ===
+  actions :index
+
   # === CONFIG ===
   config.sort_order = 'updated_at_desc'
 
@@ -17,25 +20,25 @@ ActiveAdmin.register Order do
       order.trade_pair.symbol
     end
     column :credential do |order|
-      order.credential&.identifier
-    end
-    column :exchange do |order|
-      order.exchange.identifier
+      "#{order.credential&.identifier} - #{order.exchange&.identifier}"
     end
     column :reference
     column :status
     column :buy_or_sell
     column :price
     column :quantity
-    column :quantity_received
     actions
   end
 
-  filter :trade_pair, collection: lambda {
-    TradePair.all.map { |trade_pair| [trade_pair.symbol, trade_pair.id] }
+  filter :trade_pair_symbol, as: :select, collection: lambda {
+    TradePair.all.map { |trade_pair| [trade_pair.symbol, trade_pair.symbol] }
   }
-  filter :status
-  filter :buy_or_sell
+  filter :status,
+         as: :select,
+         collection: proc { %w[open filled cancelled_stale] }
+  filter :buy_or_sell,
+         as: :select,
+         collection: proc { %w[buy sell] }
 
   # === SHOW ===
   show do
