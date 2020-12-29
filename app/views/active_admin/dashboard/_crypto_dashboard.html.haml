@@ -1,7 +1,7 @@
 .row
   .col-12
     .panel.mb-3
-      %h4 Crypto investing
+      %h5 Crypto investing
       %p In terms of crypto investing, it has, and is, about accumulating as much Bitcoin as possible.
       %hr
       %h5 Rules
@@ -10,7 +10,7 @@
         %li Minimize risk of theft by diversifying where Bitcoin is stored.
         %li Minimize risk of liquidation by assessing the liquidation price regularly and multiple loans at different levels of LTV ratios.
       %hr
-      %p The plan during this bull market is
+      %h5 The plan during this bull market is
       %ol
         %li Dollar cost average income into Bitcoin.
         %li Have a variety of loans with BTC as collateral and have them at different levels of risk.
@@ -36,25 +36,3 @@
     .panel.mb-3
       %h4 # of scalped orders all time
       %h1= Order.where(buy_or_sell: 'sell').filled.count
-%hr
-.row
-  .col-md-6
-    .panel.mb-3
-      %h4 Average minutes to scalp
-      = line_chart minutes_to_sale_path, xtitle: 'Date scalp order created', ytitle: 'Minutes to fill scalp order'
-  .col-md-6
-    .panel.mb-3
-      %h4 Cancelled stale orders vs percentage from market price
-      = bar_chart Order.where(status: 'cancelled_stale').where.not(percentage_from_market_price: nil).order(:percentage_from_market_price).group(:percentage_from_market_price).count
-
--# AUD traded stats
--# %hr
--# .row
--#   .col-md-6
--#     .panel.mb-3
--#       %h4 AUD traded today (AUD used to purchase crypto + amount of AUD received from sale of crypto)
--#       %h1= Money.new(Order.filled.where(trade_pair_id: TradePair.where(symbol: %w[bnbaud btcaud ethaud linkaud]).ids).where('updated_at > ?', Time.current.beginning_of_day).sum(:quantity_received) * 100, 'AUD').format
--#   .col-md-6
--#     .panel.mb-3
--#       %h4 AUD trade all time(AUD used to purchase crypto + amount of AUD received from sale of crypto)
--#       %h1= Money.new(Order.filled.where(trade_pair_id: TradePair.where(symbol: %w[bnbaud btcaud ethaud linkaud]).ids).sum(:quantity_received) * 100, 'AUD').format
