@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   resources :cryptos
   resources :scores, only: %i[index create]
   # API
-  get 'minutes_to_sale', to: 'charts#minutes_to_sale'
 
   root 'application#home'
 end
