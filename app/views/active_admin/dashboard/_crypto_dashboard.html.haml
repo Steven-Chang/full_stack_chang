@@ -1,26 +1,21 @@
 .row
   .col-12
     .panel.mb-3
-      %h4 Mission statement
-      %p To increase crypto investment in Australia by providing liquidity to crypto/aud trade pairs.
+      %h4 Crypto investing
+      %p In terms of crypto investing, it has, and is, about accumulating as much Bitcoin as possible.
       %hr
-      %h5 Objectives / Rules
-      %ul
-        %li Generate a profit for members by using low risk, high profit strategies.
-        %li Minimize the stress and custodian risks involved
-        %li Provide liquidity to crypto / aud trade pairs only
-        %li Make the whole process easy to use and understand
-        %li Improve and increase the crypto industry within Australia (Employ as much Australian infrastructure, businesses and people as possible)
-%hr
-.row
-  .col-md-6
-    .panel.mb-3
-      %h4 AUD traded today (AUD used to purchase crypto + amount of AUD received from sale of crypto)
-      %h1= Money.new(Order.filled.where(trade_pair_id: TradePair.where(symbol: %w[bnbaud btcaud ethaud linkaud]).ids).where('updated_at > ?', Time.current.beginning_of_day).sum(:quantity_received) * 100, 'AUD').format
-  .col-md-6
-    .panel.mb-3
-      %h4 AUD trade all time(AUD used to purchase crypto + amount of AUD received from sale of crypto)
-      %h1= Money.new(Order.filled.where(trade_pair_id: TradePair.where(symbol: %w[bnbaud btcaud ethaud linkaud]).ids).sum(:quantity_received) * 100, 'AUD').format
+      %h5 Rules
+      %ol
+        %li Minimize Bitcoin output, maximize Bitcoin input.
+        %li Minimize risk of theft by diversifying where Bitcoin is stored.
+        %li Minimize risk of liquidation by assessing the liquidation price regularly and multiple loans at different levels of LTV ratios.
+      %hr
+      %p The plan during this bull market is
+      %ol
+        %li Dollar cost average income into Bitcoin.
+        %li Have a variety of loans with BTC as collateral and have them at different levels of risk.
+        %li Use capital from loans to scalp BTCUP leveraged tokens.
+        %li Sell the scaled BTCUP to BTC and add this as collateral to loans.
 %hr
 .row
   .col-md-6
@@ -51,3 +46,15 @@
     .panel.mb-3
       %h4 Cancelled stale orders vs percentage from market price
       = bar_chart Order.where(status: 'cancelled_stale').where.not(percentage_from_market_price: nil).order(:percentage_from_market_price).group(:percentage_from_market_price).count
+
+-# AUD traded stats
+-# %hr
+-# .row
+-#   .col-md-6
+-#     .panel.mb-3
+-#       %h4 AUD traded today (AUD used to purchase crypto + amount of AUD received from sale of crypto)
+-#       %h1= Money.new(Order.filled.where(trade_pair_id: TradePair.where(symbol: %w[bnbaud btcaud ethaud linkaud]).ids).where('updated_at > ?', Time.current.beginning_of_day).sum(:quantity_received) * 100, 'AUD').format
+-#   .col-md-6
+-#     .panel.mb-3
+-#       %h4 AUD trade all time(AUD used to purchase crypto + amount of AUD received from sale of crypto)
+-#       %h1= Money.new(Order.filled.where(trade_pair_id: TradePair.where(symbol: %w[bnbaud btcaud ethaud linkaud]).ids).sum(:quantity_received) * 100, 'AUD').format
