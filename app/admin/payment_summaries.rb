@@ -5,6 +5,9 @@ ActiveAdmin.register PaymentSummary do
   # === INDEX ===
   config.sort_order = 'year_ending_desc'
 
+  # === MENU ===
+  menu parent: 'Taxes'
+
   index do
     column :year_ending
     column :client do |payment_summary|

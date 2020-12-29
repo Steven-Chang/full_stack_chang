@@ -2,6 +2,9 @@
 
 # params['commit'] exists when filters are selected
 ActiveAdmin.register Project do
+  # === MENU ===
+  menu parent: 'Personal'
+
   # === INDEX ===
   index do
     column :title

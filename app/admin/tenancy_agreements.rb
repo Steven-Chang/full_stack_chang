@@ -6,6 +6,9 @@ ActiveAdmin.register TenancyAgreement do
     params['q'] = { active_eq: true } if params['commit'].blank?
   end
 
+  # === MENU ===
+  menu parent: 'Taxes'
+
   # === INDEX ===
   index do
     column :balance do |tenancy_agreement|

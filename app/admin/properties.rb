@@ -3,6 +3,9 @@
 ActiveAdmin.register Property do
   permit_params :address
 
+  # === MENU ===
+  menu parent: 'Taxes'
+
   index do
     selectable_column
     id_column

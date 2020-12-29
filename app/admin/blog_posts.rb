@@ -6,6 +6,9 @@ ActiveAdmin.register BlogPost do
   config.batch_actions = false
   config.sort_order = 'date_added_desc'
 
+  # === MENU ===
+  menu parent: 'Personal'
+
   # === INDEX ===
   index as: :blog, download_links: false do
     title do |blog_post|

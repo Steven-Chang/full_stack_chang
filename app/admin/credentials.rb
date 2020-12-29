@@ -7,6 +7,9 @@ ActiveAdmin.register Credential do
   # === CALLBACKS ===
   before_filter :skip_sidebar!, only: :index
 
+  # === MENU ===
+  menu parent: 'Crypto'
+
   # === SCOPES ===
   scope :all
   scope :enabled, default: true

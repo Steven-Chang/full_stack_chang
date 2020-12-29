@@ -5,6 +5,9 @@ ActiveAdmin.register Crypto do
   # === CONFIG ===
   config.sort_order = 'identifier_asc'
 
+  # === MENU ===
+  menu parent: 'Crypto'
+
   # === INDEX ===
   index do
     column :identifier

@@ -5,6 +5,9 @@ ActiveAdmin.register TradePair do
   # === CONFIG ===
   config.sort_order = 'symbol_asc'
 
+  # === MENU ===
+  menu parent: 'Crypto'
+
   # === SCOPES ===
   scope :all
   scope :enabled, default: true

@@ -5,6 +5,9 @@ ActiveAdmin.register Creditor do
   # === CONFIG ===
   config.sort_order = 'name_asc'
 
+  # === MENU ===
+  menu parent: 'Taxes'
+
   # === INDEX ===
   index do
     column :name
