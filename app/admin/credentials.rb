@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Credential do
+  # === ACTIONS ===
+  actions :index, :show
+
+  # === SCOPES ===
+  scope :all
+  scope :enabled, default: true
+
   # === INDEX ===
   index do
     column :identifier
