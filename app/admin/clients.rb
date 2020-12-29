@@ -3,6 +3,9 @@
 ActiveAdmin.register Client do
   permit_params :email, :name
 
+  # === MENU ===
+  menu parent: 'Crypto'
+
   index do
     selectable_column
     id_column

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register_page 'Tax Summaries' do
-  menu priority: 2, label: 'Tax Summaries'
+  # === MENU ===
+  menu parent: 'Taxes', priority: 1
 
   content title: 'Tax Summaries' do
     h5 '*Other tranxactions: No direct association with Client, Property or TenancyAgreement'

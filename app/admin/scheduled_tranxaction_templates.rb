@@ -2,6 +2,9 @@
 
 # params['commit'] exists when filters are selected
 ActiveAdmin.register ScheduledTranxactionTemplate do
+  # === MENU ===
+  menu parent: 'Taxes'
+
   # === INDEX ===
   index do
     id_column

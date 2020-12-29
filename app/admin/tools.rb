@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Tool do
-  # === INDEX ===
+  # === MENU ===
+  menu parent: 'Personal'
 
   # === SHOW ===
   show do

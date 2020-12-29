@@ -2,6 +2,9 @@
 
 # params['commit'] exists when filters are selected
 ActiveAdmin.register TaxCategory do
+  # === MENU ===
+  menu parent: 'Taxes'
+  
   # === INDEX ===
   index do
     column :description

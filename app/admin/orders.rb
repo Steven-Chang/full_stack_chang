@@ -8,6 +8,9 @@ ActiveAdmin.register Order do
   # === CONFIG ===
   config.sort_order = 'updated_at_desc'
 
+  # === MENU ===
+  menu parent: 'Crypto'
+
   # === SCOPES ===
   scope :all, default: true
   scope :open

@@ -136,7 +136,7 @@ ActiveAdmin.setup do |config|
   # config.comments_order = 'created_at ASC'
   #
   # You can disable the menu item for the comments index page:
-  # config.comments_menu = false
+  config.comments_menu = false
   #
   # You can customize the comment menu:
   # config.comments_menu = { parent: 'Admin', priority: 1 }
@@ -250,6 +250,13 @@ ActiveAdmin.setup do |config|
   #       menu.add label: 'My Great Website', url: 'http://www.mygreatwebsite.com', html_options: { target: :blank }
   #     end
   #   end
+  config.namespace :admin do |admin|
+    admin.build_menu do |menu|
+      menu.add label: 'Crypto'
+      menu.add label: 'Personal'
+      menu.add label: 'Tax'
+    end
+  end
 
   # == Download Links
   #

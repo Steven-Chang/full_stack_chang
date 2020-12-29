@@ -2,6 +2,9 @@
 
 # params['commit'] exists when filters are selected
 ActiveAdmin.register Tranxaction do
+  # === MENU ===
+  menu parent: 'Taxes'
+
   # === INDEX ===
   config.sort_order = 'date_desc'
 
