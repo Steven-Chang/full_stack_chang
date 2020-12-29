@@ -6,6 +6,9 @@ class Credential < ApplicationRecord
   has_many :trade_pairs, dependent: :restrict_with_exception
   has_many :orders, through: :trade_pairs
 
+  # === SCOPES ===
+  scope :enabled, lambda { where(enabled: true) }
+
   # === CLASS METHODS ===
   def self.create_defaults
     Rails.application.credentials.binance.each do |identifier, _v|
