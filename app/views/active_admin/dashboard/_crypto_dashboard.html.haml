@@ -1,38 +1,30 @@
 .row
   .col-12
-    .panel.mb-3
-      %h5 Crypto investing
-      %p In terms of crypto investing, it has, and is, about accumulating as much Bitcoin as possible.
+    .panel
+      %h6 Crypto investing
+      %p{ style: 'font-size: 12px;' } In terms of crypto investing, it has, and is, about accumulating as much Bitcoin as possible.
       %hr
-      %h5 Rules
-      %ol
-        %li Minimize Bitcoin output, maximize Bitcoin input.
-        %li Minimize risk of theft by diversifying where Bitcoin is stored.
-        %li Minimize risk of liquidation by assessing the liquidation price regularly and multiple loans at different levels of LTV ratios.
-      %hr
-      %h5 The plan during this bull market is
-      %ol
-        %li Dollar cost average income into Bitcoin.
-        %li Have a variety of loans with BTC as collateral and have them at different levels of risk.
-        %li Use capital from loans to scalp BTCUP leveraged tokens.
-        %li Sell the scaled BTCUP to BTC and add this as collateral to loans.
+      .row
+        .col-sm-6
+          %h6 Rules
+          %ol{ style: 'font-size: 12px;' }
+            %li Minimize Bitcoin output, maximize Bitcoin input.
+            %li Minimize risk of theft by diversifying where Bitcoin is stored.
+            %li Minimize risk of liquidation by assessing the liquidation price regularly and multiple loans at different levels of LTV ratios.
+        .col-sm-6
+          %h6 The plan during this bull market is
+          %ol{ style: 'font-size: 12px;' }
+            %li Dollar cost average income into Bitcoin.
+            %li Have a variety of loans with BTC as collateral and have them at different levels of risk.
+            %li Use capital from loans to scalp BTCUP leveraged tokens.
+            %li Sell the scaled BTCUP to BTC and add this as collateral to loans.
 %hr
 .row
   .col-md-6
     .panel.mb-3
-      %h4 # of filled orders today!
-      %h1= Order.filled.where('updated_at > ?', Time.current.beginning_of_day).count
+      %h4 # of filled orders (today / all time)
+      %h1= Order.filled.where('updated_at > ?', Time.current.beginning_of_day).count.to_s + ' / ' + Order.filled.count.to_s
   .col-md-6
     .panel.mb-3
-      %h4 # of filled orders all time
-      %h1= Order.filled.count
-%hr
-.row
-  .col-md-6
-    .panel.mb-3
-      %h4 # of scalped orders today!
-      %h1= Order.where.not(order_id: nil).filled.where('updated_at > ?', Time.current.beginning_of_day).count
-  .col-md-6
-    .panel.mb-3
-      %h4 # of scalped orders all time
-      %h1= Order.where(buy_or_sell: 'sell').filled.count
+      %h4 # of scalped orders (today / all time)
+      %h1= Order.where.not(order_id: nil).filled.where('updated_at > ?', Time.current.beginning_of_day).count.to_s + ' / ' + Order.sell.filled.count.to_s
