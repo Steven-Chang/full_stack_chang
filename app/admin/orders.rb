@@ -15,6 +15,7 @@ ActiveAdmin.register Order do
   scope :all, default: true
   scope :open
   scope :filled
+  scope :cancelled_stale
 
   # === INDEX ===
   index do
@@ -38,9 +39,6 @@ ActiveAdmin.register Order do
                              }
   filter :credential, as: :select,
                       collection: lambda { Credential.all.map { |credential| ["#{credential.identifier} (#{credential.exchange.identifier})", credential.id] } }
-  filter :status,
-         as: :select,
-         collection: proc { %w[open filled cancelled_stale] }
   filter :buy_or_sell,
          as: :select,
          collection: proc { %w[buy sell] }
