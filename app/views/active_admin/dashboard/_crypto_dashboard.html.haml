@@ -28,3 +28,13 @@
     .panel.mb-3
       %h4 # of scalped orders (today / all time)
       %h1= Order.where.not(order_id: nil).filled.where('updated_at > ?', Time.current.beginning_of_day).count.to_s + ' / ' + Order.sell.filled.count.to_s
+%hr
+.row
+  .col-md-6
+    .panel.mb-3
+      %h4 # of filled orders per hour
+      = column_chart Order.filled.where('updated_at >= ?', Time.current - 24.hours).group_by_hour_of_day(:updated_at, format: "%-l %P").count
+  .col-md-6
+    .panel.mb-3
+      %h4 # of scalped orders per hour
+      = column_chart Order.filled.sell.where('updated_at >= ?', Time.current - 24.hours).group_by_hour_of_day(:updated_at, format: "%-l %P").count
