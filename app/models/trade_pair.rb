@@ -44,6 +44,7 @@ class TradePair < ApplicationRecord
 
   # === SCOPES ===
   scope :enabled, lambda { where(enabled: true) }
+  scope :disabled, lambda { where.not(enabled: true) }
 
   # === CLASS METHODS ===
   def self.create_default_trade_pairs
