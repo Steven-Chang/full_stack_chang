@@ -8,6 +8,9 @@ ActiveAdmin.register Exchange do
   # === MENU ===
   menu parent: 'Crypto'
 
+  # === CALLBACKS ===
+  before_filter :skip_sidebar!, only: :index
+
   # === INDEX ===
   index do
     column :identifier

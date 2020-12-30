@@ -26,7 +26,6 @@ ActiveAdmin.register Order do
       "#{order.credential&.identifier} - #{order.exchange&.identifier}"
     end
     column :reference
-    column :status
     column :buy_or_sell
     column :price
     column :quantity

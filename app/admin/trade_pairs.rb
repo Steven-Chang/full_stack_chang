@@ -11,6 +11,7 @@ ActiveAdmin.register TradePair do
   # === SCOPES ===
   scope :all
   scope :enabled, default: true
+  scope :disabled
 
   # === BATCH ACTIONS ===
   batch_action :enabled_false do |ids|
@@ -71,7 +72,6 @@ ActiveAdmin.register TradePair do
   filter :open_orders_limit
   filter :minimum_hodl_quantity
   filter :maximum_hodl_quantity
-  filter :enabled
 
   # === SHOW ===
   show do
