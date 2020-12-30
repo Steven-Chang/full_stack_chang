@@ -30,8 +30,10 @@ class Order < ApplicationRecord
   # === SCOPES ===
   scope :buy, lambda { where(buy_or_sell: 'buy') }
   scope :sell, lambda { where(buy_or_sell: 'sell') }
+  # Status scopes
   scope :open, lambda { where(status: 'open') }
   scope :filled, lambda { where(status: 'filled') }
+  scope :cancelled_stale, lambda { where(status: 'cancelled_stale') }
 
   # === INSTANCE METHODS ===
   def cancel
