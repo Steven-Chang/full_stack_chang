@@ -89,6 +89,7 @@ ActiveAdmin.register TradePair do
       row :minimum_total
       row :amount_step
       row :price_precision
+      row :limit_price
       row :minimum_hodl_quantity
       row :maximum_hodl_quantity
       row :percentage_from_market_price_buy_minimum
@@ -112,6 +113,7 @@ ActiveAdmin.register TradePair do
       f.input :minimum_total
       f.input :amount_step
       f.input :price_precision
+      f.input :limit_price
       f.input :minimum_hodl_quantity
       f.input :maximum_hodl_quantity
       f.input :percentage_from_market_price_buy_minimum
@@ -129,6 +131,7 @@ ActiveAdmin.register TradePair do
                 :credential_id,
                 :open_orders_limit,
                 :url,
+                :limit_price,
                 :maker_fee,
                 :maximum_hodl_quantity,
                 :minimum_hodl_quantity,
