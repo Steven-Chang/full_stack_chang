@@ -79,9 +79,8 @@ class TradePair < ApplicationRecord
     return if accumulate_order_limit_reached?
 
     if limit_price.present?
-      percentage_from_market_price = 0
-      next_price = get_open_buy_orders(5)[0][:rate].to_d
-      next_price = limit_price if limit_price < next_price
+      percentage_from_market_price = nil
+      next_price = limit_price
     else
       percentage_from_market_price = rand(percentage_from_market_price_minimum('buy')..percentage_from_market_price_maximum('buy')).round(2)
       next_price = get_open_buy_orders(5)[0][:rate].to_d * ((100 - percentage_from_market_price) / 100)
