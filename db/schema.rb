@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_31_013940) do
+ActiveRecord::Schema.define(version: 2021_01_01_082052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,7 +226,7 @@ ActiveRecord::Schema.define(version: 2020_12_31_013940) do
     t.decimal "maximum_hodl_quantity", precision: 15, scale: 10
     t.decimal "percentage_from_market_price_buy_minimum", precision: 8, scale: 6
     t.decimal "percentage_from_market_price_buy_maximum", precision: 8, scale: 6
-    t.decimal "limit_price", precision: 8, scale: 6
+    t.decimal "limit_price", precision: 15, scale: 10
     t.index ["credential_id"], name: "index_trade_pairs_on_credential_id"
   end
 
