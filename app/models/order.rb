@@ -51,7 +51,7 @@ class Order < ApplicationRecord
     return if child_order.present?
 
     next_buy_or_sell = 'sell'
-    next_quantity = quantity - trade_pair.amount_step
+    next_quantity = quantity - (trade_pair.accumulate_amount || trade_pair.amount_step)
     next_price = (quantity_received * (1.0 + (taker_fee_for_calculation * 10))) / next_quantity
 
     raise StandardError, 'Next price should be higher than current price' if next_price <= price
