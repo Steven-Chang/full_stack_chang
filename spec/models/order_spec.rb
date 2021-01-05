@@ -158,14 +158,14 @@ RSpec.describe Order, type: :model do
           end
         end
 
-        context 'when next quantity is greater than or equal to current quantity' do
+        context 'when next quantity is greater than current quantity' do
           before do
             order.update!(quantity: 1, quantity_received: 1)
-            allow(order.trade_pair).to receive(:amount_step).and_return(0)
+            allow(order.trade_pair).to receive(:amount_step).and_return(-1)
           end
 
           it 'should raise an error' do
-            expect { order.create_counter }.to raise_error('Next quantity should be less than current quantity')
+            expect { order.create_counter }.to raise_error('Next quantity should be less than or equal to current quantity')
           end
         end
 
