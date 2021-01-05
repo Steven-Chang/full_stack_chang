@@ -55,7 +55,7 @@ class Order < ApplicationRecord
     next_price = (quantity_received * (1.0 + (taker_fee_for_calculation * 10))) / next_quantity
 
     raise StandardError, 'Next price should be higher than current price' if next_price <= price
-    raise StandardError, 'Next quantity should be less than current quantity' if next_quantity >= quantity
+    raise StandardError, 'Next quantity should be less than or equal to current quantity' if next_quantity > quantity
 
     trade_pair.create_order(next_buy_or_sell, next_price, next_quantity, id)
   end
