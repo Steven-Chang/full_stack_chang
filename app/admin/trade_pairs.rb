@@ -95,6 +95,7 @@ ActiveAdmin.register TradePair do
       row :percentage_from_market_price_buy_minimum
       row :percentage_from_market_price_buy_maximum
       row :open_orders_limit
+      row :accumulate_amount
       row :accumulate_time_limit_in_seconds
       row :mode
       row :enabled
@@ -119,6 +120,7 @@ ActiveAdmin.register TradePair do
       f.input :percentage_from_market_price_buy_minimum
       f.input :percentage_from_market_price_buy_maximum
       f.input :open_orders_limit
+      f.input :accumulate_amount
       f.input :accumulate_time_limit_in_seconds
       f.input :mode
       f.input :enabled
@@ -141,6 +143,7 @@ ActiveAdmin.register TradePair do
                 :minimum_total,
                 :amount_step,
                 :price_precision,
+                :accumulate_amount,
                 :accumulate_time_limit_in_seconds,
                 :mode,
                 :enabled
