@@ -1,1 +1,11 @@
-Credential.first.trade_pairs.find_by(symbol: 'ethaud').orders.where(status: 'filled', buy_or_sell: 'buy').order(price: :asc).find_each {|order| order.create_counter}
+Credential.find_by(identifier: 'joe_lam').trade_pairs.find_by(symbol: 'btcusdt').orders.where(status: 'filled', buy_or_sell: 'buy').order(price: :asc).find_each do |order|
+  next unless order.quantity_received
+
+  order.create_counter
+end
+
+Credential.find_by(identifier: 'ella_kabel').trade_pairs.find_by(symbol: 'btcusdt').orders.where(status: 'filled', buy_or_sell: 'buy').order(price: :asc).find_each do |order|
+  next unless order.quantity_received
+
+  order.create_counter
+end
