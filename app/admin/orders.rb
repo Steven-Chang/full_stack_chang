@@ -35,7 +35,7 @@ ActiveAdmin.register Order do
 
   filter :trade_pair_symbol, as: :select,
                              collection: lambda {
-                              TradePair.pluck(:symbol).uniq.sort
+                              TradePair.distinct.pluck(:symbol).sort
                              }
   filter :credential, as: :select,
                       collection: lambda { Credential.all.map { |credential| ["#{credential.identifier} (#{credential.exchange.identifier})", credential.id] } }
