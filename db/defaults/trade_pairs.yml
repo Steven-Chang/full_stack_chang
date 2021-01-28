@@ -66,6 +66,10 @@ binance:
     amount_step: 0.00001
     minimum_total: 11
     price_precision: 2
+  lunabtc:
+    amount_step: 1
+    minimum_total: 0.0001
+    price_precision: 8
   scrtbtc:
     amount_step: 1
     minimum_total: 0.0001

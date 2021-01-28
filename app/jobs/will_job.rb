@@ -45,7 +45,7 @@ class WillJob < ApplicationJob
 
       sg = SendGrid::API.new(api_key: Rails.application.credentials.sendgrid[:api_key])
       begin
-        response = sg.client.mail._('send').post(request_body: mail.to_json)
+        sg.client.mail._('send').post(request_body: mail.to_json)
       rescue StandardError => e
         Rails.logger.debug e.message
       end

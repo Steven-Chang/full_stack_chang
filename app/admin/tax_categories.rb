@@ -4,7 +4,7 @@
 ActiveAdmin.register TaxCategory do
   # === MENU ===
   menu parent: 'Taxes'
-  
+
   # === INDEX ===
   index do
     column :description

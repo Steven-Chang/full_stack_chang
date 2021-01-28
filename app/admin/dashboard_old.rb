@@ -14,7 +14,12 @@ ActiveAdmin.register_page 'Tax Summaries' do
                }
         render partial: 'active_admin/dashboard/tranxactions',
                locals: {
-                 tranxactions: Tranxaction.filter(nil, end_of_financial_year_date - 1.year + 1.day, end_of_financial_year_date, nil, nil, true).where.not(tranxactable_type: %w[Client Property TenancyAgreement]),
+                 tranxactions: Tranxaction.filter(nil,
+                                                  end_of_financial_year_date - 1.year + 1.day,
+                                                  end_of_financial_year_date,
+                                                  nil,
+                                                  nil,
+                                                  true).where.not(tranxactable_type: %w[Client Property TenancyAgreement]),
                  title: 'Other tranxactions'
                }
         render partial: 'active_admin/dashboard/tax_categories',
