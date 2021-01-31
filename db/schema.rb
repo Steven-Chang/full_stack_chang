@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_103421) do
+ActiveRecord::Schema.define(version: 2021_01_31_020749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_103421) do
     t.decimal "fiat_withdrawal_fee", default: "0.0"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "open_orders_limit_per_trade_pair"
   end
 
   create_table "orders", force: :cascade do |t|

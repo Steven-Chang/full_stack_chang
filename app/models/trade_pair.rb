@@ -36,7 +36,16 @@ class TradePair < ApplicationRecord
   validates :accumulate_time_limit_in_seconds, numericality: { greater_than_or_equal_to: MAX_TRADE_FREQUENCY_IN_SECONDS, allow_nil: true }
 
   # === CALLBACKS ===
-  before_save { symbol.downcase! }
+  before_save do |trade_pair|
+    if trade_pair.exchange&.open_orders_limit_per_trade_pair&.present?
+      if trade_pair.open_orders_limit.present? && trade_pair.open_orders_limit > trade_pair.exchange.open_orders_limit_per_trade_pair
+        trade_pair.open_orders_limit = trade_pair.exchange.open_orders_limit_per_trade_pair
+      elsif trade_pair.open_orders_limit.blank?
+        trade_pair.open_orders_limit = trade_pair.exchange.open_orders_limit_per_trade_pair
+      end
+    end
+    trade_pair.symbol.downcase!
+  end
 
   # === DELEGATES ===
   delegate :client,
