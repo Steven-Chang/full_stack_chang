@@ -33,6 +33,7 @@ ActiveAdmin.register Exchange do
       row :maker_fee
       row :taker_fee
       row :fiat_withdrawal_fee
+      row :open_orders_limit_per_trade_pair
     end
   end
 
@@ -45,10 +46,16 @@ ActiveAdmin.register Exchange do
       f.input :maker_fee
       f.input :taker_fee
       f.input :fiat_withdrawal_fee
+      f.input :open_orders_limit_per_trade_pair
     end
     f.actions
   end
 
   # === PERMIT PARAMS ===
-  permit_params :identifier, :fiat_withdrawal_fee, :maker_fee, :name, :taker_fee, :url
+  permit_params :identifier,
+                :fiat_withdrawal_fee,
+                :maker_fee, :name,
+                :open_orders_limit_per_trade_pair,
+                :taker_fee,
+                :url
 end
