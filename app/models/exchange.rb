@@ -4,12 +4,6 @@
 class Exchange < ApplicationRecord
   # === CONSTANTS ===
   DEFAULT_EXCHANGES = {
-    coinspot: {
-      name: 'CoinSpot',
-      url: 'https://www.coinspot.com.au/',
-      maker_fee: 0.1,
-      taker_fee: 0.1
-    },
     binance: {
       name: 'Binance',
       url: 'https://www.binance.com/en',

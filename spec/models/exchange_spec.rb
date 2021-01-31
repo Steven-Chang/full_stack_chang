@@ -16,16 +16,6 @@ RSpec.describe Exchange, type: :model do
 
   describe 'CLASS METHODS' do
     describe '.create_default_exchanges' do
-      context 'when default exchange already exists' do
-        before { create(:exchange, identifier: Exchange::DEFAULT_EXCHANGES.keys.first) }
-
-        it 'does not re-create the default_exchange' do
-          expect(Exchange.where(identifier: 'coinspot').count).to be 1
-          Exchange.create_default_exchanges
-          expect(Exchange.where(identifier: 'coinspot').count).to be 1
-        end
-      end
-
       context 'when default exchange does not exist' do
         it 'creates the default exchanges' do
           expect(Exchange.count).to be 0
