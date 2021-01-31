@@ -1,7 +1,4 @@
 ---
-coinspot:
-  btcaud:
-    url: https://www.coinspot.com.au/trade/BTC
 binance:
   batbnb:
     amount_step: 0.1
