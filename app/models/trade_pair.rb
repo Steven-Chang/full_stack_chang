@@ -66,7 +66,6 @@ class TradePair < ApplicationRecord
           next if credential.trade_pairs.find_by(symbol: trade_pair_symbol)
 
           credential.trade_pairs.create(symbol: trade_pair_symbol,
-                                        url: trade_pair_values['url'],
                                         minimum_total: trade_pair_values['minimum_total'],
                                         amount_step: trade_pair_values['amount_step'],
                                         price_precision: trade_pair_values['price_precision'])
@@ -133,14 +132,6 @@ class TradePair < ApplicationRecord
     orders = []
 
     case exchange.identifier
-    when 'coinspot'
-      mechanize_instance = Mechanize.new
-      page = mechanize_instance.get(url)
-      selector = '.openbuyrows'
-      number_of_orders.times do |row_number|
-        order = parse_and_map_order_retrieved_order(page.search(selector)[row_number])
-        orders.push(order)
-      end
     when 'binance'
       number_of_orders = number_of_orders < 5 ? 5 : number_of_orders
       retrieved_object = client.depth(symbol: symbol.upcase, limit: number_of_orders)
@@ -162,14 +153,6 @@ class TradePair < ApplicationRecord
     orders = []
 
     case exchange.identifier
-    when 'coinspot'
-      mechanize_instance = Mechanize.new
-      page = mechanize_instance.get(url)
-      selector = '.opensellrows'
-      number_of_orders.times do |row_number|
-        order = parse_and_map_order_retrieved_order(page.search(selector)[row_number])
-        orders.push(order)
-      end
     when 'binance'
       number_of_orders = number_of_orders < 5 ? 5 : number_of_orders
       retrieved_object = client.depth(symbol: symbol.upcase, limit: number_of_orders)
@@ -266,11 +249,6 @@ class TradePair < ApplicationRecord
   # This needs review for currency
   def parse_and_map_order_retrieved_order(retrieved_order)
     case exchange.identifier
-    when 'coinspot'
-      retrieved_order_childen = retrieved_order.children
-      { amount: retrieved_order_childen[1].text.split(' ').first.to_d,
-        rate_cents: Monetize.parse(retrieved_order_childen[3].text).fractional,
-        total_cents: retrieved_order_childen[5].text }
     when 'binance'
       { amount: retrieved_order.second.to_d,
         rate: retrieved_order.first }

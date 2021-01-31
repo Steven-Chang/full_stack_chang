@@ -83,7 +83,6 @@ ActiveAdmin.register TradePair do
       row :credential do |trade_pair|
         trade_pair.credential&.identifier
       end
-      row :url
       row :maker_fee
       row :taker_fee
       row :minimum_total
@@ -108,7 +107,6 @@ ActiveAdmin.register TradePair do
     f.inputs do
       f.input :symbol
       f.input :credential, member_label: :identifier, collection: Credential.order('LOWER(identifier)')
-      f.input :url
       f.input :maker_fee
       f.input :taker_fee
       f.input :minimum_total
@@ -132,7 +130,6 @@ ActiveAdmin.register TradePair do
   permit_params :symbol,
                 :credential_id,
                 :open_orders_limit,
-                :url,
                 :limit_price,
                 :maker_fee,
                 :maximum_hodl_quantity,
