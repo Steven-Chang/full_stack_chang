@@ -56,6 +56,7 @@ ActiveAdmin.register TradePair do
     column :credential do |trade_pair|
       "#{trade_pair.credential&.identifier} - #{trade_pair.exchange&.identifier}"
     end
+    column :market_type
     column :accumulate_time_limit_in_seconds
     column :mode
     column :enabled
@@ -66,6 +67,7 @@ ActiveAdmin.register TradePair do
   filter :credential, collection: lambda {
     Credential.all.map { |credential| ["#{credential.identifier} (#{credential.exchange.identifier})", credential.id] }
   }
+  filter :market_type
   filter :mode
   filter :maker_fee
   filter :taker_fee
@@ -83,6 +85,7 @@ ActiveAdmin.register TradePair do
       row :credential do |trade_pair|
         trade_pair.credential&.identifier
       end
+      row :market_type
       row :maker_fee
       row :taker_fee
       row :minimum_total
@@ -107,6 +110,7 @@ ActiveAdmin.register TradePair do
     f.inputs do
       f.input :symbol
       f.input :credential, member_label: :identifier, collection: Credential.order('LOWER(identifier)')
+      f.input :market_type
       f.input :maker_fee
       f.input :taker_fee
       f.input :minimum_total
@@ -132,6 +136,7 @@ ActiveAdmin.register TradePair do
                 :open_orders_limit,
                 :limit_price,
                 :maker_fee,
+                :market_type,
                 :maximum_hodl_quantity,
                 :minimum_hodl_quantity,
                 :percentage_from_market_price_buy_minimum,
