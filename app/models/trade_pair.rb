@@ -16,6 +16,7 @@ class TradePair < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   # === ENUMERABLES ===
+  enum market_type: { spot: 0, margin_cross: 1, margin_isolated: 2 }
   enum mode: { accumulate: 0, buy: 1, sell: 2, counter_only: 3 }
 
   # === VALIDATIONS ===
