@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/rubyonchains/binance.git
-  revision: 45936dc74b645a983f317730870ec68a2dbc4b79
+  remote: https://github.com/steven-chang/binance.git
+  revision: 01d79573cf37193436ecbc8776716bf646ae2dc1
   specs:
     binance (1.2.0)
       faraday (~> 0.12)
