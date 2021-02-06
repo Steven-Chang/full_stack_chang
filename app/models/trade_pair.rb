@@ -79,20 +79,21 @@ class TradePair < ApplicationRecord
     return unless enabled
     return unless credential.enabled
     return unless exchange.identifier == 'binance'
-    return if mode == 'sell'
     return if mode == 'counter_only'
     return if accumulate_order_limit_reached?
 
     if limit_price.present?
-      percentage_from_market_price = nil
+      percentage_from_market_price_adjusted = nil
       next_price = limit_price
     else
       percentage_from_market_price = rand(percentage_from_market_price_minimum('buy')..percentage_from_market_price_maximum('buy')).round(2)
-      next_price = get_open_buy_orders(5)[0][:rate].to_d * ((100 - percentage_from_market_price) / 100)
+      percentage_from_market_price_adjusted = percentage_from_market_price
+      percentage_from_market_price_adjusted = percentage_from_market_price * -1 if mode == 'sell'
+      next_price = get_open_buy_orders(5)[0][:rate].to_d * ((100 - percentage_from_market_price_adjusted) / 100)
     end
     base_total = minimum_total
     quantity = calculate_quantity(base_total, next_price)
-    create_order('buy', next_price, quantity, nil, percentage_from_market_price)
+    create_order(mode == 'sell' ? 'sell' : 'buy', next_price, quantity, nil, percentage_from_market_price_adjusted)
   end
 
   # Watch out for the difference in base_total and quantity
