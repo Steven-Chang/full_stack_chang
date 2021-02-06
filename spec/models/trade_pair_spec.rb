@@ -20,6 +20,51 @@ RSpec.describe TradePair, type: :model do
   end
 
   describe 'VALIDATIONS' do
+    describe ':open_orders_limit' do
+      it { should validate_numericality_of(:open_orders_limit).allow_nil }
+
+      describe '#open_orders_limit_validation' do
+        context 'when trade_pair does not have an open_orders_limit' do
+          before { trade_pair.open_orders_limit = nil }
+
+          it 'is valid' do
+            expect(trade_pair.valid?).to be true
+          end
+        end
+
+        context 'when trade_pair has an open_orders_limit' do
+          before { trade_pair.open_orders_limit = 100 }
+
+          context "when trade_pair's exchange does not have an open order limit per trade pair" do
+            before { trade_pair.exchange.update(open_orders_limit_per_trade_pair: nil) }
+
+            it 'is valid' do
+              expect(trade_pair.valid?).to be true
+            end
+          end
+
+          context "when trade_pair's exchange has an open order limit per trade pair" do
+            before { trade_pair.exchange.update(open_orders_limit_per_trade_pair: 100) }
+
+            context "when trade_pair's open_orders_limit is less than or equal to exchange's open_orders_limit_per_trade_pair" do
+              before { trade_pair.open_orders_limit = trade_pair.exchange.open_orders_limit_per_trade_pair }
+
+              it 'is valid' do
+                expect(trade_pair.valid?).to be true
+              end
+            end
+
+            context "when trade_pair's open_orders_limit is less than or equal to exchange's open_orders_limit_per_trade_pair" do
+              before { trade_pair.open_orders_limit = trade_pair.exchange.open_orders_limit_per_trade_pair + 1 }
+
+              it 'is valid' do
+                expect(trade_pair.valid?).to be false
+              end
+            end
+          end
+        end
+      end
+    end
     it { should validate_numericality_of(:accumulate_time_limit_in_seconds).is_greater_than_or_equal_to(TradePair::MAX_TRADE_FREQUENCY_IN_SECONDS) }
     it { should validate_presence_of(:symbol) }
     it { should validate_uniqueness_of(:symbol).scoped_to(:credential_id).case_insensitive }

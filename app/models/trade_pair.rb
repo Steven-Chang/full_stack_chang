@@ -19,6 +19,8 @@ class TradePair < ApplicationRecord
   enum mode: { accumulate: 0, buy: 1, sell: 2, counter_only: 3 }
 
   # === VALIDATIONS ===
+  validates :open_orders_limit, numericality: { allow_nil: true }
+  validate :open_orders_limit_validation
   validates :percentage_from_market_price_buy_minimum,
             :percentage_from_market_price_buy_maximum,
             numericality: {
@@ -37,19 +39,11 @@ class TradePair < ApplicationRecord
 
   # === CALLBACKS ===
   before_save do |trade_pair|
-    if trade_pair.exchange&.open_orders_limit_per_trade_pair&.present?
-      if trade_pair.open_orders_limit.present? && trade_pair.open_orders_limit > trade_pair.exchange.open_orders_limit_per_trade_pair
-        trade_pair.open_orders_limit = trade_pair.exchange.open_orders_limit_per_trade_pair
-      elsif trade_pair.open_orders_limit.blank?
-        trade_pair.open_orders_limit = trade_pair.exchange.open_orders_limit_per_trade_pair
-      end
-    end
     trade_pair.symbol.downcase!
   end
 
   # === DELEGATES ===
-  delegate :client,
-           to: :credential
+  delegate :client, to: :credential
 
   # === SCOPES ===
   scope :enabled, lambda { where(enabled: true) }
@@ -236,6 +230,15 @@ class TradePair < ApplicationRecord
   def calculate_quantity(base_total, price)
     truncation_factor = amount_step >= 1 ? 0 : amount_step.to_s.split('.').last.size
     (base_total / price).truncate(truncation_factor)
+  end
+
+  def open_orders_limit_validation
+    return unless open_orders_limit
+    return unless exchange
+    return unless exchange.open_orders_limit_per_trade_pair
+    return if open_orders_limit <= exchange.open_orders_limit_per_trade_pair
+
+    errors.add(:open_orders_limit, "Must be less than or equal to exchange's trade pair open order limit: #{exchange.open_orders_limit_per_trade_pair}.")
   end
 
   def quantity_formatted_for_order(quantity)
