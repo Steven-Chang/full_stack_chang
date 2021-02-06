@@ -1,5 +1,10 @@
 ---
 binance:
+  1inchusdt:
+    amount_step: 0.01
+    market_type: 'margin_isolated'
+    minimum_total: 11
+    price_precision: 4
   batbnb:
     amount_step: 0.1
     minimum_total: 0.2
