@@ -60,10 +60,12 @@ class TradePair < ApplicationRecord
         values.each do |trade_pair_symbol, trade_pair_values|
           next if credential.trade_pairs.find_by(symbol: trade_pair_symbol)
 
-          credential.trade_pairs.create(symbol: trade_pair_symbol,
-                                        minimum_total: trade_pair_values['minimum_total'],
-                                        amount_step: trade_pair_values['amount_step'],
-                                        price_precision: trade_pair_values['price_precision'])
+          tp = credential.trade_pairs.new(symbol: trade_pair_symbol,
+                                          minimum_total: trade_pair_values['minimum_total'],
+                                          amount_step: trade_pair_values['amount_step'],
+                                          price_precision: trade_pair_values['price_precision'])
+          tp.market_type = trade_pair_values['market_type'] if trade_pair_values['market_type'].present?
+          tp.save
         end
       end
     end
