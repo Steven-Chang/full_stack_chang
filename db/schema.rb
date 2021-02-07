@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_06_025812) do
+ActiveRecord::Schema.define(version: 2021_02_07_054507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(version: 2021_02_06_025812) do
     t.decimal "limit_price", precision: 15, scale: 10
     t.decimal "accumulate_amount", precision: 15, scale: 10
     t.integer "market_type", default: 0, null: false
+    t.integer "side_effect_type", default: 0, null: false
     t.index ["credential_id"], name: "index_trade_pairs_on_credential_id"
   end
 

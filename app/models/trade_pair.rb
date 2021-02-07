@@ -18,6 +18,7 @@ class TradePair < ApplicationRecord
   # === ENUMERABLES ===
   enum market_type: { spot: 0, margin_cross: 1, margin_isolated: 2 }
   enum mode: { accumulate: 0, buy: 1, sell: 2, counter_only: 3 }
+  enum side_effect_type: { no_side_effect: 0, margin_buy: 1, auto_repay: 2 }
 
   # === VALIDATIONS ===
   validates :open_orders_limit, numericality: { allow_nil: true }
@@ -120,7 +121,8 @@ class TradePair < ApplicationRecord
                                                  is_isolated: market_type == 'margin_isolated' ? 'TRUE' : 'FALSE',
                                                  time_in_force: 'GTC',
                                                  quantity: quantity,
-                                                 price: price.to_s)
+                                                 price: price.to_s,
+                                                 side_effect_type: side_effect_type.upcase)
       end
       if (binance_order_id = result['orderId'])
         orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open',

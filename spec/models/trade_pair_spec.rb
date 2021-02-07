@@ -18,6 +18,7 @@ RSpec.describe TradePair, type: :model do
   describe 'ENUMERATORS' do
     it { should define_enum_for(:market_type).with_values(spot: 0, margin_cross: 1, margin_isolated: 2) }
     it { should define_enum_for(:mode).with_values(accumulate: 0, buy: 1, sell: 2, counter_only: 3) }
+    it { should define_enum_for(:side_effect_type).with_values(no_side_effect: 0, margin_buy: 1, auto_repay: 2) }
   end
 
   describe 'DELEGATES' do
