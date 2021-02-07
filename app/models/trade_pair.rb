@@ -18,6 +18,7 @@ class TradePair < ApplicationRecord
   # === ENUMERABLES ===
   enum market_type: { spot: 0, margin_cross: 1, margin_isolated: 2 }
   enum mode: { accumulate: 0, buy: 1, sell: 2, counter_only: 3 }
+  enum side_effect_type: { no_side_effect: 0, margin_buy: 1, auto_repay: 2 }
 
   # === VALIDATIONS ===
   validates :open_orders_limit, numericality: { allow_nil: true }
