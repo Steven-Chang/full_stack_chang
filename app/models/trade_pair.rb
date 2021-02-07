@@ -106,12 +106,22 @@ class TradePair < ApplicationRecord
 
     case exchange.identifier
     when 'binance'
-      result = client.create_order!(symbol: symbol.upcase,
-                                    side: buy_or_sell,
-                                    type: 'limit',
-                                    time_in_force: 'GTC',
-                                    quantity: quantity,
-                                    price: price.to_s)
+      if market_type == 'spot'
+        result = client.create_order!(symbol: symbol.upcase,
+                                      side: buy_or_sell,
+                                      type: 'limit',
+                                      time_in_force: 'GTC',
+                                      quantity: quantity,
+                                      price: price.to_s)
+      elsif %w[margin_isolated margin_cross].include?(market_type)
+        result = client.margin_account_new_order(symbol: symbol.upcase,
+                                                 side: buy_or_sell,
+                                                 type: 'limit',
+                                                 is_isolated: market_type == 'margin_isolated' ? 'TRUE' : 'FALSE',
+                                                 time_in_force: 'GTC',
+                                                 quantity: quantity,
+                                                 price: price.to_s)
+      end
       if (binance_order_id = result['orderId'])
         orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open',
                       buy_or_sell: buy_or_sell,
