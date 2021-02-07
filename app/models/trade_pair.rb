@@ -116,8 +116,8 @@ class TradePair < ApplicationRecord
                                       price: price.to_s)
       elsif %w[margin_isolated margin_cross].include?(market_type)
         result = client.margin_account_new_order(symbol: symbol.upcase,
-                                                 side: buy_or_sell,
-                                                 type: 'limit',
+                                                 side: buy_or_sell.upcase,
+                                                 type: 'limit'.upcase,
                                                  is_isolated: market_type == 'margin_isolated' ? 'TRUE' : 'FALSE',
                                                  time_in_force: 'GTC',
                                                  quantity: quantity,
