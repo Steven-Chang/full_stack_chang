@@ -125,6 +125,7 @@ ActiveAdmin.register TradePair do
       f.input :accumulate_amount
       f.input :accumulate_time_limit_in_seconds
       f.input :mode
+      f.input :side_effect_type
       f.input :enabled
     end
     f.actions
@@ -148,5 +149,6 @@ ActiveAdmin.register TradePair do
                 :accumulate_amount,
                 :accumulate_time_limit_in_seconds,
                 :mode,
+                :side_effect_type,
                 :enabled
 end

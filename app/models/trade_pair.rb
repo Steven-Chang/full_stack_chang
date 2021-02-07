@@ -121,7 +121,8 @@ class TradePair < ApplicationRecord
                                                  is_isolated: market_type == 'margin_isolated' ? 'TRUE' : 'FALSE',
                                                  time_in_force: 'GTC',
                                                  quantity: quantity,
-                                                 price: price.to_s)
+                                                 price: price.to_s,
+                                                 side_effect_type: side_effect_type.upcase)
       end
       if (binance_order_id = result['orderId'])
         orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open',
