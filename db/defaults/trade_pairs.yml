@@ -53,8 +53,8 @@ binance:
     minimum_total: 11
     price_precision: 3
   cakebnb:
-    amount_step: 0.01
-    minimum_total: 0.1
+    amount_step: 0.1
+    minimum_total: 0.2
     price_precision: 5
   dogeusdt:
     amount_step: 1
