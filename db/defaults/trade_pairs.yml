@@ -89,6 +89,14 @@ binance:
     amount_step: 0.01
     minimum_total: 0.01
     price_precision: 6
+  sushidownusdt:
+    amount_step: 0.01
+    minimum_total: 11
+    price_precision: 6
+  unidownusdt:
+    amount_step: 0.01
+    minimum_total: 11
+    price_precision: 5
   xmrbnb:
     amount_step: 0.001
     minimum_total: 0.2
