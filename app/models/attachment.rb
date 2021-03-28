@@ -15,7 +15,7 @@ class Attachment < ApplicationRecord
   # === ENUMERABLES ===
   enum file_type: { image: 0, raw: 1, video: 2 }
 
-  # === INSTANCE METHODS === 
+  # === INSTANCE METHODS ===
   def cloudinary_url(options = {})
     return if cloudinary_public_id.blank?
 
@@ -27,6 +27,6 @@ class Attachment < ApplicationRecord
   def url_should_be_blank_when_cloudinary_public_id_present
     return if cloudinary_public_id.present? && url.present?
 
-    errors.add :url, :unnecessary, message: "please use cloudinary_url instead"
+    errors.add :url, :unnecessary, message: 'please use cloudinary_url instead.'
   end
 end
