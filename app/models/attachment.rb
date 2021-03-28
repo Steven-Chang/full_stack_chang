@@ -25,7 +25,7 @@ class Attachment < ApplicationRecord
   private
 
   def url_should_be_blank_when_cloudinary_public_id_present
-    return if cloudinary_public_id.present? && url.present?
+    return unless cloudinary_public_id.present? && url.present?
 
     errors.add :url, :unnecessary, message: 'please use cloudinary_url instead.'
   end
