@@ -60,7 +60,7 @@
                             .timeline-dot
                             .timeline-content
                               - if project.attachments.present?
-                                = image_tag project.attachments.first.url, class: 'float-right', style: 'max-width: 120px;'
+                                = image_tag project.attachments.first.cloudinary_url, class: 'float-right', style: 'max-width: 120px;'
                               %span.block.mb-5
                                 %h5= project.title
                               %span.block.font-size-15.mb-5
