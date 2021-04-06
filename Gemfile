@@ -35,7 +35,7 @@ gem 'pundit'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.0.rc1'
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.0'
+gem 'redis'
 # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
 gem 'rubocop', '~> 0.79.0', require: false
 gem 'rubocop-performance'
