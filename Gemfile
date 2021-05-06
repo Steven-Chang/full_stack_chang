@@ -54,6 +54,7 @@ group :development, :test do
   # Fixtures replacement
   gem 'factory_bot_rails'
   # Code smell detector for Ruby https://github.com/troessner/reek
+  gem 'haml_lint', require: false
   gem 'reek'
   # Test suite
   gem 'rspec-rails', '~> 3.5'
