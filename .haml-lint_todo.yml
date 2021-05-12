@@ -7,6 +7,8 @@
 # versions of Haml-Lint, may require this file to be generated again.
 
 linters:
+  CommentSpace:
+    Enabled: false
 
   # Offense count: 78
   LineLength:
@@ -64,13 +66,6 @@ linters:
       - "app/views/active_admin/dashboard/_tranxactions.html.haml"
       - "app/views/active_admin/devise/sessions/new.html.haml"
       - "app/views/application/_footer.html.haml"
-
-  # Offense count: 3
-  TrailingWhitespace:
-    exclude:
-      - "app/views/active_admin/devise/sessions/new.html.haml"
-      - "app/views/application/_navbar.html.haml"
-      - "app/views/layouts/application.html.haml"
 
   # Offense count: 4
   ClassesBeforeIds:
