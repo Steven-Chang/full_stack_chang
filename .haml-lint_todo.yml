@@ -7,9 +7,6 @@
 # versions of Haml-Lint, may require this file to be generated again.
 
 linters:
-  CommentSpace:
-    Enabled: false
-
   # Offense count: 78
   LineLength:
     exclude:
@@ -59,11 +56,6 @@ linters:
   ConsecutiveSilentScripts:
     exclude:
       - "app/views/active_admin/dashboard/_tax_categories.html.haml"
-
-  # Offense count: 4
-  ClassesBeforeIds:
-    exclude:
-      - "app/views/application/home.html.haml"
 
   # Offense count: 2
   UnnecessaryStringOutput:

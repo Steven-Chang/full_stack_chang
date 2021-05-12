@@ -51,7 +51,7 @@
                 %li.nav-item{:role => "presentation"}
                   %a.nav-link{"aria-controls" => "references", "data-toggle" => "tab", :href => "#references", :role => "tab"} References
               .tab-content
-                #portfolio.tab-pane.active.animation-slide-left{:role => "tabpanel"}
+                .tab-pane.active.animation-slide-left#portfolio{:role => "tabpanel"}
                   .user-background.card.card-shadow
                     .card-block
                       %ul.timeline.timeline-single
@@ -74,7 +74,7 @@
                                 <haml_loud> project.description </haml_loud>
                                 </div>
                                 </haml_block>
-                #tools.tab-pane.animation-slide-left{:role => "tabpanel"}
+                .tab-pane.animation-slide-left#tools{:role => "tabpanel"}
                   .user-background.card.card-shadow
                     - Tool::CATEGORY_LABEL_MAPPING.each do |key, value|
                       - visible_tools = Tool.where(category: key, visible: true)
@@ -87,7 +87,7 @@
                               .d-inline-block.bg-white.text-center.p-1{:style => "height: 70px; width: 70px; border-radius: 4px;"}
                                 = cl_image_tag tool.attachments.first.cloudinary_public_id, width: 120, fetch_format: :auto, style: 'width: 60px;'
                             .p-1{:style => "line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"}= tool.name
-                #proud-of.tab-pane.animation-slide-left{:role => "tabpanel"}
+                .tab-pane.animation-slide-left#proud-of{:role => "tabpanel"}
                   %ul.blocks.blocks-100.blocks-xxl-4.blocks-lg-3.blocks-md-2.mt-4{"data-filters" => "#exampleFilter", "data-plugin" => "filterable"}
                     %li
                       .card.card-shadow
@@ -107,7 +107,7 @@
                           %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}/
                           %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
                             %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}
-                #references.tab-pane.animation-slide-left{:role => "tabpanel"}
+                .tab-pane.animation-slide-left#references{:role => "tabpanel"}
                   .user-background.card.card-shadow
                     .card-block
                       .table-responsive
