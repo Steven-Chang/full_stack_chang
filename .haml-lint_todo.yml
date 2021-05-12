@@ -56,13 +56,3 @@ linters:
   ConsecutiveSilentScripts:
     exclude:
       - "app/views/active_admin/dashboard/_tax_categories.html.haml"
-
-  # Offense count: 2
-  UnnecessaryStringOutput:
-    exclude:
-      - "app/views/application/home.html.haml"
-
-  # Offense count: 1
-  ViewLength:
-    exclude:
-      - "app/views/application/home.html.haml"

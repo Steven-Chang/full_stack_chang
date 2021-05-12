@@ -1,5 +1,10 @@
-inherits_from: .haml-lint_todo.yml
+inherits_from:
+  - .rubocop.yml
+  - .haml-lint_todo.yml
 
 linters:
   CommentSpace:
-    Enabled: true
+    enabled: true
+
+  ViewLength:
+    enabled: false
