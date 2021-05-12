@@ -63,9 +63,7 @@
                                 = image_tag project.attachments.first.url, class: 'float-right', style: 'max-width: 120px;'
                               %span.block.mb-5
                                 %h5= project.title
-                              %span.block.font-size-15.mb-5
-                                = "#{project.start_date.strftime('%d %b %y')}-#{project.end_date&.strftime('%d %b %y') || 'NOW'}"
-                                = " (#{distance_of_time_in_words(project.start_date, project.end_date || Time.current)})"
+                              %span.block.font-size-15.mb-5 #{project.start_date.strftime('%d %b %y')} - #{project.end_date&.strftime('%d %b %y') || 'NOW'} (#{distance_of_time_in_words(project.start_date, project.end_date || Time.current)})
                               - if project.role.present?
                                 %span.block.mb-5= project.role
                               /
