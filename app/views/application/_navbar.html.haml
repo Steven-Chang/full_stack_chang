@@ -8,7 +8,7 @@
           %button.navbar-btn.btn.bg-white{ role: 'button', style: 'color: #3e8ef7; font-family: Roboto, sans-serif; text-decoration: none;' }
             Dashboard
         = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'text-white ml-4'
-      - else 
+      - else
         = link_to new_user_session_path do
           %button.navbar-btn.btn.bg-white{ role: 'button', style: 'color: #3e8ef7; font-family: Roboto, sans-serif; text-decoration: none;' }
             Admin
