@@ -36,9 +36,7 @@ linters:
     exclude:
       - "app/views/active_admin/_header_additions.html.haml"
       - "app/views/active_admin/dashboard/_summary.html.haml"
-      - "app/views/active_admin/devise/sessions/new.html.haml"
       - "app/views/application/home.html.haml"
-      - "app/views/cryptos/index.html.haml"
       - "app/views/layouts/application.html.haml"
 
   # Offense count: 23
