@@ -42,7 +42,7 @@ ActiveAdmin.register Tranxaction do
           url = if attachment.url.present?
             attachment.url
           elsif attachment.cloudinary_public_id.present?
-            cloudinary_url(attachment.cloudinary_public_id, resource_type: :raw)
+            cloudinary_url(attachment.cloudinary_public_id, resource_type: attachment.file_type)
           end
           link_to 'url', url, target: '_blank', rel: 'noopener'
         end
