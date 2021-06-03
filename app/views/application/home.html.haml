@@ -80,11 +80,12 @@
                         %h5.card-title
                           %span #{value} (#{visible_tools.count})
                         - visible_tools.order(:name).each do |tool|
-                          .mb-2.mr-2.text-center.d-inline-block.bg-light.align-top{:style => "border: 1px solid white; border-radius: 6px; height: 135px; width: 120px;"}
-                            %div{:style => "padding: 10px 25px 0 25px;"}
-                              .d-inline-block.bg-white.text-center.p-1{:style => "height: 70px; width: 70px; border-radius: 4px;"}
-                                = cl_image_tag tool.attachments.first.cloudinary_public_id, width: 120, fetch_format: :auto, style: 'width: 60px;'
-                            .p-1{:style => "line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"}= tool.name
+                          - if (tool_attachment = tool.attachments.first)
+                            .mb-2.mr-2.text-center.d-inline-block.bg-light.align-top{:style => "border: 1px solid white; border-radius: 6px; height: 135px; width: 120px;"}
+                              %div{:style => "padding: 10px 25px 0 25px;"}
+                                .d-inline-block.bg-white.text-center.p-1{:style => "height: 70px; width: 70px; border-radius: 4px;"}
+                                  = cl_image_tag tool_attachment.cloudinary_public_id, width: 120, fetch_format: :auto, style: 'width: 60px;'
+                              .p-1{:style => "line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"}= tool.name
                 .tab-pane.animation-slide-left#proud-of{:role => "tabpanel"}
                   %ul.blocks.blocks-100.blocks-xxl-4.blocks-lg-3.blocks-md-2.mt-4{"data-filters" => "#exampleFilter", "data-plugin" => "filterable"}
                     %li
