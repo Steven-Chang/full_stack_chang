@@ -23,12 +23,12 @@ blocks:
     task:
       prologue:
         commands:
-            - sem-version ruby 2.7.2
-            - sem-version node 14.5.0
-            - checkout
-            - cache restore
-            - bundle install
-            - cache store
+          - sem-version ruby 2.7.2
+          - sem-version node 14.5.0
+          - checkout
+          - cache restore
+          - bundle install
+          - cache store
       jobs:
         - name: rubocop
           commands:
@@ -45,16 +45,18 @@ blocks:
     task:
       prologue:
         commands:
-            - sem-version ruby 2.7.2
-            - sem-version node 14.5.0
-            - checkout
-            - cache restore
-            - bundle install
-            - cache store
+          - sem-version ruby 2.7.2
+          - sem-version node 14.5.0
+          - checkout
+          - cache restore
+          - bundle install
+          - cache store
       jobs:
         - name: rspec
           commands:
             - bundle exec rspec
+      secrets:
+        - name: fullstackchang.com
 promotions:
   - name: Deploy to production (Heroku)
     pipeline_file: heroku.yml
