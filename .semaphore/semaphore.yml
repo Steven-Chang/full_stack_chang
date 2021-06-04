@@ -11,7 +11,7 @@ blocks:
       jobs:
         - name: bundle
           commands:
-            - sem-version ruby 3.0.0
+            - sem-version ruby 2.7.2
             - sem-version node 14.5.0
             - checkout
             - cache restore
@@ -23,7 +23,7 @@ blocks:
     task:
       prologue:
         commands:
-            - sem-version ruby 3.0.0
+            - sem-version ruby 2.7.2
             - sem-version node 14.5.0
             - checkout
             - cache restore
@@ -45,7 +45,7 @@ blocks:
     task:
       prologue:
         commands:
-            - sem-version ruby 3.0.0
+            - sem-version ruby 2.7.2
             - sem-version node 14.5.0
             - checkout
             - cache restore
