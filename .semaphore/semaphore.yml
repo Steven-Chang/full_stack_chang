@@ -51,6 +51,9 @@ blocks:
           - cache restore
           - bundle install
           - cache store
+          - sem-service start redis
+          - sem-service start postgres
+          - 'bundle exec rake db:setup'
       jobs:
         - name: rspec
           commands:
