@@ -1,6 +1,6 @@
 ---
 exclude:
-  - 'app/assets/stylesheets/remark_classic'
+  - 'app/assets/stylesheets/remark_classic/**'
 
 linters:
   BorderZero:
