@@ -11,7 +11,7 @@ blocks:
         - name: btn.group
       env_vars:
         - name: HEROKU_REMOTE
-          value: 'https://github.com/Steven-Chang/full_stack_chang.git'
+          value: 'https://git.heroku.com/full-stack-chang.git'
         - name: HEROKU_APP_NAME
           value: full-stack-chang
       jobs:
