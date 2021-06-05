@@ -41,7 +41,7 @@ gem 'rubocop', '~> 0.79.0', require: false
 gem 'rubocop-performance'
 gem 'rubocop-rails'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 gem 'sendgrid-ruby'
 # Simple, efficient background processing for Ruby.
 gem 'sidekiq'
