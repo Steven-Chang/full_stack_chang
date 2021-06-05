@@ -13,7 +13,7 @@ blocks:
         - name: HEROKU_REMOTE
           value: 'https://github.com/Steven-Chang/full_stack_chang.git'
         - name: HEROKU_APP_NAME
-          value: btn-group
+          value: full-stack-chang
       jobs:
         - name: Push code
           commands:
