@@ -45,7 +45,9 @@ class Credential < ApplicationRecord
     when 'binance'
       rails_credentials = Rails.application.credentials
       binance_credentials = Rails.env.production? ? rails_credentials.binance[identifier.to_sym] : rails_credentials.development[:binance][:test]
-      Binance::Client::REST.new(api_key: binance_credentials[:api_key], secret_key: binance_credentials[:secret_key])
+      Binance::Api::Configuration.api_key = binance_credentials[:api_key]
+      Binance::Api::Configuration.secret_key = binance_credentials[:secret_key]
+      Binance::Api
     else
       raise StandardError, 'No client for that exchange'
     end
