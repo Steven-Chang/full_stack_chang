@@ -13,6 +13,12 @@ EDITOR=vim rails credentials:edit
 Rails.application.credentials.aws[:access_key_id]
 ```
 
+## Binance
+Look into this margin trading code if you're still interested
+```
+# Credential.third.client::Margin::Order.status!(symbol: 'BTCUSDT', orderId: Order.open.first.reference, isIsolated: true
+```
+
 ## THEME/LAYOUT
 
 - Remark Layout
