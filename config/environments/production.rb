@@ -97,20 +97,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  # === AFTER INITIALIZE ===
-  config.after_initialize do
-    if initialized_server?
-      # Creating defaults
-      Credential.create_defaults
-      Exchange.create_default_exchanges
-      TradePair.create_default_trade_pairs
-
-      # Jobs
-      AccumulateCryptoJob.perform_now
-      ProcessOpenOrdersJob.perform_now
-      ProcessScheduledTranxactionTemplatesJob.perform_now
-      WillJob.perform_now
-    end
-  end
 end
