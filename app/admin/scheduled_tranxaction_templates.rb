@@ -24,11 +24,11 @@ ActiveAdmin.register ScheduledTranxactionTemplate do
       next if scheduled_tranxaction_template.tranxactable.blank?
 
       link_description = "#{scheduled_tranxaction_template.tranxactable.class}: "
-      if scheduled_tranxaction_template.tranxactable.class == TenancyAgreement
+      if scheduled_tranxaction_template.tranxactable.instance_of?(TenancyAgreement)
         link_description += scheduled_tranxaction_template.tranxactable.user.username
-      elsif scheduled_tranxaction_template.tranxactable.class == Client
+      elsif scheduled_tranxaction_template.tranxactable.instance_of?(Client)
         link_description += scheduled_tranxaction_template.tranxactable.name
-      elsif scheduled_tranxaction_template.tranxactable.class == Property
+      elsif scheduled_tranxaction_template.tranxactable.instance_of?(Property)
         link_description += scheduled_tranxaction_template.tranxactable.address
       end
       url = "/admin/#{scheduled_tranxaction_template.tranxactable.class.to_s.underscore.pluralize}/#{scheduled_tranxaction_template.tranxactable.id}"
@@ -58,11 +58,11 @@ ActiveAdmin.register ScheduledTranxactionTemplate do
         next if scheduled_tranxaction_template.tranxactable.blank?
 
         link_description = "#{scheduled_tranxaction_template.tranxactable.class}: "
-        if scheduled_tranxaction_template.tranxactable.class == TenancyAgreement
+        if scheduled_tranxaction_template.tranxactable.instance_of?(TenancyAgreement)
           link_description += scheduled_tranxaction_template.tranxactable.user.username
-        elsif scheduled_tranxaction_template.tranxactable.class == Client
+        elsif scheduled_tranxaction_template.tranxactable.instance_of?(Client)
           link_description += scheduled_tranxaction_template.tranxactable.name
-        elsif scheduled_tranxaction_template.tranxactable.class == Property
+        elsif scheduled_tranxaction_template.tranxactable.instance_of?(Property)
           link_description += scheduled_tranxaction_template.tranxactable.address
         end
         url = "/admin/#{scheduled_tranxaction_template.tranxactable.class.to_s.underscore.pluralize}/#{scheduled_tranxaction_template.tranxactable.id}"

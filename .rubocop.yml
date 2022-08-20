@@ -47,7 +47,7 @@ Layout/LineLength:
     - 'app/admin/tranxactions.rb'
     - 'Gemfile'
 
-Layout/Tab:
+Layout/IndentationStyle:
   Enabled: false
 
 Lint/RescueException:

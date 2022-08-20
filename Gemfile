@@ -36,10 +36,6 @@ gem 'pundit'
 gem 'rails', '~> 6.0.0.rc1'
 # Use Redis adapter to run Action Cable in production
 gem 'redis'
-# A Ruby static code analyzer and formatter, based on the community Ruby style guide.
-gem 'rubocop', '~> 0.79.0', require: false
-gem 'rubocop-performance'
-gem 'rubocop-rails'
 # Use SCSS for stylesheets
 gem 'sassc-rails'
 gem 'sendgrid-ruby'
@@ -57,6 +53,11 @@ group :development, :test do
   gem 'haml_lint', require: false
   # Test suite
   gem 'rspec-rails', '~> 3.5'
+  # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
+  gem 'rubocop', require: false
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
   gem 'scss_lint', require: false
 end
 
@@ -76,8 +77,6 @@ group :development do
   # Look for missing indexes
   # https://github.com/plentz/lol_dba
   gem 'lol_dba'
-  # https://github.com/rubocop-hq/rubocop-rspec
-  gem 'rubocop-rspec', require: false
   # Spring speeds up development by keeping your application running in the background.
   # Read more: https://github.com/rails/spring
   gem 'spring'

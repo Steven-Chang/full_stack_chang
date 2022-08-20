@@ -23,11 +23,11 @@ ActiveAdmin.register Tranxaction do
       next if tranxaction.tranxactable.blank?
 
       link_description = "#{tranxaction.tranxactable.class}: "
-      if tranxaction.tranxactable.class == TenancyAgreement
+      if tranxaction.tranxactable.instance_of?(TenancyAgreement)
         link_description += tranxaction.tranxactable.user.username
-      elsif tranxaction.tranxactable.class == Client
+      elsif tranxaction.tranxactable.instance_of?(Client)
         link_description += tranxaction.tranxactable.name
-      elsif tranxaction.tranxactable.class == Property
+      elsif tranxaction.tranxactable.instance_of?(Property)
         link_description += tranxaction.tranxactable.address
       end
       url = "/admin/#{tranxaction.tranxactable.class.to_s.underscore.pluralize}/#{tranxaction.tranxactable.id}"
@@ -91,11 +91,11 @@ ActiveAdmin.register Tranxaction do
         next if tranxaction.tranxactable.blank?
 
         link_description = "#{tranxaction.tranxactable.class}: "
-        if tranxaction.tranxactable.class == TenancyAgreement
+        if tranxaction.tranxactable.instance_of?(TenancyAgreement)
           link_description += tranxaction.tranxactable.user.username
-        elsif tranxaction.tranxactable.class == Client
+        elsif tranxaction.tranxactable.instance_of?(Client)
           link_description += tranxaction.tranxactable.name
-        elsif tranxaction.tranxactable.class == Property
+        elsif tranxaction.tranxactable.instance_of?(Property)
           link_description += tranxaction.tranxactable.address
         end
         url = "/admin/#{tranxaction.tranxactable.class.to_s.underscore.pluralize}/#{tranxaction.tranxactable.id}"
