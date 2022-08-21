@@ -22,7 +22,7 @@ class Order < ApplicationRecord
   validates :buy_or_sell, inclusion: { in: %w[buy sell] }
 
   # === CALLBACKS ===
-  after_update :create_counter
+  after_save :create_counter
   before_validation :format_buy_or_sell
 
   # === DELEGATES ===
@@ -42,20 +42,6 @@ class Order < ApplicationRecord
 
       update!(status: 'cancelled_stale')
     end
-  end
-
-  def create_counter
-    return if buy_or_sell == 'sell'
-    return if child_order.present?
-
-    next_buy_or_sell = 'sell'
-    next_quantity = quantity - (trade_pair.accumulate_amount || trade_pair.amount_step)
-    next_price = (quantity_received * (1.0 + (taker_fee_for_calculation * 10))) / next_quantity
-
-    raise StandardError, 'Next price should be higher than current price' if next_price <= price
-    raise StandardError, 'Next quantity should be less than or equal to current quantity' if next_quantity > quantity
-
-    trade_pair.create_order(next_buy_or_sell, next_price, next_quantity, id)
   end
 
   def query
@@ -102,11 +88,11 @@ class Order < ApplicationRecord
       return if child_order.present?
       return unless filled?
       return unless %w[accumulate counter_only].include?(trade_pair.mode)
-      return unless exchange.identifier == 'binance'
+      return unless trade_pair.exchange.identifier == 'binance'
 
       next_buy_or_sell = 'sell'
-      next_quantity = quantity - (trade_pair.accumulate_amount || trade_pair.amount_step)
-      next_price = (quantity_received * (1.0 + (taker_fee_for_calculation * 10))) / next_quantity
+      next_quantity = quantity.to_d - (trade_pair.accumulate_amount || trade_pair.amount_step)
+      next_price = (quantity_received.to_d * (1.0 + (taker_fee_for_calculation * 10))) / next_quantity
 
       raise StandardError, 'Next price should be higher than current price' if next_price <= price
       raise StandardError, 'Next quantity should be less than or equal to current quantity' if next_quantity > quantity
