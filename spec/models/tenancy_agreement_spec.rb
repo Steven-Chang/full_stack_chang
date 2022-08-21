@@ -6,7 +6,7 @@ RSpec.describe TenancyAgreement, type: :model do
   describe 'ASSOCIATIONS' do
   	it { should belong_to(:user) }
   	it { should belong_to(:property) }
-  	it { should have_many(:tranxactions) }
+  	it { should have_many(:tranxactions).dependent(:restrict_with_exception) }
   end
 
   describe 'VALIDATIONS' do

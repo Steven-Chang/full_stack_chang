@@ -3,10 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  let(:order) { build(:order) }
+  let(:order) { build(:order, quantity: 555, quantity_received: 555, trade_pair: trade_pair) }
   let(:order_created) { create(:order) }
   let(:order_id_binance_canceled) { '184222891' }
   let(:order_id_binance_filled) { '184976569' }
+  let(:trade_pair) { create(:trade_pair, :fees_present, exchange: create(:exchange)) }
 
   describe 'ASSOCIATIONS' do
     it { should belong_to(:parent_order) }
@@ -36,86 +37,102 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'CALLBACKS' do
-    # describe 'after_update' do
-    #   describe 'cancelling stale orders' do
-    #     context 'when created order is a sell order' do
-    #       before { order_created.update(buy_or_sell: 'sell') }
+    describe 'after_save' do
+      describe '#create_counter' do
+        before { allow(trade_pair).to receive(:create_order) }
 
-    #       it 'does not destroy the order' do
-    #         expect(order_created.present?).to be true
-    #       end
-    #     end
+        context 'when order is a sell order' do
+          before { order.buy_or_sell = 'sell' }
 
-    #     context 'when created order is a buy order' do
-    #       before { order_created.update(buy_or_sell: 'buy') }
+          it 'does not create a counter order' do
+            order.save
+            expect(trade_pair).not_to have_received(:create_order)
+          end
+        end
 
-    #       it 'does not destroy the order' do
-    #         expect(order_created.present?).to be true
-    #       end
+        context 'when order is a buy order' do
+          before { order.buy_or_sell = 'buy' }
 
-    #       context 'when created order is not open' do
-    #         before { order_created.update(status: 'filled') }
+          context 'when order already has a child_order' do
+            before { order.child_order = create(:order) }
 
-    #         it 'does not destroy the order' do
-    #           expect(order_created.present?).to be true
-    #         end
-    #       end
+            it 'does not create a counter order' do
+              order.save
+              expect(trade_pair).not_to have_received(:create_order)
+            end
+          end
 
-    #       context 'when created order is open' do
-    #         before { order_created.update(status: 'open') }
+          context 'when order does not have a child order' do
+            before { order.child_order = nil }
 
-    #         it 'does not destroy the order' do
-    #           expect(order_created.present?).to be true
-    #         end
+            context 'when order is not filled' do
+              before { order.status = 'open' }
 
-    #         context 'when created order has been partially filled' do
-    #           before { order_created.update!(quantity_received: 0.1) }
+              it 'does not create a counter order' do
+                order.save
+                expect(trade_pair).not_to have_received(:create_order)
+              end
+            end
 
-    #           it 'does not destroy the order' do
-    #             expect(order_created.present?).to be true
-    #           end
-    #         end
+            context 'when order is filled' do
+              before { order.status = 'filled' }
 
-    #         context 'when created order has not been filled' do
-    #           before { order_created.update!(quantity_received: 0) }
+              context 'when associated trade pair mode is not accumulate or counter_only' do
+                before { trade_pair.mode = 'sell' }
 
-    #           it 'does not destroy the order' do
-    #             expect(order_created.present?).to be true
-    #           end
+                it 'does not create a counter order' do
+                  order.save
+                  expect(trade_pair).not_to have_received(:create_order)
+                end
+              end
 
-    #           context 'when created order is less than a day old' do
-    #             it 'does not destroy the order' do
-    #               expect(order_created.present?).to be true
-    #             end
-    #           end
+              context 'when associated trade pair mode is accumulate or counter_only' do
+                before { trade_pair.update!(mode: %w[accumulate counter_only].sample) }
 
-    #           context 'when created order is more than 12 hours old' do
-    #             before { order_created.update!(created_at: Time.current - 13.hours) }
+                context 'when associated exchange is not binance' do
+                  it 'does not create a counter order' do
+                    order.save
+                    expect(trade_pair).not_to have_received(:create_order)
+                  end
+                end
 
-    #             it 'does not destroy the order' do
-    #               expect(order_created.present?).to be true
-    #             end
+                context 'when associated exchange is binance' do
+                  before do
+                    order.trade_pair.exchange.update!(identifier: 'binance')
+                  end
 
-    #             context 'when exchange is binance' do
-    #               before { order_created.exchange.update!(identifier: 'binance') }
+                  context 'when trade pair has an accumulate amount' do
+                    before do
+                      trade_pair.update!(accumulate_amount: 1, amount_step: 2)
+                    end
 
-    #               context 'when the cancel order to client to exchange is successful' do
-    #                 before do
-    #                   allow(order_created.client).to receive(:cancel_order!).and_return({})
-    #                 end
+                    it 'calls trade_pair.create_order with the correct amounts' do
+                      order.save
+                      next_quantity = order.quantity - trade_pair.accumulate_amount
+                      next_price = (order.quantity_received * (1.0 + (order.taker_fee_for_calculation * 10))) / next_quantity
+                      expect(trade_pair).to have_received(:create_order).with('sell', next_price, next_quantity, order.id)
+                    end
+                  end
 
-    #                 it 'does not destroy the order' do
-    #                   expect(order_created).to receive(:cancel)
-    #                   order_created.save
-    #                 end
-    #               end
-    #             end
-    #           end
-    #         end
-    #       end
-    #     end
-    #   end
-    # end
+                  context 'when trade pair does not have an accumulate amount' do
+                    before do
+                      trade_pair.update!(amount_step: 2)
+                    end
+
+                    it 'calls trade_pair.create_order with the correct amounts' do
+                      order.save
+                      next_quantity = order.quantity - trade_pair.amount_step
+                      next_price = (order.quantity_received * (1.0 + (order.taker_fee_for_calculation * 10))) / next_quantity
+                      expect(trade_pair).to have_received(:create_order).with('sell', next_price, next_quantity, order.id)
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
 
     describe 'before_validation' do
       context 'when buy_or_sell is present' do
@@ -129,55 +146,7 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'INSTANCE METHODS' do
-    describe '#create_counter' do
-      context 'when order is for a sell' do
-        before { order.buy_or_sell = 'sell' }
-
-        it 'does not create a counter order' do
-          expect(order.trade_pair).not_to receive(:create_order)
-          order.create_counter
-        end
-      end
-
-      context 'when order is for a buy' do
-        before { order.buy_or_sell = 'buy' }
-
-        context 'when next price is less than or equal to order price' do
-          before { order.update!(quantity: 0, quantity_received: 0) }
-
-          it 'should raise an error' do
-            expect { order.create_counter }.to raise_error('Next price should be higher than current price')
-          end
-        end
-
-        context 'when next quantity is greater than current quantity' do
-          before do
-            order.update!(quantity: 1, quantity_received: 1)
-            allow(order.trade_pair).to receive(:amount_step).and_return(-1)
-          end
-
-          it 'should raise an error' do
-            expect { order.create_counter }.to raise_error('Next quantity should be less than or equal to current quantity')
-          end
-        end
-
-        context 'when next quantity is lower and next price is higher it' do
-          before do
-            order.update!(quantity: 1, quantity_received: 1)
-            allow(order.trade_pair).to receive(:create_order)
-          end
-
-          it 'should call trade_pair.create_order' do
-            next_quantity = order.quantity - order.trade_pair.amount_step
-            next_price = (order.quantity_received * (1.0 + (order.taker_fee_for_calculation * 10))) / next_quantity
-            expect(order.trade_pair).to receive(:create_order).with('sell', next_price, next_quantity, order.id)
-            order.create_counter
-          end
-        end
-      end
-    end
-
-    describe '#query' do
+     describe '#query' do
       context 'when order is with binance' do
         before { order_created.exchange.update!(identifier: 'binance') }
 
@@ -228,7 +197,10 @@ RSpec.describe Order, type: :model do
         end
 
         context 'when symbol is registered with binance' do
-          before { order_created.trade_pair.update!(symbol: 'bnbeth') }
+          before do
+            allow(order_created).to receive(:create_counter)
+            order_created.trade_pair.update!(symbol: 'bnbeth')
+          end
 
           context 'when order_id is not legit' do
             before { order_created.update!(reference: 'fakeref') }
@@ -249,14 +221,14 @@ RSpec.describe Order, type: :model do
               end
             end
 
-            context 'when order status is not canceled' do
-              before { order_created.update!(reference: order_id_binance_filled) }
+            # context 'when order status is not canceled' do
+            #   before { order_created.update!(reference: order_id_binance_filled) }
 
-              # it 'does updates the order' do
-              #   expect(order_created).to receive(:update!)
-              #   order_created.update_from_exchange
-              # end
-            end
+            #   it 'does updates the order' do
+            #     expect(order_created).to receive(:update!)
+            #     order_created.update_from_exchange
+            #   end
+            # end
           end
         end
       end
