@@ -56,7 +56,7 @@ group :development, :test do
   # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
   gem 'rubocop', require: false
   gem 'rubocop-performance'
-  gem 'rubocop-rails'
+  gem 'rubocop-rails', '>= 2.9'
   gem 'rubocop-rspec'
   gem 'scss_lint', require: false
 end

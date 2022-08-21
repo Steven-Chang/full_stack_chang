@@ -22,6 +22,7 @@ class Order < ApplicationRecord
   validates :buy_or_sell, inclusion: { in: %w[buy sell] }
 
   # === CALLBACKS ===
+  after_update :create_counter
   before_validation :format_buy_or_sell
 
   # === DELEGATES ===
@@ -64,14 +65,6 @@ class Order < ApplicationRecord
     end
   end
 
-  # Currently we only want to remove old buy orders
-  # Move this to private if possible after writing tests
-  def stale?(number_of_hours = 6)
-    return if quantity_received&.positive?
-
-    buy_or_sell == 'buy' && open? && (created_at < Time.current - number_of_hours.hours)
-  end
-
   def taker_fee_for_calculation
     tf = trade_pair.taker_fee || exchange.taker_fee
     tf / 100
@@ -90,19 +83,40 @@ class Order < ApplicationRecord
         if cummulative_quote_qty.zero?
           destroy!
         else
-          update!(status: 'filled', quantity_received: cummulative_quote_qty)
+          self.status = 'filled'
+          self.quantity_received = cummulative_quote_qty
+          save!
         end
       else
-        update!(status: result_status.downcase, quantity_received: cummulative_quote_qty)
+        self.status = result_status.downcase
+        self.quantity_received = cummulative_quote_qty
+        save!
       end
     end
   end
 
   private
 
-  def format_buy_or_sell
-    return if buy_or_sell.blank?
+    def create_counter
+      return if buy_or_sell == 'sell'
+      return if child_order.present?
+      return unless filled?
+      return unless %w[accumulate counter_only].include?(trade_pair.mode)
+      return unless exchange.identifier == 'binance'
 
-    self.buy_or_sell = buy_or_sell.downcase
-  end
+      next_buy_or_sell = 'sell'
+      next_quantity = quantity - (trade_pair.accumulate_amount || trade_pair.amount_step)
+      next_price = (quantity_received * (1.0 + (taker_fee_for_calculation * 10))) / next_quantity
+
+      raise StandardError, 'Next price should be higher than current price' if next_price <= price
+      raise StandardError, 'Next quantity should be less than or equal to current quantity' if next_quantity > quantity
+
+      trade_pair.create_order(next_buy_or_sell, next_price, next_quantity, id)
+    end
+
+    def format_buy_or_sell
+      return if buy_or_sell.blank?
+
+      self.buy_or_sell = buy_or_sell.downcase
+    end
 end
