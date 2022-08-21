@@ -15,9 +15,15 @@ RSpec.describe Order, type: :model do
     it { should have_one(:exchange).through(:trade_pair) }
   end
 
+  describe 'ENUMS' do
+    it {
+      should define_enum_for(:status).with_values(open: 'open', filled: 'filled', cancelled_stale: 'cancelled_stale')
+                                     .backed_by_column_of_type(:string)
+    }
+  end
+
   describe 'VALIDATIONS' do
     it { should validate_inclusion_of(:buy_or_sell).in_array(%w[buy sell]) }
-    it { should validate_inclusion_of(:status).in_array(%w[open filled]) }
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:buy_or_sell) }
     it { should validate_presence_of(:price) }
@@ -119,20 +125,6 @@ RSpec.describe Order, type: :model do
           expect(order.buy_or_sell).to eq 'buy'
         end
       end
-
-      context 'when status is present' do
-        it 'changes new to open' do
-          order.status = 'NEW'
-          order.save
-          expect(order.status).to eq 'open'
-        end
-
-        it 'downcases the status' do
-          order.status = 'FILLED'
-          order.save
-          expect(order.status).to eq 'filled'
-        end
-      end
     end
   end
 
@@ -182,13 +174,6 @@ RSpec.describe Order, type: :model do
             order.create_counter
           end
         end
-      end
-    end
-
-    describe '#filled?' do
-      it 'returns true when order is filled' do
-        order.status = 'filled'
-        expect(order.filled?).to be true
       end
     end
 
