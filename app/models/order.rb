@@ -8,7 +8,10 @@ class Order < ApplicationRecord
   belongs_to :trade_pair
   has_one :credential, through: :trade_pair
   has_one :exchange, through: :trade_pair
-  has_one :child_order, class_name: 'Order', dependent: :nullify, foreign_key: 'order_id', inverse_of: :parent_order
+  has_one :child_order, class_name: 'Order', dependent: :nullify, inverse_of: :parent_order
+
+  # === ENUMERABLES ===
+  enum status: { open: 'open', filled: 'filled', cancelled_stale: 'cancelled_stale' }
 
   # === VALIDATIONS ===
   validates :status,
@@ -17,10 +20,8 @@ class Order < ApplicationRecord
             :quantity,
             presence: true
   validates :buy_or_sell, inclusion: { in: %w[buy sell] }
-  validates :status, inclusion: { in: %w[open filled cancelled_stale] }
 
   # === CALLBACKS ===
-  before_validation :format_status
   before_validation :format_buy_or_sell
 
   # === DELEGATES ===
@@ -30,10 +31,6 @@ class Order < ApplicationRecord
   # === SCOPES ===
   scope :buy, lambda { where(buy_or_sell: 'buy') }
   scope :sell, lambda { where(buy_or_sell: 'sell') }
-  # Status scopes
-  scope :open, lambda { where(status: 'open') }
-  scope :filled, lambda { where(status: 'filled') }
-  scope :cancelled_stale, lambda { where(status: 'cancelled_stale') }
 
   # === INSTANCE METHODS ===
   def cancel
@@ -58,10 +55,6 @@ class Order < ApplicationRecord
     raise StandardError, 'Next quantity should be less than or equal to current quantity' if next_quantity > quantity
 
     trade_pair.create_order(next_buy_or_sell, next_price, next_quantity, id)
-  end
-
-  def filled?
-    status == 'filled'
   end
 
   def query
@@ -111,16 +104,5 @@ class Order < ApplicationRecord
     return if buy_or_sell.blank?
 
     self.buy_or_sell = buy_or_sell.downcase
-  end
-
-  def format_status
-    return if status.blank?
-
-    self.status = status.downcase
-    self.status = 'open' if %w[new partially_filled].include?(status)
-  end
-
-  def open?
-    status == 'open'
   end
 end

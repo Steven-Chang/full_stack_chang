@@ -17,7 +17,6 @@ RSpec.describe Order, type: :model do
 
   describe 'VALIDATIONS' do
     it { should validate_inclusion_of(:buy_or_sell).in_array(%w[buy sell]) }
-    it { should validate_inclusion_of(:status).in_array(%w[open filled]) }
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:buy_or_sell) }
     it { should validate_presence_of(:price) }
@@ -117,20 +116,6 @@ RSpec.describe Order, type: :model do
           order.buy_or_sell = 'BUY'
           order.save
           expect(order.buy_or_sell).to eq 'buy'
-        end
-      end
-
-      context 'when status is present' do
-        it 'changes new to open' do
-          order.status = 'NEW'
-          order.save
-          expect(order.status).to eq 'open'
-        end
-
-        it 'downcases the status' do
-          order.status = 'FILLED'
-          order.save
-          expect(order.status).to eq 'filled'
         end
       end
     end
