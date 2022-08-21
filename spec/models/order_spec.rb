@@ -170,13 +170,6 @@ RSpec.describe Order, type: :model do
       end
     end
 
-    describe '#filled?' do
-      it 'returns true when order is filled' do
-        order.status = 'filled'
-        expect(order.filled?).to be true
-      end
-    end
-
     describe '#query' do
       context 'when order is with binance' do
         before { order_created.exchange.update!(identifier: 'binance') }
