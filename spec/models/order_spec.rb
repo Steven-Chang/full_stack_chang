@@ -176,7 +176,7 @@ RSpec.describe Order, type: :model do
           end
         end
       end
-    end
+     end
 
     describe '#update_from_exchange' do
       context 'when order is with binance' do
