@@ -22,6 +22,7 @@ class Order < ApplicationRecord
   validates :buy_or_sell, inclusion: { in: %w[buy sell] }
 
   # === CALLBACKS ===
+  before_save :update_status
   after_save :create_counter
   before_validation :format_buy_or_sell
 
@@ -69,12 +70,10 @@ class Order < ApplicationRecord
         if cummulative_quote_qty.zero?
           destroy!
         else
-          self.status = 'filled'
           self.quantity_received = cummulative_quote_qty
           save!
         end
       else
-        self.status = result_status.downcase
         self.quantity_received = cummulative_quote_qty
         save!
       end
@@ -104,5 +103,14 @@ class Order < ApplicationRecord
       return if buy_or_sell.blank?
 
       self.buy_or_sell = buy_or_sell.downcase
+    end
+
+    # filled is misleading because it says filled even when not completely filled
+    def update_status
+      return unless will_save_change_to_quantity_received?
+      return if status == 'cancelled'
+      return unless quantity_received.positive?
+
+      self.status = 'filled'
     end
 end
