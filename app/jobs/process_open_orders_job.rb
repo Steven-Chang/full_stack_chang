@@ -15,7 +15,7 @@ class ProcessOpenOrdersJob < ApplicationJob
                 # get the open orders from binance
                 # update quantity received where applicable
                 open_orders_from_binance_symbols.each do |symbol|
-                  credential.client.open_orders(symbol: symbol).each do |binance_order|
+                  credential.client.open_orders(symbol: symbol.upcase).each do |binance_order|
                     reference = binance_order['orderId'].to_s
                     open_orders_from_binance_references.push(reference)
                     next unless (order = applicable_orders_from_database.find_by(reference: reference))
