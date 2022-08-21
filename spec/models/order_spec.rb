@@ -15,6 +15,13 @@ RSpec.describe Order, type: :model do
     it { should have_one(:exchange).through(:trade_pair) }
   end
 
+  describe 'ENUMS' do
+    it {
+      should define_enum_for(:status).with_values(open: 'open', filled: 'filled', cancelled_stale: 'cancelled_stale')
+                                     .backed_by_column_of_type(:string)
+    }
+  end
+
   describe 'VALIDATIONS' do
     it { should validate_inclusion_of(:buy_or_sell).in_array(%w[buy sell]) }
     it { should validate_presence_of(:status) }
