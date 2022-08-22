@@ -36,3 +36,5 @@ coverage
 yarn-debug.log*
 .yarn-integrity
 sendgrid.env
+
+.env
