@@ -18,7 +18,7 @@ RSpec.describe Order, type: :model do
 
   describe 'ENUMS' do
     it {
-      should define_enum_for(:status).with_values(open: 'open', filled: 'filled', cancelled_stale: 'cancelled_stale')
+      should define_enum_for(:status).with_values(open: 'open', filled: 'filled', cancelled_stale: 'cancelled_stale', partially_filled: 'partially_filled')
                                      .backed_by_column_of_type(:string)
     }
   end
