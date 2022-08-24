@@ -125,7 +125,12 @@ class TradePair < ApplicationRecord
                                                  side_effect_type: side_effect_type.upcase)
       end
       if (binance_order_id = result['orderId'])
-        orders.create(status: result['status'].downcase == 'filled' ? 'filled' : 'open',
+        status = if result['status'].downcase == 'filled' || result['status'].downcase == 'partially_filled'
+          result['status'].downcase
+        else
+          'open'
+        end
+        orders.create(status: status,
                       buy_or_sell: buy_or_sell,
                       price: result['price'],
                       quantity: result['origQty'].to_d,
@@ -180,33 +185,34 @@ class TradePair < ApplicationRecord
     orders
   end
 
-  def import_orders
-    case exchange.identifier
-    when 'binance'
-      # https://binance-docs.github.io/apidocs/spot/en/#account-trade-list-user_data
-      client.all_orders(symbol: symbol.upcase).each do |retrieved_order|
-        reference = retrieved_order['orderId'].to_s
-        next if orders.find_by(reference: reference).present?
+  # This needs a major review
+  # def import_orders
+  #   case exchange.identifier
+  #   when 'binance'
+  #     # https://binance-docs.github.io/apidocs/spot/en/#account-trade-list-user_data
+  #     client.all_orders(symbol: symbol.upcase).each do |retrieved_order|
+  #       reference = retrieved_order['orderId'].to_s
+  #       next if orders.find_by(reference: reference).present?
 
-        status = retrieved_order['status'].downcase
-        if status == 'canceled'
-          quantity = retrieved_order['executedQty'].to_d
-          next if quantity.zero?
+  #       status = retrieved_order['status'].downcase
+  #       if status == 'canceled'
+  #         quantity = retrieved_order['executedQty'].to_d
+  #         next if quantity.zero?
 
-          status = 'filled'
-        else
-          quantity = retrieved_order['origQty'].to_d
-        end
+  #         status = 'filled'
+  #       else
+  #         quantity = retrieved_order['origQty'].to_d
+  #       end
 
-        orders.create!(reference: reference,
-                       status: status,
-                       buy_or_sell: retrieved_order['side'],
-                       price: retrieved_order['price'].to_d,
-                       quantity: quantity,
-                       quantity_received: retrieved_order['cummulativeQuoteQty'].to_d)
-      end
-    end
-  end
+  #       orders.create!(reference: reference,
+  #                      status: status,
+  #                      buy_or_sell: retrieved_order['side'],
+  #                      price: retrieved_order['price'].to_d,
+  #                      quantity: quantity,
+  #                      quantity_received: retrieved_order['cummulativeQuoteQty'].to_d)
+  #     end
+  #   end
+  # end
 
   # This needs review as calculating money
   def trade_fee_total(quantity, rate, maker_or_taker = 'maker')
