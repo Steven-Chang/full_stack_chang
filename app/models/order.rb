@@ -11,7 +11,7 @@ class Order < ApplicationRecord
   has_one :child_order, class_name: 'Order', dependent: :nullify, inverse_of: :parent_order
 
   # === ENUMERABLES ===
-  enum status: { open: 'open', filled: 'filled', cancelled_stale: 'cancelled_stale' }
+  enum status: { open: 'open', filled: 'filled', cancelled_stale: 'cancelled_stale', partially_filled: 'partially_filled' }
 
   # === VALIDATIONS ===
   validates :status,
