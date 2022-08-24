@@ -14,6 +14,7 @@ ActiveAdmin.register Order do
   # === SCOPES ===
   scope :all, default: true
   scope :open
+  scope :partially_filled
   scope :filled
   scope :cancelled_stale
 

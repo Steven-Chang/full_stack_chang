@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# A note about cancelling orders
-# Gotta factor in partially filled orders
 class Order < ApplicationRecord
   # === ASSOCIATIONS ===
   belongs_to :parent_order, class_name: 'Order', optional: true, foreign_key: 'order_id', inverse_of: :child_order
@@ -85,7 +83,7 @@ class Order < ApplicationRecord
     def create_counter
       return if buy_or_sell == 'sell'
       return if child_order.present?
-      return unless filled? && quantity == quantity_received
+      return unless filled?
       return unless %w[accumulate counter_only].include?(trade_pair.mode)
       return unless trade_pair.exchange.identifier == 'binance'
 
@@ -105,12 +103,11 @@ class Order < ApplicationRecord
       self.buy_or_sell = buy_or_sell.downcase
     end
 
-    # filled is misleading because it says filled even when not completely filled
     def update_status
       return unless will_save_change_to_quantity_received?
       return if status == 'cancelled'
       return unless quantity_received.positive?
 
-      self.status = 'filled'
+      self.status = quantity_received == quantity ? 'filled' : 'partially_filled'
     end
 end
