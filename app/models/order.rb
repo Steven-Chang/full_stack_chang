@@ -85,7 +85,7 @@ class Order < ApplicationRecord
     def create_counter
       return if buy_or_sell == 'sell'
       return if child_order.present?
-      return unless filled?
+      return unless filled? && quantity == quantity_received
       return unless %w[accumulate counter_only].include?(trade_pair.mode)
       return unless trade_pair.exchange.identifier == 'binance'
 
