@@ -22,7 +22,6 @@ class Order < ApplicationRecord
   # === CALLBACKS ===
   after_save :create_counter
   before_validation :format_buy_or_sell
-  before_validation :format_status
 
   # === DELEGATES ===
   delegate :symbol,
@@ -62,12 +61,12 @@ class Order < ApplicationRecord
       return if result['symbol'].blank?
 
       cummulative_quote_qty = result['cummulativeQuoteQty'].to_d
-      result_status = result['status']
-      case result_status
-      when 'CANCELED'
+      result_status = result['status'].downcase
+      case result_status.downcase
+      when 'canceled'
         destroy! if cummulative_quote_qty.zero?
         update!(status: 'cancelled', quantity_received: cummulative_quote_qty)
-      when 'FILLED' || 'PARTIALLY_FILLED'
+      when 'filled' || 'partially_filled'
         update!(status: result_status, quantity_received: cummulative_quote_qty)
       end
     end
@@ -96,9 +95,5 @@ class Order < ApplicationRecord
       return if buy_or_sell.blank?
 
       self.buy_or_sell = buy_or_sell.downcase
-    end
-
-    def format_status
-      self.status = status&.downcase
     end
 end
