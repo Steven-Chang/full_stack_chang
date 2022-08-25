@@ -125,8 +125,7 @@ class TradePair < ApplicationRecord
                                                  side_effect_type: side_effect_type.upcase)
       end
       if (binance_order_id = result['orderId'])
-        order = orders.build(status: status,
-                             buy_or_sell: buy_or_sell,
+        order = orders.build(buy_or_sell: buy_or_sell,
                              price: result['price'],
                              quantity: result['origQty'].to_d,
                              reference: binance_order_id,
