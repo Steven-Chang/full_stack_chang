@@ -20,9 +20,9 @@ class Order < ApplicationRecord
   validates :buy_or_sell, inclusion: { in: %w[buy sell] }
 
   # === CALLBACKS ===
-  before_save :update_status
   after_save :create_counter
   before_validation :format_buy_or_sell
+  before_validation :format_status
 
   # === DELEGATES ===
   delegate :symbol,
@@ -55,7 +55,6 @@ class Order < ApplicationRecord
     tf / 100
   end
 
-  # Update this later to be able to handle cancelled orders
   def update_from_exchange
     case exchange.identifier
     when 'binance'
@@ -64,16 +63,12 @@ class Order < ApplicationRecord
 
       cummulative_quote_qty = result['cummulativeQuoteQty'].to_d
       result_status = result['status']
-      if result_status == 'CANCELED'
-        if cummulative_quote_qty.zero?
-          destroy!
-        else
-          self.quantity_received = cummulative_quote_qty
-          save!
-        end
-      else
-        self.quantity_received = cummulative_quote_qty
-        save!
+      case result_status
+      when 'CANCELED'
+        destroy! if cummulative_quote_qty.zero?
+        update!(status: 'cancelled', quantity_received: cummulative_quote_qty)
+      when 'FILLED' || 'PARTIALLY_FILLED'
+        update!(status: result_status, quantity_received: cummulative_quote_qty)
       end
     end
   end
@@ -103,11 +98,7 @@ class Order < ApplicationRecord
       self.buy_or_sell = buy_or_sell.downcase
     end
 
-    def update_status
-      return unless will_save_change_to_quantity_received?
-      return if status == 'cancelled'
-      return unless quantity_received.positive?
-
-      self.status = quantity_received == quantity ? 'filled' : 'partially_filled'
+    def format_status
+      self.status = status&.downcase
     end
 end
