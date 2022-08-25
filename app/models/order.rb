@@ -21,6 +21,7 @@ class Order < ApplicationRecord
 
   # === CALLBACKS ===
   after_save :create_counter
+  after_save :destroy_if_cancelled_without_activity
   before_validation :format_buy_or_sell
 
   # === DELEGATES ===
@@ -42,6 +43,18 @@ class Order < ApplicationRecord
     end
   end
 
+  def map_status_from_binance(binance_status)
+    binance_status = binance_status.downcase
+    self.status = case binance_status
+                  when 'new'
+      'open'
+                  when 'canceled'
+      'cancelled'
+                  else
+      binance_status
+    end
+  end
+
   def query
     case exchange.identifier
     when 'binance'
@@ -60,19 +73,20 @@ class Order < ApplicationRecord
       result = query
       return if result['symbol'].blank?
 
-      cummulative_quote_qty = result['cummulativeQuoteQty'].to_d
-      result_status = result['status'].downcase
-      case result_status.downcase
-      when 'canceled'
-        destroy! if cummulative_quote_qty.zero?
-        update!(status: 'cancelled', quantity_received: cummulative_quote_qty)
-      when 'filled' || 'partially_filled'
-        update!(status: result_status, quantity_received: cummulative_quote_qty)
-      end
+      update!(quantity_received: result['cummulativeQuoteQty'].to_d, status: map_status_from_binance(result['status']))
+      self.quantity_received = result['cummulativeQuoteQty'].to_d
+      self.status = map_status_from_binance(result['status'])
     end
   end
 
   private
+
+    def destroy_if_cancelled_without_activity
+      return unless status == 'cancelled'
+      return if quantity_received.positive?
+
+      destroy!
+    end
 
     def create_counter
       return if buy_or_sell == 'sell'

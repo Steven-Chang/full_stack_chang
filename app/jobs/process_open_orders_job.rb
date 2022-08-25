@@ -20,7 +20,7 @@ class ProcessOpenOrdersJob < ApplicationJob
                     applicable_orders_from_binance_references.push(reference)
                     next unless (order = applicable_orders_from_database.find_by(reference: reference))
 
-                    order.status = binance_order['status'].downcase
+                    order.map_status_from_binance(binance_order['status'])
                     order.quantity_received = binance_order['cummulativeQuoteQty'].to_d
                     order.save! if order.will_save_change_to_quantity_received?
                   end
