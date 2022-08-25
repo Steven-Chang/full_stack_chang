@@ -20,6 +20,7 @@ class ProcessOpenOrdersJob < ApplicationJob
                     applicable_orders_from_binance_references.push(reference)
                     next unless (order = applicable_orders_from_database.find_by(reference: reference))
 
+                    order.status = binance_order['status']
                     order.quantity_received = binance_order['cummulativeQuoteQty'].to_d
                     order.save! if order.will_save_change_to_quantity_received?
                   end
@@ -28,11 +29,6 @@ class ProcessOpenOrdersJob < ApplicationJob
                 orders_to_update_from_exchange.find_each do |order|
                   UpdateOrderFromExchangeJob.perform_later(order.id)
                 end
-                # applicable_orders_from_binance_symbols.each do |symbol|
-                #   unless CancelOutOfRangeOrdersJob.scheduled?
-                #     CancelOutOfRangeOrdersJob.set(at: Time.current + 5.seconds).perform_later(credential.exchange_id, symbol)
-                #   end
-                # end
     end
   end
 end
