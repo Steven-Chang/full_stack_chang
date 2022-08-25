@@ -49,7 +49,7 @@ class Order < ApplicationRecord
                   when 'new'
       'open'
                   when 'canceled'
-      'cancelled'
+      'cancelled_stale'
                   else
       binance_status
     end
