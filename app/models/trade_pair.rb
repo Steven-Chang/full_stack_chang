@@ -125,18 +125,15 @@ class TradePair < ApplicationRecord
                                                  side_effect_type: side_effect_type.upcase)
       end
       if (binance_order_id = result['orderId'])
-        status = if result['status'].downcase == 'filled' || result['status'].downcase == 'partially_filled'
-          result['status'].downcase
-        else
-          'open'
-        end
-        orders.create(status: status,
-                      buy_or_sell: buy_or_sell,
-                      price: result['price'],
-                      quantity: result['origQty'].to_d,
-                      reference: binance_order_id,
-                      order_id: order_id,
-                      percentage_from_market_price: percentage_from_market_price)
+        order = orders.build(status: status,
+                             buy_or_sell: buy_or_sell,
+                             price: result['price'],
+                             quantity: result['origQty'].to_d,
+                             reference: binance_order_id,
+                             order_id: order_id,
+                             percentage_from_market_price: percentage_from_market_price)
+        order.map_status_from_binance(result['status'])
+        order.save!
       else
         puts result.inspect
       end
