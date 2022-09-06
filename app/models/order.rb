@@ -82,7 +82,7 @@ class Order < ApplicationRecord
   private
 
     def destroy_if_cancelled_without_activity
-      return unless status == 'cancelled'
+      return unless status == 'cancelled_stale'
       return if quantity_received.positive?
 
       destroy!
