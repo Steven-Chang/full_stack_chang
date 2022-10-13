@@ -4,7 +4,7 @@ class CreateCountersJob < ApplicationJob
   queue_as :low
 
   def perform
-    Order.filled.buy.each do |order|
+    Order.filled.buy.order(:price).find_each do |order|
       next if order.child_order.present?
 
       order.save!
