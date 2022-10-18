@@ -126,18 +126,6 @@ ActiveAdmin.register Tranxaction do
       f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
       f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.name, client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.reference, tenancy_agreement.id] }, wrapper_html: { style: 'display: none;' }
       f.input :creditor, member_label: :name, collection: Creditor.order('LOWER(name)')
-      f.has_many :attachments,
-                 heading: 'Attachments',
-                 new_record: 'Manually create an attachment',
-                 allow_destroy: true do |a|
-        a.input :cloudinary_public_id
-        a.input :url
-        a.object.file_type = a.object.persisted? ? a.object.file_type : 'video'
-        a.input :file_type, as: :select,
-                            collection: Attachment.file_types.keys,
-                            include_blank: false
-      end
-      li '<label>Cloudinary upload</label><button id="upload_widget" class="cloudinary-button">Upload image</button>'.html_safe
     end
     f.actions
   end
@@ -150,6 +138,5 @@ ActiveAdmin.register Tranxaction do
                 :tax,
                 :tax_category_id,
                 :tranxactable_type,
-                :tranxactable_id,
-                attachments_attributes: %i[id cloudinary_public_id file_type url _destroy]
+                :tranxactable_id
 end
