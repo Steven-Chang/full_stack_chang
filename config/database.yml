@@ -1,14 +1,19 @@
+# Database connection issues without gssencmode: disable
+# https://stackoverflow.com/questions/59089991/ruby-2-6-5-and-postgresql-pg-gem-segmentation-fault
+
 default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
   checkout_timeout: <%= ENV['DB_TIMEOUT'] || 5 %>
+  host: localhost
   username: postgres
 
 development:
   <<: *default
   database: full_stack_chang_development
-
-test: &test
+  gssencmode: disable
+test:
   <<: *default
   database: full_stack_chang_test
+  gssencmode: disable
