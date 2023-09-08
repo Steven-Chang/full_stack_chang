@@ -35,4 +35,7 @@ module FullStackChang
     # === ACTIVE JOB ===
     config.active_job.queue_adapter = :sidekiq
   end
+
+  # Set table name prefix here so that it applies to active admin comments table
+  ActiveRecord::Base.table_name_prefix = 'fsc_'
 end

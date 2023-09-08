@@ -10,24 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_08_061852) do
+ActiveRecord::Schema.define(version: 2023_09_08_071536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string "namespace"
-    t.text "body"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.string "author_type"
-    t.bigint "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
-  end
 
   create_table "fsc_achievements", force: :cascade do |t|
     t.date "date", null: false
@@ -36,6 +22,26 @@ ActiveRecord::Schema.define(version: 2023_09_08_061852) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "fsc_ind_achievements_on_project_id"
+  end
+
+  create_table "fsc_active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "fsc_i_active_admin_comments_on_author_type_and_author_id"
+    t.index ["namespace"], name: "fsc_i_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "fsc_i_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "fsc_ar_internal_metadata", primary_key: "key", id: :string, force: :cascade do |t|
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "fsc_attachments", force: :cascade do |t|
@@ -180,6 +186,9 @@ ActiveRecord::Schema.define(version: 2023_09_08_061852) do
     t.index ["creditor_id"], name: "fsc_ind_scheduled_tranxaction_templates_on_creditor_id"
     t.index ["tax_category_id"], name: "fsc_ind_scheduled_tranxaction_templates_on_tax_category_id"
     t.index ["tranxactable_type", "tranxactable_id"], name: "fsc_ind_tranxaction_schedules_on_tranxactable"
+  end
+
+  create_table "fsc_schema_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "fsc_tax_categories", force: :cascade do |t|
