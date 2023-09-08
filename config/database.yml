@@ -12,3 +12,6 @@ development:
 test: &test
   <<: *default
   database: full_stack_chang_test
+production:
+  <<: *default
+  database: full_stack_chang_production
