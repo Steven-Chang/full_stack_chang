@@ -41,7 +41,7 @@ class FscPrefix < ActiveRecord::Migration[6.0]
 
     rename_table :achievements, :fsc_achievements
     rename_table :active_admin_comments, :fsc_active_admin_comments
-    rename_table :attachments, :fsc_attachments
+    rename_table :full_stack_chang_attachments, :fsc_attachments
     rename_table :blog_posts, :fsc_blog_posts
     rename_table :clients, :fsc_clients
     rename_table :credentials, :fsc_credentials

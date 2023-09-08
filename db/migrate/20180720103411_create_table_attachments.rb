@@ -1,6 +1,6 @@
 class CreateTableAttachments < ActiveRecord::Migration[5.1]
   def change
-    create_table :attachments do |t|
+    create_table :full_stack_chang_attachments do |t|
       t.string :resource_type, null: false
       t.integer :resource_id, null: false
       t.string :url, null: false
