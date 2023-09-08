@@ -21,3 +21,8 @@ Rails.application.credentials.aws[:access_key_id]
 
 ## APIS
 - https://binance-docs.github.io/apidocs/spot/en/#public-api-definitions
+
+## References
+
+1. https://devcenter.heroku.com/articles/heroku-postgresql#sharing-heroku-postgres-between-applications
+ 
