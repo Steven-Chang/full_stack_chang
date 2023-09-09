@@ -38,7 +38,6 @@ gem 'rails', '~> 6.0.0.rc1'
 gem 'redis'
 # Use SCSS for stylesheets
 gem 'sassc-rails'
-gem 'sendgrid-ruby'
 # Simple, efficient background processing for Ruby.
 gem 'sidekiq'
 gem 'webpacker'
