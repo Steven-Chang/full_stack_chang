@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_10_024614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,12 +24,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
   end
 
   create_table "active_admin_comments", force: :cascade do |t|
-    t.string "namespace"
-    t.text "body"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.string "author_type"
-    t.bigint "author_id"
+    t.string "namespace", null: false
+    t.text "body", null: false
+    t.string "resource_type", null: false
+    t.bigint "resource_id", null: false
+    t.string "author_type", null: false
+    t.bigint "author_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -48,16 +48,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
     t.index ["resource_id", "resource_type"], name: "index_attachments_on_resource_id_and_resource_type"
   end
 
-  create_table "blog_posts", id: :serial, force: :cascade do |t|
+  create_table "blog_posts", force: :cascade do |t|
     t.text "description"
     t.string "title", null: false
-    t.datetime "date_added", precision: nil
+    t.datetime "date_added", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "private", default: true
   end
 
-  create_table "clients", id: :serial, force: :cascade do |t|
+  create_table "clients", force: :cascade do |t|
     t.string "name", null: false
     t.string "email"
     t.datetime "created_at", precision: nil, null: false
@@ -66,7 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
 
   create_table "credentials", force: :cascade do |t|
     t.string "identifier", null: false
-    t.bigint "exchange_id"
+    t.bigint "exchange_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "enabled", default: true
@@ -77,19 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
     t.string "name", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["name"], name: "index_creditors_on_name", unique: true
-  end
-
-  create_table "crypto_exchanges", force: :cascade do |t|
-    t.bigint "crypto_id"
-    t.bigint "exchange_id"
-    t.decimal "withdrawal_fee", precision: 8, scale: 6
-    t.decimal "maker_fee", precision: 8, scale: 6
-    t.decimal "taker_fee", precision: 8, scale: 6
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["crypto_id"], name: "index_crypto_exchanges_on_crypto_id"
-    t.index ["exchange_id"], name: "index_crypto_exchanges_on_exchange_id"
+    t.index "lower((name)::text)", name: "index_creditors_on_LOWER_name", unique: true
   end
 
   create_table "cryptos", force: :cascade do |t|
@@ -114,16 +102,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
   create_table "orders", force: :cascade do |t|
     t.string "status", null: false
     t.string "buy_or_sell", null: false
-    t.decimal "price", precision: 15, scale: 10
-    t.decimal "quantity", precision: 15, scale: 10
-    t.bigint "trade_pair_id"
+    t.decimal "price", null: false
+    t.decimal "quantity", null: false
+    t.bigint "trade_pair_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "reference"
     t.decimal "quantity_received", precision: 15, scale: 10
     t.bigint "order_id"
     t.decimal "percentage_from_market_price", precision: 8, scale: 6
-    t.index ["order_id"], name: "index_orders_on_order_id"
+    t.index ["order_id"], name: "index_orders_on_order_id", unique: true
     t.index ["trade_pair_id"], name: "index_orders_on_trade_pair_id"
   end
 
@@ -131,17 +119,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
     t.integer "total_tax_withheld"
     t.integer "year_ending"
     t.integer "total_allowances"
-    t.integer "client_id", null: false
+    t.bigint "client_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["client_id", "year_ending"], name: "index_payment_summaries_on_client_id_and_year_ending", unique: true
   end
 
-  create_table "projects", id: :serial, force: :cascade do |t|
+  create_table "projects", force: :cascade do |t|
     t.text "description"
     t.string "title", null: false
     t.string "url"
-    t.date "start_date"
+    t.date "start_date", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.date "end_date"
@@ -164,9 +152,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
 
   create_table "scheduled_tranxaction_templates", force: :cascade do |t|
     t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
-    t.bigint "creditor_id"
+    t.bigint "creditor_id", null: false
     t.date "date", null: false
-    t.integer "days_for_recurrence"
+    t.integer "days_for_recurrence", null: false
     t.string "description", null: false
     t.boolean "enabled"
     t.boolean "tax"
@@ -185,15 +173,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
     t.string "description", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index "lower((description)::text)", name: "index_tax_categories_on_LOWER_description", unique: true
   end
 
   create_table "tenancy_agreements", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
     t.date "starting_date", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.integer "property_id"
+    t.bigint "property_id", null: false
     t.decimal "bond", precision: 18, scale: 8, default: "0.0"
     t.boolean "active", default: true
     t.boolean "tax", default: true
@@ -207,7 +196,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "visible"
-    t.index ["name"], name: "index_tools_on_name", unique: true
+    t.index "lower((name)::text)", name: "index_tools_on_LOWER_name", unique: true
   end
 
   create_table "trade_pairs", force: :cascade do |t|
@@ -232,6 +221,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
     t.decimal "accumulate_amount", precision: 15, scale: 10
     t.integer "market_type", default: 0, null: false
     t.integer "side_effect_type", default: 0, null: false
+    t.index "lower((symbol)::text), credential_id", name: "index_trade_pairs_on_LOWER_symbol_credential_id", unique: true
     t.index ["credential_id"], name: "index_trade_pairs_on_credential_id"
   end
 
@@ -242,7 +232,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "tax"
-    t.integer "tax_category_id"
+    t.bigint "tax_category_id"
     t.bigint "creditor_id"
     t.string "tranxactable_type"
     t.bigint "tranxactable_id"
@@ -251,7 +241,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_021556) do
     t.index ["tranxactable_type", "tranxactable_id"], name: "index_tranxactions_on_tranxactable_type_and_tranxactable_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

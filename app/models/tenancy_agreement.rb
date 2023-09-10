@@ -11,7 +11,7 @@ class TenancyAgreement < ApplicationRecord
   validates :bond, numericality: {
     allow_nil: true
   }
-  validates :starting_date, presence: true
+  validates :amount, :starting_date, presence: true
 
   # === INSTANCE METHODS ===
   def balance

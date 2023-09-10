@@ -3,13 +3,13 @@
 class ScheduledTranxactionTemplate < ApplicationRecord
 	# === ASSOCIATIONS ===
 	belongs_to :creditor
-	belongs_to :tax_category
+	belongs_to :tax_category, optional: true
 	belongs_to :tranxactable, polymorphic: true
 
 	# === VALIDATIONS ===
 	validates :amount, numericality: true
   validates :date_offset, numericality: true
-	validates :date, :days_for_recurrence, presence: true
+	validates :amount, :date, :days_for_recurrence, :description, :tranxactable_type, presence: true
 
   # === CLASS METHODS ===
   def self.process
