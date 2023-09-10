@@ -5,7 +5,7 @@
     factory(exports, require("jquery"));
   } else {
     var mod = {
-      exports: {}
+      exports: {},
     };
     factory(mod.exports, global.jQuery);
     global.Plugin = mod.exports;
@@ -14,7 +14,7 @@
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
-    value: true
+    value: true,
   });
   _exports.getPluginAPI = getPluginAPI;
   _exports.getPlugin = getPlugin;
@@ -26,103 +26,126 @@
   var apis = {};
 
   var Plugin =
-  /*#__PURE__*/
-  function () {
-    function Plugin($el) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      babelHelpers.classCallCheck(this, Plugin);
-      this.name = this.getName();
-      this.$el = $el;
-      this.options = options;
-      this.isRendered = false;
-    }
-
-    babelHelpers.createClass(Plugin, [{
-      key: "getName",
-      value: function getName() {
-        return 'plugin';
+    /*#__PURE__*/
+    (function () {
+      function Plugin($el) {
+        var options =
+          arguments.length > 1 && arguments[1] !== undefined
+            ? arguments[1]
+            : {};
+        babelHelpers.classCallCheck(this, Plugin);
+        this.name = this.getName();
+        this.$el = $el;
+        this.options = options;
+        this.isRendered = false;
       }
-    }, {
-      key: "render",
-      value: function render() {
-        if (_jquery.default.fn[this.name]) {
-          this.$el[this.name](this.options);
-        } else {
-          return false;
-        }
-      }
-    }, {
-      key: "initialize",
-      value: function initialize() {
-        if (this.isRendered) {
-          return false;
-        }
 
-        this.render();
-        this.isRendered = true;
-      }
-    }], [{
-      key: "getDefaults",
-      value: function getDefaults() {
-        return {};
-      }
-    }, {
-      key: "register",
-      value: function register(name, obj) {
-        if (typeof obj === 'undefined') {
-          return;
-        }
+      babelHelpers.createClass(
+        Plugin,
+        [
+          {
+            key: "getName",
+            value: function getName() {
+              return "plugin";
+            },
+          },
+          {
+            key: "render",
+            value: function render() {
+              if (_jquery.default.fn[this.name]) {
+                this.$el[this.name](this.options);
+              } else {
+                return false;
+              }
+            },
+          },
+          {
+            key: "initialize",
+            value: function initialize() {
+              if (this.isRendered) {
+                return false;
+              }
 
-        plugins[name] = obj;
+              this.render();
+              this.isRendered = true;
+            },
+          },
+        ],
+        [
+          {
+            key: "getDefaults",
+            value: function getDefaults() {
+              return {};
+            },
+          },
+          {
+            key: "register",
+            value: function register(name, obj) {
+              if (typeof obj === "undefined") {
+                return;
+              }
 
-        if (typeof obj.api !== 'undefined') {
-          Plugin.registerApi(name, obj);
-        }
-      }
-    }, {
-      key: "registerApi",
-      value: function registerApi(name, obj) {
-        var api = obj.api();
+              plugins[name] = obj;
 
-        if (typeof api === 'string') {
-          var _api = obj.api().split('|');
+              if (typeof obj.api !== "undefined") {
+                Plugin.registerApi(name, obj);
+              }
+            },
+          },
+          {
+            key: "registerApi",
+            value: function registerApi(name, obj) {
+              var api = obj.api();
 
-          var event = "".concat(_api[0], ".plugin.").concat(name);
-          var func = _api[1] || 'render';
+              if (typeof api === "string") {
+                var _api = obj.api().split("|");
 
-          var callback = function callback(e) {
-            var $el = (0, _jquery.default)(this);
-            var plugin = $el.data('pluginInstance');
+                var event = "".concat(_api[0], ".plugin.").concat(name);
+                var func = _api[1] || "render";
 
-            if (!plugin) {
-              plugin = new obj($el, _jquery.default.extend(true, {}, getDefaults(name), $el.data()));
-              plugin.initialize();
-              $el.data('pluginInstance', plugin);
-            }
+                var callback = function callback(e) {
+                  var $el = (0, _jquery.default)(this);
+                  var plugin = $el.data("pluginInstance");
 
-            plugin[func](e);
-          };
+                  if (!plugin) {
+                    plugin = new obj(
+                      $el,
+                      _jquery.default.extend(
+                        true,
+                        {},
+                        getDefaults(name),
+                        $el.data(),
+                      ),
+                    );
+                    plugin.initialize();
+                    $el.data("pluginInstance", plugin);
+                  }
 
-          apis[name] = function (selector, context) {
-            if (context) {
-              (0, _jquery.default)(context).off(event);
-              (0, _jquery.default)(context).on(event, selector, callback);
-            } else {
-              (0, _jquery.default)(selector).on(event, callback);
-            }
-          };
-        } else if (typeof api === 'function') {
-          apis[name] = api;
-        }
-      }
-    }]);
-    return Plugin;
-  }();
+                  plugin[func](e);
+                };
+
+                apis[name] = function (selector, context) {
+                  if (context) {
+                    (0, _jquery.default)(context).off(event);
+                    (0, _jquery.default)(context).on(event, selector, callback);
+                  } else {
+                    (0, _jquery.default)(selector).on(event, callback);
+                  }
+                };
+              } else if (typeof api === "function") {
+                apis[name] = api;
+              }
+            },
+          },
+        ],
+      );
+      return Plugin;
+    })();
 
   _exports.Plugin = Plugin;
 
   function getPluginAPI(name) {
-    if (typeof name === 'undefined') {
+    if (typeof name === "undefined") {
       return apis;
     }
 
@@ -130,7 +153,7 @@
   }
 
   function getPlugin(name) {
-    if (typeof plugins[name] !== 'undefined') {
+    if (typeof plugins[name] !== "undefined") {
       return plugins[name];
     }
 
@@ -149,11 +172,15 @@
   }
 
   function pluginFactory(name, $el) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var options =
+      arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     var PluginClass = getPlugin(name);
 
-    if (PluginClass && typeof PluginClass.api === 'undefined') {
-      return new PluginClass($el, _jquery.default.extend(true, {}, getDefaults(name), options));
+    if (PluginClass && typeof PluginClass.api === "undefined") {
+      return new PluginClass(
+        $el,
+        _jquery.default.extend(true, {}, getDefaults(name), options),
+      );
     } else if (_jquery.default.fn[name]) {
       var plugin = new Plugin($el, options);
 
@@ -163,7 +190,7 @@
 
       plugin.name = name;
       return plugin;
-    } else if (typeof PluginClass.api !== 'undefined') {
+    } else if (typeof PluginClass.api !== "undefined") {
       // console.log('Plugin:' + name + ' use api render.');
       return false;
     }

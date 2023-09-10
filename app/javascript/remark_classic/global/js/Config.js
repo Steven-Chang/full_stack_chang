@@ -5,7 +5,7 @@
     factory(exports);
   } else {
     var mod = {
-      exports: {}
+      exports: {},
     };
     factory(mod.exports);
     global.Config = mod.exports;
@@ -14,16 +14,16 @@
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
-    value: true
+    value: true,
   });
   _exports.get = get;
   _exports.set = set;
   _exports.getColor = getColor;
   _exports.colors = colors;
   var values = {
-    fontFamily: 'Noto Sans, sans-serif',
-    primaryColor: 'blue',
-    assets: '../assets'
+    fontFamily: "Noto Sans, sans-serif",
+    primaryColor: "blue",
+    assets: "../assets",
   };
 
   function get() {
@@ -42,32 +42,32 @@
   }
 
   function set(name, value) {
-    if (typeof name === 'string' && typeof value !== 'undefined') {
+    if (typeof name === "string" && typeof value !== "undefined") {
       values[name] = value;
-    } else if (babelHelpers.typeof(name) === 'object') {
+    } else if (babelHelpers.typeof(name) === "object") {
       values = $.extend(true, {}, values, name);
     }
   }
 
   function getColor(name, level) {
-    if (name === 'primary') {
-      name = get('primaryColor');
+    if (name === "primary") {
+      name = get("primaryColor");
 
       if (!name) {
-        name = 'red';
+        name = "red";
       }
     }
 
-    if (typeof values.colors === 'undefined') {
+    if (typeof values.colors === "undefined") {
       return null;
     }
 
-    if (typeof values.colors[name] !== 'undefined') {
-      if (level && typeof values.colors[name][level] !== 'undefined') {
+    if (typeof values.colors[name] !== "undefined") {
+      if (level && typeof values.colors[name][level] !== "undefined") {
         return values.colors[name][level];
       }
 
-      if (typeof level === 'undefined') {
+      if (typeof level === "undefined") {
         return values.colors[name];
       }
     }

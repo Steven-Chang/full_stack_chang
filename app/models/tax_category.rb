@@ -5,5 +5,6 @@ class TaxCategory < ApplicationRecord
   has_many :tranxactions, dependent: :restrict_with_error
 
   # === VALIDATIONS ===
+  validates :description, presence: true
   validates :description, uniqueness: { case_sensitive: false }
 end

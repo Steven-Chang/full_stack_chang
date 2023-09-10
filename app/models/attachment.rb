@@ -4,6 +4,9 @@ class Attachment < ApplicationRecord
   # === ASSOCIATIONS ===
   belongs_to :resource, polymorphic: true
 
+  # === VALIDATIONS ===
+  validates :resource_type, presence: true
+
   # === CALLBACKS ===
   after_destroy do |attachment|
     Cloudinary::Uploader.destroy(attachment.cloudinary_public_id) if attachment.cloudinary_public_id

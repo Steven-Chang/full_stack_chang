@@ -1,0 +1,22 @@
+ActiveRecordDoctor.configure do
+  # Global settings affect all detectors.
+  global :ignore_tables, [
+    # Ignore internal Rails-related tables.
+    "ar_internal_metadata",
+    "schema_migrations",
+    "active_storage_blobs",
+    "active_storage_attachments",
+    "action_text_rich_texts",
+
+    # Add project-specific tables here.
+  ]
+
+  detector :missing_foreign_keys,
+    ignore_columns: ['attachments.cloudinary_public_id']
+  detector :missing_presence_validation,
+    ignore_models: ['ActiveAdmin::Comment']
+  detector :undefined_table_references,
+    ignore_models: ['ActionMailbox::Record', 'ActionMailbox::InboundEmail', 'ActiveStorage::Record', 'ActiveStorage::Attachment', 'ActiveStorage::Blob', 'ActiveStorage::VariantRecord', 'ActionText::Record', 'ActionText::RichText', 'ActionText::EncryptedRichText', 'ApplicationRecord']
+  detector :unindexed_foreign_keys,
+    ignore_columns: ['attachments.cloudinary_public_id']
+end

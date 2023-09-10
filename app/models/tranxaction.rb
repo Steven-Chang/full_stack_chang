@@ -10,6 +10,9 @@ class Tranxaction < ApplicationRecord
   # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
+  # === VALIDATIONS ===
+  validates :date, :description, :amount, presence: true
+
   # === CALLBACKS ===
   before_save do |tranxaction|
     tranxaction.tax_category_id = nil unless tranxaction.tax
