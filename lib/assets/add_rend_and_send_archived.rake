@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # lib/tasks/add_rent_and_send.rake
 
 # require_relative '../task_helpers/email_helper'
