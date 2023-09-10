@@ -30,7 +30,7 @@ class TradePair < ApplicationRecord
               greater_than_or_equal_to: 0.01,
               less_than_or_equal_to: 100
             }
-  validates :symbol, presence: true
+  validates :market_type, :side_effect_type, :symbol, presence: true
   validates :symbol, uniqueness: { case_sensitive: false, scope: :credential_id }
   validates :amount_step,
             :minimum_total,

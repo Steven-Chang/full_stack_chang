@@ -20,6 +20,7 @@ class Tool < ApplicationRecord
                          inverse_of: :resource
 
   # === VALIDATIONS ===
+  validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
 
   # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===

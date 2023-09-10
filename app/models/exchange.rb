@@ -17,7 +17,7 @@ class Exchange < ApplicationRecord
   has_many :trade_pairs, through: :credentials
 
   # === VALIDATIONS ===
-  validates :identifier, :name, presence: true
+  validates :identifier, :maker_fee, :name, :taker_fee, :url, presence: true
 
   # === CLASS METHODS ===
   def self.create_default_exchanges

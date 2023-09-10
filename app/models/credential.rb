@@ -6,6 +6,9 @@ class Credential < ApplicationRecord
   has_many :trade_pairs, dependent: :restrict_with_exception
   has_many :orders, through: :trade_pairs
 
+  # === VALIDATIONS ===
+  validates :identifier, presence: true
+
   # === SCOPES ===
   scope :enabled, lambda { where(enabled: true) }
 
