@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   # === CALLBACKS ===
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  # === HELPER METHODS ===
+  helper_method :hide_footer, :hide_navbar
+
   def home
     @body_class = 'site-navbar-small page-profile site-navbar-small'
     @page_title = 'Home'
@@ -38,5 +41,13 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to(request.referer || root_path)
+  end
+
+  def hide_footer
+    false
+  end
+
+  def hide_navbar
+    false
   end
 end
