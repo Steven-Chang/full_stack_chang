@@ -29,8 +29,8 @@
       %tr
         %td= tax_category.description.truncate(20)
         - tranxactables.each do |tranxactable|
-          %td= tranxactions.where(tranxactable: tranxactable, tax_category: tax_category).sum(:amount)
+          %td= tranxactions.where(tranxactable:, tax_category:).sum(:amount)
     %tr
       %td nil
       - tranxactables.each do |tranxactable|
-        %td= tranxactions.where(tranxactable: tranxactable, tax_category: nil).sum(:amount)
+        %td= tranxactions.where(tranxactable:, tax_category: nil).sum(:amount)
