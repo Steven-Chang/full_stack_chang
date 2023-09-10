@@ -1,39 +1,39 @@
 /**
-* breakpoints-js v1.0.6
-* https://github.com/amazingSurge/breakpoints-js
-*
-* Copyright (c) amazingSurge
-* Released under the LGPL-3.0 license
-*/
+ * breakpoints-js v1.0.6
+ * https://github.com/amazingSurge/breakpoints-js
+ *
+ * Copyright (c) amazingSurge
+ * Released under the LGPL-3.0 license
+ */
 var defaults = {
   // Extra small devices (phones)
   xs: {
     min: 0,
-    max: 767
+    max: 767,
   },
   // Small devices (tablets)
   sm: {
     min: 768,
-    max: 991
+    max: 991,
   },
   // Medium devices (desktops)
   md: {
     min: 992,
-    max: 1199
+    max: 1199,
   },
   // Large devices (large desktops)
   lg: {
     min: 1200,
-    max: Infinity
-  }
+    max: Infinity,
+  },
 };
 
 var util = {
-  each: function(obj, fn) {
+  each: function (obj, fn) {
     let continues;
 
     for (let i in obj) {
-      if (typeof obj !== 'object' || obj.hasOwnProperty(i)) {
+      if (typeof obj !== "object" || obj.hasOwnProperty(i)) {
         continues = fn(i, obj[i]);
         if (continues === false) {
           break; //allow early exit
@@ -43,19 +43,19 @@ var util = {
   },
 
   isFunction: function (obj) {
-    return typeof obj === 'function' || false;
+    return typeof obj === "function" || false;
   },
 
-  extend: function(obj, source) {
+  extend: function (obj, source) {
     for (let property in source) {
-        obj[property] = source[property];
+      obj[property] = source[property];
     }
     return obj;
-  }
+  },
 };
 
 class Callbacks {
-  constructor(){
+  constructor() {
     this.length = 0;
     this.list = [];
   }
@@ -64,7 +64,7 @@ class Callbacks {
     this.list.push({
       fn,
       data: data,
-      one: one
+      one: one,
     });
 
     this.length++;
@@ -105,7 +105,7 @@ class Callbacks {
 
   fire(caller, fn = null) {
     for (let i in this.list) {
-      if(this.list.hasOwnProperty(i)){
+      if (this.list.hasOwnProperty(i)) {
         this.call(caller, i, fn);
       }
     }
@@ -120,10 +120,13 @@ var ChangeEvent = {
     this.current = size;
     this.callbacks.fire(size, (caller, callback) => {
       if (util.isFunction(callback.fn)) {
-        callback.fn.call({
-          current: size,
-          previous
-        }, callback.data);
+        callback.fn.call(
+          {
+            current: size,
+            previous,
+          },
+          callback.data,
+        );
       }
     });
   },
@@ -131,7 +134,7 @@ var ChangeEvent = {
     return this.on(data, fn, true);
   },
   on(data, fn, /*INTERNAL*/ one = false) {
-    if (typeof fn === 'undefined' && util.isFunction(data)) {
+    if (typeof fn === "undefined" && util.isFunction(data)) {
       fn = data;
       data = undefined;
     }
@@ -140,10 +143,10 @@ var ChangeEvent = {
     }
   },
   off(fn) {
-    if (typeof fn === 'undefined') {
+    if (typeof fn === "undefined") {
       this.callbacks.empty();
     }
-  }
+  },
 };
 
 class MediaQuery {
@@ -157,23 +160,23 @@ class MediaQuery {
   initialize() {
     this.callbacks = {
       enter: new Callbacks(),
-      leave: new Callbacks()
+      leave: new Callbacks(),
     };
 
     this.mql = (window.matchMedia && window.matchMedia(this.media)) || {
       matches: false,
       media: this.media,
-      addListener: function() {
+      addListener: function () {
         // do nothing
       },
-      removeListener: function() {
+      removeListener: function () {
         // do nothing
-      }
+      },
     };
 
     const that = this;
-    this.mqlListener = mql => {
-      const type = (mql.matches && 'enter') || 'leave';
+    this.mqlListener = (mql) => {
+      const type = (mql.matches && "enter") || "leave";
 
       that.callbacks[type].fire(that);
     };
@@ -181,16 +184,16 @@ class MediaQuery {
   }
 
   on(types, data, fn, one = false) {
-    if (typeof types === 'object') {
+    if (typeof types === "object") {
       for (let type in types) {
-        if(types.hasOwnProperty(type)){
+        if (types.hasOwnProperty(type)) {
           this.on(type, data, types[type], one);
         }
       }
       return this;
     }
 
-    if (typeof fn === 'undefined' && util.isFunction(data)) {
+    if (typeof fn === "undefined" && util.isFunction(data)) {
       fn = data;
       data = undefined;
     }
@@ -199,14 +202,13 @@ class MediaQuery {
       return this;
     }
 
-    if (typeof this.callbacks[types] !== 'undefined') {
+    if (typeof this.callbacks[types] !== "undefined") {
       this.callbacks[types].add(fn, data, one);
 
-      if (types === 'enter' && this.isMatched()) {
+      if (types === "enter" && this.isMatched()) {
         this.callbacks[types].call(this);
       }
     }
-
 
     return this;
   }
@@ -218,16 +220,16 @@ class MediaQuery {
   off(types, fn) {
     let type;
 
-    if (typeof types === 'object') {
+    if (typeof types === "object") {
       for (type in types) {
-        if(types.hasOwnProperty(type)){
+        if (types.hasOwnProperty(type)) {
           this.off(type, types[type]);
         }
       }
       return this;
     }
 
-    if (typeof types === 'undefined') {
+    if (typeof types === "undefined") {
       this.callbacks.enter.empty();
       this.callbacks.leave.empty();
     } else if (types in this.callbacks) {
@@ -251,16 +253,16 @@ class MediaQuery {
 }
 
 var MediaBuilder = {
-  min: function(min, unit = 'px') {
+  min: function (min, unit = "px") {
     return `(min-width: ${min}${unit})`;
   },
-  max: function(max, unit = 'px') {
+  max: function (max, unit = "px") {
     return `(max-width: ${max}${unit})`;
   },
-  between: function(min, max, unit = 'px') {
+  between: function (min, max, unit = "px") {
     return `(min-width: ${min}${unit}) and (max-width: ${max}${unit})`;
   },
-  get: function(min, max, unit = 'px') {
+  get: function (min, max, unit = "px") {
     if (min === 0) {
       return this.max(max, unit);
     }
@@ -268,11 +270,11 @@ var MediaBuilder = {
       return this.min(min, unit);
     }
     return this.between(min, max, unit);
-  }
+  },
 };
 
 class Size extends MediaQuery {
-  constructor(name, min = 0, max = Infinity, unit = 'px') {
+  constructor(name, min = 0, max = Infinity, unit = "px") {
     let media = MediaBuilder.get(min, max, unit);
     super(name, media);
 
@@ -304,28 +306,28 @@ class UnionSize extends MediaQuery {
     let sizes = [];
     let media = [];
 
-    util.each(names.split(' '), (i, name) => {
+    util.each(names.split(" "), (i, name) => {
       let size = Breakpoints$1.get(name);
-      if(size){
+      if (size) {
         sizes.push(size);
         media.push(size.media);
       }
     });
 
-    super(names, media.join(','));
+    super(names, media.join(","));
   }
 }
 
 var info = {
-  version:"1.0.6"
+  version: "1.0.6",
 };
 
 let sizes = {};
 let unionSizes = {};
 
-let Breakpoints = window.Breakpoints = function(...args) {
+let Breakpoints = (window.Breakpoints = function (...args) {
   Breakpoints.define.apply(Breakpoints, args);
-};
+});
 
 Breakpoints.defaults = defaults;
 
@@ -342,11 +344,11 @@ Breakpoints = util.extend(Breakpoints, {
     }
 
     this.options = util.extend(options, {
-      unit: 'px'
+      unit: "px",
     });
 
     for (let size in values) {
-      if(values.hasOwnProperty(size)){
+      if (values.hasOwnProperty(size)) {
         this.set(size, values[size].min, values[size].max, this.options.unit);
       }
     }
@@ -374,13 +376,13 @@ Breakpoints = util.extend(Breakpoints, {
   /* get all size name */
   all() {
     let names = [];
-    util.each(sizes, name => {
+    util.each(sizes, (name) => {
       names.push(name);
     });
     return names;
   },
 
-  set: function(name, min = 0, max = Infinity, unit = 'px') {
+  set: function (name, min = 0, max = Infinity, unit = "px") {
     let size = this.get(name);
     if (size) {
       size.destroy();
@@ -390,7 +392,7 @@ Breakpoints = util.extend(Breakpoints, {
     return sizes[name];
   },
 
-  get: function(size) {
+  get: function (size) {
     if (sizes.hasOwnProperty(size)) {
       return sizes[size];
     }
@@ -399,7 +401,7 @@ Breakpoints = util.extend(Breakpoints, {
   },
 
   getUnion(sizes) {
-    if(unionSizes.hasOwnProperty(sizes)) {
+    if (unionSizes.hasOwnProperty(sizes)) {
       return unionSizes[sizes];
     }
 
@@ -439,16 +441,16 @@ Breakpoints = util.extend(Breakpoints, {
   on(sizes, types, data, fn, /*INTERNAL*/ one = false) {
     sizes = sizes.trim();
 
-    if (sizes === 'change') {
+    if (sizes === "change") {
       fn = data;
       data = types;
       return ChangeEvent.on(data, fn, one);
     }
-    if(sizes.includes(' ')){
+    if (sizes.includes(" ")) {
       let union = this.getUnion(sizes);
 
       if (union) {
-         union.on(types, data, fn, one);
+        union.on(types, data, fn, one);
       }
     } else {
       let size = this.get(sizes);
@@ -468,11 +470,11 @@ Breakpoints = util.extend(Breakpoints, {
   off(sizes, types, fn) {
     sizes = sizes.trim();
 
-    if (sizes === 'change') {
+    if (sizes === "change") {
       return ChangeEvent.off(types);
     }
 
-    if(sizes.includes(' ')){
+    if (sizes.includes(" ")) {
       let union = this.getUnion(sizes);
 
       if (union) {
@@ -487,7 +489,7 @@ Breakpoints = util.extend(Breakpoints, {
     }
 
     return this;
-  }
+  },
 });
 
 var Breakpoints$1 = Breakpoints;
