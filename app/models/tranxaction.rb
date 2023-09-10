@@ -26,7 +26,7 @@ class Tranxaction < ApplicationRecord
     tranxactions = tranxactions.where('date <= ?', to) if to
     tranxactions = tranxactions.where('amount > ?', greater_than) if greater_than
     tranxactions = tranxactions.where('amount < ?', less_than) if less_than
-    tranxactions.where(tax: tax) unless tax == 'ignore'
+    tranxactions.where(tax:) unless tax == 'ignore'
   end
 
   def self.end_of_financial_year_dates_ordered_descending_for_dashboard
@@ -44,7 +44,7 @@ class Tranxaction < ApplicationRecord
 
   def self.tranxactables_with_tranxactions(tranxactable_type, from = nil, to = nil, tax = 'ignore')
     tranxactable_ids = Tranxaction.filter(nil, from, to, nil, nil, tax)
-                                  .where(tranxactable_type: tranxactable_type)
+                                  .where(tranxactable_type:)
                                   .pluck(:tranxactable_id)
                                   .uniq
     tranxactable_type.constantize.where(id: tranxactable_ids)

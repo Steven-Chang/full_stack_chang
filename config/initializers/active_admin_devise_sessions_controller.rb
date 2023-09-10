@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # # frozen_string_literal: true
 
 # class ActiveAdmin::Devise::SessionsController
@@ -27,5 +28,3 @@
 #   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
 #   # end
 # end
-
-

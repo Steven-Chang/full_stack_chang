@@ -1,26 +1,46 @@
-# README
+# Full Stack Chang
 
-## Required Environment / Minimum Setup
+## Setup
 
-- Rails Rails 6.0.0.rc1 (Lots of changes e.g. Webpack instead of pipeline!)
+Set master.key as required
 
-## Credentials / Master Key
+### Load local database from Heroku production
+
+clean your local database:
+```
+rake db:schema:load
+```
+dump your heroku database:
+```
+heroku pg:backups:capture
+heroku pg:backups:download
+```
+load data in your local database
+```
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -d full_stack_chang_development latest.dump
+```
+
+### Development
 
 ```
-# Editing
-EDITOR=vim rails credentials:edit
-# Usage
-Rails.application.credentials.aws[:access_key_id]
+rails s
 ```
 
-## THEME/LAYOUT
+## Checking code
 
-- Remark Layout
-- https://preview.themeforest.net/item/remark-responsive-bootstrap-4-admin-template/full_screen_preview/11989202?_ga=2.88385496.2146267444.1566298034-944805106.1561035609
-- It comes with 6 layouts. After trialling all of them, I have decided that the Topbar layout is my favorite.
+```
+rspec
+rubocop -A
+haml-lint app/views/
+yarn prettier --write app/javascript/
+scss-lint app/assets/stylesheets/
+rake immigrant:check_keys
+rake active_record_doctor
+```
 
-## APIS
-- https://binance-docs.github.io/apidocs/spot/en/#public-api-definitions
+## Semaphoreci && Heroku
+
+https://docs.semaphoreci.com/examples/heroku-deployment/
 
 ## References
- 
+

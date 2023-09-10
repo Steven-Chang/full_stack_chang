@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ScheduledTranxactionTemplate, type: :model do
+RSpec.describe ScheduledTranxactionTemplate do
   describe 'ASSOCIATIONS' do
     it { should belong_to(:tax_category) }
     it { should belong_to(:tranxactable) }

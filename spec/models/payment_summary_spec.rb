@@ -2,8 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe PaymentSummary, type: :model do
-	let!(:payment_summary) { create(:payment_summary) }
+RSpec.describe PaymentSummary do
   let(:tranxaction) { create(:tranxaction) }
 
   describe 'ASSOCIATIONS' do
@@ -12,6 +11,8 @@ RSpec.describe PaymentSummary, type: :model do
   end
 
   describe 'VALIDATIONS' do
+    before { create(:payment_summary) }
+
   	it { should validate_numericality_of(:year_ending).only_integer }
   	it { should validate_uniqueness_of(:client_id).scoped_to(:year_ending) }
   end

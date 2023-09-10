@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # lib/tasks/add_rent_and_send.rake
 
 # require_relative '../task_helpers/email_helper'
@@ -145,7 +146,7 @@
 #                       <table width='100%' cellpadding='0' cellspacing='0' border='0' style='width: 100%; max-width:600px;' align='center'>
 #                         <tr>
 #                           <td role='modules-container' style='padding: 0px 0px 0px 0px; color: #000000; text-align: left;' bgcolor='#ffffff' width='100%' align='left'>
-                            
+
 # <table class='module preheader preheader-hide' role='module' data-type='preheader' border='0' cellpadding='0' cellspacing='0' width='100%'
 #        style='display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;'>
 #   <tr>
@@ -172,7 +173,7 @@
 #             <table cellpadding='0' cellspacing='0' border='0' width='100%' style='border-spacing:0;border-collapse:collapse;table-layout: fixed;' >
 #               <tr>
 #         <![endif]-->
-      
+
 # <!--[if (gte mso 9)|(IE)]>
 #   <td width='300.000px' valign='top' style='padding: 0px 0px 0px 0px;border-collapse: collapse;' >
 # <![endif]-->
@@ -189,7 +190,7 @@
 #   >
 #   <tr>
 #     <td style='padding:0px;margin:0px;border-spacing:0;'>
-        
+
 # <table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;'>
 #   <tr>
 #     <td style='padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;'
@@ -229,7 +230,7 @@
 #   >
 #   <tr>
 #     <td style='padding:0px;margin:0px;border-spacing:0;'>
-        
+
 # <table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;'>
 #   <tr>
 #     <td style='padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;'

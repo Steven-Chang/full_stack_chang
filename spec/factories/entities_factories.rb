@@ -18,7 +18,7 @@ FactoryBot.define do
   factory :payment_summary do
     year_ending { Date.current.month < 7 ? Date.current.year : Date.current.year + 1 }
 
-    association :client
+    client
   end
 
   factory :tax_category do

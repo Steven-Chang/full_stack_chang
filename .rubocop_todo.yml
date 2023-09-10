@@ -1,0 +1,51 @@
+Layout/LineLength:
+  Enabled: false
+
+Lint/Void:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+  Max: 50
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Performance/MethodObjectAsBlock:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/GlobalVars:
+  Enabled: false
+
+Style/ReturnNilInPredicateMethodDefinition:
+  Enabled: false

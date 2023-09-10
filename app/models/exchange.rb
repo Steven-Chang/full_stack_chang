@@ -22,9 +22,9 @@ class Exchange < ApplicationRecord
   # === CLASS METHODS ===
   def self.create_default_exchanges
     DEFAULT_EXCHANGES.each do |identifier, value|
-      next if Exchange.find_by(identifier: identifier)
+      next if Exchange.find_by(identifier:)
 
-      Exchange.create(identifier: identifier, name: value[:name], url: value[:url], maker_fee: value[:maker_fee], taker_fee: value[:taker_fee])
+      Exchange.create(identifier:, name: value[:name], url: value[:url], maker_fee: value[:maker_fee], taker_fee: value[:taker_fee])
     end
   end
 

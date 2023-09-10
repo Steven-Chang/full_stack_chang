@@ -9,7 +9,7 @@ class ScheduledTranxactionTemplate < ApplicationRecord
 	# === VALIDATIONS ===
 	validates :amount, numericality: true
   validates :date_offset, numericality: true
-	validates :date, :days_for_recurrence, :tranxactable, presence: true
+	validates :date, :days_for_recurrence, presence: true
 
   # === CLASS METHODS ===
   def self.process

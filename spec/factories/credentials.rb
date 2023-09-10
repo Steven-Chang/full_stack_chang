@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :credential do
     sequence(:identifier) { |n| "credential_#{n}" }
 
-    association :exchange
+    exchange
   end
 end

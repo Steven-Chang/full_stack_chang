@@ -7,7 +7,7 @@ FactoryBot.define do
     minimum_total { 0.2 }
     price_precision { 7 }
 
-    association :credential
+    credential
 
     trait :fees_present do
       maker_fee { 0.1 }

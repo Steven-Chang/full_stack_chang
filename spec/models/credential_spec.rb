@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Credential, type: :model do
+RSpec.describe Credential do
   let(:trade_pair) { create(:trade_pair) }
 
   describe 'ASSOCIATIONS' do
