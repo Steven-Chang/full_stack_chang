@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Property, type: :model do
+RSpec.describe Property do
   describe 'ASSOCIATIONS' do
   	it { should have_many(:tax_categories) }
   	it { should have_many(:tenancy_agreements).dependent(:restrict_with_error) }

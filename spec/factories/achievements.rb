@@ -5,6 +5,6 @@ FactoryBot.define do
     date { Date.current }
     description { 'Achieved something today!' }
 
-    association :project
+    project
   end
 end

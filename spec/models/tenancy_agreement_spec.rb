@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe TenancyAgreement, type: :model do
+RSpec.describe TenancyAgreement do
   describe 'ASSOCIATIONS' do
   	it { should belong_to(:user) }
   	it { should belong_to(:property) }

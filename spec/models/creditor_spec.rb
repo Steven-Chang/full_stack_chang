@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe Creditor, type: :model do
-	let!(:creditor) { create(:creditor) }
-
+RSpec.describe Creditor do
 	describe 'ASSOCIATIONS' do
 		it { should have_many(:tranxactions).dependent(:restrict_with_error) }
 	end
 
 	describe 'VALIDATIONS' do
+		before { create(:creditor) }
+
 		it { should validate_uniqueness_of(:name).case_insensitive }
 	end
 end

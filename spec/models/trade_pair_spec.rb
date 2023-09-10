@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe TradePair, type: :model do
+RSpec.describe TradePair do
   let(:order) { create(:order, :open, :sell, trade_pair_id: trade_pair.id) }
   let(:order_two) { create(:order, :open, :sell, trade_pair_id: trade_pair.id) }
   let!(:trade_pair) { create(:trade_pair) }
@@ -60,7 +60,7 @@ RSpec.describe TradePair, type: :model do
               end
             end
 
-            context "when trade_pair's open_orders_limit is less than or equal to exchange's open_orders_limit_per_trade_pair" do
+            context "when trade_pair's open_orders_limit is greater than exchange's open_orders_limit_per_trade_pair" do
               before { trade_pair.open_orders_limit = trade_pair.exchange.open_orders_limit_per_trade_pair + 1 }
 
               it 'is valid' do
@@ -71,6 +71,7 @@ RSpec.describe TradePair, type: :model do
         end
       end
     end
+
     it { should validate_numericality_of(:accumulate_time_limit_in_seconds).is_greater_than_or_equal_to(TradePair::MAX_TRADE_FREQUENCY_IN_SECONDS) }
     it { should validate_presence_of(:symbol) }
     it { should validate_uniqueness_of(:symbol).scoped_to(:credential_id).case_insensitive }
@@ -78,7 +79,7 @@ RSpec.describe TradePair, type: :model do
     it { should validate_numericality_of(:percentage_from_market_price_buy_maximum).is_greater_than_or_equal_to(0.01).is_less_than_or_equal_to(100).allow_nil }
 
     context 'when enabled' do
-      before { allow(subject).to receive(:enabled).and_return(true) }
+      before { subject.enabled = true }
 
       it { should validate_presence_of(:amount_step) }
       it { should validate_presence_of(:minimum_total) }
@@ -198,8 +199,8 @@ RSpec.describe TradePair, type: :model do
 
     describe '#trade_fee_total' do
       it 'calls #trade_fee_general' do
-        expect(trade_pair).to receive(:trade_fee_total)
         trade_pair.trade_fee_total(0.1, 1400)
+        expect(trade_pair).to have_received(:trade_fee_general)
       end
 
       it 'calculates the total trade fee' do
@@ -215,7 +216,7 @@ RSpec.describe TradePair, type: :model do
         let(:maker_or_taker) { 'maker' }
 
         it 'calculates the correct trade_total' do
-          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq(quantity * rate + trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
+          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq((quantity * rate) + trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
         end
       end
 
@@ -223,7 +224,7 @@ RSpec.describe TradePair, type: :model do
         let(:maker_or_taker) { 'taker' }
 
         it 'calculates the correct trade_total' do
-          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq(quantity * rate - trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
+          expect(trade_pair.trade_total(quantity, rate, maker_or_taker)).to eq((quantity * rate) - trade_pair.trade_fee_total(quantity, rate, maker_or_taker))
         end
       end
     end

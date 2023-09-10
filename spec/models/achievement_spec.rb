@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Achievement, type: :model do
+RSpec.describe Achievement do
   describe 'ASSOCIATIONS' do
     it { should belong_to(:project) }
   end

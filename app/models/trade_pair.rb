@@ -112,7 +112,7 @@ class TradePair < ApplicationRecord
                                       side: buy_or_sell,
                                       type: 'limit',
                                       time_in_force: 'GTC',
-                                      quantity: quantity,
+                                      quantity:,
                                       price: price.to_s)
       elsif %w[margin_isolated margin_cross].include?(market_type)
         result = client.margin_account_new_order(symbol: symbol.upcase,
@@ -120,17 +120,17 @@ class TradePair < ApplicationRecord
                                                  type: 'limit'.upcase,
                                                  is_isolated: market_type == 'margin_isolated' ? 'TRUE' : 'FALSE',
                                                  time_in_force: 'GTC',
-                                                 quantity: quantity,
+                                                 quantity:,
                                                  price: price.to_s,
                                                  side_effect_type: side_effect_type.upcase)
       end
       if (binance_order_id = result['orderId'])
-        order = orders.build(buy_or_sell: buy_or_sell,
+        order = orders.build(buy_or_sell:,
                              price: result['price'],
                              quantity: result['origQty'].to_d,
                              reference: binance_order_id,
-                             order_id: order_id,
-                             percentage_from_market_price: percentage_from_market_price)
+                             order_id:,
+                             percentage_from_market_price:)
         order.map_status_from_binance(result['status'])
         order.save!
       else
@@ -144,7 +144,7 @@ class TradePair < ApplicationRecord
 
     case exchange.identifier
     when 'binance'
-      number_of_orders = number_of_orders < 5 ? 5 : number_of_orders
+      number_of_orders = [number_of_orders, 5].max
       retrieved_object = client.depth(symbol: symbol.upcase, limit: number_of_orders)
       raise StandardError, retrieved_object['msg'] if retrieved_object['code'].present?
 
@@ -165,7 +165,7 @@ class TradePair < ApplicationRecord
 
     case exchange.identifier
     when 'binance'
-      number_of_orders = number_of_orders < 5 ? 5 : number_of_orders
+      number_of_orders = [number_of_orders, 5].max
       retrieved_object = client.depth(symbol: symbol.upcase, limit: number_of_orders)
       raise StandardError, retrieved_object['msg'] if retrieved_object['code'].present?
 
@@ -230,7 +230,7 @@ class TradePair < ApplicationRecord
   def trade_total(quantity, rate, maker_or_taker = 'maker')
     tft = trade_fee_total(quantity, rate, maker_or_taker)
     tft *= -1 if maker_or_taker == 'taker'
-    rate * quantity + tft
+    (rate * quantity) + tft
   end
 
   private

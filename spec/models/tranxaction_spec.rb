@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Tranxaction, type: :model do
+RSpec.describe Tranxaction do
   let(:client) { create(:client) }
   let(:tax_category) { create(:tax_category) }
   let(:tranxaction) { build(:tranxaction) }

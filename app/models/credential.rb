@@ -13,14 +13,13 @@ class Credential < ApplicationRecord
   def self.create_defaults
     Rails.application.credentials.binance.each do |identifier, _v|
       next unless (exchange_binance = Exchange.find_by(identifier: 'binance'))
-      next if Credential.find_by(identifier: identifier, exchange: exchange_binance).present?
+      next if Credential.find_by(identifier:, exchange: exchange_binance).present?
 
-      Credential.create(identifier: identifier, exchange: exchange_binance)
+      Credential.create(identifier:, exchange: exchange_binance)
     end
   end
 
-  def self.trade
-  end
+  def self.trade; end
 
   # === INSTANCE METHODS ===
   def client

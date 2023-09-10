@@ -1,8 +1,11 @@
-# inherit_from: .rubocop_todo.yml
 require:
-  - rubocop-rails
+  - rubocop-capybara
+  - rubocop-factory_bot
   - rubocop-performance
-  # - rubocop-rspec
+  - rubocop-rails
+  - rubocop-rspec
+
+inherit_from: .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 3.2.1
@@ -16,6 +19,7 @@ AllCops:
     - 'node_modules/**/*'
     - scripts/*
     - vendor/bundle/**/*
+  NewCops: enable
 
 Rails:
   Enabled: true
@@ -114,6 +118,18 @@ Rails/UniqueValidationWithoutIndex:
   Exclude:
     - app/models/tax_category.rb
     - app/models/trade_pair.rb
+
+RSpec/ImplicitExpect:
+  EnforcedStyle: should
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
 
 Style/ClassAndModuleChildren:
   Enabled: false

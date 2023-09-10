@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Project, type: :model do
+RSpec.describe Project do
   let(:project) { build(:project) }
 
   describe 'ASSOCIATIONS' do

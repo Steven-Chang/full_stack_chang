@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Order, type: :model do
-  let(:order) { build(:order, quantity: 555, quantity_received: 555, trade_pair: trade_pair) }
+RSpec.describe Order do
+  let(:order) { build(:order, quantity: 555, quantity_received: 555, trade_pair:) }
   let(:order_created) { create(:order) }
   let(:order_id_binance_canceled) { '184222891' }
   let(:order_id_binance_filled) { '184976569' }
@@ -18,8 +18,8 @@ RSpec.describe Order, type: :model do
 
   describe 'ENUMS' do
     it {
-      should define_enum_for(:status).with_values(open: 'open', filled: 'filled', cancelled_stale: 'cancelled_stale', partially_filled: 'partially_filled')
-                                     .backed_by_column_of_type(:string)
+      expect(subject).to define_enum_for(:status).with_values(open: 'open', filled: 'filled', cancelled_stale: 'cancelled_stale', partially_filled: 'partially_filled')
+                                                 .backed_by_column_of_type(:string)
     }
   end
 
@@ -146,39 +146,9 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'INSTANCE METHODS' do
-     describe '#query' do
-      context 'when order is with binance' do
-        before { order_created.exchange.update!(identifier: 'binance') }
-
-        context 'when symbol is registered with binance' do
-          before { order_created.trade_pair.update!(symbol: 'bnbeth') }
-
-          context 'when order_id is real' do
-            context 'when order_id is for a canceled order' do
-              before { order_created.update!(reference: order_id_binance_canceled) }
-
-              # it 'is queries that order' do
-              #   result = order_created.query
-              #   expect(result['orderId']).to eq(order_id_binance_canceled.to_i)
-              #   expect(order_created.query['status']).to eq('CANCELED')
-              # end
-            end
-
-            context 'when order_id is for a filled order' do
-              before { order_created.update!(reference: order_id_binance_filled) }
-
-              # it 'is queries that order' do
-              #   result = order_created.query
-              #   expect(result['orderId']).to eq(order_id_binance_filled.to_i)
-              #   expect(result['status']).to eq('FILLED')
-              # end
-            end
-          end
-        end
-      end
-     end
-
     describe '#update_from_exchange' do
+      before { allow(order_created).to receive(:update!) }
+
       context 'when order is with binance' do
         before do
           order_created.exchange.update(identifier: 'binance')
@@ -191,8 +161,8 @@ RSpec.describe Order, type: :model do
           end
 
           it 'does not update the order' do
-            expect(order_created).not_to receive(:update!)
             order_created.update_from_exchange
+            expect(order_created).not_to have_received(:update!)
           end
         end
 
@@ -206,8 +176,8 @@ RSpec.describe Order, type: :model do
             before { order_created.update!(reference: 'fakeref') }
 
             it 'does not update the order' do
-              expect(order_created).not_to receive(:update!)
               order_created.update_from_exchange
+              expect(order_created).not_to have_received(:update!)
             end
           end
 
@@ -216,19 +186,10 @@ RSpec.describe Order, type: :model do
               before { order_created.update!(reference: order_id_binance_canceled) }
 
               it 'does updates the order' do
-                expect(order_created).not_to receive(:update!)
                 order_created.update_from_exchange
+                expect(order_created).not_to have_received(:update!)
               end
             end
-
-            # context 'when order status is not canceled' do
-            #   before { order_created.update!(reference: order_id_binance_filled) }
-
-            #   it 'does updates the order' do
-            #     expect(order_created).to receive(:update!)
-            #     order_created.update_from_exchange
-            #   end
-            # end
           end
         end
       end

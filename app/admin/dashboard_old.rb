@@ -10,7 +10,7 @@ ActiveAdmin.register_page 'Tax Summaries' do
       panel "#{end_of_financial_year_date.year - 1}-#{end_of_financial_year_date.year}" do
         render partial: 'active_admin/dashboard/summary',
                locals: {
-                 end_of_financial_year_date: end_of_financial_year_date
+                 end_of_financial_year_date:
                }
         render partial: 'active_admin/dashboard/tranxactions',
                locals: {
@@ -24,7 +24,7 @@ ActiveAdmin.register_page 'Tax Summaries' do
                }
         render partial: 'active_admin/dashboard/tax_categories',
                locals: {
-                 end_of_financial_year_date: end_of_financial_year_date
+                 end_of_financial_year_date:
                }
       end
     end

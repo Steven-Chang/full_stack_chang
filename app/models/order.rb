@@ -19,10 +19,10 @@ class Order < ApplicationRecord
             presence: true
   validates :buy_or_sell, inclusion: { in: %w[buy sell] }
 
+  before_validation :format_buy_or_sell
   # === CALLBACKS ===
   after_save :create_counter
   after_save :destroy_if_cancelled_without_activity
-  before_validation :format_buy_or_sell
 
   # === DELEGATES ===
   delegate :symbol,

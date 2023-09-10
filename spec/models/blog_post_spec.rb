@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe BlogPost, type: :model do
+RSpec.describe BlogPost do
   describe 'ASSOCIATIONS' do
     it { should have_many(:attachments).dependent(:destroy).inverse_of(:resource) }
   end

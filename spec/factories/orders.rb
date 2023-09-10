@@ -7,7 +7,7 @@ FactoryBot.define do
     price { 0.01 }
     quantity { 0.01 }
 
-    association :trade_pair
+    trade_pair
 
     trait :open do
       status { 'open' }
