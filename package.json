@@ -11,6 +11,7 @@
     "jquery-slidePanel": "^0.3.5",
     "magnific-popup": "^1.1.0",
     "popper.js": "^1.15.0",
+    "prettier": "^3.0.3",
     "screenfull": "^4.2.1",
     "switchery": "^0.0.2"
   },
