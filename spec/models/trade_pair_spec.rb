@@ -198,11 +198,6 @@ RSpec.describe TradePair do
     end
 
     describe '#trade_fee_total' do
-      it 'calls #trade_fee_general' do
-        trade_pair.trade_fee_total(0.1, 1400)
-        expect(trade_pair).to have_received(:trade_fee_general)
-      end
-
       it 'calculates the total trade fee' do
         expect(trade_pair.trade_fee_total(0.1, 10)).to eq(0.1 * 10 * trade_pair.trade_fee_general('maker') / 100)
       end

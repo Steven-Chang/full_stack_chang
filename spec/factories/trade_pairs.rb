@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :trade_pair do
-    sequence(:symbol) { |n| "shitcoin-#{n}" }
+    sequence(:symbol) { |n| "coin-#{n}" }
     amount_step { 0.01 }
     minimum_total { 0.2 }
     price_precision { 7 }

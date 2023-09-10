@@ -5,8 +5,8 @@ class Creditor < ApplicationRecord
 	has_many :tranxactions, dependent: :restrict_with_error
 
 	# === VALIDATIONS ===
+	validates :name, presence: true
 	validates :name, uniqueness: { case_sensitive: false }
-	validates :identifier, :name, presence: true
 
 	# === CALLBACKS ===
 	before_save do |creditor|

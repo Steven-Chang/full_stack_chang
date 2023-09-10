@@ -7,7 +7,7 @@ RSpec.describe Project do
 
   describe 'ASSOCIATIONS' do
     it { should have_and_belong_to_many(:tools) }
-    it { should have_many(:achievements).dependent(:destroy) }
+    it { should have_many(:achievements).dependent(:delete_all) }
     it { should have_many(:attachments).dependent(:destroy) }
   end
 

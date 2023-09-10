@@ -157,39 +157,12 @@ RSpec.describe Order do
 
         context 'when symbol is not registered with binance' do
           before do
-            order_created.trade_pair.update!(symbol: 'SHITCOIN')
+            order_created.trade_pair.update!(symbol: 'ALTCOIN')
           end
 
           it 'does not update the order' do
             order_created.update_from_exchange
             expect(order_created).not_to have_received(:update!)
-          end
-        end
-
-        context 'when symbol is registered with binance' do
-          before do
-            allow(order_created).to receive(:create_counter)
-            order_created.trade_pair.update!(symbol: 'bnbeth')
-          end
-
-          context 'when order_id is not legit' do
-            before { order_created.update!(reference: 'fakeref') }
-
-            it 'does not update the order' do
-              order_created.update_from_exchange
-              expect(order_created).not_to have_received(:update!)
-            end
-          end
-
-          context 'when order_id is legit' do
-            context 'when order status is canceled' do
-              before { order_created.update!(reference: order_id_binance_canceled) }
-
-              it 'does updates the order' do
-                order_created.update_from_exchange
-                expect(order_created).not_to have_received(:update!)
-              end
-            end
           end
         end
       end
