@@ -43,4 +43,3 @@ rake active_record_doctor
 https://docs.semaphoreci.com/examples/heroku-deployment/
 
 ## References
-

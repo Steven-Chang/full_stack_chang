@@ -21,8 +21,8 @@
       <script src="../../../global/vendor/respond/respond.min.js"></script>
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all'
-    = javascript_pack_tag 'application'
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application', defer: true
     / Youtube
     %script{:src => "https://www.youtube.com/iframe_api"}
   %body{:class => "#{@body_class}"}

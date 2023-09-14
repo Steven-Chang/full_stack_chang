@@ -13,11 +13,14 @@ gem 'binance', github: 'steven-chang/binance'
 gem 'bootsnap', require: false
 gem 'chartkick'
 gem 'cloudinary'
+# Bundle and process CSS [https://github.com/rails/cssbundling-rails]
+gem 'cssbundling-rails', '>= 0.1.0'
 gem 'devise'
 # Barebones two-factor authentication with Devise
 gem 'devise-two-factor'
 gem 'groupdate'
-gem 'haml'
+# Provides Haml generators for Rails 4 etc
+gem 'haml-rails'
 # Foreign key migration generator for Rails
 gem 'immigrant'
 # Build JSON APIs with ease. Read more: httgem 'puma', '~> 3.11's://github.com/rails/jbuilder
@@ -37,7 +40,6 @@ gem 'rails', '~> 7.0.7.2'
 # Use SCSS for stylesheets
 gem 'sassc-rails'
 gem 'sprockets-rails'
-gem 'webpacker'
 
 group :development do
   gem 'active_record_doctor'
@@ -48,8 +50,6 @@ group :development do
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler', '~> 2.0'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
 end
 
 group :development, :test do
