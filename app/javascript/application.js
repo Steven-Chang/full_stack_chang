@@ -1,3 +1,5 @@
+import "./src/jquery";
+
 // Admin
 import "./admin/tranxactions/form";
 import "./admin/cloudinary_upload_widget";
@@ -33,11 +35,9 @@ import "./admin/cloudinary_upload_widget";
 // require("remark_classic/topbar/assets/js/Section/Sidebar");
 // require("remark_classic/topbar/assets/js/Section/PageAside");
 // require("remark_classic/topbar/assets/js/Plugin/menu");
-
 // // Config
 // require("remark_classic/global/js/config/colors");
 // require("remark_classic/topbar/assets/js/config/tour");
-
 // // Page
 // require("remark_classic/global/js/Plugin/asscrollable");
 // require("remark_classic/global/js/Plugin/filterable");
@@ -47,5 +47,3 @@ import "./admin/cloudinary_upload_widget";
 // require("remark_classic/global/js/Plugin/switchery");
 // $(document).ready(function () {
 //   require("remark_classic/topbar/assets/examples/js/pages/gallery");
-//   require("remark_classic/topbar/assets/js/Site").run();
-// });
