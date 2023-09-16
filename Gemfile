@@ -7,7 +7,6 @@ ruby '3.2.1'
 
 gem 'activeadmin'
 gem 'airbrake'
-gem 'arctic_admin'
 gem 'binance', github: 'steven-chang/binance'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
