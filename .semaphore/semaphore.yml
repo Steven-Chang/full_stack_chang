@@ -58,7 +58,7 @@ blocks:
           commands:
             - bundle exec rspec
       secrets:
-        - name: fullstackchang.com
+        - name: Full Stack Chang
 promotions:
   - name: Deploy to production (Heroku)
     pipeline_file: heroku.yml
