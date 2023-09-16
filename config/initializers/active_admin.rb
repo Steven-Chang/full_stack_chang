@@ -183,7 +183,7 @@ ActiveAdmin.setup do |config|
   #
   # Add tags to all pages logged in users see:
   config.meta_tags = {
-    author: 'fullstackchang.com',
+    author: 'Full Stack Chang',
     description: 'The personal website/portfolio of full stack web developer, Steven Chang.'
   }.merge(meta_tags_options)
 
