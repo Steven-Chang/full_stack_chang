@@ -39,12 +39,7 @@ ActiveAdmin.register Tranxaction do
 
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
-          url = if attachment.url.present?
-            attachment.url
-          elsif attachment.cloudinary_public_id.present?
-            cloudinary_url(attachment.cloudinary_public_id, resource_type: attachment.file_type)
-          end
-          link_to 'url', url, target: '_blank', rel: 'noopener'
+          link_to 'url', url_for(attachment), target: '_blank', rel: 'noopener'
         end
       end
     end
@@ -125,6 +120,9 @@ ActiveAdmin.register Tranxaction do
       f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
       f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.name, client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.reference, tenancy_agreement.id] }, wrapper_html: { style: 'display: none;' }
       f.input :creditor, member_label: :name, collection: Creditor.order('LOWER(name)')
+      f.object.attachments.each do |attachment|
+        f.input :attachments, input_html: { multiple: true, value: attachment.signed_id }, as: :hidden
+      end
       f.input :attachments, as: :file, input_html: { multiple: true }
     end
     f.actions
