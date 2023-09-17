@@ -7,6 +7,8 @@ ruby '3.2.1'
 
 gem 'activeadmin', '~> 2.14'
 gem 'airbrake'
+# This one is needed when deleting
+# gem 'aws-sdk-s3', '~> 1'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
 gem 'binance', github: 'steven-chang/binance'

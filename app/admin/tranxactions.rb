@@ -100,7 +100,7 @@ ActiveAdmin.register Tranxaction do
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
           # Permanent
-          link_to attachment.url, url_for(attachment), target: '_blank', rel: 'noopener'
+          link_to 'Open', url_for(attachment), target: '_blank', rel: 'noopener'
           # Temporary
           # link_to "Download", rails_blob_path(attachment, disposition: 'attachment'), target: '_blank', rel: 'noopener'
         end
