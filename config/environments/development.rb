@@ -36,7 +36,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :storj
+  config.active_storage.service = :mirror
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
