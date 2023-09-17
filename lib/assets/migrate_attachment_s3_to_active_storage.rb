@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'uri'
+require 'open-uri'
 
 # Tranxaction
 Attachment.where(resource_type: 'Tranxaction').where.not(url: [nil, ""]).limit(1).find_each do |a|
