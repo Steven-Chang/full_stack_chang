@@ -32,7 +32,7 @@
         babelHelpers.classCallCheck(this, Scrollable);
         return babelHelpers.possibleConstructorReturn(
           this,
-          babelHelpers.getPrototypeOf(Scrollable).apply(this, arguments),
+          babelHelpers.getPrototypeOf(Scrollable).apply(this, arguments)
         );
       }
 
@@ -64,7 +64,7 @@
               };
             },
           },
-        ],
+        ]
       );
       return Scrollable;
     })(_Plugin2.default);

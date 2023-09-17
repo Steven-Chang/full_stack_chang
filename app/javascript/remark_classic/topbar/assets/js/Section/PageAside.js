@@ -50,8 +50,8 @@
           (_babelHelpers$getProt =
             babelHelpers.getPrototypeOf(PageAside)).call.apply(
             _babelHelpers$getProt,
-            [this].concat(args),
-          ),
+            [this].concat(args)
+          )
         );
         _this.$scroll = _this.$el.find(".page-aside-scroll");
         _this.scrollable = _this.$scroll
@@ -112,7 +112,7 @@
 
                   _this2.$el.addClass("open");
                 }
-              },
+              }
             );
             (0, _jquery.default)(document).on(
               "click.pageAsideScroll",
@@ -134,7 +134,7 @@
                 if ($target.attr("id") === "site-navbar-collapse") {
                   _this2.scrollable.update();
                 }
-              },
+              }
             );
           },
         },

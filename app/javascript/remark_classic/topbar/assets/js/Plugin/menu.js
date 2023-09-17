@@ -116,8 +116,8 @@
           (_babelHelpers$getProt =
             babelHelpers.getPrototypeOf(Menu)).call.apply(
             _babelHelpers$getProt,
-            [this].concat(args),
-          ),
+            [this].concat(args)
+          )
         );
         _this.$scrollItems = _this.$el.find(".site-menu-scroll-wrap");
         return _this;
@@ -141,7 +141,7 @@
               if (Breakpoints.current().name !== "xs") {
                 this.scrollable = new Scrollable(
                   this.$scrollItems,
-                  this.options.light,
+                  this.options.light
                 );
               }
 
@@ -275,7 +275,7 @@
                       $(e.target).closest(".site-menu-scroll-wrap").length === 1
                     ) {
                       self.scrollable.update(
-                        $(e.target).closest(".site-menu-scroll-wrap"),
+                        $(e.target).closest(".site-menu-scroll-wrap")
                       );
                       e.stopPropagation();
                     }
@@ -304,7 +304,7 @@
                   if (!_this2.scrollable) {
                     _this2.scrollable = new Scrollable(
                       _this2.$scrollItems,
-                      _this2.options.light,
+                      _this2.options.light
                     );
                   }
 
@@ -328,7 +328,7 @@
                     ".site-menu-item",
                     function () {
                       _this2.scrollable.refresh();
-                    },
+                    }
                   );
                 }
 
@@ -343,7 +343,7 @@
               var $sub = $(
                 $("> .site-menu-sub", $item)[0] ||
                   $("> .dropdown-menu", $item)[0] ||
-                  $("> .site-menu-scroll-wrap", $item)[0],
+                  $("> .site-menu-scroll-wrap", $item)[0]
               );
               $sub.show().slideUp(this.options.speed, function () {
                 $(this).css("display", "");
@@ -364,7 +364,7 @@
               var $sub = $(
                 $("> .site-menu-sub", $item)[0] ||
                   $("> .dropdown-menu", $item)[0] ||
-                  $("> .site-menu-scroll-wrap", $item)[0],
+                  $("> .site-menu-scroll-wrap", $item)[0]
               );
               var $children = $sub.is(".site-menu-sub")
                 ? $sub.children(".site-menu-item").addClass("is-hidden")
@@ -404,7 +404,7 @@
               };
             },
           },
-        ],
+        ]
       );
       return Menu;
     })(_Plugin2.default);

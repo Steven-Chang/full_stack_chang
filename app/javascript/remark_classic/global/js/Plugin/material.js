@@ -46,7 +46,7 @@
         babelHelpers.classCallCheck(this, FormMaterial);
         return babelHelpers.possibleConstructorReturn(
           this,
-          babelHelpers.getPrototypeOf(FormMaterial).apply(this, arguments),
+          babelHelpers.getPrototypeOf(FormMaterial).apply(this, arguments)
         );
       }
 
@@ -65,7 +65,7 @@
 
             if ($control.attr("data-hint")) {
               $control.after(
-                "<div class=hint>".concat($control.attr("data-hint"), "</div>"),
+                "<div class=hint>".concat($control.attr("data-hint"), "</div>")
               );
             }
 
@@ -77,7 +77,7 @@
                   .attr("placeholder", null)
                   .removeClass("floating-label");
                 $control.after(
-                  "<div class=floating-label>".concat(placeholder, "</div>"),
+                  "<div class=floating-label>".concat(placeholder, "</div>")
                 );
               } // Set as empty if is empty
 
@@ -114,7 +114,7 @@
                   if (isChar(e)) {
                     $control.removeClass("empty");
                   }
-                },
+                }
               )
               .on(
                 "keyup.site.material change.site.material",
@@ -129,7 +129,7 @@
                   } else {
                     $control.removeClass("empty");
                   }
-                },
+                }
               );
 
             if (this.$file.length > 0) {

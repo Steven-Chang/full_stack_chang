@@ -33,7 +33,7 @@
         babelHelpers.classCallCheck(this, SwitcheryPlugin);
         return babelHelpers.possibleConstructorReturn(
           this,
-          babelHelpers.getPrototypeOf(SwitcheryPlugin).apply(this, arguments),
+          babelHelpers.getPrototypeOf(SwitcheryPlugin).apply(this, arguments)
         );
       }
 
@@ -66,7 +66,7 @@
               };
             },
           },
-        ],
+        ]
       );
       return SwitcheryPlugin;
     })(_Plugin2.default);

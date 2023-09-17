@@ -86,7 +86,7 @@
     _getCloseBtn = function (type) {
       if (type !== _currPopupType || !mfp.currTemplate.closeBtn) {
         mfp.currTemplate.closeBtn = $(
-          mfp.st.closeMarkup.replace("%title%", mfp.st.tClose),
+          mfp.st.closeMarkup.replace("%title%", mfp.st.tClose)
         );
         _currPopupType = type;
       }
@@ -142,7 +142,7 @@
         mfp.isAndroid ||
         mfp.isIOS ||
         /(Opera Mini)|Kindle|webOS|BlackBerry|(Opera Mobi)|(Windows Phone)|IEMobile/i.test(
-          navigator.userAgent,
+          navigator.userAgent
         );
       _document = $(document);
 
@@ -793,7 +793,7 @@
                 el.attr("src", value);
               } else {
                 el.replaceWith(
-                  $("<img>").attr("src", value).attr("class", el.attr("class")),
+                  $("<img>").attr("src", value).attr("class", el.attr("class"))
                 );
               }
             } else {
@@ -1094,11 +1094,11 @@
               item.finished = item.loadError = true;
               mfp.updateStatus(
                 "error",
-                mfp.st.ajax.tError.replace("%url%", item.src),
+                mfp.st.ajax.tError.replace("%url%", item.src)
               );
             },
           },
-          mfp.st.ajax.settings,
+          mfp.st.ajax.settings
         );
 
         mfp.req = $.ajax(opts);
@@ -1280,7 +1280,7 @@
                 mfp._onImageHasSize(item);
                 mfp.updateStatus(
                   "error",
-                  imgSt.tError.replace("%url%", item.src),
+                  imgSt.tError.replace("%url%", item.src)
                 );
               }
 
@@ -1323,7 +1323,7 @@
             title: _getTitle(item),
             img_replaceWith: item.img,
           },
-          item,
+          item
         );
 
         mfp.resizeImage();
@@ -1627,7 +1627,7 @@
               if (typeof this.id === "string") {
                 embedSrc = embedSrc.substr(
                   embedSrc.lastIndexOf(this.id) + this.id.length,
-                  embedSrc.length,
+                  embedSrc.length
                 );
               } else {
                 embedSrc = this.id.call(this, embedSrc);
@@ -1719,7 +1719,7 @@
             data.text = _replaceCurrTotal(
               data.text,
               mfp.currItem.index,
-              mfp.items.length,
+              mfp.items.length
             );
           }
         });
@@ -1736,12 +1736,12 @@
               arrowLeft = (mfp.arrowLeft = $(
                 markup
                   .replace(/%title%/gi, gSt.tPrev)
-                  .replace(/%dir%/gi, "left"),
+                  .replace(/%dir%/gi, "left")
               ).addClass(PREVENT_CLOSE_CLASS)),
               arrowRight = (mfp.arrowRight = $(
                 markup
                   .replace(/%title%/gi, gSt.tNext)
-                  .replace(/%dir%/gi, "right"),
+                  .replace(/%dir%/gi, "right")
               ).addClass(PREVENT_CLOSE_CLASS));
 
             arrowLeft.click(function () {

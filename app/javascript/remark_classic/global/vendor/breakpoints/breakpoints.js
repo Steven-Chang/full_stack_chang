@@ -27,7 +27,7 @@
   function _possibleConstructorReturn(self, call) {
     if (!self) {
       throw new ReferenceError(
-        "this hasn't been initialised - super() hasn't been called",
+        "this hasn't been initialised - super() hasn't been called"
       );
     }
 
@@ -40,7 +40,7 @@
     if (typeof superClass !== "function" && superClass !== null) {
       throw new TypeError(
         "Super expression must either be null or a function, not " +
-          typeof superClass,
+          typeof superClass
       );
     }
 
@@ -259,7 +259,7 @@
               current: size,
               previous: previous,
             },
-            callback.data,
+            callback.data
           );
         }
       });
@@ -485,7 +485,7 @@
 
       var _this = _possibleConstructorReturn(
         this,
-        (Size.__proto__ || Object.getPrototypeOf(Size)).call(this, name, media),
+        (Size.__proto__ || Object.getPrototypeOf(Size)).call(this, name, media)
       );
 
       _this.min = min;
@@ -541,8 +541,8 @@
         (UnionSize.__proto__ || Object.getPrototypeOf(UnionSize)).call(
           this,
           names,
-          media.join(","),
-        ),
+          media.join(",")
+        )
       );
     }
 

@@ -114,8 +114,8 @@
                         true,
                         {},
                         getDefaults(name),
-                        $el.data(),
-                      ),
+                        $el.data()
+                      )
                     );
                     plugin.initialize();
                     $el.data("pluginInstance", plugin);
@@ -137,7 +137,7 @@
               }
             },
           },
-        ],
+        ]
       );
       return Plugin;
     })();
@@ -179,7 +179,7 @@
     if (PluginClass && typeof PluginClass.api === "undefined") {
       return new PluginClass(
         $el,
-        _jquery.default.extend(true, {}, getDefaults(name), options),
+        _jquery.default.extend(true, {}, getDefaults(name), options)
       );
     } else if (_jquery.default.fn[name]) {
       var plugin = new Plugin($el, options);

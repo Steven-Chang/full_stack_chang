@@ -38,11 +38,11 @@
           true,
           {},
           defaults,
-          options,
+          options
         );
         var $nav = (this.$nav = $tabs.find(this.options.navSelector));
         var $dropdown = (this.$dropdown = $nav.find(
-          this.options.dropdownSelector,
+          this.options.dropdownSelector
         ));
         var $items = (this.$items = $nav
           .find(this.options.itemSelector)
@@ -55,7 +55,7 @@
         $items.each(function () {
           (0, _jquery.default)(this).data(
             "width",
-            (0, _jquery.default)(this).width(),
+            (0, _jquery.default)(this).width()
           );
         });
         this.init();
@@ -87,11 +87,11 @@
               for (var i = 0; i < length - 2; i++) {
                 if (i === 0) {
                   this.breakpoints.push(
-                    this.$items.eq(i).outerWidth() + dropWidth,
+                    this.$items.eq(i).outerWidth() + dropWidth
                   );
                 } else {
                   this.breakpoints.push(
-                    this.breakpoints[i - 1] + this.$items.eq(i).width(),
+                    this.breakpoints[i - 1] + this.$items.eq(i).width()
                   );
                 }
               }
@@ -205,7 +205,7 @@
                   _jquery.default.data(
                     this,
                     pluginName,
-                    new responsiveHorizontalTabs(this, options),
+                    new responsiveHorizontalTabs(this, options)
                   );
                 } else {
                   _jquery.default.data(this, pluginName).init();
@@ -213,7 +213,7 @@
               });
             },
           },
-        ],
+        ]
       );
       return responsiveHorizontalTabs;
     })();

@@ -139,7 +139,7 @@
           },
           function (err) {
             resume("throw", err);
-          },
+          }
         );
       } catch (err) {
         settle("throw", err);
@@ -300,7 +300,7 @@
             _next,
             _throw,
             "next",
-            value,
+            value
           );
         }
 
@@ -431,7 +431,7 @@
         ownKeys = ownKeys.concat(
           Object.getOwnPropertySymbols(source).filter(function (sym) {
             return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-          }),
+          })
         );
       }
 
@@ -514,7 +514,7 @@
       babelHelpers.construct = _construct = function _construct(
         Parent,
         args,
-        Class,
+        Class
       ) {
         var a = [null];
         a.push.apply(a, args);
@@ -540,13 +540,13 @@
     var _cache = typeof Map === "function" ? new Map() : undefined;
 
     babelHelpers.wrapNativeSuper = _wrapNativeSuper = function _wrapNativeSuper(
-      Class,
+      Class
     ) {
       if (Class === null || !babelHelpers.isNativeFunction(Class)) return Class;
 
       if (typeof Class !== "function") {
         throw new TypeError(
-          "Super expression must either be null or a function",
+          "Super expression must either be null or a function"
         );
       }
 
@@ -560,7 +560,7 @@
         return babelHelpers.construct(
           Class,
           arguments,
-          babelHelpers.getPrototypeOf(this).constructor,
+          babelHelpers.getPrototypeOf(this).constructor
         );
       }
 
@@ -689,7 +689,7 @@
   function _assertThisInitialized(self) {
     if (self === void 0) {
       throw new ReferenceError(
-        "this hasn't been initialised - super() hasn't been called",
+        "this hasn't been initialised - super() hasn't been called"
       );
     }
 
@@ -802,7 +802,7 @@
         raw: {
           value: Object.freeze(raw),
         },
-      }),
+      })
     );
   }
 
@@ -837,7 +837,7 @@
 
   function _classNameTDZError(name) {
     throw new Error(
-      'Class "' + name + '" cannot be referenced in computed property keys.',
+      'Class "' + name + '" cannot be referenced in computed property keys.'
     );
   }
 
@@ -998,7 +998,7 @@
       "Decorating class property failed. Please ensure that " +
         "proposal-class-properties is enabled and set to use loose mode. " +
         "To use proposal-class-properties in spec mode with decorators, wait for " +
-        "the next major version of decorators in stage 2.",
+        "the next major version of decorators in stage 2."
     );
   }
 
@@ -1023,7 +1023,7 @@
     property,
     decorators,
     descriptor,
-    context,
+    context
   ) {
     var desc = {};
     Object["ke" + "ys"](descriptor).forEach(function (key) {
@@ -1105,7 +1105,7 @@
   function _classStaticPrivateFieldSpecGet(
     receiver,
     classConstructor,
-    descriptor,
+    descriptor
   ) {
     if (receiver !== classConstructor) {
       throw new TypeError("Private static access of wrong provenance");
@@ -1120,7 +1120,7 @@
     receiver,
     classConstructor,
     descriptor,
-    value,
+    value
   ) {
     if (receiver !== classConstructor) {
       throw new TypeError("Private static access of wrong provenance");
@@ -1143,7 +1143,7 @@
 
     var decorated = _decorateClass(
       _coalesceClassElements(r.d.map(_createElementDescriptor)),
-      decorators,
+      decorators
     );
 
     _initializeClassElements(r.F, decorated.elements);
@@ -1229,7 +1229,7 @@
         ) {
           if (_hasDecorators(element) || _hasDecorators(other)) {
             throw new ReferenceError(
-              "Duplicated methods (" + element.key + ") can't be decorated.",
+              "Duplicated methods (" + element.key + ") can't be decorated."
             );
           }
 
@@ -1241,7 +1241,7 @@
                 "Decorators can't be placed on different accessors with for " +
                   "the same property (" +
                   element.key +
-                  ").",
+                  ")."
               );
             }
 
@@ -1373,7 +1373,7 @@
       var elementObject = _fromElementDescriptor(element);
 
       var elementFinisherExtras = _toElementFinisherExtras(
-        (0, decorators[i])(elementObject) || elementObject,
+        (0, decorators[i])(elementObject) || elementObject
       );
 
       element = elementFinisherExtras.element;
@@ -1409,7 +1409,7 @@
       var obj = _fromClassDescriptor(elements);
 
       var elementsAndFinisher = _toClassDescriptor(
-        (0, decorators[i])(obj) || obj,
+        (0, decorators[i])(obj) || obj
       );
 
       if (elementsAndFinisher.finisher !== undefined) {
@@ -1426,7 +1426,7 @@
               elements[j].placement === elements[k].placement
             ) {
               throw new TypeError(
-                "Duplicated element (" + elements[j].key + ")",
+                "Duplicated element (" + elements[j].key + ")"
               );
             }
           }
@@ -1478,7 +1478,7 @@
           ' "field", but a decorator created an element descriptor with' +
           ' .kind "' +
           kind +
-          '"',
+          '"'
       );
     }
 
@@ -1496,7 +1496,7 @@
           ' "prototype" or "own", but a decorator created an element descriptor' +
           ' with .placement "' +
           placement +
-          '"',
+          '"'
       );
     }
 
@@ -1517,19 +1517,19 @@
       _disallowProperty(
         descriptor,
         "get",
-        "The property descriptor of a field descriptor",
+        "The property descriptor of a field descriptor"
       );
 
       _disallowProperty(
         descriptor,
         "set",
-        "The property descriptor of a field descriptor",
+        "The property descriptor of a field descriptor"
       );
 
       _disallowProperty(
         descriptor,
         "value",
-        "The property descriptor of a field descriptor",
+        "The property descriptor of a field descriptor"
       );
 
       element.initializer = elementObject.initializer;
@@ -1573,7 +1573,7 @@
         'A class descriptor\'s .kind property must be "class", but a decorator' +
           ' created a class descriptor with .kind "' +
           kind +
-          '"',
+          '"'
       );
     }
 

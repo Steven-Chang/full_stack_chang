@@ -34,7 +34,7 @@
         babelHelpers.classCallCheck(this, Filterable);
         return babelHelpers.possibleConstructorReturn(
           this,
-          babelHelpers.getPrototypeOf(Filterable).apply(this, arguments),
+          babelHelpers.getPrototypeOf(Filterable).apply(this, arguments)
         );
       }
 
@@ -87,7 +87,7 @@
                     filter: filter,
                   });
                   e.preventDefault();
-                },
+                }
               );
             },
           },
@@ -105,7 +105,7 @@
               };
             },
           },
-        ],
+        ]
       );
       return Filterable;
     })(_Plugin2.default);
