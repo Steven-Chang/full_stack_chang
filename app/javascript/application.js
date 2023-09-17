@@ -1,8 +1,5 @@
 import "./src/jquery";
 
-// Admin
-import "./admin/tranxactions/form";
-
 // // REMARK THEME
 // // Core
 // require("remark_classic/global/vendor/babel-external-helpers/babel-external-helpers");
