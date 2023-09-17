@@ -104,11 +104,10 @@ ActiveAdmin.register Tranxaction do
       row :creditor
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
-          if attachment.url.present?
-            link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
-          elsif attachment.cloudinary_public_id.present?
-            link_to 'url', cloudinary_url(attachment.cloudinary_public_id, resource_type: :raw), target: '_blank', rel: 'noopener'
-          end
+          # Permanent
+          link_to "Open", url_for(attachment), target: '_blank', rel: 'noopener'
+          # Temporary
+          # link_to "Download", rails_blob_path(attachment, disposition: 'attachment'), target: '_blank', rel: 'noopener'
         end
       end
     end
@@ -126,6 +125,7 @@ ActiveAdmin.register Tranxaction do
       f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
       f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.name, client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.reference, tenancy_agreement.id] }, wrapper_html: { style: 'display: none;' }
       f.input :creditor, member_label: :name, collection: Creditor.order('LOWER(name)')
+      f.input :attachments, as: :file, input_html: { multiple: true }
     end
     f.actions
   end
@@ -138,5 +138,6 @@ ActiveAdmin.register Tranxaction do
                 :tax,
                 :tax_category_id,
                 :tranxactable_type,
-                :tranxactable_id
+                :tranxactable_id,
+                attachments: []
 end
