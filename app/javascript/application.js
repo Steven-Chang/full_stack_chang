@@ -2,7 +2,6 @@ import "./src/jquery";
 
 // Admin
 import "./admin/tranxactions/form";
-import "./admin/cloudinary_upload_widget";
 
 // // REMARK THEME
 // // Core
