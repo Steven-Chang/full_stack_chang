@@ -114,7 +114,7 @@ ActiveAdmin.register Tranxaction do
   end
 
   # === FORM ===
-  form html: { multipart: true } do |f|
+  form do |f|
     f.object.date ||= Date.current
     f.inputs do
       f.input :date, required: true
