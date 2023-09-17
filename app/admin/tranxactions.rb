@@ -104,18 +104,15 @@ ActiveAdmin.register Tranxaction do
       row :creditor
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
-          if attachment.url.present?
-            link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
-          elsif attachment.cloudinary_public_id.present?
-            link_to 'url', cloudinary_url(attachment.cloudinary_public_id, resource_type: :raw), target: '_blank', rel: 'noopener'
-          end
+          # link_to url_for(attachment.url), url_for(attachment.url), target: '_blank', rel: 'noopener'
+          link_to rails_blob_path(attachment, disposition: 'attachment'), rails_blob_path(attachment, disposition: 'attachment'), target: '_blank', rel: 'noopener'
         end
       end
     end
   end
 
   # === FORM ===
-  form do |f|
+  form html: { multipart: true } do |f|
     f.object.date ||= Date.current
     f.inputs do
       f.input :date, required: true
@@ -126,6 +123,7 @@ ActiveAdmin.register Tranxaction do
       f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
       f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.name, client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.reference, tenancy_agreement.id] }, wrapper_html: { style: 'display: none;' }
       f.input :creditor, member_label: :name, collection: Creditor.order('LOWER(name)')
+      f.input :attachments, as: :file, input_html: { multiple: true }
     end
     f.actions
   end
@@ -138,5 +136,6 @@ ActiveAdmin.register Tranxaction do
                 :tax,
                 :tax_category_id,
                 :tranxactable_type,
-                :tranxactable_id
+                :tranxactable_id,
+                attachments: []
 end

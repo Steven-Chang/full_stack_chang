@@ -43,3 +43,6 @@ rake active_record_doctor
 https://docs.semaphoreci.com/examples/heroku-deployment/
 
 ## References
+
+1. https://docs.storj.io/dcs/code/rails-activestorage
+2. https://edgeguides.rubyonrails.org/active_storage_overview.html

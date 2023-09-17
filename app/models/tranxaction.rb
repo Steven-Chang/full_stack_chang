@@ -5,10 +5,11 @@ class Tranxaction < ApplicationRecord
   belongs_to :creditor, optional: true
   belongs_to :tax_category, optional: true
   belongs_to :tranxactable, polymorphic: true, optional: true
-  has_many :attachments, as: :resource, dependent: :destroy
+  # has_many :attachments, as: :resource, dependent: :destroy
+  has_many_attached :attachments
 
   # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===
-  accepts_nested_attributes_for :attachments, allow_destroy: true
+  # accepts_nested_attributes_for :attachments, allow_destroy: true
 
   # === VALIDATIONS ===
   validates :date, :description, :amount, presence: true
