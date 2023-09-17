@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.1'
 
-gem 'activeadmin'
+gem 'activeadmin', '~> 2.14'
 gem 'airbrake'
 gem 'bcrypt'
 gem 'binance', github: 'steven-chang/binance'
