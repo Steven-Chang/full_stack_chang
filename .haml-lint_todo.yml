@@ -17,7 +17,6 @@ linters:
       - "app/views/active_admin/devise/sessions/new.html.haml"
       - "app/views/application/_navbar.html.haml"
       - "app/views/application/home.html.haml"
-      - "app/views/cryptos/index.html.haml"
       - "app/views/layouts/application.html.haml"
 
   # Offense count: 238
@@ -26,7 +25,6 @@ linters:
       - "app/views/active_admin/dashboard/_crypto_dashboard.html.haml"
       - "app/views/active_admin/devise/sessions/new.html.haml"
       - "app/views/application/home.html.haml"
-      - "app/views/cryptos/index.html.haml"
       - "app/views/layouts/application.html.haml"
 
   # Offense count: 102
@@ -45,4 +43,3 @@ linters:
       - "app/views/active_admin/dashboard/_tranxactions.html.haml"
       - "app/views/application/_navbar.html.haml"
       - "app/views/application/home.html.haml"
-      - "app/views/cryptos/index.html.haml"
