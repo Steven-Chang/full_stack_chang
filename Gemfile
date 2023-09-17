@@ -7,6 +7,7 @@ ruby '3.2.1'
 
 gem 'activeadmin', '~> 2.14'
 gem 'airbrake'
+gem "aws-sdk-s3", require: false
 gem 'bcrypt'
 gem 'binance', github: 'steven-chang/binance'
 # Reduces boot times through caching; required in config/boot.rb
