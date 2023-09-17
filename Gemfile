@@ -7,6 +7,7 @@ ruby '3.2.1'
 
 gem 'activeadmin'
 gem 'airbrake'
+gem 'bcrypt'
 gem 'binance', github: 'steven-chang/binance'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
@@ -16,7 +17,7 @@ gem 'cloudinary'
 gem 'cssbundling-rails', '>= 0.1.0'
 gem 'devise'
 # Barebones two-factor authentication with Devise
-gem 'devise-two-factor'
+gem 'devise-two-factor', tag: 'v5.0.0'
 gem 'groupdate'
 # Provides Haml generators for Rails 4 etc
 gem 'haml-rails'
