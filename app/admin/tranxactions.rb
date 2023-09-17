@@ -104,8 +104,10 @@ ActiveAdmin.register Tranxaction do
       row :creditor
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
-          # link_to url_for(attachment.url), url_for(attachment.url), target: '_blank', rel: 'noopener'
-          link_to rails_blob_path(attachment, disposition: 'attachment'), rails_blob_path(attachment, disposition: 'attachment'), target: '_blank', rel: 'noopener'
+          # This opens
+          link_to "Open", url_for(attachment), target: '_blank', rel: 'noopener'
+          # This downloads
+          link_to "Download", rails_blob_path(attachment, disposition: 'attachment'), target: '_blank', rel: 'noopener'
         end
       end
     end
