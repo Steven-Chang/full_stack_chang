@@ -14,14 +14,10 @@ ActiveAdmin.register Project do
     column :start_date
     column :end_date
     column :private
-    column :attachments do |tranxaction|
-      next if tranxaction.attachments.blank?
+    column :logo do |project|
+      next if project.logo.blank?
 
-      table_for tranxaction.attachments.order('created_at DESC') do
-        column 'Attachments' do |attachment|
-          link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
-        end
-      end
+      image_tag project.logo
     end
     actions
   end
@@ -38,21 +34,36 @@ ActiveAdmin.register Project do
       row :start_date
       row :end_date
       row :private
-      table_for project.attachments.order('created_at DESC') do
-        column 'Attachments' do |attachment|
-          link_to attachment.url, attachment.url, target: '_blank', rel: 'noopener'
-        end
+      row :logo do |project|
+        next if project.logo.blank?
+
+        image_tag project.logo
       end
     end
+  end
+
+  # === FORM ===
+  form do |f|
+    f.inputs do
+      f.input :logo, as: :file
+      f.input :title, required: true
+      f.input :description
+      f.input :url
+      f.input :role
+      f.input :start_date
+      f.input :end_date
+      f.input :private
+    end
+    f.actions
   end
 
   # === PERMIT PARAMS ===
   permit_params :description,
                 :end_date,
-                :name,
                 :private,
                 :role,
                 :start_date,
                 :title,
-                :url
+                :url,
+                :logo
 end
