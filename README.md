@@ -46,3 +46,5 @@ https://docs.semaphoreci.com/examples/heroku-deployment/
 
 1. https://docs.storj.io/dcs/code/rails-activestorage
 2. https://edgeguides.rubyonrails.org/active_storage_overview.html
+3. https://spin.atomicobject.com/2016/01/29/uploading-files-active-admin/
+4. https://github.com/rails/rails/pull/30834
