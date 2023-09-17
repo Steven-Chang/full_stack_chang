@@ -34,7 +34,7 @@
         babelHelpers.classCallCheck(this, Placeholder);
         return babelHelpers.possibleConstructorReturn(
           this,
-          babelHelpers.getPrototypeOf(Placeholder).apply(this, arguments),
+          babelHelpers.getPrototypeOf(Placeholder).apply(this, arguments)
         );
       }
 
@@ -66,7 +66,7 @@
               return {};
             },
           },
-        ],
+        ]
       );
       return Placeholder;
     })(_Plugin2.default);

@@ -125,7 +125,7 @@ var ChangeEvent = {
             current: size,
             previous,
           },
-          callback.data,
+          callback.data
         );
       }
     });

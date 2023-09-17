@@ -34,7 +34,7 @@
         babelHelpers.classCallCheck(this, Sidebar);
         return babelHelpers.possibleConstructorReturn(
           this,
-          babelHelpers.getPrototypeOf(Sidebar).apply(this, arguments),
+          babelHelpers.getPrototypeOf(Sidebar).apply(this, arguments)
         );
       }
 
@@ -74,7 +74,7 @@
                         .concat(options.direction, '">\n      <div class="')
                         .concat(
                           options.classes.content,
-                          ' site-sidebar-content"></div>\n      <div class="slidePanel-handler"></div>\n      </div>',
+                          ' site-sidebar-content"></div>\n      <div class="slidePanel-handler"></div>\n      </div>'
                         );
                     },
                     afterLoad: function afterLoad() {
@@ -101,7 +101,7 @@
                         $this.removeClass("active");
                       }
                     },
-                  },
+                  }
                 );
 
                 if ($this.hasClass("active")) {
@@ -118,24 +118,24 @@
                     {
                       url: url,
                     },
-                    options,
+                    options
                   );
                 }
-              },
+              }
             );
             (0, _jquery.default)(document).on(
               "click",
               '[data-toggle="show-chat"]',
               function () {
                 (0, _jquery.default)("#conversation").addClass("active");
-              },
+              }
             );
             (0, _jquery.default)(document).on(
               "click",
               '[data-toggle="close-chat"]',
               function () {
                 (0, _jquery.default)("#conversation").removeClass("active");
-              },
+              }
             );
           },
         },

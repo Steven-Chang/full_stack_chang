@@ -11,7 +11,7 @@
       exports,
       require("jquery"),
       require("Component"),
-      require("Plugin"),
+      require("Plugin")
     );
   } else {
     var mod = {
@@ -39,7 +39,7 @@
         babelHelpers.classCallCheck(this, Base);
         return babelHelpers.possibleConstructorReturn(
           this,
-          babelHelpers.getPrototypeOf(Base).apply(this, arguments),
+          babelHelpers.getPrototypeOf(Base).apply(this, arguments)
         );
       }
 
@@ -58,13 +58,13 @@
                 var plugin = (0, _Plugin.pluginFactory)(
                   name,
                   $this,
-                  $this.data(),
+                  $this.data()
                 );
 
                 if (plugin) {
                   plugin.initialize();
                 }
-              },
+              }
             );
           },
         },
@@ -80,7 +80,7 @@
             for (var name in apis) {
               (0, _Plugin.getPluginAPI)(name)(
                 "[data-plugin=".concat(name, "]"),
-                context,
+                context
               );
             }
           },

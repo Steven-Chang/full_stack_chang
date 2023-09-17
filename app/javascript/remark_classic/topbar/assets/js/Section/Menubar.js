@@ -128,8 +128,8 @@
           (_babelHelpers$getProt =
             babelHelpers.getPrototypeOf(Menubar)).call.apply(
             _babelHelpers$getProt,
-            [this].concat(args),
-          ),
+            [this].concat(args)
+          )
         );
         _this.$menuBody = _this.$el.children(".site-menubar-body");
         _this.$menu = _this.$el.find("[data-plugin=menu]");
@@ -219,7 +219,7 @@
               },
               function () {
                 this.scrollable.init();
-              },
+              }
             );
             this.type = "open";
           },
@@ -234,7 +234,7 @@
               },
               function () {
                 this.scrollable.destroy();
-              },
+              }
             );
             this.type = "hide";
           },

@@ -34,7 +34,7 @@
         babelHelpers.classCallCheck(this, Tabs);
         return babelHelpers.possibleConstructorReturn(
           this,
-          babelHelpers.getPrototypeOf(Tabs).apply(this, arguments),
+          babelHelpers.getPrototypeOf(Tabs).apply(this, arguments)
         );
       }
 
@@ -70,7 +70,7 @@
               return {};
             },
           },
-        ],
+        ]
       );
       return Tabs;
     })(_Plugin2.default);

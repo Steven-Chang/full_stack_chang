@@ -34,7 +34,7 @@
         babelHelpers.classCallCheck(this, SlidePanel);
         return babelHelpers.possibleConstructorReturn(
           this,
-          babelHelpers.getPrototypeOf(SlidePanel).apply(this, arguments),
+          babelHelpers.getPrototypeOf(SlidePanel).apply(this, arguments)
         );
       }
 
@@ -73,7 +73,7 @@
                 {
                   url: options.url,
                 },
-                options,
+                options
               );
             },
           },
@@ -89,17 +89,17 @@
                   template: function template(options) {
                     return '<div class="'.concat(
                       options.classes.loading,
-                      '">\n                    <div class="loader loader-default"></div>\n                  </div>',
+                      '">\n                    <div class="loader loader-default"></div>\n                  </div>'
                     );
                   },
                   showCallback: function showCallback(options) {
                     this.$el.addClass(
-                      "".concat(options.classes.loading, "-show"),
+                      "".concat(options.classes.loading, "-show")
                     );
                   },
                   hideCallback: function hideCallback(options) {
                     this.$el.removeClass(
-                      "".concat(options.classes.loading, "-show"),
+                      "".concat(options.classes.loading, "-show")
                     );
                   },
                 },
@@ -112,7 +112,7 @@
               return "click|show";
             },
           },
-        ],
+        ]
       );
       return SlidePanel;
     })(_Plugin2.default);
