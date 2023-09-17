@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_10_024614) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_17_002636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -258,9 +258,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_10_024614) do
     t.boolean "admin", default: false
     t.string "medicare_number"
     t.string "medicare_expiry"
-    t.string "encrypted_otp_secret"
-    t.string "encrypted_otp_secret_iv"
-    t.string "encrypted_otp_secret_salt"
+    t.string "otp_secret"
     t.integer "consumed_timestep"
     t.boolean "otp_required_for_login"
     t.index ["email"], name: "index_users_on_email", unique: true
