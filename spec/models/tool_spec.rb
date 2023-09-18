@@ -5,7 +5,8 @@ require 'rails_helper'
 RSpec.describe Tool do
   describe 'ASSOCIATIONS' do
     it { should have_and_belong_to_many(:projects) }
-    it { should have_many(:attachments).dependent(:destroy).inverse_of(:resource) }
+    it { should have_many(:attachments_attachments) }
+    it { should have_one(:logo_attachment) }
   end
 
   describe 'VALIDATIONS' do

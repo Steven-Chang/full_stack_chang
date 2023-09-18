@@ -11,12 +11,19 @@ ActiveAdmin.register Tool do
       row :name
       row :category
       row :visible
-      row 'Images' do |tool|
-        out = []
-        tool.attachments.where(file_type: 0).each do |attachment|
-          out << cl_image_tag(attachment.cloudinary_public_id) if attachment.cloudinary_public_id.present?
+      row :logo do |tool|
+        next if tool.logo.blank?
+
+        image_tag tool.logo
+      end
+      column :attachments do |tool|
+        next if tool.attachments.blank?
+
+        table_for tool.attachments.order('created_at DESC') do
+          column 'Attachments' do |attachment|
+            link_to 'url', url_for(attachment), target: '_blank', rel: 'noopener'
+          end
         end
-        safe_join(out)
       end
     end
     active_admin_comments
@@ -25,20 +32,14 @@ ActiveAdmin.register Tool do
   # === FORM ===
   form(html: { autocomplete: :off }) do |f|
     f.inputs do
+      f.input :logo, as: :file
       f.input :name
       f.input :category
       f.input :visible
-      f.has_many :attachments,
-                 heading: 'Attachments',
-                 new_record: 'Manually create an attachment',
-                 allow_destroy: true do |a|
-        a.input :cloudinary_public_id
-        a.object.file_type = 'image'
-        a.input :file_type, as: :select,
-                            collection: Attachment.file_types.keys,
-                            include_blank: false
+      f.object.attachments.each do |attachment|
+        f.input :attachments, input_html: { multiple: true, value: attachment.signed_id }, as: :hidden
       end
-      li '<label>Cloudinary upload</label><button id="upload_widget" class="cloudinary-button">Upload image</button>'.html_safe
+      f.input :attachments, as: :file, input_html: { multiple: true }
     end
     f.actions
   end
@@ -47,5 +48,5 @@ ActiveAdmin.register Tool do
   permit_params :name,
                 :category,
                 :visible,
-                attachments_attributes: %i[id name cloudinary_public_id file_type _destroy]
+                :logo
 end

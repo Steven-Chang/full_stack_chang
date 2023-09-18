@@ -15,14 +15,10 @@ class Tool < ApplicationRecord
 
   # === ASSOCIATIONS ===
   has_and_belongs_to_many :projects
-  has_many :attachments, as: :resource,
-                         dependent: :destroy,
-                         inverse_of: :resource
+  has_one_attached :logo
+  has_many_attached :attachments
 
   # === VALIDATIONS ===
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
-
-  # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===
-  accepts_nested_attributes_for :attachments, allow_destroy: true
 end
