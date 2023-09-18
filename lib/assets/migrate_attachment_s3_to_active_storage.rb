@@ -7,6 +7,7 @@ Attachment.where(resource_type: 'Tranxaction').where.not(url: [nil, '']).find_ea
   filename = File.basename(URI.parse(a.url).path)
   file = URI.open(a.url)
   a.resource.attachments.attach(io: file, filename:)
+end
 
 # Project
 Attachment.where(resource_type: 'Project').where.not(url: [nil, ""]).find_each do |a|
