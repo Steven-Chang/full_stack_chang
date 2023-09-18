@@ -2,13 +2,10 @@
 
 class BlogPost < ApplicationRecord
 	# === ASSOCIATIONS ===
-  has_many :attachments, as: :resource, dependent: :destroy, inverse_of: :resource
+  has_many_attached :attachments
 
   # === VALIDATIONS ===
   validates :date_added,
             :title,
             presence: true
-
-  # === ACCEPTS_NESTED_ATTRIBUTES_FOR ===
-  accepts_nested_attributes_for :attachments, allow_destroy: true
 end
