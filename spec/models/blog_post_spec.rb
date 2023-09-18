@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe BlogPost do
   describe 'ASSOCIATIONS' do
-    it { should have_many(:attachments).dependent(:destroy).inverse_of(:resource) }
+    it { should have_many(:attachments_attachments) }
   end
 
   describe 'VALIDATIONS' do

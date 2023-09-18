@@ -7,15 +7,11 @@ RSpec.describe Tranxaction do
   let(:tax_category) { create(:tax_category) }
   let(:tranxaction) { build(:tranxaction) }
 
-  describe 'ACCEPTS NESTED ATTRIBUTES FOR' do
-    it { should accept_nested_attributes_for(:attachments) }
-  end
-
   describe 'ASSOCIATIONS' do
     it { should belong_to(:tax_category).optional(true) }
     it { should belong_to(:tranxactable).optional(true) }
     it { should belong_to(:creditor).optional(true) }
-  	it { should have_many(:attachments).dependent(:destroy) }
+  	it { should have_many(:attachments_attachments) }
   end
 
   describe 'CALLBACKS' do
