@@ -15,6 +15,15 @@ ActiveAdmin.register PaymentSummary do
     end
     column :total_tax_withheld
     column :total_allowances
+    column :attachments do |payment_summary|
+      next if payment_summary.attachments.blank?
+
+      table_for payment_summary.attachments.order('created_at DESC') do
+        column 'Attachments' do |attachment|
+          link_to 'url', url_for(attachment), target: '_blank', rel: 'noopener'
+        end
+      end
+    end
     actions
   end
 
@@ -39,6 +48,14 @@ ActiveAdmin.register PaymentSummary do
       row :total_allowances do |payment_summary|
         number_to_currency(payment_summary.total_allowances)
       end
+      table_for tranxaction.attachments.order('created_at DESC') do
+        column 'Attachments' do |attachment|
+          # Permanent
+          link_to 'Open', url_for(attachment), target: '_blank', rel: 'noopener'
+          # Temporary
+          # link_to "Download", rails_blob_path(attachment, disposition: 'attachment'), target: '_blank', rel: 'noopener'
+        end
+      end
     end
   end
 
@@ -52,6 +69,10 @@ ActiveAdmin.register PaymentSummary do
                        required: true
       f.input :total_tax_withheld
       f.input :total_allowances
+      f.object.attachments.each do |attachment|
+        f.input :attachments, input_html: { multiple: true, value: attachment.signed_id }, as: :hidden
+      end
+      f.input :attachments, as: :file, input_html: { multiple: true }
     end
     f.actions
   end
@@ -61,5 +82,5 @@ ActiveAdmin.register PaymentSummary do
                 :total_allowances,
                 :total_tax_withheld,
                 :year_ending,
-                attachments_attributes: %i[url aws_key]
+                attachments: []
 end
