@@ -16,11 +16,11 @@ ActiveAdmin.register Tool do
 
         image_tag tool.logo
       end
-      column :attachments do |tool|
+      row :attachments do |tool|
         next if tool.attachments.blank?
 
         table_for tool.attachments.order('created_at DESC') do
-          column 'Attachments' do |attachment|
+          row 'Attachments' do |attachment|
             link_to 'url', url_for(attachment), target: '_blank', rel: 'noopener'
           end
         end
@@ -32,7 +32,7 @@ ActiveAdmin.register Tool do
   # === FORM ===
   form(html: { autocomplete: :off }) do |f|
     f.inputs do
-      f.input :logo, as: :file
+      f.input :logo, as: :file, input_html: { value: f.object.logo.signed_id }
       f.input :name
       f.input :category
       f.input :visible
