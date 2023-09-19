@@ -2,6 +2,14 @@
 
 require 'open-uri'
 
+# PaymentSummary
+Attachment.where(resource_type: 'PaymentSummary').where.not(url: [nil, '']).find_each do |a|
+  filename = File.basename(URI.parse(a.url).path)
+  file = URI.open(a.url)
+  a.resource.attachments.attach(io: file, filename:)
+  a.update!(url: nil)
+end
+
 # Tranxaction
 Attachment.where(resource_type: 'Tranxaction').where.not(url: [nil, '']).find_each do |a|
   filename = File.basename(URI.parse(a.url).path)
