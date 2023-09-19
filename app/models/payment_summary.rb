@@ -3,7 +3,7 @@
 class PaymentSummary < ApplicationRecord
 	# === ASSOCIATIONS ===
 	belongs_to :client
-	has_many :attachments, as: :resource, dependent: :destroy
+	has_many_attached :attachments
 
 	# === VALIDATIONS ===
 	validates :client_id, uniqueness: { scope: :year_ending }
