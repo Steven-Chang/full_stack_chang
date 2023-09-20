@@ -38,6 +38,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  # === Active storage validations ===
+  config.include ActiveStorageValidations::Matchers
+
   # === Database cleaner ===
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
