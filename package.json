@@ -20,7 +20,7 @@
     "prettier": "2.7.1"
   },
   "engines": {
-    "node": "16.18.1"
+    "node": "18.13.0"
   },
   "stack": "heroku-22"
 }

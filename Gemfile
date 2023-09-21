@@ -24,6 +24,7 @@ gem 'devise-two-factor', tag: 'v5.0.0'
 gem 'groupdate'
 # Provides Haml generators for Rails 4 etc
 gem 'haml-rails'
+gem 'image_processing', '>= 1.2'
 # Foreign key migration generator for Rails
 gem 'immigrant'
 # Build JSON APIs with ease. Read more: httgem 'puma', '~> 3.11's://github.com/rails/jbuilder
@@ -32,8 +33,6 @@ gem 'jbuilder', '~> 2.0'
 gem 'mechanize'
 gem 'monetize'
 gem 'money'
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
 # Monitoring the app
 gem 'pg'
 gem 'puma'

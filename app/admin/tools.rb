@@ -4,6 +4,19 @@ ActiveAdmin.register Tool do
   # === MENU ===
   menu parent: 'Personal'
 
+  # === INDEX ===
+  index  do
+    column :name
+    column :category
+    column :visible
+    column :logo do |tool|
+      next if tool.logo.blank?
+
+      image_tag tool.logo.variant(:thumb).processed
+    end
+    actions
+  end
+
   # === SHOW ===
   show do
     attributes_table do
