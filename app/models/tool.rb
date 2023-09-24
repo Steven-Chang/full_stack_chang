@@ -21,6 +21,7 @@ class Tool < ApplicationRecord
   has_many_attached :attachments
 
   # === VALIDATIONS ===
+  validates :logo, content_type: /\Aimage\/.*\z/, size: { less_than: 500.kilobytes }
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
 end

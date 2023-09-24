@@ -13,5 +13,7 @@ RSpec.describe Tool do
     before { create(:tool) }
 
     it { should validate_uniqueness_of(:name).case_insensitive }
+    it { should validate_content_type_of(:logo).allowing('image/*') }
+    it { should validate_size_of(:logo).less_than(500.kilobytes) }
   end
 end
