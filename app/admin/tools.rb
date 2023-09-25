@@ -5,7 +5,7 @@ ActiveAdmin.register Tool do
   menu parent: 'Personal'
 
   # === INDEX ===
-  index  do
+  index do
     column :name
     column :category
     column :visible
