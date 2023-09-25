@@ -20,7 +20,7 @@ ActiveAdmin.register PaymentSummary do
 
       table_for payment_summary.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
-          link_to 'url', url_for(attachment), target: '_blank', rel: 'noopener'
+          link_to attachment.filename.to_s, url_for(attachment), target: '_blank', rel: 'noopener'
         end
       end
     end
@@ -51,7 +51,7 @@ ActiveAdmin.register PaymentSummary do
       table_for tranxaction.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
           # Permanent
-          link_to 'Open', url_for(attachment), target: '_blank', rel: 'noopener'
+          link_to attachment.filename.to_s, url_for(attachment), target: '_blank', rel: 'noopener'
           # Temporary
           # link_to "Download", rails_blob_path(attachment, disposition: 'attachment'), target: '_blank', rel: 'noopener'
         end
