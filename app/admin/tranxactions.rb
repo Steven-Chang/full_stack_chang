@@ -35,12 +35,8 @@ ActiveAdmin.register Tranxaction do
     end
     column :creditor
     column :attachments do |tranxaction|
-      next if tranxaction.attachments.blank?
-
-      table_for tranxaction.attachments.order('created_at DESC') do
-        column 'Attachments' do |attachment|
-          link_to attachment.filename.to_s, url_for(attachment), target: '_blank', rel: 'noopener'
-        end
+      tranxaction.attachments.each do |attachment|
+        link_to attachment.filename.to_s, url_for(attachment), target: '_blank', rel: 'noopener'
       end
     end
     actions
@@ -97,12 +93,9 @@ ActiveAdmin.register Tranxaction do
         link_to link_description, url
       end
       row :creditor
-      table_for tranxaction.attachments.order('created_at DESC') do
-        column 'Attachments' do |attachment|
-          # Permanent
+      row :attachments do |tranxaction|
+        tranxaction.attachments do |attachment|
           link_to attachment.filename.to_s, url_for(attachment), target: '_blank', rel: 'noopener'
-          # Temporary
-          # link_to "Download", rails_blob_path(attachment, disposition: 'attachment'), target: '_blank', rel: 'noopener'
         end
       end
     end
