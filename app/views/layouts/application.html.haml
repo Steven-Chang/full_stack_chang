@@ -23,8 +23,7 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application', defer: true
-    / Youtube
-    %script{:src => "https://www.youtube.com/iframe_api"}
+    %link{ href: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css", rel: "stylesheet" }
   %body{:class => "#{@body_class}"}
     = render 'navbar'
     /[if lt IE 8]

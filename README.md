@@ -23,7 +23,7 @@ pg_restore --verbose --clean --no-acl --no-owner -h localhost -d full_stack_chan
 ### Development
 
 ```
-rails s
+foreman start -f Procfile.dev
 ```
 
 ## Checking code
