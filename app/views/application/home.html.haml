@@ -45,8 +45,8 @@
                   %a.active.nav-link{"aria-controls" => "portfolio", "data-toggle" => "tab", :href => "#portfolio", :role => "tab"} Portfolio
                 %li.nav-item{:role => "presentation"}
                   %a.nav-link{"aria-controls" => "tools", "data-toggle" => "tab", :href => "#tools", :role => "tab"} Tools
-                %li.nav-item{:role => "presentation"}
-                  %a.nav-link{"aria-controls" => "proud-of", "data-toggle" => "tab", :href => "#proud-of", :role => "tab"} Proud of
+                / %li.nav-item{:role => "presentation"}
+                /   %a.nav-link{"aria-controls" => "proud-of", "data-toggle" => "tab", :href => "#proud-of", :role => "tab"} Proud of
                 %li.nav-item{:role => "presentation"}
                   %a.nav-link{"aria-controls" => "references", "data-toggle" => "tab", :href => "#references", :role => "tab"} References
               .tab-content
@@ -83,32 +83,32 @@
                         %h5.card-title
                           %span #{value} (#{visible_tools.count})
                         - visible_tools.order(:name).each do |tool|
-                          - if (tool_attachment = tool.attachments.first)
+                          - if tool.logo.present?
                             .mb-2.mr-2.text-center.d-inline-block.bg-light.align-top{:style => "border: 1px solid white; border-radius: 6px; height: 135px; width: 120px;"}
                               %div{:style => "padding: 10px 25px 0 25px;"}
                                 .d-inline-block.bg-white.text-center.p-1{:style => "height: 70px; width: 70px; border-radius: 4px;"}
-                                  = cl_image_tag tool_attachment.cloudinary_public_id, width: 120, fetch_format: :auto, style: 'width: 60px;'
+                                  = image_tag tool.logo.variant(:thumb).processed
                               .p-1{:style => "line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"}= tool.name
-                .tab-pane.animation-slide-left#proud-of{:role => "tabpanel"}
-                  %ul.blocks.blocks-100.blocks-xxl-4.blocks-lg-3.blocks-md-2.mt-4{"data-filters" => "#exampleFilter", "data-plugin" => "filterable"}
-                    %li
-                      .card.card-shadow
-                        %figure.card-img-top.overlay-hover.overlay
-                          %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"}/
-                          %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
-                            %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"}
-                    %li
-                      .card.card-shadow
-                        %figure.card-img-top.overlay-hover.overlay
-                          %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"}/
-                          %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
-                            %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"}
-                    %li
-                      .card.card-shadow
-                        %figure.card-img-top.overlay-hover.overlay
-                          %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}/
-                          %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
-                            %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}
+                / .tab-pane.animation-slide-left#proud-of{:role => "tabpanel"}
+                /   %ul.blocks.blocks-100.blocks-xxl-4.blocks-lg-3.blocks-md-2.mt-4{"data-filters" => "#exampleFilter", "data-plugin" => "filterable"}
+                /     %li
+                /       .card.card-shadow
+                /         %figure.card-img-top.overlay-hover.overlay
+                /           %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"}/
+                /           %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
+                /             %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"}
+                /     %li
+                /       .card.card-shadow
+                /         %figure.card-img-top.overlay-hover.overlay
+                /           %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"}/
+                /           %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
+                /             %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"}
+                /     %li
+                /       .card.card-shadow
+                /         %figure.card-img-top.overlay-hover.overlay
+                /           %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}/
+                /           %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
+                /             %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}
                 .tab-pane.animation-slide-left#references{:role => "tabpanel"}
                   .user-background.card.card-shadow
                     .card-block
