@@ -1,6 +1,4 @@
 //= require active_admin/base
-//= require chartkick
-//= require Chart.bundle
 
 $(document).ready(function () {
   if ($("form.tranxaction").length) {
