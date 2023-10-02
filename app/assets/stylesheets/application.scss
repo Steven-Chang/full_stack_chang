@@ -1,13 +1,1 @@
-// REMARK TEMPLATE
-// Stylesheets
-@import "remark_classic/global/css/bootstrap.min";
-@import "remark_classic/global/css/bootstrap-extend.min";
-@import "remark_classic/base/assets/css/site";
-
- // Plugins
-@import "jquery-slidePanel/dist/css/slidePanel.min";
-@import "magnific-popup/dist/magnific-popup";
-@import "remark_classic/topbar/assets/examples/css/pages/gallery.min";
-@import "remark_classic/topbar/assets/examples/css/pages/login-v3.min";
-@import "remark_classic/topbar/assets/examples/css/pages/profile";
-@import "switchery/switchery";
+@import "bootstrap/scss/bootstrap";
