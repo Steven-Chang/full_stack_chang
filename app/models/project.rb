@@ -3,7 +3,6 @@
 class Project < ApplicationRecord
 	# === ASSOCIATIONS ===
   has_one_attached :logo
-  has_many :achievements, dependent: :delete_all
   has_many :attachments, as: :resource, dependent: :destroy
   has_and_belongs_to_many :tools
 

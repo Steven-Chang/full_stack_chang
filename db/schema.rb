@@ -10,18 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_17_030337) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_05_045310) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "achievements", force: :cascade do |t|
-    t.date "date", null: false
-    t.string "description", null: false
-    t.bigint "project_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_achievements_on_project_id"
-  end
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace", null: false
@@ -287,7 +278,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_17_030337) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "achievements", "projects", name: "achievements_project_id_fk"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "credentials", "exchanges", name: "credentials_exchange_id_fk"
