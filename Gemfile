@@ -15,7 +15,6 @@ gem 'bcrypt'
 gem 'binance', github: 'steven-chang/binance'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
-gem 'cloudinary'
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem 'cssbundling-rails', '>= 0.1.0'
 gem 'devise'
