@@ -62,7 +62,6 @@ ActiveAdmin.register BlogPost do
         f.input :attachments, input_html: { multiple: true, value: attachment.signed_id }, as: :hidden
       end
       f.input :attachments, as: :file, input_html: { multiple: true }
-      li '<label>Cloudinary upload</label><button id="upload_widget" class="cloudinary-button">Upload image</button>'.html_safe
     end
     f.actions
   end

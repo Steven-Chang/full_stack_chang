@@ -12,12 +12,8 @@ ActiveRecordDoctor.configure do
     # Add project-specific tables here.
   ]
 
-  detector :missing_foreign_keys,
-    ignore_columns: ['attachments.cloudinary_public_id']
   detector :missing_presence_validation,
     ignore_models: ['ActiveAdmin::Comment', 'ActiveStorage::VariantRecord', 'ActiveStorage::Blob', 'ActiveStorage::Attachment']
   detector :undefined_table_references,
     ignore_models: ['ActionMailbox::Record', 'ActionMailbox::InboundEmail', 'ActionText::Record', 'ActionText::RichText', 'ActionText::EncryptedRichText', 'ApplicationRecord']
-  detector :unindexed_foreign_keys,
-    ignore_columns: ['attachments.cloudinary_public_id']
 end
