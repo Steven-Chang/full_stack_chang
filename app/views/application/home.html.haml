@@ -3,7 +3,7 @@
     .col-md-4
       .card.text-center.mb-3
         .card-body
-          = cl_image_tag "https://res.cloudinary.com/hv5cxagki/image/upload/v1665701852/fsc/47955495901_fc0efe5e04_b-1_p7mtiu", style: 'border: 1px solid #e4eaec; padding: 3px;', class: 'w-100'
+          = image_tag "https://res.cloudinary.com/hv5cxagki/image/upload/v1665701852/fsc/47955495901_fc0efe5e04_b-1_p7mtiu", style: 'border: 1px solid #e4eaec; padding: 3px;', class: 'w-100'
           %p
             FOUNDER/CEO @
             %a{:href => "https://btn.group/", :target => "_blank"} btn.group
@@ -47,8 +47,8 @@
                   %li.timeline-item
                     .timeline-dot
                     .timeline-content
-                      - if project.attachments.present?
-                        = image_tag project.attachments.first.url, class: 'float-right', style: 'max-width: 120px;'
+                      - if project.logo.present?
+                        = image_tag project.logo.url, class: 'float-right', style: 'max-width: 120px;'
                       %span.block.mb-5
                         %h5
                           - if project.url.present?
