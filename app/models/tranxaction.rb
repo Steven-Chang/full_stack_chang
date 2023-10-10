@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# ActiveStorage::Blob.where('lower(filename) = ?', "f8c96984-ed69-487f-8e7f-a359a2b885b1.jpg").first.attachments.first.record
+
 class Tranxaction < ApplicationRecord
   # === ASSOCIATIONS ===
   belongs_to :creditor, optional: true
