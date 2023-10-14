@@ -10,7 +10,6 @@ linters:
   # Offense count: 78
   LineLength:
     exclude:
-      - "app/views/active_admin/dashboard/_crypto_dashboard.html.haml"
       - "app/views/active_admin/dashboard/_summary.html.haml"
       - "app/views/active_admin/dashboard/_tax_categories.html.haml"
       - "app/views/active_admin/dashboard/_tranxactions.html.haml"
@@ -22,7 +21,6 @@ linters:
   # Offense count: 238
   RuboCop:
     exclude:
-      - "app/views/active_admin/dashboard/_crypto_dashboard.html.haml"
       - "app/views/active_admin/devise/sessions/new.html.haml"
       - "app/views/application/home.html.haml"
       - "app/views/layouts/application.html.haml"
@@ -37,7 +35,6 @@ linters:
   # Offense count: 23
   InlineStyles:
     exclude:
-      - "app/views/active_admin/dashboard/_crypto_dashboard.html.haml"
       - "app/views/active_admin/dashboard/_summary.html.haml"
       - "app/views/active_admin/dashboard/_tax_categories.html.haml"
       - "app/views/active_admin/dashboard/_tranxactions.html.haml"
