@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# ActiveStorage::Blob.where('lower(filename) = ?', "f8c96984-ed69-487f-8e7f-a359a2b885b1.jpg").first.attachments.first.record
+# ActiveStorage::Blob.where('lower(filename) = ?', "18c36666-e20c-4f0e-9ad9-c701f43dc2fa.pdf").first.attachments.first.record
 
 class Tranxaction < ApplicationRecord
   # === ASSOCIATIONS ===
