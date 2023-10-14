@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_05_045310) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_14_024729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,48 +83,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_05_045310) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "credentials", force: :cascade do |t|
-    t.string "identifier", null: false
-    t.bigint "exchange_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "enabled", default: true
-    t.index ["exchange_id"], name: "index_credentials_on_exchange_id"
-  end
-
   create_table "creditors", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index "lower((name)::text)", name: "index_creditors_on_LOWER_name", unique: true
-  end
-
-  create_table "exchanges", force: :cascade do |t|
-    t.string "identifier", null: false
-    t.string "name", null: false
-    t.string "url", null: false
-    t.decimal "maker_fee", precision: 8, scale: 6, null: false
-    t.decimal "taker_fee", precision: 8, scale: 6, null: false
-    t.decimal "fiat_withdrawal_fee", default: "0.0"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "open_orders_limit_per_trade_pair"
-  end
-
-  create_table "orders", force: :cascade do |t|
-    t.string "status", null: false
-    t.string "buy_or_sell", null: false
-    t.decimal "price", null: false
-    t.decimal "quantity", null: false
-    t.bigint "trade_pair_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "reference"
-    t.decimal "quantity_received", precision: 15, scale: 10
-    t.bigint "order_id"
-    t.decimal "percentage_from_market_price", precision: 8, scale: 6
-    t.index ["order_id"], name: "index_orders_on_order_id", unique: true
-    t.index ["trade_pair_id"], name: "index_orders_on_trade_pair_id"
   end
 
   create_table "payment_summaries", force: :cascade do |t|
@@ -211,32 +174,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_05_045310) do
     t.index "lower((name)::text)", name: "index_tools_on_LOWER_name", unique: true
   end
 
-  create_table "trade_pairs", force: :cascade do |t|
-    t.string "symbol", null: false
-    t.decimal "maker_fee", precision: 8, scale: 6
-    t.decimal "taker_fee", precision: 8, scale: 6
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.decimal "minimum_total", precision: 15, scale: 10
-    t.decimal "amount_step", precision: 15, scale: 10
-    t.boolean "enabled"
-    t.integer "price_precision"
-    t.integer "open_orders_limit"
-    t.integer "accumulate_time_limit_in_seconds"
-    t.bigint "credential_id"
-    t.integer "mode", default: 0
-    t.decimal "minimum_hodl_quantity", precision: 15, scale: 10
-    t.decimal "maximum_hodl_quantity", precision: 15, scale: 10
-    t.decimal "percentage_from_market_price_buy_minimum", precision: 8, scale: 6
-    t.decimal "percentage_from_market_price_buy_maximum", precision: 8, scale: 6
-    t.decimal "limit_price", precision: 15, scale: 10
-    t.decimal "accumulate_amount", precision: 15, scale: 10
-    t.integer "market_type", default: 0, null: false
-    t.integer "side_effect_type", default: 0, null: false
-    t.index "lower((symbol)::text), credential_id", name: "index_trade_pairs_on_LOWER_symbol_credential_id", unique: true
-    t.index ["credential_id"], name: "index_trade_pairs_on_credential_id"
-  end
-
   create_table "tranxactions", force: :cascade do |t|
     t.date "date", null: false
     t.string "description", null: false
@@ -280,9 +217,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_05_045310) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "credentials", "exchanges", name: "credentials_exchange_id_fk"
-  add_foreign_key "orders", "orders"
-  add_foreign_key "orders", "trade_pairs", name: "orders_trade_pair_id_fk"
   add_foreign_key "payment_summaries", "clients", name: "payment_summaries_client_id_fk"
   add_foreign_key "projects_tools", "projects", name: "projects_tools_project_id_fk"
   add_foreign_key "projects_tools", "tools", name: "projects_tools_tool_id_fk"
@@ -290,7 +224,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_05_045310) do
   add_foreign_key "scheduled_tranxaction_templates", "tax_categories", name: "scheduled_tranxaction_templates_tax_category_id_fk"
   add_foreign_key "tenancy_agreements", "properties", name: "tenancy_agreements_property_id_fk"
   add_foreign_key "tenancy_agreements", "users", name: "tenancy_agreements_user_id_fk"
-  add_foreign_key "trade_pairs", "credentials"
   add_foreign_key "tranxactions", "creditors", name: "tranxactions_creditor_id_fk"
   add_foreign_key "tranxactions", "tax_categories", name: "tranxactions_tax_category_id_fk"
 end
