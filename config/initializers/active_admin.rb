@@ -252,7 +252,6 @@ ActiveAdmin.setup do |config|
   #   end
   config.namespace :admin do |admin|
     admin.build_menu do |menu|
-      menu.add label: 'Crypto'
       menu.add label: 'Personal'
       menu.add label: 'Tax'
     end
