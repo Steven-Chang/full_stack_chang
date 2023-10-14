@@ -12,7 +12,6 @@ gem 'airbrake'
 # gem 'aws-sdk-s3', '~> 1'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
-gem 'binance', github: 'steven-chang/binance'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
