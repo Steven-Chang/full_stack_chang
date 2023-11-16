@@ -40,6 +40,7 @@ gem 'rails', '~> 7.0.7.2'
 # Use SCSS for stylesheets
 gem 'sassc-rails'
 gem 'sprockets-rails'
+gem 'turbo-rails'
 
 group :development do
   gem 'active_record_doctor'
