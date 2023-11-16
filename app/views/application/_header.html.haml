@@ -1,0 +1,49 @@
+- unless hide_navbar
+  %header#page-topbar
+    .layout-width
+      .navbar-header
+        .d-flex
+          .horizontal-logo
+            = link_to root_path, class: 'logo logo-dark' do
+              %span.logo-sm
+                / %img{alt: "", height: "22", src: "assets/images/logo-sm.png"}/
+                .fs-5.text-white Full Stack Chang
+              %span.logo-lg
+                / %img{alt: "", height: "17", src: "assets/images/logo-dark.png"}/
+                .fs-2.text-white Full Stack Chang
+            = link_to root_path, class: 'logo logo-light' do
+              %span.logo-sm
+                / %img{alt: "", height: "22", src: "assets/images/logo-sm.png"}/
+                .fs-5.text-white Full Stack Chang
+              %span.logo-lg
+                / %img{alt: "", height: "17", src: "assets/images/logo-light.png"}/
+                .fs-2.text-white Full Stack Chang
+        .d-flex.align-items-center
+          .header-item
+            %button.btn.btn-icon.btn-topbar.btn-ghost-secondary.rounded-circle.light-dark-mode{ type: 'button' }
+              %i.bx.bx-moon.fs-22
+            - if current_user
+              = link_to admin_root_path do
+                %button.navbar-btn.btn.bg-white{ role: 'button', style: 'color: #3e8ef7; font-family: Roboto, sans-serif; text-decoration: none;' }
+                  Dashboard
+              = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'text-white ml-4'
+            - else
+              = link_to new_user_session_path do
+                %button.navbar-btn.btn.bg-white{ role: 'button', style: 'color: #3e8ef7; font-family: Roboto, sans-serif; text-decoration: none;' }
+                  Admin
+            / .dropdown.ms-sm-3.header-item.topbar-user
+            /   %button.btn.d-none#page-header-user-dropdown{ 'aria-expanded' => 'false', 'aria-haspopup' => 'true', 'data-bs-toggle' => 'dropdown', type: 'button', 'data-bs-auto-close': 'outside' }
+            /     %span.d-flex.align-items-center
+            /       %img.user-address-alias-avatar{ alt: 'Wallet logo', src: 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Clipart.png', height: 40 }
+            /       .text-start.ms-3
+            /         .fw-medium.user-name-text.account-name
+            /         .fs-12.user-name-sub-text.account-address-abbreviated
+            /   .dropdown-menu.dropdown-menu-end
+            /     %h6.dropdown-header
+            /       .d-flex.flex-column.position-relative
+            /         .d-flex.align-items-center
+            /           .wallet-address.me-2#polkadot-user-account-menu-wallet-address
+            /           %button.btn.btn-icon.btn-sm
+            /             %i.bi.bi-clipboard.text-muted.fs-4{ 'data-clipboard-target' => '#polkadot-user-account-menu-wallet-address' }
+            /     .dropdown-divider
+            /     = link_to 'Change', '#', id: 'change-account-link', class: 'dropdown-item'

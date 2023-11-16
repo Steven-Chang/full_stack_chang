@@ -1,125 +1,1747 @@
 .container-fluid#home
+  .profile-foreground.position-relative.mx-n4.mt-n4
+    .profile-wid-bg
+      %img.profile-wid-img{alt: "", src: "assets/images/profile-bg.jpg"}/
+  .pt-4.mb-4.mb-lg-3.pb-lg-4.profile-wrapper
+    .row.g-4
+      .col-auto
+        .avatar-lg
+          %img.img-thumbnail.rounded-circle{ alt: "user-img", src: "https://res.cloudinary.com/hv5cxagki/image/upload/v1665701852/fsc/47955495901_fc0efe5e04_b-1_p7mtiu" }
+      .col
+        .p-2
+          %h3.text-white.mb-1 Steven Chang
+          %p.text-white.text-opacity-75 FOUNDER / CEO / CTO
+          .hstack.text-white-50.gap-1
+            .me-2
+              %i.ri-map-pin-user-line.me-1.text-white.text-opacity-75.fs-16.align-middle>
+              Sydney,
+              Australia
+            %div
+              %i.ri-building-line.me-1.text-white.text-opacity-75.fs-16.align-middle>
+              btn.group
   .row
-    .col-md-4
-      .card.text-center.mb-3
-        .card-body
-          = image_tag "https://res.cloudinary.com/hv5cxagki/image/upload/v1665701852/fsc/47955495901_fc0efe5e04_b-1_p7mtiu", style: 'border: 1px solid #e4eaec; padding: 3px;', class: 'w-100'
-          %p
-            FOUNDER/CEO @
-            %a{:href => "https://btn.group/", :target => "_blank"} btn.group
-          %ul.text-left.mb-0{:style => "padding-inline-start: 20px;"}
-            %li Aiming to contribute to humanity via intuitive and reliable software.
-            %li Communication and transparency are key.
-            %li Respect and thanks to the software community.
-            %ul
-      .card.p-3.mb-3
-        %h4.card-title{:style => "margin-bottom: .858rem;"}
-          Contact Information
-        .card-body.p-0
-          %p.mb-10.text-nowrap{"data-info-type" => "email"}
-            %i.bi.bi-envelope.mr-10
-            %span.text-break
-              = mail_to 'stevenchang5000@protonmail.com'
-          %p.mb-10.text-nowrap{"data-info-type" => "github"}
-            %i.bi.bi-github.mr-10
-            %span.text-break
-              = link_to 'Github', 'https://github.com/Steven-Chang'
-          %p.mb-10.text-nowrap{"data-info-type" => "address"}
-            %i.bi.bi-geo-alt.mr-10
-            %span.text-break
-              Sydney, Australia
-    .col-md-8
-      %ul.nav.nav-pills.mb-3{ role: "tablist" }
-        %li.nav-item{ role: "presentation" }
-          %button.nav-link.active{ "aria-controls" => "pills-portfolio", "aria-selected" => "true", "data-bs-target" => "#pills-portfolio", "data-bs-toggle" => "pill", role: "tab", type: "button" } Portfolio
-        %li.nav-item{ role: "presentation" }
-          %button.nav-link{ "aria-controls" => "pills-tools", "aria-selected" => "false", "data-bs-target" => "#pills-tools", "data-bs-toggle" => "pill", role: "tab", type: "button" } Tools
-        / %li.nav-item{ role: "presentation" }
-        /   %button.nav-link{ "aria-controls" => "pills-proud-of", "aria-selected" => "false", "data-bs-target" => "#pills-proud-of", "data-bs-toggle" => "pill", role: "tab", type: "button" } Proud of
-        %li.nav-item{ role: "presentation" }
-          %button.nav-link{ "aria-controls" => "pills-references", "aria-selected" => "false", "data-bs-target" => "#pills-references", "data-bs-toggle" => "pill", role: "tab", type: "button" } References
-      .tab-content
-        .tab-pane.fade.show.active#pills-portfolio{ "aria-labelledby" => "pills-portfolio", role: "tabpanel" }
-          .card
-            .card-body
-              %ul.timeline.timeline-single
-                - Project.where(private: false).order(start_date: :desc).each do |project|
-                  %li.timeline-item
-                    .timeline-dot
-                    .timeline-content
-                      - if project.logo.present?
-                        = image_tag project.logo.url, class: 'float-right', style: 'max-width: 120px;'
-                      %span.block.mb-5
-                        %h5
-                          - if project.url.present?
-                            = link_to project.title, project.url, target: '_blank', rel: 'noopener'
-                          - else
-                            = project.title
-                      %span.block.font-size-15.mb-5 #{project.start_date.strftime('%d %b %y')} - #{project.end_date&.strftime('%d %b %y') || 'NOW'} (#{distance_of_time_in_words(project.start_date, project.end_date || Time.current)})
-                      - if project.role.present?
-                        %span.block.mb-5= project.role
-                      /
-                        <haml_silent> if project.description.present? </haml_silent><haml_block>
-                        <div style='white-space: pre-line;'>
-                        <haml_loud> project.description </haml_loud>
-                        </div>
-                        </haml_block>
-        .tab-pane.fade#pills-tools{ "aria-labelledby" => "pills-tools-tab", role: "tabpanel" }
-          .card
-            - Tool::CATEGORY_LABEL_MAPPING.each do |key, value|
-              - visible_tools = Tool.where(category: key, visible: true)
+    .col-lg-12
+      %div
+        .d-flex.profile-wrapper
+          / Nav tabs
+          %ul.nav.nav-pills.animation-nav.profile-nav.gap-2.gap-lg-3.flex-grow-1{role: "tablist"}
+            %li.nav-item{role: "presentation"}
+              %a.nav-link.fs-14.active{"aria-selected" => "true", "data-bs-toggle" => "tab", href: "#overview-tab", role: "tab"}
+                %i.ri-airplay-fill.d-inline-block.d-md-none
+                %span.d-none.d-md-inline-block Overview
+            %li.nav-item{role: "presentation"}
+              %a.nav-link.fs-14{"aria-selected" => "false", "data-bs-toggle" => "tab", href: "#activities", role: "tab", tabindex: "-1"}
+                %i.ri-list-unordered.d-inline-block.d-md-none
+                %span.d-none.d-md-inline-block Activities
+            %li.nav-item{role: "presentation"}
+              %a.nav-link.fs-14{"aria-selected" => "false", "data-bs-toggle" => "tab", href: "#projects", role: "tab", tabindex: "-1"}
+                %i.ri-price-tag-line.d-inline-block.d-md-none
+                %span.d-none.d-md-inline-block Projects
+            %li.nav-item{role: "presentation"}
+              %a.nav-link.fs-14{"aria-selected" => "false", "data-bs-toggle" => "tab", href: "#documents", role: "tab", tabindex: "-1"}
+                %i.ri-folder-4-line.d-inline-block.d-md-none
+                %span.d-none.d-md-inline-block Documents
+        .tab-content.pt-4.text-muted
+          #overview-tab.tab-pane.active.show{role: "tabpanel"}
+            .row
+              .col-xxl-3
+                .card
+                  .card-body
+                    %h5.card-title.mb-3 Info
+                    .table-responsive
+                      %table.table.table-borderless.mb-0
+                        %tbody
+                          %tr
+                            %th.ps-0{scope: "row"} Full Name :
+                            %td.text-muted Anna Adame
+                          %tr
+                            %th.ps-0{scope: "row"} Mobile :
+                            %td.text-muted +(1) 987 6543
+                          %tr
+                            %th.ps-0{scope: "row"} E-mail :
+                            %td.text-muted daveadame@velzon.com
+                          %tr
+                            %th.ps-0{scope: "row"} Location :
+                            %td.text-muted
+                              California, United States
+                          %tr
+                            %th.ps-0{scope: "row"} Joining Date
+                            %td.text-muted 24 Nov 2021
+                  / end card body
+                / end card
+                .card
+                  .card-body
+                    %h5.card-title.mb-4 Portfolio
+                    .d-flex.flex-wrap.gap-2
+                      %div
+                        %a.avatar-xs.d-block{href: "javascript:void(0);"}
+                          %span.avatar-title.rounded-circle.fs-16.bg-dark.text-light
+                            %i.ri-github-fill
+                      %div
+                        %a.avatar-xs.d-block{href: "javascript:void(0);"}
+                          %span.avatar-title.rounded-circle.fs-16.bg-primary
+                            %i.ri-global-fill
+                      %div
+                        %a.avatar-xs.d-block{href: "javascript:void(0);"}
+                          %span.avatar-title.rounded-circle.fs-16.bg-success
+                            %i.ri-dribbble-fill
+                      %div
+                        %a.avatar-xs.d-block{href: "javascript:void(0);"}
+                          %span.avatar-title.rounded-circle.fs-16.bg-danger
+                            %i.ri-pinterest-fill
+                  / end card body
+                / end card
+                .card
+                  .card-body
+                    %h5.card-title.mb-4 Skills
+                    .d-flex.flex-wrap.gap-2.fs-15
+                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Photoshop
+                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} illustrator
+                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} HTML
+                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} CSS
+                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Javascript
+                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Php
+                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Python
+                  / end card body
+                / end card
+                .card
+                  .card-body
+                    .d-flex.align-items-center.mb-4
+                      .flex-grow-1
+                        %h5.card-title.mb-0 Suggestions
+                      .flex-shrink-0
+                        .dropdown
+                          %a#dropdownMenuLink2{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button"}
+                            %i.ri-more-2-fill.fs-14
+                          %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink2"}
+                            %li
+                              %a.dropdown-item{href: "#"} View
+                            %li
+                              %a.dropdown-item{href: "#"} Edit
+                            %li
+                              %a.dropdown-item{href: "#"} Delete
+                    %div
+                      .d-flex.align-items-center.py-3
+                        .avatar-xs.flex-shrink-0.me-3
+                          %img.img-fluid.rounded-circle{alt: "", src: "assets/images/users/avatar-3.jpg"}/
+                        .flex-grow-1
+                          %div
+                            %h5.fs-13.mb-1 Esther James
+                            %p.fs-13.text-muted.mb-0
+                              Frontend
+                              Developer
+                        .flex-shrink-0.ms-2
+                          %button.btn.btn-sm.btn-outline-success{type: "button"}
+                            %i.ri-user-add-line.align-middle
+                      .d-flex.align-items-center.py-3
+                        .avatar-xs.flex-shrink-0.me-3
+                          %img.img-fluid.rounded-circle{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                        .flex-grow-1
+                          %div
+                            %h5.fs-13.mb-1 Jacqueline Steve
+                            %p.fs-13.text-muted.mb-0
+                              UI/UX Designer
+                        .flex-shrink-0.ms-2
+                          %button.btn.btn-sm.btn-outline-success{type: "button"}
+                            %i.ri-user-add-line.align-middle
+                      .d-flex.align-items-center.py-3
+                        .avatar-xs.flex-shrink-0.me-3
+                          %img.img-fluid.rounded-circle{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                        .flex-grow-1
+                          %div
+                            %h5.fs-13.mb-1 George Whalen
+                            %p.fs-13.text-muted.mb-0
+                              Backend
+                              Developer
+                        .flex-shrink-0.ms-2
+                          %button.btn.btn-sm.btn-outline-success{type: "button"}
+                            %i.ri-user-add-line.align-middle
+                  / end card body
+                / end card
+                .card
+                  .card-body
+                    .d-flex.align-items-center.mb-4
+                      .flex-grow-1
+                        %h5.card-title.mb-0 Popular Posts
+                      .flex-shrink-0
+                        .dropdown
+                          %a#dropdownMenuLink1{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button"}
+                            %i.ri-more-2-fill.fs-14
+                          %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink1"}
+                            %li
+                              %a.dropdown-item{href: "#"} View
+                            %li
+                              %a.dropdown-item{href: "#"} Edit
+                            %li
+                              %a.dropdown-item{href: "#"} Delete
+                    .d-flex.mb-4
+                      .flex-shrink-0
+                        %img.rounded{alt: "", height: "50", src: "assets/images/small/img-4.jpg"}/
+                      .flex-grow-1.ms-3.overflow-hidden
+                        %a{href: "javascript:void(0);"}
+                          %h6.text-truncate.fs-13
+                            Design your apps in
+                            your own way
+                        %p.text-muted.mb-0 15 Dec 2021
+                    .d-flex.mb-4
+                      .flex-shrink-0
+                        %img.rounded{alt: "", height: "50", src: "assets/images/small/img-5.jpg"}/
+                      .flex-grow-1.ms-3.overflow-hidden
+                        %a{href: "javascript:void(0);"}
+                          %h6.text-truncate.fs-13
+                            Smartest
+                            Applications for Business
+                        %p.text-muted.mb-0 28 Nov 2021
+                    .d-flex
+                      .flex-shrink-0
+                        %img.rounded{alt: "", height: "50", src: "assets/images/small/img-6.jpg"}/
+                      .flex-grow-1.ms-3.overflow-hidden
+                        %a{href: "javascript:void(0);"}
+                          %h6.text-truncate.fs-13
+                            How to get creative
+                            in your work
+                        %p.text-muted.mb-0 21 Nov 2021
+                  / end card-body
+                / end card
+              / end col
+              .col-xxl-9
+                .card
+                  .card-body
+                    %h5.card-title.mb-3 About
+                    %p
+                      Hi I'm Anna Adame, It will be as simple as Occidental; in
+                      fact, it will be Occidental. To an English person, it will
+                      seem like simplified English, as a skeptical Cambridge
+                      friend of mine told me what Occidental is European languages
+                      are members of the same family.
+                    %p
+                      You always want to make sure that your fonts work well
+                      together and try to limit the number of fonts you use to
+                      three or less. Experiment and play around with the fonts
+                      that you already have in the software you’re working with
+                      reputable font websites. This may be the most commonly
+                      encountered tip I received from the designers I spoke with.
+                      They highly encourage that you use different fonts in one
+                      design, but do not over-exaggerate and go overboard.
+                    .row
+                      .col-6.col-md-4
+                        .d-flex.mt-4
+                          .flex-shrink-0.avatar-xs.align-self-center.me-3
+                            .avatar-title.bg-light.rounded-circle.fs-16.text-primary
+                              %i.ri-user-2-fill
+                          .flex-grow-1.overflow-hidden
+                            %p.mb-1 Designation :
+                            %h6.text-truncate.mb-0
+                              Lead Designer /
+                              Developer
+                      / end col
+                      .col-6.col-md-4
+                        .d-flex.mt-4
+                          .flex-shrink-0.avatar-xs.align-self-center.me-3
+                            .avatar-title.bg-light.rounded-circle.fs-16.text-primary
+                              %i.ri-global-line
+                          .flex-grow-1.overflow-hidden
+                            %p.mb-1 Website :
+                            %a.fw-semibold{href: "#"} www.velzon.com
+                      / end col
+                    / end row
+                  / end card-body
+                / end card
+                .row
+                  .col-lg-12
+                    .card
+                      .card-header.align-items-center.d-flex
+                        %h4.card-title.mb-0.me-2 Recent Activity
+                        .flex-shrink-0.ms-auto
+                          %ul.nav.justify-content-end.nav-tabs-custom.rounded.card-header-tabs.border-bottom-0{role: "tablist"}
+                            %li.nav-item{role: "presentation"}
+                              %a.nav-link{"aria-selected" => "false", "data-bs-toggle" => "tab", href: "#today", role: "tab", tabindex: "-1"}
+                                Today
+                            %li.nav-item{role: "presentation"}
+                              %a.nav-link{"aria-selected" => "false", "data-bs-toggle" => "tab", href: "#weekly", role: "tab", tabindex: "-1"}
+                                Weekly
+                            %li.nav-item{role: "presentation"}
+                              %a.nav-link.active{"aria-selected" => "true", "data-bs-toggle" => "tab", href: "#monthly", role: "tab"}
+                                Monthly
+                      .card-body
+                        .tab-content.text-muted
+                          #today.tab-pane{role: "tabpanel"}
+                            .profile-timeline
+                              #todayExample.accordion.accordion-flush
+                                .accordion-item.border-0
+                                  #headingOne.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "true", "data-bs-toggle" => "collapse", href: "#collapseOne"}
+                                      .d-flex
+                                        .flex-shrink-0
+                                          %img.avatar-xs.rounded-circle{alt: "", src: "assets/images/users/avatar-2.jpg"}/
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Jacqueline Steve
+                                          %small.text-muted
+                                            We
+                                            has changed 2
+                                            attributes on
+                                            05:16PM
+                                  #collapseOne.accordion-collapse.collapse.show{"aria-labelledby" => "headingOne", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5
+                                      In an awareness campaign, it
+                                      is vital for people to begin
+                                      put 2 and 2 together and
+                                      begin to recognize your
+                                      cause. Too much or too
+                                      little spacing, as in the
+                                      example below, can make
+                                      things unpleasant for the
+                                      reader. The goal is to make
+                                      your text as comfortable to
+                                      read as possible. A
+                                      wonderful serenity has taken
+                                      possession of my entire
+                                      soul, like these sweet
+                                      mornings of spring which I
+                                      enjoy with my whole heart.
+                                .accordion-item.border-0
+                                  #headingTwo.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "false", "data-bs-toggle" => "collapse", href: "#collapseTwo"}
+                                      .d-flex
+                                        .flex-shrink-0.avatar-xs
+                                          .avatar-title.bg-light.text-success.rounded-circle
+                                            M
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Megan Elmore
+                                          %small.text-muted
+                                            Adding
+                                            a new event with
+                                            attachments -
+                                            04:45PM
+                                  #collapseTwo.accordion-collapse.collapse.show{"aria-labelledby" => "headingTwo", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5
+                                      .row.g-2
+                                        .col-auto
+                                          .d-flex.border.border-dashed.p-2.rounded.position-relative
+                                            .flex-shrink-0
+                                              %i.ri-image-2-line.fs-17.text-danger
+                                            .flex-grow-1.ms-2
+                                              %h6
+                                                %a.stretched-link{href: "javascript:void(0);"}
+                                                  Business
+                                                  Template
+                                                  \-
+                                                  UI/UX
+                                                  design
+                                              %small
+                                                685
+                                                KB
+                                        .col-auto
+                                          .d-flex.border.border-dashed.p-2.rounded.position-relative
+                                            .flex-shrink-0
+                                              %i.ri-file-zip-line.fs-17.text-info
+                                            .flex-grow-1.ms-2
+                                              %h6
+                                                %a.stretched-link{href: "javascript:void(0);"}
+                                                  Bank
+                                                  Management
+                                                  System
+                                                  \-
+                                                  PSD
+                                              %small
+                                                8.78
+                                                MB
+                                .accordion-item.border-0
+                                  #headingThree.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "false", "data-bs-toggle" => "collapse", href: "#collapsethree"}
+                                      .d-flex
+                                        .flex-shrink-0
+                                          %img.avatar-xs.rounded-circle{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            New ticket
+                                            received
+                                          %small.text-muted.mb-2
+                                            User
+                                            %span.text-secondary Erica245
+                                            submitted a
+                                            ticket -
+                                            02:33PM
+                                .accordion-item.border-0
+                                  #headingFour.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "true", "data-bs-toggle" => "collapse", href: "#collapseFour"}
+                                      .d-flex
+                                        .flex-shrink-0.avatar-xs
+                                          .avatar-title.bg-light.text-muted.rounded-circle
+                                            %i.ri-user-3-fill
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Nancy Martino
+                                          %small.text-muted
+                                            Commented
+                                            on
+                                            12:57PM
+                                  #collapseFour.accordion-collapse.collapse.show{"aria-labelledby" => "headingFour", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5.fst-italic
+                                      " A wonderful serenity has
+                                      taken possession of my
+                                      entire soul, like these
+                                      sweet mornings of spring
+                                      which I enjoy with my whole
+                                      heart. Each design is a new,
+                                      unique piece of art birthed
+                                      into this world, and while
+                                      you have the opportunity to
+                                      be creative and make your
+                                      own style choices. "
+                                .accordion-item.border-0
+                                  #headingFive.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "true", "data-bs-toggle" => "collapse", href: "#collapseFive"}
+                                      .d-flex
+                                        .flex-shrink-0
+                                          %img.avatar-xs.rounded-circle{alt: "", src: "assets/images/users/avatar-7.jpg"}/
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Lewis Arnold
+                                          %small.text-muted
+                                            Create
+                                            new project
+                                            buildng product
+                                            \-
+                                            10:05AM
+                                  #collapseFive.accordion-collapse.collapse.show{"aria-labelledby" => "headingFive", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5
+                                      %p.text-muted.mb-2
+                                        Every team project can
+                                        have a velzon. Use the
+                                        velzon to share
+                                        information with your
+                                        team to understand and
+                                        contribute to your
+                                        project.
+                                      .avatar-group
+                                        %a.avatar-group-item{"data-bs-original-title" => "Christi", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", "data-bs-trigger" => "hover", href: "javascript: void(0);", title: ""}
+                                          %img.rounded-circle.avatar-xs{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                                        %a.avatar-group-item{"data-bs-original-title" => "Frank Hook", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", "data-bs-trigger" => "hover", href: "javascript: void(0);", title: ""}
+                                          %img.rounded-circle.avatar-xs{alt: "", src: "assets/images/users/avatar-3.jpg"}/
+                                        %a.avatar-group-item{"data-bs-original-title" => " Ruby", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", "data-bs-trigger" => "hover", href: "javascript: void(0);", title: ""}
+                                          .avatar-xs
+                                            .avatar-title.rounded-circle.bg-light.text-primary
+                                              R
+                                        %a.avatar-group-item{"data-bs-original-title" => "more", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", "data-bs-trigger" => "hover", href: "javascript: void(0);", title: ""}
+                                          .avatar-xs
+                                            .avatar-title.rounded-circle
+                                              2+
+                              / end accordion
+                          #weekly.tab-pane{role: "tabpanel"}
+                            .profile-timeline
+                              #weeklyExample.accordion.accordion-flush
+                                .accordion-item.border-0
+                                  #heading6.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "true", "data-bs-toggle" => "collapse", href: "#collapse6"}
+                                      .d-flex
+                                        .flex-shrink-0
+                                          %img.avatar-xs.rounded-circle{alt: "", src: "assets/images/users/avatar-3.jpg"}/
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Joseph Parker
+                                          %small.text-muted
+                                            New
+                                            people joined
+                                            with our company
+                                            \-
+                                            Yesterday
+                                  #collapse6.accordion-collapse.collapse.show{"aria-labelledby" => "heading6", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5
+                                      It makes a statement, it’s
+                                      impressive graphic design.
+                                      Increase or decrease the
+                                      letter spacing depending on
+                                      the situation and try, try
+                                      again until it looks right,
+                                      and each letter has the
+                                      perfect spot of its own.
+                                .accordion-item.border-0
+                                  #heading7.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "false", "data-bs-toggle" => "collapse", href: "#collapse7"}
+                                      .d-flex
+                                        .avatar-xs
+                                          .avatar-title.rounded-circle.bg-light.text-danger
+                                            %i.ri-shopping-bag-line
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Your order is
+                                            placed
+                                            %span.badge.bg-success-subtle.text-success.align-middle Completed
+                                          %small.text-muted
+                                            These
+                                            customers can
+                                            rest assured
+                                            their order has
+                                            been placed - 1
+                                            week Ago
+                                .accordion-item.border-0
+                                  #heading8.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "true", "data-bs-toggle" => "collapse", href: "#collapse8"}
+                                      .d-flex
+                                        .flex-shrink-0.avatar-xs
+                                          .avatar-title.bg-light.text-success.rounded-circle
+                                            %i.ri-home-3-line
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Velzon admin
+                                            dashboard
+                                            templates layout
+                                            upload
+                                          %small.text-muted
+                                            We
+                                            talked about a
+                                            project on
+                                            linkedin - 1
+                                            week Ago
+                                  #collapse8.accordion-collapse.collapse.show{"aria-labelledby" => "heading8", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5.fst-italic
+                                      Powerful, clean &amp; modern
+                                      responsive bootstrap 5 admin
+                                      template. The maximum file
+                                      size for uploads in this
+                                      demo :
+                                      .row.mt-2
+                                        .col-xxl-6
+                                          .row.border.border-dashed.gx-2.p-2
+                                            .col-3
+                                              %img.img-fluid.rounded{alt: "", src: "assets/images/small/img-3.jpg"}/
+                                            / end col
+                                            .col-3
+                                              %img.img-fluid.rounded{alt: "", src: "assets/images/small/img-5.jpg"}/
+                                            / end col
+                                            .col-3
+                                              %img.img-fluid.rounded{alt: "", src: "assets/images/small/img-7.jpg"}/
+                                            / end col
+                                            .col-3
+                                              %img.img-fluid.rounded{alt: "", src: "assets/images/small/img-9.jpg"}/
+                                            / end col
+                                          / end row
+                                .accordion-item.border-0
+                                  #heading9.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "false", "data-bs-toggle" => "collapse", href: "#collapse9"}
+                                      .d-flex
+                                        .flex-shrink-0
+                                          %img.avatar-xs.rounded-circle{alt: "", src: "assets/images/users/avatar-6.jpg"}/
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            New ticket
+                                            created
+                                            %span.badge.bg-info-subtle.text-info.align-middle Inprogress
+                                          %small.text-muted.mb-2
+                                            User
+                                            %span.text-secondary Jack365
+                                            submitted a
+                                            ticket - 2 week
+                                            Ago
+                                .accordion-item.border-0
+                                  #heading10.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "true", "data-bs-toggle" => "collapse", href: "#collapse10"}
+                                      .d-flex
+                                        .flex-shrink-0
+                                          %img.avatar-xs.rounded-circle{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Jennifer Carter
+                                          %small.text-muted
+                                            Commented
+                                            \- 4 week
+                                            Ago
+                                  #collapse10.accordion-collapse.collapse.show{"aria-labelledby" => "heading10", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5
+                                      %p.text-muted.fst-italic.mb-2
+                                        " This is an awesome
+                                        admin dashboard
+                                        template. It is
+                                        extremely well
+                                        structured and uses
+                                        state of the art
+                                        components (e.g. one of
+                                        the only templates using
+                                        boostrap 5.1.3 so far).
+                                        I integrated it into a
+                                        Rails 6 project. Needs
+                                        manual integration work
+                                        of course but the
+                                        template structure made
+                                        it easy. "
+                              / end accordion
+                          #monthly.tab-pane.active.show{role: "tabpanel"}
+                            .profile-timeline
+                              #monthlyExample.accordion.accordion-flush
+                                .accordion-item.border-0
+                                  #heading11.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "false", "data-bs-toggle" => "collapse", href: "#collapse11"}
+                                      .d-flex
+                                        .flex-shrink-0.avatar-xs
+                                          .avatar-title.bg-light.text-success.rounded-circle
+                                            M
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Megan Elmore
+                                          %small.text-muted
+                                            Adding
+                                            a new event with
+                                            attachments - 1
+                                            month
+                                            Ago.
+                                  #collapse11.accordion-collapse.collapse.show{"aria-labelledby" => "heading11", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5
+                                      .row.g-2
+                                        .col-auto
+                                          .d-flex.border.border-dashed.p-2.rounded.position-relative
+                                            .flex-shrink-0
+                                              %i.ri-image-2-line.fs-17.text-danger
+                                            .flex-grow-1.ms-2
+                                              %h6
+                                                %a.stretched-link{href: "javascript:void(0);"}
+                                                  Business
+                                                  Template
+                                                  \-
+                                                  UI/UX
+                                                  design
+                                              %small
+                                                685
+                                                KB
+                                        .col-auto
+                                          .d-flex.border.border-dashed.p-2.rounded.position-relative
+                                            .flex-shrink-0
+                                              %i.ri-file-zip-line.fs-17.text-info
+                                            .flex-grow-1.ms-2
+                                              %h6
+                                                %a.stretched-link{href: "javascript:void(0);"}
+                                                  Bank
+                                                  Management
+                                                  System
+                                                  \-
+                                                  PSD
+                                              %small
+                                                8.78
+                                                MB
+                                        .col-auto
+                                          .d-flex.border.border-dashed.p-2.rounded.position-relative
+                                            .flex-shrink-0
+                                              %i.ri-file-zip-line.fs-17.text-info
+                                            .flex-grow-1.ms-2
+                                              %h6
+                                                %a.stretched-link{href: "javascript:void(0);"}
+                                                  Bank
+                                                  Management
+                                                  System
+                                                  \-
+                                                  PSD
+                                              %small
+                                                8.78
+                                                MB
+                                .accordion-item.border-0
+                                  #heading12.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "true", "data-bs-toggle" => "collapse", href: "#collapse12"}
+                                      .d-flex
+                                        .flex-shrink-0
+                                          %img.avatar-xs.rounded-circle{alt: "", src: "assets/images/users/avatar-2.jpg"}/
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Jacqueline Steve
+                                          %small.text-muted
+                                            We
+                                            has changed 2
+                                            attributes on 3
+                                            month
+                                            Ago
+                                  #collapse12.accordion-collapse.collapse.show{"aria-labelledby" => "heading12", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5
+                                      In an awareness campaign, it
+                                      is vital for people to begin
+                                      put 2 and 2 together and
+                                      begin to recognize your
+                                      cause. Too much or too
+                                      little spacing, as in the
+                                      example below, can make
+                                      things unpleasant for the
+                                      reader. The goal is to make
+                                      your text as comfortable to
+                                      read as possible. A
+                                      wonderful serenity has taken
+                                      possession of my entire
+                                      soul, like these sweet
+                                      mornings of spring which I
+                                      enjoy with my whole heart.
+                                .accordion-item.border-0
+                                  #heading13.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "false", "data-bs-toggle" => "collapse", href: "#collapse13"}
+                                      .d-flex
+                                        .flex-shrink-0
+                                          %img.avatar-xs.rounded-circle{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            New ticket
+                                            received
+                                          %small.text-muted.mb-2
+                                            User
+                                            %span.text-secondary Erica245
+                                            submitted a
+                                            ticket - 5 month
+                                            Ago
+                                .accordion-item.border-0
+                                  #heading14.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "true", "data-bs-toggle" => "collapse", href: "#collapse14"}
+                                      .d-flex
+                                        .flex-shrink-0.avatar-xs
+                                          .avatar-title.bg-light.text-muted.rounded-circle
+                                            %i.ri-user-3-fill
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Nancy Martino
+                                          %small.text-muted
+                                            Commented
+                                            on 24 Nov,
+                                            2021.
+                                  #collapse14.accordion-collapse.collapse.show{"aria-labelledby" => "heading14", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5.fst-italic
+                                      " A wonderful serenity has
+                                      taken possession of my
+                                      entire soul, like these
+                                      sweet mornings of spring
+                                      which I enjoy with my whole
+                                      heart. Each design is a new,
+                                      unique piece of art birthed
+                                      into this world, and while
+                                      you have the opportunity to
+                                      be creative and make your
+                                      own style choices. "
+                                .accordion-item.border-0
+                                  #heading15.accordion-header
+                                    %a.accordion-button.p-2.shadow-none{"aria-expanded" => "true", "data-bs-toggle" => "collapse", href: "#collapse15"}
+                                      .d-flex
+                                        .flex-shrink-0
+                                          %img.avatar-xs.rounded-circle{alt: "", src: "assets/images/users/avatar-7.jpg"}/
+                                        .flex-grow-1.ms-3
+                                          %h6.fs-14.mb-1
+                                            Lewis Arnold
+                                          %small.text-muted
+                                            Create
+                                            new project
+                                            buildng product
+                                            \- 8 month
+                                            Ago
+                                  #collapse15.accordion-collapse.collapse.show{"aria-labelledby" => "heading15", "data-bs-parent" => "#accordionExample"}
+                                    .accordion-body.ms-2.ps-5
+                                      %p.text-muted.mb-2
+                                        Every team project can
+                                        have a velzon. Use the
+                                        velzon to share
+                                        information with your
+                                        team to understand and
+                                        contribute to your
+                                        project.
+                                      .avatar-group
+                                        %a.avatar-group-item{"data-bs-original-title" => "Christi", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", "data-bs-trigger" => "hover", href: "javascript: void(0);", title: ""}
+                                          %img.rounded-circle.avatar-xs{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                                        %a.avatar-group-item{"data-bs-original-title" => "Frank Hook", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", "data-bs-trigger" => "hover", href: "javascript: void(0);", title: ""}
+                                          %img.rounded-circle.avatar-xs{alt: "", src: "assets/images/users/avatar-3.jpg"}/
+                                        %a.avatar-group-item{"data-bs-original-title" => " Ruby", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", "data-bs-trigger" => "hover", href: "javascript: void(0);", title: ""}
+                                          .avatar-xs
+                                            .avatar-title.rounded-circle.bg-light.text-primary
+                                              R
+                                        %a.avatar-group-item{"data-bs-original-title" => "more", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", "data-bs-trigger" => "hover", href: "javascript: void(0);", title: ""}
+                                          .avatar-xs
+                                            .avatar-title.rounded-circle
+                                              2+
+                              / end accordion
+                      / end card body
+                    / end card
+                  / end col
+                / end row
+                .card
+                  .card-body
+                    %h5.card-title Projects
+                    / Swiper
+                    .swiper.project-swiper.mt-n4.swiper-initialized.swiper-horizontal.swiper-backface-hidden
+                      .d-flex.justify-content-end.gap-2.mb-2
+                        .slider-button-prev{"aria-controls" => "swiper-wrapper-0eccfb39215bdc5c", "aria-disabled" => "false", "aria-label" => "Previous slide", role: "button", tabindex: "0"}
+                          .avatar-title.fs-18.rounded.px-1
+                            %i.ri-arrow-left-s-line
+                        .slider-button-next.swiper-button-disabled{"aria-controls" => "swiper-wrapper-0eccfb39215bdc5c", "aria-disabled" => "true", "aria-label" => "Next slide", role: "button", tabindex: "-1"}
+                          .avatar-title.fs-18.rounded.px-1
+                            %i.ri-arrow-right-s-line
+                      #swiper-wrapper-0eccfb39215bdc5c.swiper-wrapper{"aria-live" => "polite", style: "transition-duration: 0ms; transform: translate3d(-1302px, 0px, 0px);"}
+                        .swiper-slide{"aria-label" => "1 / 5", role: "group", style: "width: 414px; margin-right: 20px;"}
+                          .card.profile-project-card.shadow-none.profile-project-success.mb-0
+                            .card-body.p-4
+                              .d-flex
+                                .flex-grow-1.text-muted.overflow-hidden
+                                  %h5.fs-14.text-truncate.mb-1
+                                    %a.text-body{href: "#"}
+                                      ABC
+                                      Project Customization
+                                  %p.text-muted.text-truncate.mb-0
+                                    Last Update :
+                                    %span.fw-semibold.text-body
+                                      4
+                                      hr Ago
+                                .flex-shrink-0.ms-2
+                                  .badge.bg-warning-subtle.text-warning.fs-10
+                                    Inprogress
+                              .d-flex.mt-4
+                                .flex-grow-1
+                                  .d-flex.align-items-center.gap-2
+                                    %div
+                                      %h5.fs-12.text-muted.mb-0
+                                        Members :
+                                    .avatar-group
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          .avatar-title.rounded-circle.bg-light.text-primary
+                                            A
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-2.jpg"}/
+                            / end card body
+                          / end card
+                        / end slide item
+                        .swiper-slide{"aria-label" => "2 / 5", role: "group", style: "width: 414px; margin-right: 20px;"}
+                          .card.profile-project-card.shadow-none.profile-project-danger.mb-0
+                            .card-body.p-4
+                              .d-flex
+                                .flex-grow-1.text-muted.overflow-hidden
+                                  %h5.fs-14.text-truncate.mb-1
+                                    %a.text-body{href: "#"}
+                                      Client -
+                                      John
+                                  %p.text-muted.text-truncate.mb-0
+                                    Last Update :
+                                    %span.fw-semibold.text-body
+                                      1
+                                      hr Ago
+                                .flex-shrink-0.ms-2
+                                  .badge.bg-success-subtle.text-success.fs-10
+                                    Completed
+                              .d-flex.mt-4
+                                .flex-grow-1
+                                  .d-flex.align-items-center.gap-2
+                                    %div
+                                      %h5.fs-12.text-muted.mb-0
+                                        Members :
+                                    .avatar-group
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-2.jpg"}/
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          .avatar-title.rounded-circle.bg-light.text-primary
+                                            C
+                            / end card body
+                          / end card
+                        / end slide item
+                        .swiper-slide.swiper-slide-prev{"aria-label" => "3 / 5", role: "group", style: "width: 414px; margin-right: 20px;"}
+                          .card.profile-project-card.shadow-none.profile-project-info.mb-0
+                            .card-body.p-4
+                              .d-flex
+                                .flex-grow-1.text-muted.overflow-hidden
+                                  %h5.fs-14.text-truncate.mb-1
+                                    %a.text-body{href: "#"}
+                                      Brand logo
+                                      Design
+                                  %p.text-muted.text-truncate.mb-0
+                                    Last Update :
+                                    %span.fw-semibold.text-body
+                                      2
+                                      hr Ago
+                                .flex-shrink-0.ms-2
+                                  .badge.bg-warning-subtle.text-warning.fs-10
+                                    Inprogress
+                              .d-flex.mt-4
+                                .flex-grow-1
+                                  .d-flex.align-items-center.gap-2
+                                    %div
+                                      %h5.fs-12.text-muted.mb-0
+                                        Members :
+                                    .avatar-group
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                            / end card body
+                          / end card
+                        / end slide item
+                        .swiper-slide.swiper-slide-active{"aria-label" => "4 / 5", role: "group", style: "width: 414px; margin-right: 20px;"}
+                          .card.profile-project-card.shadow-none.profile-project-danger.mb-0
+                            .card-body.p-4
+                              .d-flex
+                                .flex-grow-1.text-muted.overflow-hidden
+                                  %h5.fs-14.text-truncate.mb-1
+                                    %a.text-body{href: "#"}
+                                      Project
+                                      update
+                                  %p.text-muted.text-truncate.mb-0
+                                    Last Update :
+                                    %span.fw-semibold.text-body
+                                      4
+                                      hr Ago
+                                .flex-shrink-0.ms-2
+                                  .badge.bg-success-subtle.text-success.fs-10
+                                    Completed
+                              .d-flex.mt-4
+                                .flex-grow-1
+                                  .d-flex.align-items-center.gap-2
+                                    %div
+                                      %h5.fs-12.text-muted.mb-0
+                                        Members :
+                                    .avatar-group
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                            / end card body
+                          / end card
+                        / end slide item
+                        .swiper-slide.swiper-slide-next{"aria-label" => "5 / 5", role: "group", style: "width: 414px; margin-right: 20px;"}
+                          .card.profile-project-card.shadow-none.profile-project-warning.mb-0
+                            .card-body.p-4
+                              .d-flex
+                                .flex-grow-1.text-muted.overflow-hidden
+                                  %h5.fs-14.text-truncate.mb-1
+                                    %a.text-body{href: "#"}
+                                      Chat
+                                      App
+                                  %p.text-muted.text-truncate.mb-0
+                                    Last Update :
+                                    %span.fw-semibold.text-body
+                                      1
+                                      hr Ago
+                                .flex-shrink-0.ms-2
+                                  .badge.bg-warning-subtle.text-warning.fs-10
+                                    Inprogress
+                              .d-flex.mt-4
+                                .flex-grow-1
+                                  .d-flex.align-items-center.gap-2
+                                    %div
+                                      %h5.fs-12.text-muted.mb-0
+                                        Members :
+                                    .avatar-group
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                                      .avatar-group-item
+                                        .avatar-xs
+                                          .avatar-title.rounded-circle.bg-light.text-primary
+                                            A
+                            / end card body
+                          / end card
+                        / end slide item
+                      %span.swiper-notification{"aria-atomic" => "true", "aria-live" => "assertive"}
+                  / end card body
+                / end card
+              / end col
+            / end row
+          #activities.tab-pane.fade{role: "tabpanel"}
+            .card
               .card-body
-                %h5.card-title
-                  %span #{value} (#{visible_tools.count})
-                - visible_tools.order(:name).each do |tool|
-                  - if tool.logo.present?
-                    .mb-2.mr-2.text-center.d-inline-block.bg-light.align-top{:style => "border: 1px solid white; border-radius: 6px; height: 135px; width: 120px;"}
-                      %div{:style => "padding: 10px 25px 0 25px;"}
-                        .d-inline-block.bg-white.text-center.p-1{:style => "height: 70px; width: 70px; border-radius: 4px;"}
-                          = image_tag tool.logo.variant(:thumb).processed
-                      .p-1{:style => "line-height: 22px; font-size: 13px; font-weight: 600; color: rgb(51, 51, 51)"}= tool.name
-        / .tab-pane.fade#pills-proud-of{ "aria-labelledby" => "pills-proud-of-tab", role: "tabpanel" }
-        /   %ul.blocks.blocks-100.blocks-xxl-4.blocks-lg-3.blocks-md-2.mt-4{"data-filters" => "#exampleFilter", "data-plugin" => "filterable"}
-        /     %li
-        /       .card
-        /         %figure.card-img-top.overlay-hover.overlay
-        /           %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"}/
-        /           %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
-        /             %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555835262/Screen_Shot_2019-04-21_at_6.27.08_pm_rj2hla.png"}
-        /     %li
-        /       .card
-        /         %figure.card-img-top.overlay-hover.overlay
-        /           %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"}/
-        /           %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
-        /             %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834688/thumbnail_Screen_Shot_2019-03-18_at_7.51.08_am_xvygx1.jpg"}
-        /     %li
-        /       .card
-        /         %figure.card-img-top.overlay-hover.overlay
-        /           %img.overlay-figure.overlay-scale{:src => "https://res.cloudinary.com/hpxlnqput/image/upload/w_653,h_432,c_pad,b_whitesmoke/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}/
-        /           %figcaption.overlay-panel.overlay-background.overlay-fade.overlay-icon
-        /             %a.icon.wb-search{:href => "https://res.cloudinary.com/hpxlnqput/image/upload/v1555834687/thumbnail_Screen_Shot_2019-03-18_at_7.49.56_am_nctgse.jpg"}
-        .tab-pane.fade#pills-references{ "aria-labelledby" => "pills-references-tab", role: "tabpanel" }
-          .card
-            .card-body
-              .table-responsive
-                %table.table
-                  %thead
-                    %tr
-                      %th Name
-                      %th Position
-                      %th Company
-                      %th Phone
-                      %th Email
-                  %tbody
-                    %tr
-                      %td Brett Macdonald
-                      %td CEO
-                      %td Ezy Raise
-                      %td +61 2 9237 8427
-                      %td= mail_to 'brett@CHILfundraising.com'
-                    %tr
-                      %td Ruth Wang
-                      %td Senior Developer
-                      %td Maestrano
-                      %td
-                      %td
+                %h5.card-title.mb-3 Activities
+                .acitivity-timeline
+                  .acitivity-item.d-flex
+                    .flex-shrink-0
+                      %img.avatar-xs.rounded-circle.acitivity-avatar{alt: "", src: "assets/images/users/avatar-1.jpg"}/
+                    .flex-grow-1.ms-3
+                      %h6.mb-1
+                        Oliver Phillips
+                        %span.badge.bg-primary-subtle.text-primary.align-middle New
+                      %p.text-muted.mb-2
+                        We talked about a project on
+                        linkedin.
+                      %small.mb-0.text-muted Today
+                  .acitivity-item.py-3.d-flex
+                    .flex-shrink-0.avatar-xs.acitivity-avatar
+                      .avatar-title.bg-success-subtle.text-success.rounded-circle
+                        N
+                    .flex-grow-1.ms-3
+                      %h6.mb-1
+                        Nancy Martino
+                        %span.badge.bg-secondary-subtle.text-secondary.align-middle
+                          In
+                          Progress
+                      %p.text-muted.mb-2
+                        %i.ri-file-text-line.align-middle.ms-2
+                        Create new project Buildng product
+                      .avatar-group.mb-2
+                        %a.avatar-group-item{"data-bs-original-title" => "Christi", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", href: "javascript: void(0);", title: ""}
+                          %img.rounded-circle.avatar-xs{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                        %a.avatar-group-item{"data-bs-original-title" => "Frank Hook", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", href: "javascript: void(0);", title: ""}
+                          %img.rounded-circle.avatar-xs{alt: "", src: "assets/images/users/avatar-3.jpg"}/
+                        %a.avatar-group-item{"data-bs-original-title" => " Ruby", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", href: "javascript: void(0);", title: ""}
+                          .avatar-xs
+                            .avatar-title.rounded-circle.bg-light.text-primary
+                              R
+                        %a.avatar-group-item{"data-bs-original-title" => "more", "data-bs-placement" => "top", "data-bs-toggle" => "tooltip", href: "javascript: void(0);", title: ""}
+                          .avatar-xs
+                            .avatar-title.rounded-circle
+                              2+
+                      %small.mb-0.text-muted Yesterday
+                  .acitivity-item.py-3.d-flex
+                    .flex-shrink-0
+                      %img.avatar-xs.rounded-circle.acitivity-avatar{alt: "", src: "assets/images/users/avatar-2.jpg"}/
+                    .flex-grow-1.ms-3
+                      %h6.mb-1
+                        Natasha Carey
+                        %span.badge.bg-success-subtle.text-success.align-middle Completed
+                      %p.text-muted.mb-2
+                        Adding a new event with
+                        attachments
+                      .row
+                        .col-xxl-4
+                          .row.border.border-dashed.gx-2.p-2.mb-2
+                            .col-4
+                              %img.img-fluid.rounded{alt: "", src: "assets/images/small/img-2.jpg"}/
+                            / end col
+                            .col-4
+                              %img.img-fluid.rounded{alt: "", src: "assets/images/small/img-3.jpg"}/
+                            / end col
+                            .col-4
+                              %img.img-fluid.rounded{alt: "", src: "assets/images/small/img-4.jpg"}/
+                            / end col
+                          / end row
+                      %small.mb-0.text-muted 25 Nov
+                  .acitivity-item.py-3.d-flex
+                    .flex-shrink-0
+                      %img.avatar-xs.rounded-circle.acitivity-avatar{alt: "", src: "assets/images/users/avatar-6.jpg"}/
+                    .flex-grow-1.ms-3
+                      %h6.mb-1 Bethany Johnson
+                      %p.text-muted.mb-2
+                        added a new member to velzon
+                        dashboard
+                      %small.mb-0.text-muted 19 Nov
+                  .acitivity-item.py-3.d-flex
+                    .flex-shrink-0
+                      .avatar-xs.acitivity-avatar
+                        .avatar-title.rounded-circle.bg-danger-subtle.text-danger
+                          %i.ri-shopping-bag-line
+                    .flex-grow-1.ms-3
+                      %h6.mb-1
+                        Your order is placed
+                        %span.badge.bg-danger-subtle.text-danger.align-middle.ms-1
+                          Out
+                          of Delivery
+                      %p.text-muted.mb-2
+                        These customers can rest assured
+                        their order has been placed.
+                      %small.mb-0.text-muted 16 Nov
+                  .acitivity-item.py-3.d-flex
+                    .flex-shrink-0
+                      %img.avatar-xs.rounded-circle.acitivity-avatar{alt: "", src: "assets/images/users/avatar-7.jpg"}/
+                    .flex-grow-1.ms-3
+                      %h6.mb-1 Lewis Pratt
+                      %p.text-muted.mb-2
+                        They all have something to say
+                        beyond the words on the page. They can come across as
+                        casual or neutral, exotic or graphic.
+                      %small.mb-0.text-muted 22 Oct
+                  .acitivity-item.py-3.d-flex
+                    .flex-shrink-0
+                      .avatar-xs.acitivity-avatar
+                        .avatar-title.rounded-circle.bg-info-subtle.text-info
+                          %i.ri-line-chart-line
+                    .flex-grow-1.ms-3
+                      %h6.mb-1 Monthly sales report
+                      %p.text-muted.mb-2
+                        %span.text-danger
+                          2 days
+                          left
+                        notification to submit the monthly sales
+                        report.
+                        %a.link-warning.text-decoration-underline{href: "javascript:void(0);"}
+                          Reports
+                          Builder
+                      %small.mb-0.text-muted 15 Oct
+                  .acitivity-item.d-flex
+                    .flex-shrink-0
+                      %img.avatar-xs.rounded-circle.acitivity-avatar{alt: "", src: "assets/images/users/avatar-8.jpg"}/
+                    .flex-grow-1.ms-3
+                      %h6.mb-1
+                        New ticket received
+                        %span.badge.bg-success-subtle.text-success.align-middle Completed
+                      %p.text-muted.mb-2
+                        User
+                        %span.text-secondary Erica245
+                        submitted a
+                        ticket.
+                      %small.mb-0.text-muted 26 Aug
+              / end card-body
+            / end card
+          / end tab-pane
+          #projects.tab-pane.fade{role: "tabpanel"}
+            .card
+              .card-body
+                .row
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.profile-project-warning
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"} Chat App Update
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                2 year
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-warning-subtle.text-warning.fs-10
+                              Inprogress
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-1.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-3.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    .avatar-title.rounded-circle.bg-light.text-primary
+                                      J
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.profile-project-success
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"}
+                                ABC Project
+                                Customization
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                2 month
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-primary-subtle.text-primary.fs-10
+                              Progress
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-8.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-7.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-6.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    .avatar-title.rounded-circle.bg-primary
+                                      2+
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.profile-project-info
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"}
+                                Client - Frank
+                                Hook
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                1 hr
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-info-subtle.text-info.fs-10
+                              New
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    .avatar-title.rounded-circle.bg-light.text-primary
+                                      M
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-3.jpg"}/
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.profile-project-primary
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"} Velzon Project
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                11 hr
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-success-subtle.text-success.fs-10
+                              Completed
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-7.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.profile-project-danger
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"} Brand Logo Design
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                10 min
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-info-subtle.text-info.fs-10
+                              New
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-7.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-6.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    .avatar-title.rounded-circle.bg-light.text-primary
+                                      E
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.profile-project-primary
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"} Chat App
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                8 hr
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-warning-subtle.text-warning.fs-10
+                              Inprogress
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    .avatar-title.rounded-circle.bg-light.text-primary
+                                      R
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-3.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-8.jpg"}/
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.profile-project-warning
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"} Project Update
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                48 min
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-warning-subtle.text-warning.fs-10
+                              Inprogress
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-6.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.profile-project-success
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"} Client - Jennifer
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                30 min
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-primary-subtle.text-primary.fs-10
+                              Process
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-1.jpg"}/
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.mb-xxl-0.profile-project-info
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"}
+                                Bsuiness Template -
+                                UI/UX design
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                7 month
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-success-subtle.text-success.fs-10
+                              Completed
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-2.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-3.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-4.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    .avatar-title.rounded-circle.bg-primary
+                                      2+
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.mb-xxl-0.profile-project-success
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"} Update Project
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                1 month
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-info-subtle.text-info.fs-10
+                              New
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-7.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    .avatar-title.rounded-circle.bg-light.text-primary
+                                      A
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.mb-sm-0.profile-project-danger
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"}
+                                Bank Management
+                                System
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                10 month
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-success-subtle.text-success.fs-10
+                              Completed
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-7.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-6.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-5.jpg"}/
+                                .avatar-group-item
+                                  .avatar-xs
+                                    .avatar-title.rounded-circle.bg-primary
+                                      2+
+                      / end card body
+                    / end card
+                  / end col
+                  .col-xxl-3.col-sm-6
+                    .card.profile-project-card.shadow-none.mb-0.profile-project-primary
+                      .card-body.p-4
+                        .d-flex
+                          .flex-grow-1.text-muted.overflow-hidden
+                            %h5.fs-14.text-truncate
+                              %a.text-body{href: "#"}
+                                PSD to HTML
+                                Convert
+                            %p.text-muted.text-truncate.mb-0
+                              Last
+                              Update :
+                              %span.fw-semibold.text-body
+                                29 min
+                                Ago
+                          .flex-shrink-0.ms-2
+                            .badge.bg-info-subtle.text-info.fs-10
+                              New
+                        .d-flex.mt-4
+                          .flex-grow-1
+                            .d-flex.align-items-center.gap-2
+                              %div
+                                %h5.fs-12.text-muted.mb-0
+                                  Members :
+                              .avatar-group
+                                .avatar-group-item
+                                  .avatar-xs
+                                    %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-7.jpg"}/
+                      / end card body
+                    / end card
+                  / end col
+                  .col-lg-12
+                    .mt-4
+                      %ul.pagination.pagination-separated.justify-content-center.mb-0
+                        %li.page-item.disabled
+                          %a.page-link{href: "javascript:void(0);"}
+                            %i.mdi.mdi-chevron-left
+                        %li.page-item.active
+                          %a.page-link{href: "javascript:void(0);"} 1
+                        %li.page-item
+                          %a.page-link{href: "javascript:void(0);"} 2
+                        %li.page-item
+                          %a.page-link{href: "javascript:void(0);"} 3
+                        %li.page-item
+                          %a.page-link{href: "javascript:void(0);"} 4
+                        %li.page-item
+                          %a.page-link{href: "javascript:void(0);"} 5
+                        %li.page-item
+                          %a.page-link{href: "javascript:void(0);"}
+                            %i.mdi.mdi-chevron-right
+                / end row
+              / end card-body
+            / end card
+          / end tab-pane
+          #documents.tab-pane.fade{role: "tabpanel"}
+            .card
+              .card-body
+                .d-flex.align-items-center.mb-4
+                  %h5.card-title.flex-grow-1.mb-0 Documents
+                  .flex-shrink-0
+                    %input#formFile.form-control.d-none{type: "file"}/
+                    %label.btn.btn-danger{for: "formFile"}
+                      %i.ri-upload-2-fill.me-1.align-bottom
+                      Upload
+                      File
+                .row
+                  .col-lg-12
+                    .table-responsive
+                      %table.table.table-borderless.align-middle.mb-0
+                        %thead.table-light
+                          %tr
+                            %th{scope: "col"} File Name
+                            %th{scope: "col"} Type
+                            %th{scope: "col"} Size
+                            %th{scope: "col"} Upload Date
+                            %th{scope: "col"} Action
+                        %tbody
+                          %tr
+                            %td
+                              .d-flex.align-items-center
+                                .avatar-sm
+                                  .avatar-title.bg-primary-subtle.text-primary.rounded.fs-20
+                                    %i.ri-file-zip-fill
+                                .ms-3.flex-grow-1
+                                  %h6.fs-14.mb-0
+                                    %a.text-body{href: "javascript:void(0)"} Artboard-documents.zip
+                            %td Zip File
+                            %td 4.57 MB
+                            %td 12 Dec 2021
+                            %td
+                              .dropdown
+                                %a#dropdownMenuLink15.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
+                                  %i.ri-equalizer-fill
+                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink15"}
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-eye-fill.me-2.align-middle.text-muted>
+                                      View
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-download-2-fill.me-2.align-middle.text-muted>
+                                      Download
+                                  %li.dropdown-divider
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-delete-bin-5-line.me-2.align-middle.text-muted>
+                                      Delete
+                          %tr
+                            %td
+                              .d-flex.align-items-center
+                                .avatar-sm
+                                  .avatar-title.bg-danger-subtle.text-danger.rounded.fs-20
+                                    %i.ri-file-pdf-fill
+                                .ms-3.flex-grow-1
+                                  %h6.fs-14.mb-0
+                                    %a.text-body{href: "javascript:void(0);"}
+                                      Bank
+                                      Management System
+                            %td PDF File
+                            %td 8.89 MB
+                            %td 24 Nov 2021
+                            %td
+                              .dropdown
+                                %a#dropdownMenuLink3.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
+                                  %i.ri-equalizer-fill
+                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink3"}
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-eye-fill.me-2.align-middle.text-muted>
+                                      View
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-download-2-fill.me-2.align-middle.text-muted>
+                                      Download
+                                  %li.dropdown-divider
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-delete-bin-5-line.me-2.align-middle.text-muted>
+                                      Delete
+                          %tr
+                            %td
+                              .d-flex.align-items-center
+                                .avatar-sm
+                                  .avatar-title.bg-secondary-subtle.text-secondary.rounded.fs-20
+                                    %i.ri-video-line
+                                .ms-3.flex-grow-1
+                                  %h6.fs-14.mb-0
+                                    %a.text-body{href: "javascript:void(0);"} Tour-video.mp4
+                            %td MP4 File
+                            %td 14.62 MB
+                            %td 19 Nov 2021
+                            %td
+                              .dropdown
+                                %a#dropdownMenuLink4.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
+                                  %i.ri-equalizer-fill
+                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink4"}
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-eye-fill.me-2.align-middle.text-muted>
+                                      View
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-download-2-fill.me-2.align-middle.text-muted>
+                                      Download
+                                  %li.dropdown-divider
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-delete-bin-5-line.me-2.align-middle.text-muted>
+                                      Delete
+                          %tr
+                            %td
+                              .d-flex.align-items-center
+                                .avatar-sm
+                                  .avatar-title.bg-success-subtle.text-success.rounded.fs-20
+                                    %i.ri-file-excel-fill
+                                .ms-3.flex-grow-1
+                                  %h6.fs-14.mb-0
+                                    %a.text-body{href: "javascript:void(0);"} Account-statement.xsl
+                            %td XSL File
+                            %td 2.38 KB
+                            %td 14 Nov 2021
+                            %td
+                              .dropdown
+                                %a#dropdownMenuLink5.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
+                                  %i.ri-equalizer-fill
+                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink5"}
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-eye-fill.me-2.align-middle.text-muted>
+                                      View
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-download-2-fill.me-2.align-middle.text-muted>
+                                      Download
+                                  %li.dropdown-divider
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-delete-bin-5-line.me-2.align-middle.text-muted>
+                                      Delete
+                          %tr
+                            %td
+                              .d-flex.align-items-center
+                                .avatar-sm
+                                  .avatar-title.bg-info-subtle.text-info.rounded.fs-20
+                                    %i.ri-folder-line
+                                .ms-3.flex-grow-1
+                                  %h6.fs-14.mb-0
+                                    %a.text-body{href: "javascript:void(0);"}
+                                      Project
+                                      Screenshots Collection
+                            %td Floder File
+                            %td 87.24 MB
+                            %td 08 Nov 2021
+                            %td
+                              .dropdown
+                                %a#dropdownMenuLink6.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
+                                  %i.ri-equalizer-fill
+                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink6"}
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-eye-fill.me-2.align-middle>
+                                      View
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-download-2-fill.me-2.align-middle>
+                                      Download
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-delete-bin-5-line.me-2.align-middle>
+                                      Delete
+                          %tr
+                            %td
+                              .d-flex.align-items-center
+                                .avatar-sm
+                                  .avatar-title.bg-danger-subtle.text-danger.rounded.fs-20
+                                    %i.ri-image-2-fill
+                                .ms-3.flex-grow-1
+                                  %h6.fs-14.mb-0
+                                    %a.text-body{href: "javascript:void(0);"} Velzon-logo.png
+                            %td PNG File
+                            %td 879 KB
+                            %td 02 Nov 2021
+                            %td
+                              .dropdown
+                                %a#dropdownMenuLink7.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
+                                  %i.ri-equalizer-fill
+                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink7"}
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-eye-fill.me-2.align-middle>
+                                      View
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-download-2-fill.me-2.align-middle>
+                                      Download
+                                  %li
+                                    %a.dropdown-item{href: "javascript:void(0);"}
+                                      %i.ri-delete-bin-5-line.me-2.align-middle>
+                                      Delete
+                    .text-center.mt-3
+                      %a.text-success{href: "javascript:void(0);"}
+                        %i.mdi.mdi-loading.mdi-spin.fs-20.align-middle.me-2
+                        Load more
