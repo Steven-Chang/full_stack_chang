@@ -1,5 +1,5 @@
 !!!
-%html{:lang => "en"}
+%html{ 'data-bs-theme' => 'light', 'data-layout' => 'horizontal', 'data-preloader' => 'enable', 'data-sidebar' => 'light', 'data-sidebar-image' => 'none', 'data-sidebar-size' => 'lg', 'data-topbar' => 'dark', lang: 'en' }
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:charset => "utf-8"}/
@@ -10,23 +10,17 @@
     %title= @page_title ? "#{@page_title} | Full Stack Chang" : 'Full Stack Chang'
     = favicon_link_tag asset_path('fsc.png'), rel: 'apple-touch-icon'
     = favicon_link_tag asset_path('fsc.png')
-    / Google Fonts
-    %link{:href => "https://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic", :rel => "stylesheet"}/
     / Font Awesome
     %script{:crossorigin => "anonymous", :src => "https://kit.fontawesome.com/225e9c2d3c.js"}
-    /[if lt IE 9]
-      <script src="../../../global/vendor/html5shiv/html5shiv.min.js"></script>
-    /[if lt IE 10]
-      <script src="../../../global/vendor/media-match/media.match.min.js"></script>
-      <script src="../../../global/vendor/respond/respond.min.js"></script>
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application', defer: true
+    = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload'
     %link{ href: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css", rel: "stylesheet" }
   %body{:class => "#{@body_class}"}
-    = render 'navbar'
-    /[if lt IE 8]
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    = yield
-    = render 'footer'
+    #layout-wrapper
+      = render 'header'
+      .main-content
+        .page-content
+          = yield
+      = render 'footer'
