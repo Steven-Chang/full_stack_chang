@@ -1,12 +1,12 @@
 .container-fluid#home
   .profile-foreground.position-relative.mx-n4.mt-n4
     .profile-wid-bg
-      %img.profile-wid-img{alt: "", src: "assets/images/profile-bg.jpg"}/
+      = image_tag 'https://res.cloudinary.com/hv5cxagki/image/upload/f_auto,q_auto/v1/fsc/IMG_0409_eorutd', class: 'profile-wid-img'
   .pt-4.mb-4.mb-lg-3.pb-lg-4.profile-wrapper
     .row.g-4
       .col-auto
         .avatar-lg
-          %img.img-thumbnail.rounded-circle{ alt: "user-img", src: "https://res.cloudinary.com/hv5cxagki/image/upload/v1665701852/fsc/47955495901_fc0efe5e04_b-1_p7mtiu" }
+          %img.img-thumbnail.rounded-circle{ alt: 'user-img', src: 'https://res.cloudinary.com/hv5cxagki/image/upload/v1665701852/fsc/47955495901_fc0efe5e04_b-1_p7mtiu' }
       .col
         .p-2
           %h3.text-white.mb-1 Steven Chang
@@ -47,6 +47,11 @@
               .col-xxl-3
                 .card
                   .card-body
+                    %h5.card-title.mb-3 About
+                    %p
+                      Contributing to humanity via intuitive and reliable software. Communication and transparency are key.
+                .card
+                  .card-body
                     %h5.card-title.mb-4 Skills
                     .d-flex.flex-wrap.gap-2.fs-15
                       %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Photoshop
@@ -56,50 +61,7 @@
                       %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Javascript
                       %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Php
                       %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Python
-              / end col
               .col-xxl-9
-                .card
-                  .card-body
-                    %h5.card-title.mb-3 About
-                    %p
-                      Hi I'm Anna Adame, It will be as simple as Occidental; in
-                      fact, it will be Occidental. To an English person, it will
-                      seem like simplified English, as a skeptical Cambridge
-                      friend of mine told me what Occidental is European languages
-                      are members of the same family.
-                    %p
-                      You always want to make sure that your fonts work well
-                      together and try to limit the number of fonts you use to
-                      three or less. Experiment and play around with the fonts
-                      that you already have in the software you’re working with
-                      reputable font websites. This may be the most commonly
-                      encountered tip I received from the designers I spoke with.
-                      They highly encourage that you use different fonts in one
-                      design, but do not over-exaggerate and go overboard.
-                    .row
-                      .col-6.col-md-4
-                        .d-flex.mt-4
-                          .flex-shrink-0.avatar-xs.align-self-center.me-3
-                            .avatar-title.bg-light.rounded-circle.fs-16.text-primary
-                              %i.ri-user-2-fill
-                          .flex-grow-1.overflow-hidden
-                            %p.mb-1 Designation :
-                            %h6.text-truncate.mb-0
-                              Lead Designer /
-                              Developer
-                      / end col
-                      .col-6.col-md-4
-                        .d-flex.mt-4
-                          .flex-shrink-0.avatar-xs.align-self-center.me-3
-                            .avatar-title.bg-light.rounded-circle.fs-16.text-primary
-                              %i.ri-global-line
-                          .flex-grow-1.overflow-hidden
-                            %p.mb-1 Website :
-                            %a.fw-semibold{href: "#"} www.velzon.com
-                      / end col
-                    / end row
-                  / end card-body
-                / end card
                 .row
                   .col-lg-12
                     .card
