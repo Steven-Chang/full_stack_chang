@@ -36,11 +36,6 @@
             %li.nav-item{role: "presentation"}
               %a.nav-link.fs-14{"aria-selected" => "false", "data-bs-toggle" => "tab", href: "#projects", role: "tab", tabindex: "-1"}
                 %i.ri-price-tag-line.d-inline-block.d-md-none
-                %span.d-none.d-md-inline-block Projects
-            %li.nav-item{role: "presentation"}
-              %a.nav-link.fs-14{"aria-selected" => "false", "data-bs-toggle" => "tab", href: "#documents", role: "tab", tabindex: "-1"}
-                %i.ri-folder-4-line.d-inline-block.d-md-none
-                %span.d-none.d-md-inline-block Documents
         .tab-content.pt-4.text-muted
           #overview-tab.tab-pane.active.show{role: "tabpanel"}
             .row
@@ -697,9 +692,6 @@
                         submitted a
                         ticket.
                       %small.mb-0.text-muted 26 Aug
-              / end card-body
-            / end card
-          / end tab-pane
           #projects.tab-pane.fade{role: "tabpanel"}
             .card
               .card-body
@@ -737,9 +729,6 @@
                                   .avatar-xs
                                     .avatar-title.rounded-circle.bg-light.text-primary
                                       J
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.profile-project-success
                       .card-body.p-4
@@ -778,9 +767,6 @@
                                   .avatar-xs
                                     .avatar-title.rounded-circle.bg-primary
                                       2+
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.profile-project-info
                       .card-body.p-4
@@ -816,9 +802,6 @@
                                 .avatar-group-item
                                   .avatar-xs
                                     %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-3.jpg"}/
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.profile-project-primary
                       .card-body.p-4
@@ -848,9 +831,6 @@
                                 .avatar-group-item
                                   .avatar-xs
                                     %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-5.jpg"}/
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.profile-project-danger
                       .card-body.p-4
@@ -883,10 +863,6 @@
                                 .avatar-group-item
                                   .avatar-xs
                                     .avatar-title.rounded-circle.bg-light.text-primary
-                                      E
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.profile-project-primary
                       .card-body.p-4
@@ -920,9 +896,6 @@
                                 .avatar-group-item
                                   .avatar-xs
                                     %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-8.jpg"}/
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.profile-project-warning
                       .card-body.p-4
@@ -955,9 +928,6 @@
                                 .avatar-group-item
                                   .avatar-xs
                                     %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-4.jpg"}/
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.profile-project-success
                       .card-body.p-4
@@ -984,9 +954,6 @@
                                 .avatar-group-item
                                   .avatar-xs
                                     %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-1.jpg"}/
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.mb-xxl-0.profile-project-info
                       .card-body.p-4
@@ -1025,9 +992,6 @@
                                   .avatar-xs
                                     .avatar-title.rounded-circle.bg-primary
                                       2+
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.mb-xxl-0.profile-project-success
                       .card-body.p-4
@@ -1058,9 +1022,6 @@
                                   .avatar-xs
                                     .avatar-title.rounded-circle.bg-light.text-primary
                                       A
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.mb-sm-0.profile-project-danger
                       .card-body.p-4
@@ -1099,9 +1060,6 @@
                                   .avatar-xs
                                     .avatar-title.rounded-circle.bg-primary
                                       2+
-                      / end card body
-                    / end card
-                  / end col
                   .col-xxl-3.col-sm-6
                     .card.profile-project-card.shadow-none.mb-0.profile-project-primary
                       .card-body.p-4
@@ -1130,9 +1088,6 @@
                                 .avatar-group-item
                                   .avatar-xs
                                     %img.rounded-circle.img-fluid{alt: "", src: "assets/images/users/avatar-7.jpg"}/
-                      / end card body
-                    / end card
-                  / end col
                   .col-lg-12
                     .mt-4
                       %ul.pagination.pagination-separated.justify-content-center.mb-0
@@ -1152,216 +1107,3 @@
                         %li.page-item
                           %a.page-link{href: "javascript:void(0);"}
                             %i.mdi.mdi-chevron-right
-                / end row
-              / end card-body
-            / end card
-          / end tab-pane
-          #documents.tab-pane.fade{role: "tabpanel"}
-            .card
-              .card-body
-                .d-flex.align-items-center.mb-4
-                  %h5.card-title.flex-grow-1.mb-0 Documents
-                  .flex-shrink-0
-                    %input#formFile.form-control.d-none{type: "file"}/
-                    %label.btn.btn-danger{for: "formFile"}
-                      %i.ri-upload-2-fill.me-1.align-bottom
-                      Upload
-                      File
-                .row
-                  .col-lg-12
-                    .table-responsive
-                      %table.table.table-borderless.align-middle.mb-0
-                        %thead.table-light
-                          %tr
-                            %th{scope: "col"} File Name
-                            %th{scope: "col"} Type
-                            %th{scope: "col"} Size
-                            %th{scope: "col"} Upload Date
-                            %th{scope: "col"} Action
-                        %tbody
-                          %tr
-                            %td
-                              .d-flex.align-items-center
-                                .avatar-sm
-                                  .avatar-title.bg-primary-subtle.text-primary.rounded.fs-20
-                                    %i.ri-file-zip-fill
-                                .ms-3.flex-grow-1
-                                  %h6.fs-14.mb-0
-                                    %a.text-body{href: "javascript:void(0)"} Artboard-documents.zip
-                            %td Zip File
-                            %td 4.57 MB
-                            %td 12 Dec 2021
-                            %td
-                              .dropdown
-                                %a#dropdownMenuLink15.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
-                                  %i.ri-equalizer-fill
-                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink15"}
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-eye-fill.me-2.align-middle.text-muted>
-                                      View
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-download-2-fill.me-2.align-middle.text-muted>
-                                      Download
-                                  %li.dropdown-divider
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-delete-bin-5-line.me-2.align-middle.text-muted>
-                                      Delete
-                          %tr
-                            %td
-                              .d-flex.align-items-center
-                                .avatar-sm
-                                  .avatar-title.bg-danger-subtle.text-danger.rounded.fs-20
-                                    %i.ri-file-pdf-fill
-                                .ms-3.flex-grow-1
-                                  %h6.fs-14.mb-0
-                                    %a.text-body{href: "javascript:void(0);"}
-                                      Bank
-                                      Management System
-                            %td PDF File
-                            %td 8.89 MB
-                            %td 24 Nov 2021
-                            %td
-                              .dropdown
-                                %a#dropdownMenuLink3.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
-                                  %i.ri-equalizer-fill
-                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink3"}
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-eye-fill.me-2.align-middle.text-muted>
-                                      View
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-download-2-fill.me-2.align-middle.text-muted>
-                                      Download
-                                  %li.dropdown-divider
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-delete-bin-5-line.me-2.align-middle.text-muted>
-                                      Delete
-                          %tr
-                            %td
-                              .d-flex.align-items-center
-                                .avatar-sm
-                                  .avatar-title.bg-secondary-subtle.text-secondary.rounded.fs-20
-                                    %i.ri-video-line
-                                .ms-3.flex-grow-1
-                                  %h6.fs-14.mb-0
-                                    %a.text-body{href: "javascript:void(0);"} Tour-video.mp4
-                            %td MP4 File
-                            %td 14.62 MB
-                            %td 19 Nov 2021
-                            %td
-                              .dropdown
-                                %a#dropdownMenuLink4.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
-                                  %i.ri-equalizer-fill
-                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink4"}
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-eye-fill.me-2.align-middle.text-muted>
-                                      View
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-download-2-fill.me-2.align-middle.text-muted>
-                                      Download
-                                  %li.dropdown-divider
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-delete-bin-5-line.me-2.align-middle.text-muted>
-                                      Delete
-                          %tr
-                            %td
-                              .d-flex.align-items-center
-                                .avatar-sm
-                                  .avatar-title.bg-success-subtle.text-success.rounded.fs-20
-                                    %i.ri-file-excel-fill
-                                .ms-3.flex-grow-1
-                                  %h6.fs-14.mb-0
-                                    %a.text-body{href: "javascript:void(0);"} Account-statement.xsl
-                            %td XSL File
-                            %td 2.38 KB
-                            %td 14 Nov 2021
-                            %td
-                              .dropdown
-                                %a#dropdownMenuLink5.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
-                                  %i.ri-equalizer-fill
-                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink5"}
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-eye-fill.me-2.align-middle.text-muted>
-                                      View
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-download-2-fill.me-2.align-middle.text-muted>
-                                      Download
-                                  %li.dropdown-divider
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-delete-bin-5-line.me-2.align-middle.text-muted>
-                                      Delete
-                          %tr
-                            %td
-                              .d-flex.align-items-center
-                                .avatar-sm
-                                  .avatar-title.bg-info-subtle.text-info.rounded.fs-20
-                                    %i.ri-folder-line
-                                .ms-3.flex-grow-1
-                                  %h6.fs-14.mb-0
-                                    %a.text-body{href: "javascript:void(0);"}
-                                      Project
-                                      Screenshots Collection
-                            %td Floder File
-                            %td 87.24 MB
-                            %td 08 Nov 2021
-                            %td
-                              .dropdown
-                                %a#dropdownMenuLink6.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
-                                  %i.ri-equalizer-fill
-                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink6"}
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-eye-fill.me-2.align-middle>
-                                      View
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-download-2-fill.me-2.align-middle>
-                                      Download
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-delete-bin-5-line.me-2.align-middle>
-                                      Delete
-                          %tr
-                            %td
-                              .d-flex.align-items-center
-                                .avatar-sm
-                                  .avatar-title.bg-danger-subtle.text-danger.rounded.fs-20
-                                    %i.ri-image-2-fill
-                                .ms-3.flex-grow-1
-                                  %h6.fs-14.mb-0
-                                    %a.text-body{href: "javascript:void(0);"} Velzon-logo.png
-                            %td PNG File
-                            %td 879 KB
-                            %td 02 Nov 2021
-                            %td
-                              .dropdown
-                                %a#dropdownMenuLink7.btn.btn-light.btn-icon{"aria-expanded" => "true", "data-bs-toggle" => "dropdown", href: "javascript:void(0);"}
-                                  %i.ri-equalizer-fill
-                                %ul.dropdown-menu.dropdown-menu-end{"aria-labelledby" => "dropdownMenuLink7"}
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-eye-fill.me-2.align-middle>
-                                      View
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-download-2-fill.me-2.align-middle>
-                                      Download
-                                  %li
-                                    %a.dropdown-item{href: "javascript:void(0);"}
-                                      %i.ri-delete-bin-5-line.me-2.align-middle>
-                                      Delete
-                    .text-center.mt-3
-                      %a.text-success{href: "javascript:void(0);"}
-                        %i.mdi.mdi-loading.mdi-spin.fs-20.align-middle.me-2
-                        Load more
