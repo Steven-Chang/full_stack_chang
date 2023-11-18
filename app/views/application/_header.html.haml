@@ -22,28 +22,22 @@
           .header-item
             %button.btn.btn-icon.btn-topbar.btn-ghost-secondary.rounded-circle.light-dark-mode{ type: 'button' }
               %i.bx.bx-moon.fs-22
-            - if current_user
-              = link_to admin_root_path do
-                %button.navbar-btn.btn.bg-white{ role: 'button', style: 'color: #3e8ef7; font-family: Roboto, sans-serif; text-decoration: none;' }
-                  Dashboard
-              = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'text-white ml-4'
-            - else
+          - if current_user
+            .dropdown.ms-sm-3.header-item.topbar-user
+              %button#page-header-user-dropdown.btn.show{"aria-expanded" => "true", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", type: "button"}
+                %span.d-flex.align-items-center
+                  %img.rounded-circle.header-profile-user{alt: "Header Avatar", src: "assets/images/users/avatar-1.jpg"}
+              .dropdown-menu.dropdown-menu-end.show{"data-popper-placement" => "bottom-end", style: "position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 62px);"}
+                = link_to admin_root_path, class: 'dropdown-item' do
+                  %i.mdi.mdi-calendar-check-outline.text-muted.fs-16.align-middle.me-1
+                  %span.align-middle Admin
+                .dropdown-divider
+                = link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do
+                  %i.mdi.mdi-logout.text-muted.fs-16.align-middle.me-1
+                  %span.align-middle{"data-key" => "t-logout"} Logout
+          - else
+            .header-item
               = link_to new_user_session_path do
-                %button.navbar-btn.btn.bg-white{ role: 'button', style: 'color: #3e8ef7; font-family: Roboto, sans-serif; text-decoration: none;' }
-                  Admin
-            / .dropdown.ms-sm-3.header-item.topbar-user
-            /   %button.btn.d-none#page-header-user-dropdown{ 'aria-expanded' => 'false', 'aria-haspopup' => 'true', 'data-bs-toggle' => 'dropdown', type: 'button', 'data-bs-auto-close': 'outside' }
-            /     %span.d-flex.align-items-center
-            /       %img.user-address-alias-avatar{ alt: 'Wallet logo', src: 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Clipart.png', height: 40 }
-            /       .text-start.ms-3
-            /         .fw-medium.user-name-text.account-name
-            /         .fs-12.user-name-sub-text.account-address-abbreviated
-            /   .dropdown-menu.dropdown-menu-end
-            /     %h6.dropdown-header
-            /       .d-flex.flex-column.position-relative
-            /         .d-flex.align-items-center
-            /           .wallet-address.me-2#polkadot-user-account-menu-wallet-address
-            /           %button.btn.btn-icon.btn-sm
-            /             %i.bi.bi-clipboard.text-muted.fs-4{ 'data-clipboard-target' => '#polkadot-user-account-menu-wallet-address' }
-            /     .dropdown-divider
-            /     = link_to 'Change', '#', id: 'change-account-link', class: 'dropdown-item'
+                %button.btn.btn-icon.btn-topbar.btn-ghost-secondary.rounded-circle{ type: 'button' }
+                  %i.bx.bx-log-in.fs-22
+    
