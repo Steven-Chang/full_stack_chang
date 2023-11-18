@@ -15,6 +15,7 @@ AllCops:
     - 'db/schema.rb'
     - 'db/migrate/*'
     - 'bin/**'
+    - 'lib/assets/migrate_attachment_s3_to_active_storage.rb'
     - 'lib/tasks/*'
     - 'node_modules/**/*'
     - scripts/*

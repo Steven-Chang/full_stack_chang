@@ -5,6 +5,7 @@ inherits_from:
 linters:
   CommentSpace:
     enabled: true
-
+  LineLength:
+    enabled: false
   ViewLength:
     enabled: false
