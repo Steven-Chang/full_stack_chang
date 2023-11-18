@@ -22,5 +22,8 @@ module FullStackChang
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_job.queue_adapter = :inline
     config.active_storage.variant_processor = :vips
+
+    # https://stackoverflow.com/questions/70401077/rails-7-asset-pipeline-sasscsyntaxerror-with-tailwind
+    config.assets.css_compressor = nil
   end
 end
