@@ -16,7 +16,7 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
     = javascript_include_tag 'application', 'data-turbo-track': 'reload'
-  %body{:class => "#{@body_class}"}
+  %body
     #layout-wrapper
       = render 'header'
       .main-content
