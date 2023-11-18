@@ -23,7 +23,7 @@
     .col-lg-12
       %div
         .tab-content.pt-4.text-muted
-          #overview-tab.tab-pane.active.show{role: "tabpanel"}
+          #overview-tab.tab-pane.active.show{ role: "tabpanel" }
             .row
               .col-xxl-3
                 .card
@@ -31,17 +31,22 @@
                     %h5.card-title.mb-3 About
                     %p
                       Contributing to humanity via intuitive and reliable software. Communication and transparency are key.
+                    .d-flex.flex-wrap.gap-2
+                      %div
+                        %a.avatar-xs.d-block{ href: 'https://github.com/Steven-Chang', target: '_blank' }
+                          %span.avatar-title.rounded-circle.fs-16.bg-dark.text-light
+                            %i.ri-github-fill
+                      %div
+                        = mail_to 'stevenchang5000@protonmail.com', class: 'avatar-xs d-block' do
+                          %span.avatar-title.rounded-circle.fs-16.bg-primary
+                            %i.ri-mail-fill
+
                 .card
                   .card-body
                     %h5.card-title.mb-4 Skills
                     .d-flex.flex-wrap.gap-2.fs-15
-                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Photoshop
-                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} illustrator
-                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} HTML
-                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} CSS
-                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Javascript
-                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Php
-                      %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"} Python
+                      - Tool.where(visible: true).order(:name).each do |tool|
+                        %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"}= tool.name
               .col-xxl-9
                 .row
                   .col-lg-12
