@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
   helper_method :hide_footer, :hide_navbar
 
   def home
-    @body_class = 'site-navbar-small page-profile site-navbar-small'
     @page_title = 'Home'
   end
 
@@ -33,14 +32,14 @@ class ApplicationController < ActionController::Base
 
   # use predefined method name
   def authenticate_admin_user!
-    return user_not_authorized if user_signed_in? && !current_user.admin?
+    return access_denied if user_signed_in? && !current_user.admin?
 
     authenticate_user!
   end
 
-  def user_not_authorized
+  def access_denied
     flash[:alert] = 'You are not authorized to perform this action.'
-    redirect_to(request.referer || root_path)
+    redirect_to(root_path)
   end
 
   def hide_footer
