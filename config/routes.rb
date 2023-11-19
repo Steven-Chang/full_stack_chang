@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  root 'application#home'
+  get 'tax_summaries' => 'pages#tax_summaries'
+
+  root 'pages#home'
 end
