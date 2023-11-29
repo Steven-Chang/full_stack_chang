@@ -8,10 +8,6 @@ class ApplicationController < ActionController::Base
   # === CALLBACKS ===
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def home
-    @page_title = 'Home'
-  end
-
   protected
 
     def after_sign_out_path_for(_resource_or_scope)
