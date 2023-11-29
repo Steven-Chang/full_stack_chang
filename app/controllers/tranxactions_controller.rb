@@ -12,4 +12,8 @@ class TranxactionsController < ApplicationController
   def show
     @tranxaction = current_user.tranxactions.find(params[:id])
   end
+
+  def edit
+    @tranxaction = current_user.tranxactions.find(params[:id])
+  end
 end
