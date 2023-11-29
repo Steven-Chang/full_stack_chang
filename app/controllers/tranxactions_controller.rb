@@ -16,4 +16,10 @@ class TranxactionsController < ApplicationController
   def edit
     @tranxaction = current_user.tranxactions.find(params[:id])
   end
+
+  def destroy
+    @tranxaction = current_user.tranxactions.find(params[:id])
+    @tranxaction.destroy
+    redirect_to tranxactions_path, :notice => "Transaction deleted"
+  end
 end

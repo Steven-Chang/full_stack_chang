@@ -220,7 +220,7 @@
                                           Edit
                                       %li.dropdown-divider
                                       %li
-                                        %a.dropdown-item.remove-list{ "data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "1", href: "#" }
+                                        = link_to tranxaction, class: 'dropdown-item remove-list', data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do
                                           %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
                                           Delete
                     .gridjs-footer
