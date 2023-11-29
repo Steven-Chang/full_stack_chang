@@ -28,6 +28,8 @@
             .dropdown-menu.dropdown-menu-end{ 'data-popper-placement' => 'bottom-end' }
               = link_to tax_summaries_path, class: 'dropdown-item' do
                 %span.align-middle Tax Summaries
+              = link_to tranxactions_path, class: 'dropdown-item' do
+                %span.align-middle Transactions
               .dropdown-divider
               - if current_user.admin?
                 = link_to admin_root_path, class: 'dropdown-item' do

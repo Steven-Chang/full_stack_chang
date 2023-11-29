@@ -1,0 +1,1045 @@
+.container-fluid#transactions
+  .row
+    .col-12
+      .page-title-box.d-flex.align-items-center
+        %h4.mb-sm-0.text-nowrap.me-3 Transactions
+  .row
+    .col-xl-3.col-lg-4
+      .card
+        .card-header
+          %h5.fs-16.mb-0 Filters
+        .accordion.accordion-flush.filter-accordion
+          .card-body.border-bottom
+            %div
+              %p.text-muted.text-uppercase.fs-12.fw-medium.mb-2 Products
+              %ul.list-unstyled.mb-0.filter-list
+                %li
+                  %a.d-flex.py-1.align-items-center{href: "#"}
+                    .flex-grow-1
+                      %h5.fs-12.mb-0.listname Grocery
+                %li
+                  %a.d-flex.py-1.align-items-center{href: "#"}
+                    .flex-grow-1
+                      %h5.fs-12.mb-0.listname Fashion
+                    .flex-shrink-0.ms-2
+                      %span.badge.bg-light.text-muted 5
+                %li
+                  %a.d-flex.py-1.align-items-center{href: "#"}
+                    .flex-grow-1
+                      %h5.fs-12.mb-0.listname Watches
+                %li
+                  %a.d-flex.py-1.align-items-center{href: "#"}
+                    .flex-grow-1
+                      %h5.fs-12.mb-0.listname Electronics
+                    .flex-shrink-0.ms-2
+                      %span.badge.bg-light.text-muted 5
+                %li
+                  %a.d-flex.py-1.align-items-center{href: "#"}
+                    .flex-grow-1
+                      %h5.fs-12.mb-0.listname Furniture
+                    .flex-shrink-0.ms-2
+                      %span.badge.bg-light.text-muted 6
+                %li
+                  %a.d-flex.py-1.align-items-center{href: "#"}
+                    .flex-grow-1
+                      %h5.fs-12.mb-0.listname Automotive Accessories
+                %li
+                  %a.d-flex.py-1.align-items-center{href: "#"}
+                    .flex-grow-1
+                      %h5.fs-12.mb-0.listname Appliances
+                    .flex-shrink-0.ms-2
+                      %span.badge.bg-light.text-muted 7
+                %li
+                  %a.d-flex.py-1.align-items-center{href: "#"}
+                    .flex-grow-1
+                      %h5.fs-12.mb-0.listname Kids
+          .card-body.border-bottom
+            %p.text-muted.text-uppercase.fs-12.fw-medium.mb-4 Price
+            #product-price-range.noUi-target.noUi-ltr.noUi-horizontal.noUi-txt-dir-ltr
+              .noUi-base
+                .noUi-connects
+                  .noUi-connect.noUi-draggable{style: "transform: translate(0%, 0px) scale(1, 1);"}
+                .noUi-origin{style: "transform: translate(-100%, 0px); z-index: 5;"}
+                  .noUi-handle.noUi-handle-lower{"aria-orientation" => "horizontal", "aria-valuemax" => "1980.0", "aria-valuemin" => "0.0", "aria-valuenow" => "0.0", "aria-valuetext" => "$ 0", "data-handle" => "0", role: "slider", tabindex: "0"}
+                    .noUi-touch-area
+                .noUi-origin{style: "transform: translate(0%, 0px); z-index: 4;"}
+                  .noUi-handle.noUi-handle-upper{"aria-orientation" => "horizontal", "aria-valuemax" => "2000.0", "aria-valuemin" => "20.0", "aria-valuenow" => "2000.0", "aria-valuetext" => "$ 2000", "data-handle" => "1", role: "slider", tabindex: "0"}
+                    .noUi-touch-area
+            .formCost.d-flex.gap-2.align-items-center.mt-3
+              %input#minCost.form-control.form-control-sm{type: "text", value: "0"}/
+              %span.fw-semibold.text-muted to
+              %input#maxCost.form-control.form-control-sm{type: "text", value: "1000"}/
+          .accordion-item
+            %h2#flush-headingBrands.accordion-header
+              %button.accordion-button.bg-transparent.shadow-none{"aria-controls" => "flush-collapseBrands", "aria-expanded" => "true", "data-bs-target" => "#flush-collapseBrands", "data-bs-toggle" => "collapse", type: "button"}
+                %span.text-muted.text-uppercase.fs-12.fw-semibold Brands
+                %span.badge.bg-success.rounded-pill.align-middle.ms-1.filter-badge 2
+            #flush-collapseBrands.accordion-collapse.collapse.show{"aria-labelledby" => "flush-headingBrands"}
+              .accordion-body.text-body.pt-0
+                .search-box.search-box-sm
+                  %input#searchBrandsList.form-control.bg-light.border-0{placeholder: "Search Brands...", type: "text"}/
+                  %i.ri-search-line.search-icon
+                .d-flex.flex-column.gap-2.mt-3.filter-check
+                  .form-check
+                    %input#productBrandRadio5.form-check-input{checked: "checked", type: "checkbox", value: "Boat"}/
+                    %label.form-check-label{for: "productBrandRadio5"} Boat
+                  .form-check
+                    %input#productBrandRadio4.form-check-input{type: "checkbox", value: "OnePlus"}/
+                    %label.form-check-label{for: "productBrandRadio4"} OnePlus
+                  .form-check
+                    %input#productBrandRadio3.form-check-input{type: "checkbox", value: "Realme"}/
+                    %label.form-check-label{for: "productBrandRadio3"} Realme
+                  .form-check
+                    %input#productBrandRadio2.form-check-input{type: "checkbox", value: "Sony"}/
+                    %label.form-check-label{for: "productBrandRadio2"} Sony
+                  .form-check
+                    %input#productBrandRadio1.form-check-input{checked: "checked", type: "checkbox", value: "JBL"}/
+                    %label.form-check-label{for: "productBrandRadio1"} JBL
+                  %div
+                    %button.btn.btn-link.text-decoration-none.text-uppercase.fw-medium.p-0{type: "button"}
+                      1,235
+                      More
+          / end accordion-item
+          .accordion-item
+            %h2#flush-headingDiscount.accordion-header
+              %button.accordion-button.bg-transparent.shadow-none.collapsed{"aria-controls" => "flush-collapseDiscount", "aria-expanded" => "true", "data-bs-target" => "#flush-collapseDiscount", "data-bs-toggle" => "collapse", type: "button"}
+                %span.text-muted.text-uppercase.fs-12.fw-semibold Discount
+                %span.badge.bg-success.rounded-pill.align-middle.ms-1.filter-badge 1
+            #flush-collapseDiscount.accordion-collapse.collapse{"aria-labelledby" => "flush-headingDiscount"}
+              .accordion-body.text-body.pt-1
+                .d-flex.flex-column.gap-2.filter-check
+                  .form-check
+                    %input#productdiscountRadio6.form-check-input{type: "checkbox", value: "50% or more"}/
+                    %label.form-check-label{for: "productdiscountRadio6"} 50% or more
+                  .form-check
+                    %input#productdiscountRadio5.form-check-input{type: "checkbox", value: "40% or more"}/
+                    %label.form-check-label{for: "productdiscountRadio5"} 40% or more
+                  .form-check
+                    %input#productdiscountRadio4.form-check-input{type: "checkbox", value: "30% or more"}/
+                    %label.form-check-label{for: "productdiscountRadio4"}
+                      30% or more
+                  .form-check
+                    %input#productdiscountRadio3.form-check-input{checked: "checked", type: "checkbox", value: "20% or more"}/
+                    %label.form-check-label{for: "productdiscountRadio3"}
+                      20% or more
+                  .form-check
+                    %input#productdiscountRadio2.form-check-input{type: "checkbox", value: "10% or more"}/
+                    %label.form-check-label{for: "productdiscountRadio2"}
+                      10% or more
+                  .form-check
+                    %input#productdiscountRadio1.form-check-input{type: "checkbox", value: "Less than 10%"}/
+                    %label.form-check-label{for: "productdiscountRadio1"}
+                      Less than 10%
+          / end accordion-item
+          .accordion-item
+            %h2#flush-headingRating.accordion-header
+              %button.accordion-button.bg-transparent.shadow-none.collapsed{"aria-controls" => "flush-collapseRating", "aria-expanded" => "false", "data-bs-target" => "#flush-collapseRating", "data-bs-toggle" => "collapse", type: "button"}
+                %span.text-muted.text-uppercase.fs-12.fw-semibold Rating
+                %span.badge.bg-success.rounded-pill.align-middle.ms-1.filter-badge 1
+            #flush-collapseRating.accordion-collapse.collapse{"aria-labelledby" => "flush-headingRating"}
+              .accordion-body.text-body
+                .d-flex.flex-column.gap-2.filter-check
+                  .form-check
+                    %input#productratingRadio4.form-check-input{checked: "checked", type: "checkbox", value: "4 & Above Star"}/
+                    %label.form-check-label{for: "productratingRadio4"}
+                      %span.text-muted
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star
+                      4 &amp; Above
+                  .form-check
+                    %input#productratingRadio3.form-check-input{type: "checkbox", value: "3 & Above Star"}/
+                    %label.form-check-label{for: "productratingRadio3"}
+                      %span.text-muted
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star
+                        %i.mdi.mdi-star
+                      3 &amp; Above
+                  .form-check
+                    %input#productratingRadio2.form-check-input{type: "checkbox", value: "2 & Above Star"}/
+                    %label.form-check-label{for: "productratingRadio2"}
+                      %span.text-muted
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star
+                        %i.mdi.mdi-star
+                        %i.mdi.mdi-star
+                      2 &amp; Above
+                  .form-check
+                    %input#productratingRadio1.form-check-input{type: "checkbox", value: "1 Star"}/
+                    %label.form-check-label{for: "productratingRadio1"}
+                      %span.text-muted
+                        %i.mdi.mdi-star.text-warning
+                        %i.mdi.mdi-star
+                        %i.mdi.mdi-star
+                        %i.mdi.mdi-star
+                        %i.mdi.mdi-star
+                      1
+          / end accordion-item
+      / end card
+    / end col
+    .col-xl-9.col-lg-8
+      %div
+        .card
+          .card-body
+            .tab-content.text-muted
+              #productnav-all.tab-pane.active{role: "tabpanel"}
+                #table-product-list-all.table-card.gridjs-border-none
+                  .gridjs.gridjs-container{role: "complementary", style: "width: 100%;"}
+                    .gridjs-wrapper{style: "height: auto;"}
+                      %table.gridjs-table{role: "grid", style: "height: auto;"}
+                        %thead.gridjs-thead
+                          %tr.gridjs-tr
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "#", style: "width: 40px;", tabindex: "0"}
+                              .gridjs-th-content #
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "product", style: "width: 360px;", tabindex: "0"}
+                              .gridjs-th-content Product
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "stock", style: "width: 94px;", tabindex: "0"}
+                              .gridjs-th-content Stock
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "price", style: "width: 101px;", tabindex: "0"}
+                              .gridjs-th-content Price
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "orders", style: "width: 84px;", tabindex: "0"}
+                              .gridjs-th-content Orders
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "rating", style: "width: 105px;", tabindex: "0"}
+                              .gridjs-th-content Rating
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "published", style: "width: 220px;", tabindex: "0"}
+                              .gridjs-th-content Published
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "action", style: "width: 80px;", tabindex: "0"}
+                              .gridjs-th-content Action
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                        %tbody.gridjs-tbody
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-1.form-check-input{type: "checkbox", value: "1"}/
+                                  %label.form-check-label{for: "checkbox-1"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-1.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Half Sleeve Round Neck T-Shirts
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Fashion
+                            %td.gridjs-td{"data-column-id" => "stock"} 12
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $215.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 48
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.2
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                12 Oct, 2021
+                                %small.text-muted.ms-1 10:05 AM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "1", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "1", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-2.form-check-input{type: "checkbox", value: "2"}/
+                                  %label.form-check-label{for: "checkbox-2"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-2.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Urban Ladder Pashe Chair
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Furniture
+                            %td.gridjs-td{"data-column-id" => "stock"} 06
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $160.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 30
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.3
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                06 Jan, 2021
+                                %small.text-muted.ms-1 01:31 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "2", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "2", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-3.form-check-input{type: "checkbox", value: "3"}/
+                                  %label.form-check-label{for: "checkbox-3"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-3.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} 350 ml Glass Grocery Container
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Grocery
+                            %td.gridjs-td{"data-column-id" => "stock"} 10
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $125.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 48
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.5
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                26 Mar, 2021
+                                %small.text-muted.ms-1 11:40 AM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "3", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "3", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-4.form-check-input{type: "checkbox", value: "4"}/
+                                  %label.form-check-label{for: "checkbox-4"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-4.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Fabric Dual Tone Living Room Chair
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Furniture
+                            %td.gridjs-td{"data-column-id" => "stock"} 15
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $340.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 40
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.2
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                19 Apr, 2021
+                                %small.text-muted.ms-1 02:51 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "4", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "4", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-5.form-check-input{type: "checkbox", value: "5"}/
+                                  %label.form-check-label{for: "checkbox-5"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-5.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Crux Motorsports Helmet
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Automotive Accessories
+                            %td.gridjs-td{"data-column-id" => "stock"} 08
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $175.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 55
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.4
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                30 Mar, 2021
+                                %small.text-muted.ms-1 09:42 AM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "5", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "5", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-6.form-check-input{type: "checkbox", value: "6"}/
+                                  %label.form-check-label{for: "checkbox-6"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-6.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Half Sleeve T-Shirts (Blue)
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Fashion
+                            %td.gridjs-td{"data-column-id" => "stock"} 15
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $225.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 48
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.2
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                12 Oct, 2021
+                                %small.text-muted.ms-1 04:55 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "6", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "6", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-7.form-check-input{type: "checkbox", value: "7"}/
+                                  %label.form-check-label{for: "checkbox-7"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-7.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Noise Evolve Smartwatch
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Watches
+                            %td.gridjs-td{"data-column-id" => "stock"} 12
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $105.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 45
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.3
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                15 May, 2021
+                                %small.text-muted.ms-1 03:40 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "7", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "7", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-8.form-check-input{type: "checkbox", value: "8"}/
+                                  %label.form-check-label{for: "checkbox-8"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-8.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Sweatshirt for Men (Pink)
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Fashion
+                            %td.gridjs-td{"data-column-id" => "stock"} 20
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $120.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 48
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.2
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                21 Jun, 2021
+                                %small.text-muted.ms-1 12:18 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "8", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "8", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-9.form-check-input{type: "checkbox", value: "9"}/
+                                  %label.form-check-label{for: "checkbox-9"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-9.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Reusable Ecological Coffee Cup
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Grocery
+                            %td.gridjs-td{"data-column-id" => "stock"} 14
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $325.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 55
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.3
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                15 Jan, 2021
+                                %small.text-muted.ms-1 10:29 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "9", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "9", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkbox-10.form-check-input{type: "checkbox", value: "10"}/
+                                  %label.form-check-label{for: "checkbox-10"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-10.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Travel Carrying Pouch Bag
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Kids
+                            %td.gridjs-td{"data-column-id" => "stock"} 20
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $180.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 60
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.3
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                15 Jun, 2021
+                                %small.text-muted.ms-1 03:51 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item.edit-list{"data-edit-id" => "10", href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "10", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                    .gridjs-footer
+                      .gridjs-pagination
+                        .gridjs-summary{"aria-live" => "polite", role: "status", title: "Page 1 of 2"}
+                          Showing
+                          %b 1
+                          to
+                          %b 10
+                          of
+                          %b 12
+                          results
+                        .gridjs-pages
+                          %button{"aria-label" => "Previous", disabled: "disabled", role: "button", tabindex: "0", title: "Previous"} Previous
+                          %button.gridjs-currentPage{"aria-label" => "Page 1", role: "button", tabindex: "0", title: "Page 1"} 1
+                          %button{"aria-label" => "Page 2", role: "button", tabindex: "0", title: "Page 2"} 2
+                          %button{"aria-label" => "Next", role: "button", tabindex: "0", title: "Next"} Next
+                    #gridjs-temp.gridjs-temp
+              / end tab pane
+              #productnav-published.tab-pane{role: "tabpanel"}
+                #table-product-list-published.table-card.gridjs-border-none
+                  .gridjs.gridjs-container{role: "complementary", style: "width: 100%;"}
+                    .gridjs-wrapper{style: "height: auto;"}
+                      %table.gridjs-table{role: "grid", style: "height: auto;"}
+                        %thead.gridjs-thead
+                          %tr.gridjs-tr
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "#", style: "width: 40px;", tabindex: "0"}
+                              .gridjs-th-content #
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "product", style: "width: 360px;", tabindex: "0"}
+                              .gridjs-th-content Product
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "stock", style: "width: 94px;", tabindex: "0"}
+                              .gridjs-th-content Stock
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "price", style: "width: 101px;", tabindex: "0"}
+                              .gridjs-th-content Price
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "orders", style: "width: 84px;", tabindex: "0"}
+                              .gridjs-th-content Orders
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "rating", style: "width: 105px;", tabindex: "0"}
+                              .gridjs-th-content Rating
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "published", style: "width: 220px;", tabindex: "0"}
+                              .gridjs-th-content Published
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "action", style: "width: 80px;", tabindex: "0"}
+                              .gridjs-th-content Action
+                              %button.gridjs-sort.gridjs-sort-neutral{"aria-label" => "Sort column ascending", tabindex: "-1", title: "Sort column ascending"}
+                        %tbody.gridjs-tbody
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkboxpublished-undefined.form-check-input{type: "checkbox", value: "undefined"}/
+                                  %label.form-check-label{for: "checkbox-undefined"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-2.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Urban Ladder Pashe Chair
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Furniture
+                            %td.gridjs-td{"data-column-id" => "stock"} 06
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $160.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 30
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.3
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                06 Jan, 2021
+                                %small.text-muted.ms-1 01:31 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "undefined", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkboxpublished-undefined.form-check-input{type: "checkbox", value: "undefined"}/
+                                  %label.form-check-label{for: "checkbox-undefined"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-6.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Half Sleeve T-Shirts (Blue)
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Fashion
+                            %td.gridjs-td{"data-column-id" => "stock"} 15
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $125.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 48
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.2
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                12 Oct, 2021
+                                %small.text-muted.ms-1 04:55 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "undefined", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkboxpublished-undefined.form-check-input{type: "checkbox", value: "undefined"}/
+                                  %label.form-check-label{for: "checkbox-undefined"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-4.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Fabric Dual Tone Living Room Chair
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Furniture
+                            %td.gridjs-td{"data-column-id" => "stock"} 15
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $140.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 40
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.2
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                19 Apr, 2021
+                                %small.text-muted.ms-1 02:51 PM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "undefined", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkboxpublished-undefined.form-check-input{type: "checkbox", value: "undefined"}/
+                                  %label.form-check-label{for: "checkbox-undefined"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-4.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} 350 ml Glass Grocery Container
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Grocery
+                            %td.gridjs-td{"data-column-id" => "stock"} 10
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $125.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 48
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.5
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                26 Mar, 2021
+                                %small.text-muted.ms-1 11:40 AM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "undefined", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                          %tr.gridjs-tr
+                            %td.gridjs-td{"data-column-id" => "#"}
+                              %span
+                                .form-check.checkbox-product-list
+                                  %input#checkboxpublished-undefined.form-check-input{type: "checkbox", value: "undefined"}/
+                                  %label.form-check-label{for: "checkbox-undefined"}
+                            %td.gridjs-td{"data-column-id" => "product"}
+                              %span
+                                .d-flex.align-items-center
+                                  .flex-shrink-0.me-3
+                                    .avatar-sm.bg-light.rounded.p-1
+                                      %img.img-fluid.d-block{alt: "", src: "assets/images/products/img-5.png"}/
+                                  .flex-grow-1
+                                    %h5.fs-14.mb-1
+                                      %a.text-body{href: "apps-ecommerce-product-details.html"} Crux Motorsports Helmet
+                                    %p.text-muted.mb-0
+                                      Category :
+                                      %span.fw-medium Automotive Accessories
+                            %td.gridjs-td{"data-column-id" => "stock"} 08
+                            %td.gridjs-td{"data-column-id" => "price"}
+                              %span $135.00
+                            %td.gridjs-td{"data-column-id" => "orders"} 55
+                            %td.gridjs-td{"data-column-id" => "rating"}
+                              %span
+                                %span.badge.bg-light.text-body.fs-12.fw-medium
+                                  %i.mdi.mdi-star.text-warning.me-1>
+                                  4.4
+                            %td.gridjs-td{"data-column-id" => "published"}
+                              %span
+                                30 Mar, 2021
+                                %small.text-muted.ms-1 09:42 AM
+                            %td.gridjs-td{"data-column-id" => "action"}
+                              %span
+                                .dropdown
+                                  %button.btn.btn-soft-secondary.btn-sm.dropdown{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button"}
+                                    %i.ri-more-fill
+                                  %ul.dropdown-menu.dropdown-menu-end
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-product-details.html"}
+                                        %i.ri-eye-fill.align-bottom.me-2.text-muted
+                                        View
+                                    %li
+                                      %a.dropdown-item{href: "apps-ecommerce-add-product.html"}
+                                        %i.ri-pencil-fill.align-bottom.me-2.text-muted
+                                        Edit
+                                    %li.dropdown-divider
+                                    %li
+                                      %a.dropdown-item.remove-list{"data-bs-target" => "#removeItemModal", "data-bs-toggle" => "modal", "data-id" => "undefined", href: "#"}
+                                        %i.ri-delete-bin-fill.align-bottom.me-2.text-muted
+                                        Delete
+                    .gridjs-footer
+                      .gridjs-pagination
+                        .gridjs-summary{"aria-live" => "polite", role: "status", title: "Page 1 of 1"}
+                          Showing
+                          %b 1
+                          to
+                          %b 5
+                          of
+                          %b 5
+                          results
+                        .gridjs-pages
+                          %button{"aria-label" => "Previous", disabled: "disabled", role: "button", tabindex: "0", title: "Previous"} Previous
+                          %button.gridjs-currentPage{"aria-label" => "Page 1", role: "button", tabindex: "0", title: "Page 1"} 1
+                          %button{"aria-label" => "Next", disabled: "disabled", role: "button", tabindex: "0", title: "Next"} Next
+                    #gridjs-temp.gridjs-temp
+              / end tab pane
+              #productnav-draft.tab-pane{role: "tabpanel"}
+                .py-4.text-center
+                  %lord-icon{colors: "primary:#405189,secondary:#0ab39c", src: "https://cdn.lordicon.com/msoeawqm.json", style: "width:72px;height:72px", trigger: "loop"}
+                  %h5.mt-4 Sorry! No Result Found
+              / end tab pane
+            / end tab content
+          / end card body
+        / end card
+    / end col
