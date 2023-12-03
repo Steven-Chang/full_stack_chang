@@ -18,17 +18,17 @@
             .mb-3
               .form-label Description
               = f.search_field :description_cont, class: 'form-control form-control-sm'
-            = f.submit "Search", class: 'btn btn-primary'
+            = f.submit 'Search', class: 'btn btn-primary'
     .col-xl-9.col-lg-8
       %div
         .card
           .card-body
             .tab-content.text-muted
-              #productnav-all.tab-pane.active{role: "tabpanel"}
-                #table-product-list-all.table-card.gridjs-border-none
-                  .gridjs.gridjs-container{role: "complementary", style: "width: 100%;"}
-                    .gridjs-wrapper{style: "height: auto;"}
-                      %table.gridjs-table{role: "grid", style: "height: auto;"}
+              .tab-pane.active#productnav-all{ role: 'tabpanel' }
+                .table-card.gridjs-border-none#table-product-list-all
+                  .gridjs.gridjs-container{ role: 'complementary', style: 'width: 100%;' }
+                    .gridjs-wrapper{ style: 'height: auto;' }
+                      %table.gridjs-table{ role: 'grid', style: 'height: auto;' }
                         %thead.gridjs-thead
                           %tr.gridjs-tr
                             %th.gridjs-th.gridjs-th-sort.text-muted{ style: 'width: 120px' }
@@ -37,18 +37,18 @@
                               .gridjs-th-content Description
                             %th.gridjs-th.gridjs-th-sort.text-muted
                               .gridjs-th-content Amount
-                            %th.gridjs-th.gridjs-th-sort.text-muted{"data-column-id" => "action", style: "width: 80px;", tabindex: "0"}
+                            %th.gridjs-th.gridjs-th-sort.text-muted{ 'data-column-id' => 'action', style: 'width: 80px;', tabindex: '0' }
                               .gridjs-th-content Action
                         %tbody.gridjs-tbody
                           - @tranxactions.each do |tranxaction|
                             %tr.gridjs-tr
-                              %td.gridjs-td{"data-column-id" => "date"}= tranxaction.date.strftime("%d %b %Y")
-                              %td.gridjs-td{ "data-column-id" => "description" }= tranxaction.description
-                              %td.gridjs-td{"data-column-id" => "amount"}= number_to_currency tranxaction.amount
-                              %td.gridjs-td{"data-column-id" => "action"}
+                              %td.gridjs-td{ 'data-column-id' => 'date' }= tranxaction.date.strftime('%d %b %Y')
+                              %td.gridjs-td{ 'data-column-id' => 'description' }= tranxaction.description
+                              %td.gridjs-td{ 'data-column-id' => 'amount' }= number_to_currency tranxaction.amount
+                              %td.gridjs-td{ 'data-column-id' => 'action' }
                                 %span
                                   .dropdown
-                                    %button.btn.btn-soft-secondary.btn-sm.dropdown{ "aria-expanded" => "false", "data-bs-toggle" => "dropdown", type: "button" }
+                                    %button.btn.btn-soft-secondary.btn-sm.dropdown{ 'aria-expanded' => 'false', 'data-bs-toggle' => 'dropdown', type: 'button' }
                                       %i.ri-more-fill
                                     %ul.dropdown-menu.dropdown-menu-end
                                       %li
@@ -66,17 +66,20 @@
                                           Delete
                     .gridjs-footer
                       .gridjs-pagination
-                        .gridjs-summary{"aria-live" => "polite", role: "status", title: "Page 1 of 2"}
+                        .gridjs-summary{ 'aria-live' => 'polite', role: 'status', title: "Page #{@tranxactions.total_pages.zero? ? 0 : 1} of #{@tranxactions.total_pages}" }
                           Showing
-                          %b 1
+                          %b= @tranxactions.total_count.zero? ? 0 : ((@tranxactions.current_page - 1) * @tranxactions.current_per_page) + 1
                           to
-                          %b 10
+                          %b= [@tranxactions.current_page * @tranxactions.current_per_page, @tranxactions.total_count].min
                           of
-                          %b 12
+                          %b= @tranxactions.total_count
                           results
-                        .gridjs-pages
-                          %button{"aria-label" => "Previous", disabled: "disabled", role: "button", tabindex: "0", title: "Previous"} Previous
-                          %button.gridjs-currentPage{"aria-label" => "Page 1", role: "button", tabindex: "0", title: "Page 1"} 1
-                          %button{"aria-label" => "Page 2", role: "button", tabindex: "0", title: "Page 2"} 2
-                          %button{"aria-label" => "Next", role: "button", tabindex: "0", title: "Next"} Next
-                    #gridjs-temp.gridjs-temp
+                        / .gridjs-pages
+                        /   - unless @tranxactions.first_page?
+                        /     %button{ "aria-label" => "Previous", disabled: "disabled", role: "button", tabindex: "0", title: "Previous" } Previous
+                        /   %button.gridjs-currentPage{ "aria-label" => "Page 1", role: "button", tabindex: "0", title: "Page 1" } 1
+                        /   %button{ "aria-label" => "Page 2", role: "button", tabindex: "0", title: "Page 2" } 2
+                        /   - unless @tranxactions.last_page?
+                        /     %button{ "aria-label" => "Next", role: "button", tabindex: "0", title: "Next" } Next
+                        / = paginate @tranxactions
+                    .gridjs-temp#gridjs-temp
