@@ -66,9 +66,9 @@
                                           Delete
                     .gridjs-footer
                       .gridjs-pagination
-                        .gridjs-summary{ 'aria-live' => 'polite', role: 'status', title: "Page #{@tranxactions.total_pages.zero? ? 0 : 1} of #{@tranxactions.total_pages}" }
+                        .gridjs-summary{ 'aria-live' => 'polite', role: 'status', title: "Page #{@tranxactions.current_page} of #{@tranxactions.total_pages}" }
                           Showing
-                          %b= @tranxactions.total_count.zero? ? 0 : ((@tranxactions.current_page - 1) * @tranxactions.current_per_page) + 1
+                          %b= [0, ((@tranxactions.current_page - 1) * @tranxactions.current_per_page) + 1].min
                           to
                           %b= [@tranxactions.current_page * @tranxactions.current_per_page, @tranxactions.total_count].min
                           of
