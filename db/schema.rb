@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_04_233300) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_04_235431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -187,7 +187,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_04_233300) do
     t.bigint "creditor_id"
     t.string "tranxactable_type"
     t.bigint "tranxactable_id"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["creditor_id"], name: "index_tranxactions_on_creditor_id"
     t.index ["tax_category_id"], name: "index_tranxactions_on_tax_category_id"
     t.index ["tranxactable_type", "tranxactable_id"], name: "index_tranxactions_on_tranxactable_type_and_tranxactable_id"
