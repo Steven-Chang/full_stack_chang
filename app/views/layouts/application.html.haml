@@ -21,5 +21,10 @@
       = render 'header'
       .main-content
         .page-content
+          - if flash[:notice]
+            .container-fluid
+              .row
+                .col-12
+                  .alert.alert-success{ role: 'alert' }= flash[:notice]
           = yield
       = render 'footer'
