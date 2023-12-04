@@ -13,8 +13,8 @@
             .mb-3
               .form-label Date
               .d-flex.gap-2.align-items-center
-                = f.search_field :date_gteq, class: 'form-control form-control-sm'
-                = f.search_field :date_lteq, class: 'form-control form-control-sm'
+                = f.search_field :date_gteq, class: 'form-control form-control-sm flatpickr-input', 'data-date-format' => 'd M, Y', 'data-provider' => 'flatpickr', readonly: 'readonly', type: 'text'
+                = f.search_field :date_lteq, class: 'form-control form-control-sm flatpickr-input', 'data-date-format' => 'd M, Y', 'data-provider' => 'flatpickr', readonly: 'readonly', type: 'text'
             .mb-3
               .form-label Description
               = f.search_field :description_cont, class: 'form-control form-control-sm'
