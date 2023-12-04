@@ -80,7 +80,7 @@
                               %button{ 'aria-label' => 'Previous', role: 'button', tabindex: '0', title: 'Previous' } Previous
                           - @tranxactions.total_pages.times do |n|
                             - page = n + 1
-                            = link_to tranxactions_path(page: page) do
+                            = link_to tranxactions_path(page:) do
                               %button{ 'aria-label' => "Page #{page}", role: 'button', tabindex: '0', title: "Page #{page}", class: page == @tranxactions.current_page ? 'gridjs-currentPage' : '' }= page
                           - unless @tranxactions.last_page?
                             = link_to tranxactions_path(page: @tranxactions.next_page) do
