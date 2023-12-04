@@ -11,6 +11,7 @@ RSpec.describe Tranxaction do
     it { should belong_to(:tax_category).optional(true) }
     it { should belong_to(:tranxactable).optional(true) }
     it { should belong_to(:creditor).optional(true) }
+    it { should belong_to(:user) }
   	it { should have_many(:attachments_attachments) }
   end
 

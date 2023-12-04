@@ -8,5 +8,5 @@ RSpec.describe User do
 	# === ASSOCIATIONS ===
 	it { should have_many(:creditors).dependent(:destroy) }
 	it { should have_many(:tenancy_agreements).dependent(:restrict_with_error) }
-	it { should have_many(:tranxactions) }
+	it { should have_many(:tranxactions).dependent(:restrict_with_exception) }
 end
