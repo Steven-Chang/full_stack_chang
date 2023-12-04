@@ -3,3 +3,30 @@
     .col-12
       .page-title-box.d-flex.align-items-center
         %h4.mb-sm-0.text-nowrap.me-3 New Transaction
+      .card
+        .card-body
+          = form_for @tranxaction do |f|
+            .mb-3
+              = f.label :date, class: 'form-label'
+              = f.text_field :date, class: 'form-control flatpickr-input', 'data-date-format' => 'd M, Y', 'data-provider' => 'flatpickr', readonly: 'readonly', type: 'text', 'data-default-date' => Date.current.strftime('%e %b, %Y')
+            .mb-3
+              = f.label :description, class: 'form-label'
+              = f.text_field :description, class: 'form-control'
+            .mb-3
+              = f.label :amount, class: 'form-label'
+              = f.text_field :amount, class: 'form-control'
+            .mb-3
+              = f.check_box :tax, class: 'form-check-input'
+              = f.label :tax, class: 'form-check-label'
+            .mb-3
+              = f.label :tax_category, class: 'form-label'
+              = f.select(:tax_category_id, TaxCategory.all.map {|u| [u.description, u.id]}, { include_blank: true }, { class: 'form-select' })
+            .mb-3
+              = f.label :tranxactable_type, class: 'form-label'
+              = f.select(:tranxactable_type, [["Client", "Client"], ["Property", "Property"], ["TenancyAgreement", "TenancyAgreement"]], { include_blank: true }, { class: 'form-select' })
+            .mb-3.d-none#tranxactable-field
+              = f.label :tranxactable_id, class: 'form-label'
+              = f.select(:tranxactable_id, [], { include_blank: true }, { class: 'form-select' })
+            .mb-3
+              = f.label :creditor, class: 'form-label'
+              = f.select(:creditor_id, current_user.creditors.map {|u| [u.description, u.id]}, { include_blank: true }, { class: 'form-select' })

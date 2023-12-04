@@ -15,6 +15,7 @@ class TranxactionsController < ApplicationController
 
   def new
     @tranxaction = current_user.tranxactions.new
+    @tranxaction.tranxactable_type = nil
   end
 
   def edit
