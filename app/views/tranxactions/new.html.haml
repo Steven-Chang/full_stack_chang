@@ -1,11 +1,11 @@
-- if @tranxaction.errors.present?
-  .alert.alert-danger{ role: 'alert' }
-    %ul
-      - @tranxaction.errors.each do |error|
-        = error
 .container-fluid#transactions-new
   .row
     .col-12
+      - if @tranxaction.errors.present?
+        .alert.alert-danger{ role: 'alert' }
+          %ul
+            - @tranxaction.errors.each do |error|
+              = error
       .page-title-box.d-flex.align-items-center
         %h4.mb-sm-0.text-nowrap.me-3 New Transaction
       = form_for @tranxaction do |f|
