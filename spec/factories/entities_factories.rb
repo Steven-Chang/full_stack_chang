@@ -13,6 +13,8 @@ FactoryBot.define do
 
   factory :creditor do
     sequence(:name) { |n| "creditor-#{n}" }
+
+    user
   end
 
   factory :payment_summary do

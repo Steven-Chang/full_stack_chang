@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Creditor do
 	describe 'ASSOCIATIONS' do
 		it { should have_many(:tranxactions).dependent(:restrict_with_error) }
+		it { should belong_to(:user) }
 	end
 
 	describe 'VALIDATIONS' do
