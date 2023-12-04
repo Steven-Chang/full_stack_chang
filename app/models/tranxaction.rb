@@ -7,6 +7,7 @@ class Tranxaction < ApplicationRecord
   belongs_to :creditor, optional: true
   belongs_to :tax_category, optional: true
   belongs_to :tranxactable, polymorphic: true, optional: true
+  belongs_to :user
   has_many_attached :attachments
 
   # === VALIDATIONS ===

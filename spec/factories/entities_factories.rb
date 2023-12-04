@@ -37,6 +37,8 @@ FactoryBot.define do
     sequence(:description) { |n| "Tranxaction description #{n}" }
     amount { rand(1..100) }
     tax { true }
+
+    user
   end
 
   factory :user do
