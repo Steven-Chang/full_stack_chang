@@ -13,6 +13,10 @@ class TranxactionsController < ApplicationController
     @tranxaction = current_user.tranxactions.find(params[:id])
   end
 
+  def new
+    @tranxaction = current_user.tranxactions.new
+  end
+
   def edit
     @tranxaction = current_user.tranxactions.find(params[:id])
   end
