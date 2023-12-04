@@ -5,6 +5,7 @@ class User < ApplicationRecord
   devise :two_factor_authenticatable, :recoverable, :trackable, :timeoutable
 
   # === ASSOCIATIONS ===
+  has_many :creditors, dependent: :destroy
   has_many :tenancy_agreements, dependent: :restrict_with_error
   has_many :tranxactions, through: :tenancy_agreements
 

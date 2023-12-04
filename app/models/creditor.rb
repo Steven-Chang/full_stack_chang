@@ -2,6 +2,7 @@
 
 class Creditor < ApplicationRecord
 	# === ASSOCIATIONS ===
+	belongs_to :user
 	has_many :tranxactions, dependent: :restrict_with_error
 
 	# === VALIDATIONS ===
