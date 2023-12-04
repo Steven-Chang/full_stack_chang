@@ -55,7 +55,7 @@
                         %h5.card-title.mb-3 Portfolio
                         .acitivity-timeline
                           - Project.where(private: false).order(start_date: :desc).each_with_index do |project, index|
-                            .acitivity-item.d-flex{ class: index > 0 ? 'mt-3' : '' }
+                            .acitivity-item.d-flex{ class: index.positive? ? 'mt-3' : '' }
                               .flex-shrink-0.avatar-xs.acitivity-avatar
                                 .avatar-title.bg-success-subtle.text-success.rounded-circle
                               .flex-grow-1.ms-3
