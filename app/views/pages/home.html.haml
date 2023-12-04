@@ -46,7 +46,7 @@
                     %h5.card-title.mb-4 Skills
                     .d-flex.flex-wrap.gap-2.fs-15
                       - Tool.where(visible: true).order(:name).each do |tool|
-                        %a.badge.bg-primary-subtle.text-primary{href: "javascript:void(0);"}= tool.name
+                        %a.badge.bg-primary-subtle.text-primary{href: 'javascript:void(0);'}= tool.name
               .col-xxl-9
                 .row
                   .col-lg-12
