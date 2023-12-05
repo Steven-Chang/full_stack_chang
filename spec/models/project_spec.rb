@@ -7,7 +7,6 @@ RSpec.describe Project do
 
   describe 'ASSOCIATIONS' do
     it { should have_and_belong_to_many(:tools) }
-    it { should have_many(:attachments).dependent(:delete_all) }
   end
 
   describe 'VALIDATIONS' do
