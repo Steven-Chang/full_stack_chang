@@ -6,4 +6,11 @@
 @import '../../../lib/assets/libs/flatpickr/flatpickr.min';
 
 // === CUSTOM ===
-@import './application/header'
+@import './application/header';
+
+@media (min-width: 1024.1px) {
+	.page-content {
+		margin-top: 0 !important;
+		padding: calc(65px + 2.7rem) 0.75rem 60px 0.75rem !important;
+	}
+}
