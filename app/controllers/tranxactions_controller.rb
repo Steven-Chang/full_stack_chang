@@ -18,17 +18,17 @@ class TranxactionsController < ApplicationController
     @tranxaction.tranxactable_type = nil
   end
 
+  def edit
+    @tranxaction = current_user.tranxactions.find(params[:id])
+  end
+
   def create
     @tranxaction = current_user.tranxactions.new(tranxaction_params)
     if @tranxaction.save
       redirect_to @tranxaction, notice: 'Transaction was successfully created.'
     else
-      render action: "new"
+      render action: 'new'
     end
-  end
-
-  def edit
-    @tranxaction = current_user.tranxactions.find(params[:id])
   end
 
   def destroy
@@ -40,6 +40,6 @@ class TranxactionsController < ApplicationController
   private
 
     def tranxaction_params
-      params.require(:tranxaction).permit(:date, :description, :amount, :tax, :tax_category_id, :creditor_id, :tranxactable_type, :tranxactable_id)
+      params.require(:tranxaction).permit(:date, :description, :amount, :tax, :tax_category_id, :creditor_id, :tranxactable_type, :tranxactable_id, attachments: [])
     end
 end
