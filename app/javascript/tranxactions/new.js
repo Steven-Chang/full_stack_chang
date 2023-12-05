@@ -20,6 +20,7 @@ export const TRANSACTIONS_NEW = {
               const hiddenField = document.createElement("input");
               hiddenField.setAttribute("type", "hidden");
               hiddenField.setAttribute("value", attributes.signed_id);
+              hiddenField.setAttribute("id", file.upload.uuid);
               hiddenField.name = "tranxaction[attachments][]";
               $("form#new_tranxaction").append(hiddenField);
             }
@@ -28,12 +29,8 @@ export const TRANSACTIONS_NEW = {
       }, 500);
     });
 
-    // dropZone.on("removedfile", file => {
-    //   file.controller && removeElement(file.controller.hiddenInput);
-    // });
-
-    // dropZone.on("canceled", file => {
-    //   file.controller && file.controller.xhr.abort();
-    // });
+    dropZone.on("removedfile", (file) => {
+      $(`#${file.upload.uuid}`).remove();
+    });
   },
 };
