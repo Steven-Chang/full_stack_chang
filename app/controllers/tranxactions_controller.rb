@@ -40,6 +40,6 @@ class TranxactionsController < ApplicationController
   private
 
     def tranxaction_params
-      params.require(:tranxaction).permit(:date, :description, :amount, :tax, :tax_category_id, :creditor_id, :tranxactable_type, :tranxactable_id)
+      params.require(:tranxaction).permit(:date, :description, :amount, :tax, :tax_category_id, :creditor_id, :tranxactable_type, :tranxactable_id, attachments: [])
     end
 end

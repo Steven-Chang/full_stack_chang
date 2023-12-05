@@ -1,6 +1,7 @@
-@import '../../../lib/assets/css/bootstrap.min';
+@import 'dropzone/src/dropzone';
 
 // === VELZON ===
+@import '../../../lib/assets/css/bootstrap.min';
 @import '../../../lib/assets/css/icons.min';
 @import '../../../lib/assets/css/app.min';
 @import '../../../lib/assets/libs/flatpickr/flatpickr.min';
@@ -14,3 +15,30 @@
 		padding: calc(65px + 2.7rem) 0.75rem 60px 0.75rem !important;
 	}
 }
+
+.required::after {
+  color: var(--bs-red);
+  content: ' *';
+}
+
+// === DROPZONE ===
+.dropzone {
+  border-style: dashed;
+  padding: 12px;
+
+  .dz-message {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .dz-preview {
+    margin: 0;
+    max-width: 100%;
+
+    .dz-image {
+      max-width: 100%;
+    }
+  }
+}
+

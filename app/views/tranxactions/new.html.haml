@@ -25,7 +25,7 @@
               = f.label :tax, class: 'form-check-label'
             .mb-3
               = f.label :tax_category, class: 'form-label'
-              = f.select(:tax_category_id, TaxCategory.all.map {|u| [u.description, u.id]}, { include_blank: true }, { class: 'form-select' })
+              = f.select(:tax_category_id, TaxCategory.all.map {|tax_category| [tax_category.description, tax_category.id]}, { include_blank: true }, { class: 'form-select' })
             .mb-3
               = f.label :tranxactable_type, class: 'form-label'
               = f.select(:tranxactable_type, [["Client", "Client"], ["Property", "Property"], ["TenancyAgreement", "TenancyAgreement"]], { include_blank: true }, { class: 'form-select' })
@@ -34,8 +34,15 @@
               = f.select(:tranxactable_id, [], { include_blank: true }, { class: 'form-select' })
             .mb-3
               = f.label :creditor, class: 'form-label'
-              = f.select(:creditor_id, current_user.creditors.map {|u| [u.description, u.id]}, { include_blank: true }, { class: 'form-select' })
+              = f.select(:creditor_id, current_user.creditors.map {|creditor| [creditor.name, creditor.id]}, { include_blank: true }, { class: 'form-select' })
+            .mb-3
+              = f.label :attachments, class: 'form-label'
+              = f.file_field :attachments, multiple: true, hidden: true
+              .dropzone#transactions-attachments-dropzone
+                .dz-message.needsclick
+                  .mb-3
+                    %i.display-4.text-muted.ri-upload-cloud-2-fill
+                  .text-muted Drop files here or click to upload.
             .d-flex.pt-3
               = link_to 'Cancel', tranxactions_path, class: 'btn btn-light me-3'
               = f.submit class: 'btn btn-primary'
-
