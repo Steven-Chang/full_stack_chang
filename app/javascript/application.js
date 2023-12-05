@@ -2,6 +2,8 @@ import "@hotwired/turbo-rails";
 import "./src/jquery";
 import "./src/bootstrap";
 import "./src/dropzone";
+import { DirectUpload } from "@rails/activestorage";
+window.DirectUpload = DirectUpload;
 
 // === VELZON ===
 import "../../lib/assets/js/layout";

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_04_235931) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_05_082054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -221,6 +221,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_04_235931) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "creditors", "users", name: "creditors_user_id_fk"
   add_foreign_key "payment_summaries", "clients", name: "payment_summaries_client_id_fk"
   add_foreign_key "projects_tools", "projects", name: "projects_tools_project_id_fk"
   add_foreign_key "projects_tools", "tools", name: "projects_tools_tool_id_fk"
@@ -230,4 +231,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_04_235931) do
   add_foreign_key "tenancy_agreements", "users", name: "tenancy_agreements_user_id_fk"
   add_foreign_key "tranxactions", "creditors", name: "tranxactions_creditor_id_fk"
   add_foreign_key "tranxactions", "tax_categories", name: "tranxactions_tax_category_id_fk"
+  add_foreign_key "tranxactions", "users", name: "tranxactions_user_id_fk"
 end

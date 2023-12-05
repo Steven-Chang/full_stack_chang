@@ -8,7 +8,7 @@
               = error
       .page-title-box.d-flex.align-items-center
         %h4.mb-sm-0.text-nowrap.me-3 New Transaction
-      = form_for @tranxaction do |f|
+      = form_for @tranxaction, multipart: true do |f|
         .card
           .card-body
             .mb-3
@@ -37,7 +37,7 @@
               = f.select(:creditor_id, current_user.creditors.map {|creditor| [creditor.name, creditor.id]}, { include_blank: true }, { class: 'form-select' })
             .mb-3
               = f.label :attachments, class: 'form-label'
-              = f.file_field :attachments, multiple: true, hidden: true
+              = f.file_field :attachments, multiple: true, direct_upload: true, hidden: true
               .dropzone#transactions-attachments-dropzone
                 .dz-message.needsclick
                   .mb-3
