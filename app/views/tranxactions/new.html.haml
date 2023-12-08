@@ -25,16 +25,16 @@
               = f.label :tax, class: 'form-check-label'
             .mb-3
               = f.label :tax_category, class: 'form-label'
-              = f.select(:tax_category_id, TaxCategory.all.map {|tax_category| [tax_category.description, tax_category.id]}, { include_blank: true }, { class: 'form-select' })
+              = f.select(:tax_category_id, TaxCategory.all.map { |tax_category| [tax_category.description, tax_category.id] }, { include_blank: true }, { class: 'form-select' })
             .mb-3
               = f.label :tranxactable_type, class: 'form-label'
-              = f.select(:tranxactable_type, [["Client", "Client"], ["Property", "Property"], ["TenancyAgreement", "TenancyAgreement"]], { include_blank: true }, { class: 'form-select' })
+              = f.select(:tranxactable_type, [['Client', 'Client'], ['Property', 'Property'], ['TenancyAgreement', 'TenancyAgreement']], { include_blank: true }, { class: 'form-select' })
             .mb-3.d-none#tranxactable-field
               = f.label :tranxactable_id, class: 'form-label'
               = f.select(:tranxactable_id, [], { include_blank: true }, { class: 'form-select' })
             .mb-3
               = f.label :creditor, class: 'form-label'
-              = f.select(:creditor_id, current_user.creditors.map {|creditor| [creditor.name, creditor.id]}, { include_blank: true }, { class: 'form-select' })
+              = f.select(:creditor_id, current_user.creditors.map { |creditor| [creditor.name, creditor.id] }, { include_blank: true }, { class: 'form-select' })
             .mb-3
               = f.label :attachments, class: 'form-label'
               = f.file_field :attachments, multiple: true, direct_upload: true, hidden: true

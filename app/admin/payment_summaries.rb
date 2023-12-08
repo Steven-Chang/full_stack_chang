@@ -16,7 +16,7 @@ ActiveAdmin.register PaymentSummary do
   index do
     column :year_ending
     column :client do |payment_summary|
-      payment_summary.client.name
+      "#{payment_summary.user.username}: #{payment_summary.client.name}"
     end
     column :total_tax_withheld
     column :total_allowances
@@ -36,7 +36,7 @@ ActiveAdmin.register PaymentSummary do
     PaymentSummary.pluck(:year_ending).uniq
   }
   filter :client, collection: lambda {
-    Client.all.map { |client| [client.name, client.id] }
+    Client.all.map { |client| ["#{client.user.username}: #{client.name}", client.id] }
   }
 
   # === SHOW ===
@@ -45,7 +45,7 @@ ActiveAdmin.register PaymentSummary do
       row :id
       row :year_ending
       row :client do |payment_summary|
-        payment_summary.client.name
+        "#{payment_summary.user.username}: #{payment_summary.client.name}"
       end
       row :total_tax_withheld do |payment_summary|
         number_to_currency(payment_summary.total_tax_withheld)
@@ -69,9 +69,8 @@ ActiveAdmin.register PaymentSummary do
     f.object.year_ending ||= Date.current.year
     f.inputs do
       f.input :year_ending, required: true
-      f.input :client, member_label: :name,
-                       include_blank: false,
-                       required: true
+      f.input :client_id, as: :select,
+                          collection: Client.all.map { |client| ["#{client.user.username}: #{client.name}", client.id] }
       f.input :total_tax_withheld
       f.input :total_allowances
       f.object.attachments.each do |attachment|
