@@ -5,11 +5,16 @@ class ScheduledTranxactionTemplate < ApplicationRecord
 	belongs_to :creditor
 	belongs_to :tax_category, optional: true
 	belongs_to :tranxactable, polymorphic: true
+  has_one :user, through: :creditor
 
 	# === VALIDATIONS ===
 	validates :amount, numericality: true
   validates :date_offset, numericality: true
 	validates :amount, :date, :days_for_recurrence, :description, :tranxactable_type, presence: true
+
+  # === SCOPES ===
+  scope :emily, lambda { joins(:creditor).where(creditor: { user_id: 14 }) }
+  scope :steven, lambda { joins(:creditor).where(creditor: { user_id: 1 }) }
 
   # === CLASS METHODS ===
   def self.process

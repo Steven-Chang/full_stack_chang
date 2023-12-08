@@ -7,6 +7,7 @@ RSpec.describe ScheduledTranxactionTemplate do
     it { should belong_to(:tax_category).optional(true) }
     it { should belong_to(:tranxactable) }
     it { should belong_to(:creditor) }
+    it { should have_one(:user) }
   end
 
   describe 'VALIDATIONS' do

@@ -19,8 +19,8 @@ class Tranxaction < ApplicationRecord
   end
 
   # === SCOPES ===
-  scope :emily, lambda { User.find(14).tranxactions }
-  scope :steven, lambda { User.find(1).tranxactions }
+  scope :emily, lambda { where(user_id: 14) }
+  scope :steven, lambda { where(user_id: 1) }
 
   # === CLASS METHODS ===
   def self.balance(tranxactable = nil, from = nil, to = nil, greater_than = nil, less_than = nil, tax = 'ignore')

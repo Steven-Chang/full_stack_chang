@@ -6,6 +6,11 @@ ActiveAdmin.register ScheduledTranxactionTemplate do
   menu parent: 'Taxes'
 
   # === INDEX ===
+  # scopes
+  scope :all
+  scope :steven, default: true
+  scope :emily
+
   index do
     id_column
     column :date

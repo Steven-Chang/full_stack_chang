@@ -11,8 +11,8 @@ class PaymentSummary < ApplicationRecord
 	validates :year_ending, numericality: { only_integer: true }
 
   # === SCOPES ===
-  scope :emily, lambda { User.find(14).payment_summaries }
-  scope :steven, lambda { User.find(1).payment_summaries }
+  scope :emily, lambda { joins(:client).where(client: { user_id: 14 }) }
+  scope :steven, lambda { joins(:client).where(client: { user_id: 1 }) }
 
   # === INSTANCE METHODS ===
 	# def gross_payment
