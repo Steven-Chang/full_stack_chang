@@ -18,6 +18,7 @@ ActiveAdmin.register PaymentSummary do
     column :client do |payment_summary|
       "#{payment_summary.user.username}: #{payment_summary.client.name}"
     end
+    column :taxable_income
     column :total_tax_withheld
     column :total_allowances
     column :attachments do |payment_summary|
@@ -47,6 +48,9 @@ ActiveAdmin.register PaymentSummary do
       row :client do |payment_summary|
         "#{payment_summary.user.username}: #{payment_summary.client.name}"
       end
+      row :taxable_income do |payment_summary|
+        number_to_currency(payment_summary.total_tax_withheld)
+      end
       row :total_tax_withheld do |payment_summary|
         number_to_currency(payment_summary.total_tax_withheld)
       end
@@ -71,6 +75,7 @@ ActiveAdmin.register PaymentSummary do
       f.input :year_ending, required: true
       f.input :client_id, as: :select,
                           collection: Client.all.map { |client| ["#{client.user.username}: #{client.name}", client.id] }
+      f.input :taxable_income
       f.input :total_tax_withheld
       f.input :total_allowances
       f.object.attachments.each do |attachment|
@@ -83,6 +88,7 @@ ActiveAdmin.register PaymentSummary do
 
   # === PERMIT PARAMS ===
   permit_params :client_id,
+                :taxable_income,
                 :total_allowances,
                 :total_tax_withheld,
                 :year_ending,
