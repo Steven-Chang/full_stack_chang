@@ -96,6 +96,7 @@ ActiveAdmin.register Tranxaction do
         link_to link_description, url
       end
       row :creditor
+      row :user
       row :attachments do |tranxaction|
         tranxaction.attachments
                    .map { |attachment| link_to attachment.filename.to_s, url_for(attachment), target: '_blank', rel: 'noopener' }
@@ -117,6 +118,7 @@ ActiveAdmin.register Tranxaction do
       f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
       f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| ["#{client.user.username}: #{client.name}", client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.reference, tenancy_agreement.id] }, wrapper_html: { style: 'display: none;' }
       f.input :creditor, as: :select, collection: Creditor.all.map { |creditor| ["#{creditor.user.username}: #{creditor.name}", creditor.id] }
+      f.input :user
       f.object.attachments.each do |attachment|
         f.input :attachments, input_html: { multiple: true, value: attachment.signed_id }, as: :hidden
       end
@@ -134,5 +136,6 @@ ActiveAdmin.register Tranxaction do
                 :tax_category_id,
                 :tranxactable_type,
                 :tranxactable_id,
+                :user_id,
                 attachments: []
 end
