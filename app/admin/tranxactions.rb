@@ -9,7 +9,7 @@ ActiveAdmin.register Tranxaction do
   config.sort_order = 'date_desc'
 
   # scopes
-  scope :all, default: true
+  scope :all
   scope :steven, default: true
   scope :emily
 

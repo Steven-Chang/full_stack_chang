@@ -2,11 +2,16 @@
 
 # params['commit'] exists when filters are selected
 ActiveAdmin.register PaymentSummary do
+  # === MENU ===
+  menu parent: 'Taxes'
+
   # === INDEX ===
   config.sort_order = 'year_ending_desc'
 
-  # === MENU ===
-  menu parent: 'Taxes'
+  # scopes
+  scope :all
+  scope :steven, default: true
+  scope :emily
 
   index do
     column :year_ending
