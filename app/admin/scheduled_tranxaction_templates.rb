@@ -38,6 +38,8 @@ ActiveAdmin.register ScheduledTranxactionTemplate do
     actions
   end
 
+  filter :enabled
+
   # === SHOW ===
   show do
     attributes_table do
