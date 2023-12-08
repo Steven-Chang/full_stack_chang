@@ -7,7 +7,7 @@ class Creditor < ApplicationRecord
 
 	# === VALIDATIONS ===
 	validates :name, presence: true
-	validates :name, uniqueness: { case_sensitive: false }
+	validates :name, uniqueness: { case_sensitive: false, scope: :user_id }
 
 	# === CALLBACKS ===
 	before_save do |creditor|
