@@ -19,7 +19,8 @@
     "popper.js": "^1.15.0",
     "sass": "^1.66.1",
     "screenfull": "^4.2.1",
-    "switchery": "^0.0.2"
+    "switchery": "^0.0.2",
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
     "prettier": "2.7.1"
