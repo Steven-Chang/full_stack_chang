@@ -51,13 +51,9 @@ ActiveAdmin.register Tranxaction do
   filter :amount
   filter :date
   filter :description
-  filter :creditor, collection: lambda {
-    Creditor.all.map { |creditor| [creditor.name, creditor.id] }
-  }
+  filter :creditor
   filter :tax
-  filter :tax_category, collection: lambda {
-    TaxCategory.all.map { |tax_category| [tax_category.description, tax_category.id] }
-  }
+  filter :tax_category
   filter :tranxactable_type, collection: %w[Client Property TenancyAgreement]
   filter :tranxactable_id, as: :select,
                            collection: proc {
@@ -78,9 +74,7 @@ ActiveAdmin.register Tranxaction do
         number_to_currency(tranxaction.amount)
       end
       row :tax
-      row :tax_category do |tranxaction|
-        tranxaction&.tax_category&.description
-      end
+      row :tax_category
       row :tranxactable do |tranxaction|
         next if tranxaction.tranxactable.blank?
 
@@ -114,10 +108,11 @@ ActiveAdmin.register Tranxaction do
       f.input :description, required: true
       f.input :amount, required: true
       f.input :tax
-      f.input :tax_category, member_label: :description
-      f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
-      f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| ["#{client.user.username}: #{client.name}", client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.reference, tenancy_agreement.id] }, wrapper_html: { style: 'display: none;' }
-      f.input :creditor, as: :select, collection: Creditor.all.map { |creditor| ["#{creditor.user.username}: #{creditor.name}", creditor.id] }
+      f.input :tax_category
+      f.input :tranxactable_type, collection: %w[Client]
+      f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.display_name, client.id] }
+      # + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.reference, tenancy_agreement.id] }, wrapper_html: { style: 'display: none;' }
+      f.input :creditor
       f.input :user
       f.object.attachments.each do |attachment|
         f.input :attachments, input_html: { multiple: true, value: attachment.signed_id }, as: :hidden

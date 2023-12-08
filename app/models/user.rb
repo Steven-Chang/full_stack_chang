@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  # === ALIAS ATTRIBUTE ===
+  alias_attribute :name, :username
+
   # === DEVISE ===
   devise :two_factor_authenticatable, :recoverable, :trackable, :timeoutable
 
