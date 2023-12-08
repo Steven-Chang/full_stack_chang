@@ -18,6 +18,10 @@ class Tranxaction < ApplicationRecord
     tranxaction.tax_category_id = nil unless tranxaction.tax
   end
 
+  # === SCOPES ===
+  scope :emily, lambda { User.find(14).tranxactions }
+  scope :steven, lambda { User.find(1).tranxactions }
+
   # === CLASS METHODS ===
   def self.balance(tranxactable = nil, from = nil, to = nil, greater_than = nil, less_than = nil, tax = 'ignore')
     filter(tranxactable, from, to, greater_than, less_than, tax).sum(:amount)

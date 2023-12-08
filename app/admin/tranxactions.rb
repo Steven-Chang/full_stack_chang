@@ -8,6 +8,11 @@ ActiveAdmin.register Tranxaction do
   # === INDEX ===
   config.sort_order = 'date_desc'
 
+  # scopes
+  scope :all, default: true
+  scope :steven, default: true
+  scope :emily
+
   index do
     id_column
     column :date
@@ -44,18 +49,15 @@ ActiveAdmin.register Tranxaction do
   end
 
   filter :amount
+  filter :date
+  filter :description
   filter :creditor, collection: lambda {
     Creditor.all.map { |creditor| [creditor.name, creditor.id] }
   }
-  filter :creditor_id_present, as: :boolean
-  filter :date
-  filter :description
   filter :tax
   filter :tax_category, collection: lambda {
     TaxCategory.all.map { |tax_category| [tax_category.description, tax_category.id] }
   }
-  filter :tax_category_id_present, as: :boolean
-  filter :tranxactable_type_present, as: :boolean
   filter :tranxactable_type, collection: %w[Client Property TenancyAgreement]
   filter :tranxactable_id, as: :select,
                            collection: proc {
