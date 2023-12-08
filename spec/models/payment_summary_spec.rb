@@ -8,6 +8,7 @@ RSpec.describe PaymentSummary do
   describe 'ASSOCIATIONS' do
   	it { should belong_to(:client) }
   	it { should have_many(:attachments_attachments) }
+    it { should have_one(:user) }
   end
 
   describe 'VALIDATIONS' do

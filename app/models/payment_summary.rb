@@ -4,6 +4,7 @@ class PaymentSummary < ApplicationRecord
 	# === ASSOCIATIONS ===
 	belongs_to :client
 	has_many_attached :attachments
+	has_one :user, through: :client
 
 	# === VALIDATIONS ===
 	validates :client_id, uniqueness: { scope: :year_ending }

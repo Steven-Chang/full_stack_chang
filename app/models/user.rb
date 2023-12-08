@@ -7,6 +7,7 @@ class User < ApplicationRecord
   # === ASSOCIATIONS ===
   has_many :clients, dependent: :destroy
   has_many :creditors, dependent: :destroy
+  has_many :payment_summaries, through: :clients
   has_many :tenancy_agreements, dependent: :restrict_with_error
   has_many :tranxactions, dependent: :restrict_with_exception
 
