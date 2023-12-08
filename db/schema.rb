@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_08_001136) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_08_002053) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_001136) do
     t.string "email"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
@@ -223,6 +223,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_001136) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "clients", "users", name: "clients_user_id_fk"
   add_foreign_key "creditors", "users", name: "creditors_user_id_fk"
   add_foreign_key "payment_summaries", "clients", name: "payment_summaries_client_id_fk"
   add_foreign_key "projects_tools", "projects", name: "projects_tools_project_id_fk"
