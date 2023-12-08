@@ -115,8 +115,8 @@ ActiveAdmin.register Tranxaction do
       f.input :tax
       f.input :tax_category, member_label: :description
       f.input :tranxactable_type, collection: %w[Client Property TenancyAgreement]
-      f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| [client.name, client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.reference, tenancy_agreement.id] }, wrapper_html: { style: 'display: none;' }
-      f.input :creditor, member_label: :name, collection: Creditor.order('LOWER(name)')
+      f.input :tranxactable_id, as: :select, collection: Client.all.map { |client| ["#{client.user.username}: #{client.name}", client.id] } + Property.all.map { |property| [property.address, property.id] } + TenancyAgreement.all.map { |tenancy_agreement| [tenancy_agreement.reference, tenancy_agreement.id] }, wrapper_html: { style: 'display: none;' }
+      f.input :creditor, as: :select, collection: Creditor.all.map { |creditor| ["#{creditor.user.username}: #{creditor.name}", creditor.id] }
       f.object.attachments.each do |attachment|
         f.input :attachments, input_html: { multiple: true, value: attachment.signed_id }, as: :hidden
       end
