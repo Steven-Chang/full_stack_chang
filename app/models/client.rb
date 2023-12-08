@@ -2,6 +2,7 @@
 
 class Client < ApplicationRecord
 	# === ASSOCIATIONS ===
+  belongs_to :user
   has_many :payment_summaries, dependent: :destroy
   has_many :tranxactions, as: :tranxactable, dependent: :restrict_with_exception
 

@@ -9,6 +9,8 @@ FactoryBot.define do
 
   factory :client do
     sequence(:name) { |n| "client #{n}" }
+
+    user
   end
 
   factory :creditor do
