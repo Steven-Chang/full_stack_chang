@@ -53,7 +53,7 @@ ActiveAdmin.register PaymentSummary do
       row :total_allowances do |payment_summary|
         number_to_currency(payment_summary.total_allowances)
       end
-      table_for tranxaction.attachments.order('created_at DESC') do
+      table_for payment_summary.attachments.order('created_at DESC') do
         column 'Attachments' do |attachment|
           # Permanent
           link_to attachment.filename.to_s, url_for(attachment), target: '_blank', rel: 'noopener'
