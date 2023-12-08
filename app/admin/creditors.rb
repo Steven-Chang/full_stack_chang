@@ -11,6 +11,7 @@ ActiveAdmin.register Creditor do
   # === INDEX ===
   index do
     column :name
+    column :user
     actions
   end
 
@@ -21,6 +22,7 @@ ActiveAdmin.register Creditor do
     attributes_table do
       row :id
       row :name
+      row :user
     end
   end
 
@@ -28,10 +30,11 @@ ActiveAdmin.register Creditor do
   form do |f|
     f.inputs do
       f.input :name
+      f.input :user
     end
     f.actions
   end
 
   # === PERMIT PARAMS ===
-  permit_params :name
+  permit_params :name, :user_id
 end
