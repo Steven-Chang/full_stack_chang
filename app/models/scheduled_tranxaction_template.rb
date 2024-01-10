@@ -30,7 +30,8 @@ class ScheduledTranxactionTemplate < ApplicationRecord
           description: stt.description,
           tax: stt.tax,
           tax_category: stt.tax_category,
-          tranxactable: stt.tranxactable
+          tranxactable: stt.tranxactable,
+          user: stt.user
         )
         next unless tranxaction.persisted?
 
