@@ -21,6 +21,7 @@ ActiveAdmin.register User do
       row :email
       row :username
       row :admin
+      row :location
       row :medicare_number
       row :medicare_expiry
       row :otp_required_for_login
@@ -35,6 +36,7 @@ ActiveAdmin.register User do
       f.input :email
       f.input :username
       f.input :admin
+      f.input :location
       f.input :medicare_number
       f.input :medicare_expiry
       f.input :password
@@ -44,5 +46,5 @@ ActiveAdmin.register User do
     f.actions
   end
 
-  permit_params :admin, :email, :medicare_number, :medicare_expiry, :otp_required_for_login, :password, :password_confirmation, :username
+  permit_params :admin, :email, :location, :medicare_number, :medicare_expiry, :otp_required_for_login, :password, :password_confirmation, :username
 end
