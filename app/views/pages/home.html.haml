@@ -6,7 +6,7 @@
     .row.g-4
       .col-auto
         .avatar-lg
-          %img.img-thumbnail.rounded-circle{ alt: 'user-img', src: 'https://res.cloudinary.com/hv5cxagki/image/upload/v1665701852/fsc/47955495901_fc0efe5e04_b-1_p7mtiu' }
+          = image_tag asset_path('steve avatar cropped.jpg'), alt: 'user-img', class: 'img-thumbnail rounded-circle'
       .col
         .p-2
           %h3.text-white.mb-1 Steven Chang
