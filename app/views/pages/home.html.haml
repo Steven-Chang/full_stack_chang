@@ -14,11 +14,10 @@
           .hstack.text-white-50.gap-1
             .me-2
               %i.ri-map-pin-user-line.me-1.text-white.text-opacity-75.fs-16.align-middle>
-              Sydney,
-              Australia
-            %div
-              %i.ri-building-line.me-1.text-white.text-opacity-75.fs-16.align-middle>
-              btn.group
+              = User.first.location || 'Sydney, Australia'
+            / %div
+            /   %i.ri-building-line.me-1.text-white.text-opacity-75.fs-16.align-middle>
+            /   btn.group
   .row
     .col-lg-12
       %div
